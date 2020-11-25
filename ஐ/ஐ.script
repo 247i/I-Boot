@@ -33,13 +33,13 @@ fun RotatedImage (index){
 	}
 
 if (Plymouth.GetMode() == "suspend" || Plymouth.GetMode() == "resume") {
-  background.original_image = ImageNew("ஐ11.png");
+  background.original_image = ImageNew("ஐ56-1.png");
   Window.SetBackgroundTopColor(0, 0, 0);
   Window.SetBackgroundBottomColor(0, 0, 0);
 }
 else {
   logo.original_image = ImageNew("logo.png");
-  background.original_image = ImageNew("ஐ12.png");
+  background.original_image = ImageNew("ஐ56-2.png");
   Window.SetBackgroundTopColor(0, 0, 0);
   Window.SetBackgroundBottomColor(0, 0, 0);
 	
