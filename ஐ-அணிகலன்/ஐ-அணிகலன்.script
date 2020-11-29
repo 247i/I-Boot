@@ -1,4 +1,4 @@
-# ஐ 1.0
+# ஐ-அணிகலன் 1.0
 
 Window.GetMaxWidth = fun (){
   i = 0;
@@ -38,12 +38,12 @@ if (Plymouth.GetMode() == "suspend" || Plymouth.GetMode() == "resume") {
   Window.SetBackgroundBottomColor(0, 0, 0);
 }
 else {
-  logo.original_image = ImageNew("logo.png");
+  logo.original_image = ImageNew("சின்னம்.png");
   background.original_image = ImageNew("ஐ56-2.png");
   Window.SetBackgroundTopColor(0, 0, 0);
   Window.SetBackgroundBottomColor(0, 0, 0);
 	
-  anim.image= ImageNew("animation.png");
+  anim.image= ImageNew("ஐ-இயங்குபடம்.png");
   anim.original_image= anim.image.Scale(anim.target_width, anim.target_width);
 
   anim.sprite = SpriteNew();
@@ -104,9 +104,9 @@ fun dialog_setup()
     local.lock;
     local.entry;
     local.prompt_sprite;
-    box.image = ImageNew("box.png");
-    lock.image = ImageNew("lock.png");
-    entry.image = ImageNew("entry.png");
+    box.image = ImageNew("பெட்டி.png");
+    lock.image = ImageNew("பூட்டு.png");
+    entry.image = ImageNew("நுழைவு.png");
     
     box.sprite = SpriteNew();
     box.sprite.SetImage(box.image);
@@ -135,7 +135,7 @@ fun dialog_setup()
     global.dialog.box = box;
     global.dialog.lock = lock;
     global.dialog.entry = entry;
-    global.dialog.bullet_image = ImageNew("bullet.png");
+    global.dialog.bullet_image = ImageNew("குண்டு.png");
     global.dialog.prompt_sprite = prompt_sprite;
     dialog_opacity (1);
   }
@@ -205,14 +205,14 @@ Plymouth.SetMessageFunction(display_message_callback);
 
 #----------------------------------------- Progress Bar --------------------------------
 
-progress_box.image = Image("progress_box.png");
+progress_box.image = Image("முன்னேற்றப்பெட்டி.png");
 progress_box.sprite = Sprite(progress_box.image);
 
 progress_box.x = Window.GetX() + Window.GetWidth() / 2 - progress_box.image.GetWidth() / 2;
 progress_box.y = Window.GetY() + Window.GetHeight() * 0.90 - progress_box.image.GetHeight() / 2;
 progress_box.sprite.SetPosition(progress_box.x, progress_box.y, 0);
 
-progress_bar.original_image = Image("progress_bar.png");
+progress_bar.original_image = Image("முன்னேற்றப்பட்டி.png");
 progress_bar.sprite = Sprite();
 
 progress_bar.x = Window.GetX() + Window.GetWidth()  / 2 -        progress_bar.original_image.GetWidth() / 2;

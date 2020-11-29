@@ -10,20 +10,20 @@ go to :
 
 cd /usr/share/plymouth/themes/
  
-sudo cp -r /home/***/Download/ஐ/ ./
+sudo cp -r /home/***/Download/ஐ-அணிகலன்/ ./
 
 (note : *** = is a your user directory, so change it as your name) 
 
 and then:
 
-sudo update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/ஐ/ஐ.plymouth 100
+sudo update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/ஐ-அணிகலன்/ஐ-அணிகலன்.plymouth 100
 
 
 and:
 
 sudo update-alternatives --config default.plymouth
 
-and chose ஐ from list
+and chose ஐ-அணிகலன் from list
 
 end run:
 
