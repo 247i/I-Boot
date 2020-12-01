@@ -25,7 +25,7 @@ Function WriteToSysFile ; Write entry to syslinux.cfg
  Exch $R0 ;file to write to
  Exch
  Exch $1 ;text to write
- FileOpen $R0 '$BootDir\EFI\BOOT\grub.cfg' a 
+ FileOpen $R0 '$BootDir\boot\MEFI\grub.cfg' a 
  FileSeek $R0 0 END
  FileWrite $R0 '$\r$\n$1$\r$\n'
  FileClose $R0
@@ -65,7 +65,7 @@ FunctionEnd
 !macroend  
 !define InstalledList "!insertmacro InstalledList"
 
-Function Trim ; Remove leading and trailing whitespace from string - orgiginal function by Iceman_K  http://nsis.sourceforge.net/Remove_leading_and_trailing_whitespaces_from_a_string edited for use with YUMI
+Function Trim ; Remove leading and trailing whitespace from string - orgiginal function by Iceman_K  http://nsis.sourceforge.net/Remove_leading_and_trailing_whitespaces_from_a_string edited for use with ஐ
 	Exch $R1 ; Original string
 	Push $R2
 Loop:

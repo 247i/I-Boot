@@ -12,6 +12,7 @@ ${If} $Casper != "0"
 ${EndIf}
 FunctionEnd */
 
+
 Function CasperScript
 ${If} $Casper != "0"
 ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"

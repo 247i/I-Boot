@@ -1139,8 +1139,8 @@ Function DoSyslinux ; Install Syslinux on USB
   ${EndIf}  
 
 ; Make sure EFI\Boot directory and files exist.  
-  ${If} ${FileExists} $BootDir\EFI\BOOT\BOOTX64.EFI 
-  ${AndIf} ${FileExists} $BootDir\EFI\BOOT\grub.cfg
+  ${If} ${FileExists} $BootDir\boot\MEFI\BOOTX64.EFI 
+  ${AndIf} ${FileExists} $BootDir\boot\MEFI\grub.cfg
   
   ${Else}  
 ; Copy GRUB2 EFI files 

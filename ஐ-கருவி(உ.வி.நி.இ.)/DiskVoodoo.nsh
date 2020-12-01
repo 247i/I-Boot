@@ -1,5 +1,5 @@
 ﻿; ------------- DriveStuff -------------
-Unicode True
+
 !macro Write2mbrid String File
  Push "${String}"
  Push "${File}"

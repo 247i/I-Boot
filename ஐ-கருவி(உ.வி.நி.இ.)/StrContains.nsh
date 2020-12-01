@@ -1,7 +1,7 @@
 ﻿
 ; StrContains Written by kenglish_hi http://nsis.sourceforge.net/StrContains
 ; Adapted from StrReplace written by dandaman32
-; Modified to check for * Wildcard in variable ISOFileName for YUMI and UUI
+; Modified to check for * Wildcard in variable ISOFileName for I and UUI
 ; This function does a case sensitive searches for an occurrence of a substring in a string. 
 ; It returns the substring if it is found. 
 ; Otherwise it returns null(""). 

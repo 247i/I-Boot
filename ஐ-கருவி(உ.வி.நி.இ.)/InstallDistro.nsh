@@ -126,8 +126,8 @@ Function FoundGrubFile
 FunctionEnd
 
 Function WriteStuff
- ; Now done before this function is called (see line 122) CreateDirectory "$BootDir\multiboot\$JustISOName\YUMI\" ; Create the YUMI Directory.. so we can copy the following config file to it.
- CopyFiles "$PLUGINSDIR\$Config2Use" "$BootDir\multiboot\$JustISOName\YUMI\$Config2Use" ; Copy the $Config2Use file to $JustISOName\YUMI folder for the distro (so we know where to remove entry) 
+ ; Now done before this function is called (see line 122) CreateDirectory "$BootDir\multiboot\$JustISOName\I\" ; Create the I Directory.. so we can copy the following config file to it.
+ CopyFiles "$PLUGINSDIR\$Config2Use" "$BootDir\multiboot\$JustISOName\I\$Config2Use" ; Copy the $Config2Use file to $JustISOName\I folder for the distro (so we know where to remove entry) 
  DetailPrint "$DistroName ($JustISOName) and its menu entry were added!"
  	
 FunctionEnd
@@ -149,12 +149,12 @@ FunctionEnd
  CopyFiles "$BootDir\multiboot\Installed.txt" "$BootDir\multiboot\BackupInstalled.txt" ; Make a backup of installed for safety
  
 ; Create the Directory for this ISOs files
- CreateDirectory "$BootDir\multiboot\$JustISOName\YUMI\" ; Create the YUMI Directory.. so we can eventually copy the config file (see line 90) to it.
+ CreateDirectory "$BootDir\multiboot\$JustISOName\I\" ; Create the I Directory.. so we can eventually copy the config file (see line 90) to it.
 
 ; Kaspersky Rescue Disk - Gentoo
  ${If} $DistroName == "Kaspersky Rescue Disk (Antivirus Scanner)" 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\multiboot\$JustISOName\" -y'   
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nif cpuid -l; then set krn=$\"k-x86_64$\"; else set krn=$\"k-x86$\"; fi$\r$\nsearch -s root -f /multiboot/$JustISOName/boot/grub/$${krn}$\r$\nlinux /multiboot/$JustISOName/boot/grub/$${krn} net.ifnames=0 lang=en dostartx subdir=/multiboot/$JustISOName/data$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd /multiboot/$JustISOName/boot/grub/initrd.xz$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nif cpuid -l; then set krn=$\"k-x86_64$\"; else set krn=$\"k-x86$\"; fi$\r$\nsearch -s root -f /multiboot/$JustISOName/boot/grub/$${krn}$\r$\nlinux /multiboot/$JustISOName/boot/grub/$${krn} net.ifnames=0 lang=en dostartx subdir=/multiboot/$JustISOName/data$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd /multiboot/$JustISOName/boot/grub/initrd.xz$\r$\n}$\r$\n#] $JustISOName" $R0  
 
  ; Acronis True Image 
  ${ElseIf} $DistroName == "Acronis True Image"
@@ -163,55 +163,55 @@ FunctionEnd
   ;${If} ${FileExists} "$BootDir\multiboot\$JustISOName\ramdisk_merged64.dat" 
   ;Rename "$BootDir\multiboot\$JustISOName\ramdisk_merged64.dat" "$BootDir\multiboot\$JustISOName\ramdisk64.dat"  
   ;${EndIf}
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset isofile=$\"/multiboot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/dat10.dat quiet force_modules=usbhid quiet$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/dat11.dat (loop)/dat12.dat$\r$\n}$\r$\n#] $JustISOName" $R0 
- ;;ALT BIOS? ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset isofile=$\"/multiboot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/dat6.dat quiet force_modules=usbhid quiet$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/dat7.dat (loop)/dat8.dat$\r$\n}$\r$\n#] $JustISOName" $R0 
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset isofile=$\"/multiboot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/dat10.dat quiet force_modules=usbhid quiet$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/dat11.dat (loop)/dat12.dat$\r$\n}$\r$\n#] $JustISOName" $R0 
+ ;;ALT BIOS? ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset isofile=$\"/multiboot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/dat6.dat quiet force_modules=usbhid quiet$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/dat7.dat (loop)/dat8.dat$\r$\n}$\r$\n#] $JustISOName" $R0 
 
 ; Calculate Linux Desktop
  ${ElseIf} $DistroName == "Calculate Linux Desktop"
  CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" 
  ;ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitrd -ir!*mlinuz -o"$BootDir\multiboot\$JustISOName\" -y'    
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/multiboot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/vmlinuz root=live:LABEL=MULTIBOOT init=/linuxrc rd.live.squashimg=livecd.squashfs looptype=squashfs nodevfs iso-scan/filename=/multiboot/$JustISOName/$JustISO findiso=$$isofile isoboot=$$isofile$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/boot/initrd$\r$\n}$\r$\n#] $JustISOName" $R0 
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/multiboot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/vmlinuz root=live:LABEL=TA init=/linuxrc rd.live.squashimg=livecd.squashfs looptype=squashfs nodevfs iso-scan/filename=/multiboot/$JustISOName/$JustISO findiso=$$isofile isoboot=$$isofile$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/boot/initrd$\r$\n}$\r$\n#] $JustISOName" $R0 
  
 ; CentOS
  ${ElseIf} $DistroName == "CentOS Minimal"
  CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" 
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile='/multiboot/$JustISOName/$JustISO'$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/isolinux/vmlinuz noeject inst.stage2=hd:LABEL=MULTIBOOT:/$$isofile$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/isolinux/initrd.img$\r$\n}$\r$\n#] $JustISOName" $R0 
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile='/multiboot/$JustISOName/$JustISO'$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/isolinux/vmlinuz noeject inst.stage2=hd:LABEL=TA:/$$isofile$\r$\necho $\"https://tamilneram.github.io/...$\"$\r$\ninitrd (loop)/isolinux/initrd.img$\r$\n}$\r$\n#] $JustISOName" $R0 
  
 ; Linux Kid X
  ${ElseIf} $DistroName == "Linux Kid X" 
  CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO"
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile='/multiboot/$JustISOName/$JustISO'$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/vmlinuz from=$$isofile$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/boot/initrd.gz$\r$\n}$\r$\n#] $JustISOName" $R0 
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile='/multiboot/$JustISOName/$JustISO'$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/vmlinuz from=$$isofile$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/boot/initrd.gz$\r$\n}$\r$\n#] $JustISOName" $R0 
  
 ; KNOPPIX - Wont work on Fat32- filesize too big, revisit after fat32/ntfs partition functional
  ;${ElseIf} $DistroName == "KNOPPIX" 
  ;CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO"
- ;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile='/multiboot/$JustISOName/$JustISO'$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/isolinux/linux  ;bootfrom=$$isofile acpi=off keyboard=us language-us$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/boot/isolinux/minirt.gz$\r$\n}$\r$\n#] $JustISOName" $R0 
+ ;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile='/multiboot/$JustISOName/$JustISO'$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/isolinux/linux  ;bootfrom=$$isofile acpi=off keyboard=us language-us$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/boot/isolinux/minirt.gz$\r$\n}$\r$\n#] $JustISOName" $R0 
  
 ; Bitdefender Rescue CD
  ${ElseIf} $DistroName == "Bitdefender Rescue CD"
  CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" 
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isopath=$\"/multiboot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isopath$\r$\nset root=(loop)$\r$\nlinux (loop)/boot/kernel.x86_64-efi root=/dev/ram0 real_root=/dev/loop0 looptype=squashfs cdroot loop=/rescue/livecd.squashfs cdroot_marker=/rescue/livecd.squashfs initrd udev cdroot scandelay=5 lang=en isoboot=$$isopath$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/boot/initfs.x86_64-efi$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isopath=$\"/multiboot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isopath$\r$\nset root=(loop)$\r$\nlinux (loop)/boot/kernel.x86_64-efi root=/dev/ram0 real_root=/dev/loop0 looptype=squashfs cdroot loop=/rescue/livecd.squashfs cdroot_marker=/rescue/livecd.squashfs initrd udev cdroot scandelay=5 lang=en isoboot=$$isopath$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/boot/initfs.x86_64-efi$\r$\n}$\r$\n#] $JustISOName" $R0  
  
 ; Dr.Web Live CD
  ${ElseIf} $DistroName == "Dr.Web LiveDisk"
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\multiboot\$JustISOName\" -y'  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux /multiboot/$JustISOName/casper/vmlinuz boot=casper cdrom-detect/try-usb=true noprompt live-media-path=/multiboot/$JustISOName/casper union=aufs console=tty1 ignore_uuid$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd /multiboot/$JustISOName/casper/initrd.lz$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux /multiboot/$JustISOName/casper/vmlinuz boot=casper cdrom-detect/try-usb=true noprompt live-media-path=/multiboot/$JustISOName/casper union=aufs console=tty1 ignore_uuid$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd /multiboot/$JustISOName/casper/initrd.lz$\r$\n}$\r$\n#] $JustISOName" $R0  
  
 ; Antix (New Method) 
  ${ElseIf} $DistroName == "AntiX" 
   ${OrIf} $DistroName == "MX Linux" 
  CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" ; Copy the ISO to Directory
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/antiX/vmlinuz load=all bootlabel=MULTIBOOT fromiso=/multiboot/$JustISOName/$JustISO nomodeset nouveau.modeset=0$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/antiX/initrd.gz$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/antiX/vmlinuz load=all bootlabel=TA fromiso=/multiboot/$JustISOName/$JustISO nomodeset nouveau.modeset=0$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/antiX/initrd.gz$\r$\n}$\r$\n#] $JustISOName" $R0  
 
 ; AOSS (New Method) 
  ${ElseIf} $DistroName == "AOSS (Malware Scanner)" 
  CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" ; Copy the ISO to Directory
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/system/stage1 root=/dev/ram0 rw rdinit=/linuxrc video=vesa:ywrap,mtrr vga=0x303 loglevel=0 boot=cdrom fromiso=/multiboot/$JustISOName/$JustISO$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/system/stage2$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/system/stage1 root=/dev/ram0 rw rdinit=/linuxrc video=vesa:ywrap,mtrr vga=0x303 loglevel=0 boot=cdrom fromiso=/multiboot/$JustISOName/$JustISO$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/system/stage2$\r$\n}$\r$\n#] $JustISOName" $R0  
  
 ; DBAN (New Method) 
  ${ElseIf} $DistroName == "DBAN (Hard Drive Nuker)" 
  CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" ; Copy the ISO to Directory
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/dban.bzi nuke=$\"dwipe$\" fromiso=/multiboot/$JustISOName/$JustISO$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/dban.bzi nuke=$\"dwipe$\" fromiso=/multiboot/$JustISOName/$JustISO$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\n}$\r$\n#] $JustISOName" $R0  
  
 ; Fedora (New Method) 
  ${ElseIf} $DistroName == "Fedora" 
@@ -224,7 +224,7 @@ FunctionEnd
  Call FindVmlinuz
  ;${StrRep} '$ISONameDotLess' '$JustISOName' '-x86_64-' '-'
  ${StrRep} '$ISONameDotLess' '$JustISOName' '.' '-'
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/isolinux/$Vmlinuz iso-scan/filename=/multiboot/$JustISOName/$JustISO rootfstype=auto root=live:CDLABEL=$ISONameDotLess ro rd.live.image$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/isolinux/$Initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/isolinux/$Vmlinuz iso-scan/filename=/multiboot/$JustISOName/$JustISO rootfstype=auto root=live:CDLABEL=$ISONameDotLess ro rd.live.image$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/isolinux/$Initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
  !insertmacro ReplaceInFile "CDLABEL=Fedora-Live-Workstation" "CDLABEL=Fedora-Live-WS" "all" "all" "$BootDir\multiboot\menu\linux.cfg"   
  !insertmacro ReplaceInFile "CDLABEL=Fedora-Workstation-Live" "CDLABEL=Fedora-WS-Live" "all" "all" "$BootDir\multiboot\menu\linux.cfg" 
  !insertmacro ReplaceInFile "CDLABEL=Fedora-WS-Live-x86_64" "CDLABEL=Fedora-WS-Live" "all" "all" "$BootDir\multiboot\menu\linux.cfg" 
@@ -233,7 +233,7 @@ FunctionEnd
  ${ElseIf} $DistroName == "Linpus Lite" 
  CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" ; Copy the ISO to Directory
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!*nitrd* -ir!*mlinu* -o"$BootDir\multiboot\$JustISOName\" -y'  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/isolinux/vmlinuz0 iso-scan/filename=/multiboot/$JustISOName/$JustISO rootfstype=auto root=live:LABEL=$JustISOName ro rd.live.image$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/isolinux/initrd0.img$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/isolinux/vmlinuz0 iso-scan/filename=/multiboot/$JustISOName/$JustISO rootfstype=auto root=live:LABEL=$JustISOName ro rd.live.image$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/isolinux/initrd0.img$\r$\n}$\r$\n#] $JustISOName" $R0  
 
 ; GRML 
  ${ElseIf} $DistroName == "GRML (system rescue)" 
@@ -269,13 +269,13 @@ FunctionEnd
  ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\casper\vmlinuz"
   ${AndIf} ${FileExists} "$BootDir\multiboot\$JustISOName\$JustISO"  
  !insertmacro ReplaceInFile "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
- !insertmacro ReplaceInFile "linux /SLUG" "loopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux /multiboot/$JustISOName/casper/vmlinuz iso-scan/filename=/multiboot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/MULTIBOOT/multiboot/$JustISOName/$JustISO file=/cdrom/preseed/linuxmint.seed boot=casper noprompt floppy.allowed_drive_mask=0 ignore_uuid" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
+ !insertmacro ReplaceInFile "linux /SLUG" "loopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux /multiboot/$JustISOName/casper/vmlinuz iso-scan/filename=/multiboot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/TA/multiboot/$JustISOName/$JustISO file=/cdrom/preseed/linuxmint.seed boot=casper noprompt floppy.allowed_drive_mask=0 ignore_uuid" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
   ${AndIf} ${FileExists} "$BootDir\multiboot\$JustISOName\casper\initrd.lz"
  !insertmacro ReplaceInFile "initrd /SLUG" "initrd (loop)/casper/initrd.lz" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"    
  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\live\vmlinuz"
  ${AndIf} ${FileExists} "$BootDir\multiboot\$JustISOName\$JustISO"  
  !insertmacro ReplaceInFile "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
- !insertmacro ReplaceInFile "linux /SLUG" "loopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux /multiboot/$JustISOName/live/vmlinuz iso-scan/filename=/multiboot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/MULTIBOOT/multiboot/$JustISOName/$JustISO file=/cdrom/preseed/linuxmint.seed boot=live noprompt floppy.allowed_drive_mask=0 ignore_uuid" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
+ !insertmacro ReplaceInFile "linux /SLUG" "loopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux /multiboot/$JustISOName/live/vmlinuz iso-scan/filename=/multiboot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/TA/multiboot/$JustISOName/$JustISO file=/cdrom/preseed/linuxmint.seed boot=live noprompt floppy.allowed_drive_mask=0 ignore_uuid" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
  ${AndIf} ${FileExists} "$BootDir\multiboot\$JustISOName\live\initrd.lz"
  !insertmacro ReplaceInFile "initrd /SLUG" "initrd (loop)/live/initrd.lz" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"    
  ${EndIf}
@@ -290,13 +290,13 @@ FunctionEnd
  ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\casper\vmlinuz"
   ${AndIf} ${FileExists} "$BootDir\multiboot\$JustISOName\$JustISO"  
  !insertmacro ReplaceInFile "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
- !insertmacro ReplaceInFile "linux /SLUG" "loopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux /multiboot/$JustISOName/casper/vmlinuz iso-scan/filename=/multiboot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/MULTIBOOT/multiboot/$JustISOName/$JustISO file=/cdrom/preseed/linuxmint.seed boot=casper noprompt floppy.allowed_drive_mask=0 ignore_uuid" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
+ !insertmacro ReplaceInFile "linux /SLUG" "loopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux /multiboot/$JustISOName/casper/vmlinuz iso-scan/filename=/multiboot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/TA/multiboot/$JustISOName/$JustISO file=/cdrom/preseed/linuxmint.seed boot=casper noprompt floppy.allowed_drive_mask=0 ignore_uuid" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
   ${AndIf} ${FileExists} "$BootDir\multiboot\$JustISOName\casper\initrd.lz"
  !insertmacro ReplaceInFile "initrd /SLUG" "initrd (loop)/casper/initrd.lz" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"    
  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\live\vmlinuz"
  ${AndIf} ${FileExists} "$BootDir\multiboot\$JustISOName\$JustISO"  
  !insertmacro ReplaceInFile "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
- !insertmacro ReplaceInFile "linux /SLUG" "loopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux /multiboot/$JustISOName/live/vmlinuz iso-scan/filename=/multiboot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/MULTIBOOT/multiboot/$JustISOName/$JustISO file=/cdrom/preseed/linuxmint.seed boot=live noprompt floppy.allowed_drive_mask=0 ignore_uuid" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
+ !insertmacro ReplaceInFile "linux /SLUG" "loopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux /multiboot/$JustISOName/live/vmlinuz iso-scan/filename=/multiboot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/TA/multiboot/$JustISOName/$JustISO file=/cdrom/preseed/linuxmint.seed boot=live noprompt floppy.allowed_drive_mask=0 ignore_uuid" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
  ${AndIf} ${FileExists} "$BootDir\multiboot\$JustISOName\live\initrd.lz"
  !insertmacro ReplaceInFile "initrd /SLUG" "initrd (loop)/live/initrd.lz" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"    
  ${EndIf}
@@ -353,7 +353,7 @@ FunctionEnd
 ; Solus
  ${ElseIf} $DistroName == "Solus"
  CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" 
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile='/multiboot/$JustISOName/$JustISO'$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/kernel iso-scan/filename=/multiboot/$JustISOName/$JustISO root=live:CDLABEL=SolusLiveBudgie ro rd.luks=0 rd.md=0 rd.live.overlay.overlayfs=1 quiet splash$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/boot/initrd.img$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile='/multiboot/$JustISOName/$JustISO'$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/kernel iso-scan/filename=/multiboot/$JustISOName/$JustISO root=live:CDLABEL=SolusLiveBudgie ro rd.luks=0 rd.md=0 rd.live.overlay.overlayfs=1 quiet splash$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/boot/initrd.img$\r$\n}$\r$\n#] $JustISOName" $R0  
  
 ; Demon Linux 
  ${ElseIf} $DistroName == "Demon Linux (Penetration Testing)"
@@ -438,24 +438,24 @@ FunctionEnd
 ; WIFISLAX (New Method) 
  ${ElseIf} $DistroName == "Wifislax (Wireless Penetration Testing)" 
  CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" ; Copy the ISO to Directory
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/vmlinuz from=/multiboot/$JustISOName/$JustISO autoexec=telinit~4$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/boot/initrd.xz$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/vmlinuz from=/multiboot/$JustISOName/$JustISO autoexec=telinit~4$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/boot/initrd.xz$\r$\n}$\r$\n#] $JustISOName" $R0  
  
 ; RIPLinux (New Method) 
  ${ElseIf} $DistroName == "Rip Linux (Recovery Distro) - BIOS ONLY" 
  CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" ; Copy the ISO to Directory 
- ${WriteToFile} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/multiboot/$JustISOName/$JustISO$\"$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\nlinux16 /multiboot/menu/memdisk iso raw$\r$\ninitrd16 $$isofile$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/multiboot/$JustISOName/$JustISO$\"$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\nlinux16 /multiboot/menu/memdisk iso raw$\r$\ninitrd16 $$isofile$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
  
 ; Finnix 
  ${ElseIf} $DistroName == "Finnix x86/64- BIOS ONLY" 
  CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" ; Copy the ISO to Directory 
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName - 32bit$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/multiboot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/x86/linux findiso=$$isofile vga=791 nomodeset quiet$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/boot/x86/initrd.xz$\r$\n}$\r$\nmenuentry $\"$JustISOName - 64bit$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/multiboot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/x86/linux64 findiso=$$isofile vga=791 nomodeset quiet$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/boot/x86/initrd.xz$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName - 32bit$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/multiboot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/x86/linux findiso=$$isofile vga=791 nomodeset quiet$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/boot/x86/initrd.xz$\r$\n}$\r$\nmenuentry $\"$JustISOName - 64bit$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/multiboot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/x86/linux64 findiso=$$isofile vga=791 nomodeset quiet$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/boot/x86/initrd.xz$\r$\n}$\r$\n#] $JustISOName" $R0  
  
 ; Trinity Rescue Kit (New Method) 
  ${ElseIf} $DistroName == "Trinity Rescue Kit - BIOS ONLY" 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\multiboot\$JustISOName\" -y'  
    ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\kernel.trk"       
    ${AndIf} ${FileExists} "$BootDir\multiboot\$JustISOName\initrd.trk"  
-   ${WriteToFile} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux /multiboot/$JustISOName/kernel.trk from=/multiboot/$JustISOName vollabel=MULTIBOOT ramdisk_size=65536 root=/dev/ram0 splash=verbose pci=conf1 trkmenu$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd /multiboot/$JustISOName/initrd.trk$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
+   ${WriteToFile} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux /multiboot/$JustISOName/kernel.trk from=/multiboot/$JustISOName vollabel=TA ramdisk_size=65536 root=/dev/ram0 splash=verbose pci=conf1 trkmenu$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd /multiboot/$JustISOName/initrd.trk$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
    ${AndIf} ${FileExists} "$BootDir\multiboot\$JustISOName\trk3\trkramfs" 
    CopyFiles "$BootDir\multiboot\$JustISOName\trk3\*.*" "$BootDir\trk3\" ; Move trk3 to root, so we can boot!
    RMDir /R "$BootDir\multiboot\$JustISOName\trk3"
@@ -466,10 +466,10 @@ FunctionEnd
  ;CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" ; Copy the ISO to Directory
  ;ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!install\netboot\ubuntu-installer\*nitrd* -ir!*mlinuz -o"$BootDir\multiboot\$JustISOName\" -y'  
  ;${If} ${FileExists} "$BootDir\multiboot\$JustISOName\install\netboot\ubuntu-installer\amd64\*.*" 
- ;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/install/vmlinuz iso-scan/filename=/multiboot/$JustISOName/$JustISO findiso=/multiboot/$JustISOName/$JustISO file=/cdrom/preseed/ubuntu-server.seed$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/install/netboot/ubuntu-installer/amd64/initrd.gz$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/install/vmlinuz iso-scan/filename=/multiboot/$JustISOName/$JustISO findiso=/multiboot/$JustISOName/$JustISO file=/cdrom/preseed/ubuntu-server.seed$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/install/netboot/ubuntu-installer/amd64/initrd.gz$\r$\n}$\r$\n#] $JustISOName" $R0  
  ;${EndIf}
  ;${If} ${FileExists} "$BootDir\multiboot\$JustISOName\install\netboot\ubuntu-installer\i386\*.*"
- ;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/install/vmlinuz iso-scan/filename=/multiboot/$JustISOName/$JustISO findiso=/multiboot/$JustISOName/$JustISO file=/cdrom/preseed/ubuntu-server.seed$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/install/netboot/ubuntu-installer/i386/initrd.gz$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/install/vmlinuz iso-scan/filename=/multiboot/$JustISOName/$JustISO findiso=/multiboot/$JustISOName/$JustISO file=/cdrom/preseed/ubuntu-server.seed$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/install/netboot/ubuntu-installer/i386/initrd.gz$\r$\n}$\r$\n#] $JustISOName" $R0  
  ;${EndIf}
  
 ; Ubuntu (New Method) 
@@ -580,31 +580,31 @@ FunctionEnd
 ; OpenSUSE
  ${ElseIf} $DistroName == "OpenSUSE"
   ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\multiboot\$JustISOName\" -y'  
-  ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux /multiboot/$JustISOName/boot/x86_64/loader/linux rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 root=live:CDLABEL=MULTIBOOT live_dir=/multiboot/$JustISOName/LiveOS$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd /multiboot/$JustISOName/boot/x86_64/loader/initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
+  ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux /multiboot/$JustISOName/boot/x86_64/loader/linux rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 root=live:CDLABEL=TA live_dir=/multiboot/$JustISOName/LiveOS$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd /multiboot/$JustISOName/boot/x86_64/loader/initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
 
  ;;CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" ; Copy the ISO to Directory
 ; OpenSUSE 32bit  
  ;;${If} ${FileExists} "$BootDir\multiboot\$JustISOName\OpenSUSE*86.iso"
- ;;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/i386/loader/linux ramdisk_size=512000 ramdisk_blocksize=4096 iso-scan/filename=/multiboot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/MULTIBOOT:/multiboot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/MULTIBOOT isofrom_system=/multiboot/$JustISOName/$JustISO$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/boot/i386/loader/initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ;;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/i386/loader/linux ramdisk_size=512000 ramdisk_blocksize=4096 iso-scan/filename=/multiboot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/TA:/multiboot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/TA isofrom_system=/multiboot/$JustISOName/$JustISO$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/boot/i386/loader/initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
  ;;${EndIf} 
 ; OpenSUSE 64bit 
  ;;${If} ${FileExists} "$BootDir\multiboot\$JustISOName\OpenSUSE*64.iso"
- ;;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/x86_64/loader/linux ramdisk_size=512000 ramdisk_blocksize=4096 iso-scan/filename=/multiboot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/MULTIBOOT:/multiboot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/MULTIBOOT isofrom_system=/multiboot/$JustISOName/$JustISO$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/boot/x86_64/loader/initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ;;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/x86_64/loader/linux ramdisk_size=512000 ramdisk_blocksize=4096 iso-scan/filename=/multiboot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/TA:/multiboot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/TA isofrom_system=/multiboot/$JustISOName/$JustISO$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/boot/x86_64/loader/initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
  ;;${EndIf} 
  
  ;;${If} ${FileExists} "$BootDir\multiboot\$JustISOName\OpenSUSE*Live-x86_64*.iso"
- ;;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/x86_64/loader/linux ramdisk_size=512000 ramdisk_blocksize=4096 iso-scan/filename=/multiboot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/MULTIBOOT:/multiboot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/MULTIBOOT isofrom_system=/multiboot/$JustISOName/$JustISO$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/boot/x86_64/loader/initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ;;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/x86_64/loader/linux ramdisk_size=512000 ramdisk_blocksize=4096 iso-scan/filename=/multiboot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/TA:/multiboot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/TA isofrom_system=/multiboot/$JustISOName/$JustISO$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/boot/x86_64/loader/initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
  ;;${EndIf}
  
 ; FreeDOS (Balder img) 
  ${ElseIf} $DistroName == "FreeDOS (Balder img)"
  CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO"
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux16 /multiboot/menu/memdisk$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd16 /multiboot/$JustISOName/$JustISO$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux16 /multiboot/menu/memdisk$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd16 /multiboot/$JustISOName/$JustISO$\r$\n}$\r$\n#] $JustISOName" $R0  
  
  ; XPUD (New Method) 
  ${ElseIf} $DistroName == "xPUD (Netbook Distro)" 
  CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" ; Copy the ISO to Directory
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/bzImage noisapnp lang=en kmap=us fromiso=/multiboot/$JustISOName/$JustISO$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\ninitrd (loop)/opt/core$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/bzImage noisapnp lang=en kmap=us fromiso=/multiboot/$JustISOName/$JustISO$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd (loop)/opt/core$\r$\n}$\r$\n#] $JustISOName" $R0  
  
 ; Memtest86+ (Memory Testing Tool)
  ${ElseIf} $DistroName == "Memtest86+ (Memory Testing Tool) BIOS ONLY"
@@ -616,8 +616,8 @@ FunctionEnd
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -xr!bootx64.efi -o"$BootDir\" -y' 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!bootx64.efi -aou -o"$BootDir\" -y'  
  ReadEnvStr $R0 COMSPEC ; grab commandline
- nsExec::Exec "$R0 /C Rename $BootDir\EFI\BOOT\bootx64_1.efi win10.efi" ; rename efi file  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then ntldr /bootmgr; fi$\r$\nif [ $${grub_platform} == $\"efi$\" ]; then chainloader /EFI/BOOT/win10.efi; fi$\r$\n}$\r$\n#] $JustISOName" $R0
+ nsExec::Exec "$R0 /C Rename $BootDir\boot\MEFI\bootx64_1.efi win10.efi" ; rename efi file  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then ntldr /bootmgr; fi$\r$\nif [ $${grub_platform} == $\"efi$\" ]; then chainloader /boot/MEFI/win10.efi; fi$\r$\n}$\r$\n#] $JustISOName" $R0
 
  ; Windows Vista/7/8
  ${ElseIf} $DistroName == "Windows Vista/7/8 Installer"
@@ -636,15 +636,15 @@ FunctionEnd
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -xr!bootx64.efi -o"$BootDir\" -y' 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!bootx64.efi -aou -o"$BootDir\" -y'  
  ReadEnvStr $R0 COMSPEC ; grab commandline
- nsExec::Exec "$R0 /C Rename $BootDir\EFI\BOOT\bootx64_1.efi HBCDPE.efi" ; rename efi file  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then ntldr /bootmgr; fi$\r$\nif [ $${grub_platform} == $\"efi$\" ]; then chainloader /EFI/BOOT/HBCDPE.efi; fi$\r$\n}$\r$\n#] $JustISOName" $R0
+ nsExec::Exec "$R0 /C Rename $BootDir\boot\MEFI\bootx64_1.efi HBCDPE.efi" ; rename efi file  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then ntldr /bootmgr; fi$\r$\nif [ $${grub_platform} == $\"efi$\" ]; then chainloader /boot/MEFI/HBCDPE.efi; fi$\r$\n}$\r$\n#] $JustISOName" $R0
  
 ; RemixOS  
  ${ElseIf} $DistroName == "RemixOS"
- CreateDirectory "$EXEDIR\TEMPYUMI" ; Create the TEMPYUMI directory
- ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -o"$EXEDIR\TEMPYUMI" -y' 
- ExecWait '"$PLUGINSDIR\7zG.exe" x "$EXEDIR\TEMPYUMI\Remix_OS*.iso" -o"$BootDir\multiboot\$JustISOName\" -y'  
- RMDir /R "$EXEDIR\TEMPYUMI"
+ CreateDirectory "$EXEDIR\TEMPI" ; Create the TEMPI directory
+ ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -o"$EXEDIR\TEMPI" -y' 
+ ExecWait '"$PLUGINSDIR\7zG.exe" x "$EXEDIR\TEMPI\Remix_OS*.iso" -o"$BootDir\multiboot\$JustISOName\" -y'  
+ RMDir /R "$EXEDIR\TEMPI"
  Call FindGrubConfig
  ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /multiboot/$JustISOName/$GrubConfigPath/$GrubConfigFile$\r$\n}$\r$\n#] $JustISOName" $R0   
   !insertmacro ReplaceInFile "linuxefi /kernel" "linux /multiboot/$JustISOName/kernel" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"  
@@ -664,13 +664,13 @@ FunctionEnd
  
 ; Memtest86 
  ${ElseIf} $DistroName == "Memtest86 (Memory Testing Tool)"  
- ;CreateDirectory "$EXEDIR\TEMPYUMI" ; Create the TEMPYUMI directory
- ;ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -o"$EXEDIR\TEMPYUMI" -y' 
+ ;CreateDirectory "$EXEDIR\TEMPI" ; Create the TEMPI directory
+ ;ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -o"$EXEDIR\TEMPI" -y' 
   ExecWait '"$PLUGINSDIR\new7z\7zG.exe" e "$ISOFile" -ir!memtest86-usb.img -o"$BootDir\multiboot\$JustISOName\" -y' 
-  ;CopyFiles $EXEDIR\TEMPYUMI\memtest86-usb.img "$BootDir\multiboot\$JustISOName\" 
+  ;CopyFiles $EXEDIR\TEMPI\memtest86-usb.img "$BootDir\multiboot\$JustISOName\" 
   ExecWait '"$PLUGINSDIR\new7z\7zG.exe" x "$BootDir\multiboot\$JustISOName\memtest86-usb.img" -o"$BootDir\multiboot\$JustISOName\" -y'
   ExecWait '"$PLUGINSDIR\new7z\7zG.exe" x "$BootDir\multiboot\$JustISOName\EFI System Partition.img" -o"$BootDir\multiboot\$JustISOName\" -y'
- ;RMDir /R "$EXEDIR\TEMPYUMI" 
+ ;RMDir /R "$EXEDIR\TEMPI" 
  ${WriteToFile} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"efi$\" ]; then$\r$\nmenuentry $\"$JustISOName X64$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /multiboot/$JustISOName/memtest86-usb.img$\r$\nchainloader /multiboot/$JustISOName/EFI/BOOT/BOOTX64.efi$\r$\n}$\r$\n$\r$\nmenuentry $\"$JustISOName IA32$\" {$\r$\nloopback loop /multiboot/$JustISOName/memtest86-usb.img$\r$\nchainloader /multiboot/$JustISOName/EFI/BOOT/BOOTIA32.efi$\r$\n}$\r$\nfi$\r$\n#] $JustISOName" $R0 
  
 ; Slacko Puppy/BionicPup
@@ -688,7 +688,7 @@ FunctionEnd
  ${OrIf} $DistroName == "Hiren's Boot CD - BIOS ONLY" 
  ${OrIf} $DistroName == "Falcon 4 Boot CD - BIOS ONLY"  
  CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" 
- ${WriteToFile} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/multiboot/$JustISOName/$JustISO$\"$\r$\necho $\"Loading - This may take several seconds...$\"$\r$\nlinux16 /multiboot/menu/memdisk iso raw$\r$\ninitrd16 $$isofile$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/multiboot/$JustISOName/$JustISO$\"$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\nlinux16 /multiboot/menu/memdisk iso raw$\r$\ninitrd16 $$isofile$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
 
  ${Else} ; Start Catch All Install Methods 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\multiboot\$JustISOName\" -y'  
@@ -767,9 +767,9 @@ FunctionEnd
   !insertmacro ReplaceInFile "$\"/boot/" "$\"/multiboot/$JustISOName/boot" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile" 
   !insertmacro ReplaceInFile " /boot" " /multiboot/$JustISOName/boot" "all" "all" "$BootDir\multiboot\$JustISOName\boot\grub\kernels.cfg" 
   !insertmacro ReplaceInFile "misobasedir=manjaro" "misobasedir=/multiboot/$JustISOName/manjaro" "all" "all" "$BootDir\multiboot\$JustISOName\boot\grub\kernels.cfg"
-  !insertmacro ReplaceInFile "misolabel=MJ" "misolabel=MULTIBOOT NULL-" "all" "all" "$BootDir\multiboot\$JustISOName\boot\grub\kernels.cfg"
-  !insertmacro ReplaceInFile "misolabel=M1" "misolabel=MULTIBOOT NULL-" "all" "all" "$BootDir\multiboot\$JustISOName\boot\grub\kernels.cfg"
-  !insertmacro ReplaceInFile "misolabel=MANJ" "misolabel=MULTIBOOT NULL-" "all" "all" "$BootDir\multiboot\$JustISOName\boot\grub\kernels.cfg"  
+  !insertmacro ReplaceInFile "misolabel=MJ" "misolabel=TA NULL-" "all" "all" "$BootDir\multiboot\$JustISOName\boot\grub\kernels.cfg"
+  !insertmacro ReplaceInFile "misolabel=M1" "misolabel=TA NULL-" "all" "all" "$BootDir\multiboot\$JustISOName\boot\grub\kernels.cfg"
+  !insertmacro ReplaceInFile "misolabel=MANJ" "misolabel=TA NULL-" "all" "all" "$BootDir\multiboot\$JustISOName\boot\grub\kernels.cfg"  
   !insertmacro ReplaceInFile "$\"/boot/" "$\"/multiboot/$JustISOName/boot" "all" "all" "$BootDir\multiboot\$JustISOName\boot\grub\kernels.cfg"
   !insertmacro ReplaceInFile " /boot/" " /multiboot/$JustISOName/boot" "all" "all" "$BootDir\multiboot\$JustISOName\boot\grub\loopback.cfg"
   !insertmacro ReplaceInFile "grub_theme=/boot" "grub_theme=/multiboot/$JustISOName/boot" "all" "all" "$BootDir\multiboot\$JustISOName\boot\grub\variable.cfg"  
@@ -782,7 +782,7 @@ FunctionEnd
  
 ; NetRunner
  ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\netrunner\boot\x86_64\netrunner"  
-  !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/netrunner/boot/x86_64/netrunner misobasedir=/multiboot/$JustISOName/netrunner misolabel=MULTIBOOT nouveau.modeset=1 i915.modeset=1 radeon.modeset=1 logo.nologo overlay=free showopts" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"    
+  !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/netrunner/boot/x86_64/netrunner misobasedir=/multiboot/$JustISOName/netrunner misolabel=TA nouveau.modeset=1 i915.modeset=1 radeon.modeset=1 logo.nologo overlay=free showopts" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"    
  ${EndIf} 
  ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\netrunner\boot\x86_64\netrunner.img"  
   !insertmacro ReplaceInFile "initrd /SLUG" "initrd /multiboot/$JustISOName/netrunner/boot/x86_64/netrunner.img" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"    
@@ -806,7 +806,7 @@ FunctionEnd
   ${AndIf} $GrubConfigFile != "NULL" ; If native Grub config file does exist...  
   !insertmacro ReplaceInFile "initrd /isolinux/initrd.gz" "initrd /multiboot/$JustISOName/isolinux/initrd.gz" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"    
   ${AndIf} ${FileExists} "$BootDir\multiboot\$JustISOName\EFI\BOOT\grub.cfg"
-  !insertmacro ReplaceInFile "theme=($$root)/EFI/BOOT/" "theme=($$root)/multiboot/$JustISOName/EFI/BOOT/" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"    
+  !insertmacro ReplaceInFile "theme=($$root)/boot/MEFI/" "theme=($$root)/multiboot/$JustISOName/EFI/BOOT/" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"    
  ${EndIf}    
  
 ; Partition Wizard 
@@ -879,15 +879,15 @@ FunctionEnd
 ; For Fedora Based and derivatives
   ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\isolinux\isolinux.cfg" 
    ${AndIf} ${FileExists} "$BootDir\multiboot\$JustISOName\LiveOS\livecd-iso-to-disk"  ; Probably Fedora based
-   !insertmacro ReplaceInFile "root=live:CDLABEL=" "root=live:LABEL=MULTIBOOT live_dir=/multiboot/$JustISOName/LiveOS NULL=" "all" "all" "$BootDir\multiboot\$JustISOName\isolinux\isolinux.cfg"   
-   !insertmacro ReplaceInFile "root=live:LABEL=Fedora" "root=live:LABEL=MULTIBOOT live_dir=/multiboot/$JustISOName/LiveOS NULL=" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"   
+   !insertmacro ReplaceInFile "root=live:CDLABEL=" "root=live:LABEL=TA live_dir=/multiboot/$JustISOName/LiveOS NULL=" "all" "all" "$BootDir\multiboot\$JustISOName\isolinux\isolinux.cfg"   
+   !insertmacro ReplaceInFile "root=live:LABEL=Fedora" "root=live:LABEL=TA live_dir=/multiboot/$JustISOName/LiveOS NULL=" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"   
    !insertmacro ReplaceInFile "isolinux/vmlin" "multiboot/$JustISOName/isolinux/vmlin" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"   
    !insertmacro ReplaceInFile "isolinux/init" "multiboot/$JustISOName/isolinux/init" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"   
    !insertmacro ReplaceInFile "linuxefi" "linux" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"   
    !insertmacro ReplaceInFile "initrdefi" "initrd" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile" 
    ${AndIf} $GrubConfigFile == "NULL" ;It's likely not natively Grub supported... let's do this differently
     !insertmacro ReplaceInFile "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
-    !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/isolinux/vmlinuz0 live_dir=/multiboot/$JustISOName/LiveOS initrd=initrd0.img root=live:LABEL=MULTIBOOT live_dir=/multiboot/$JustISOName/LiveOS rootfstype=auto ro rd.live.image rhgb rd.luks=0 rd.md=0 rd.dm=0" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
+    !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/isolinux/vmlinuz0 live_dir=/multiboot/$JustISOName/LiveOS initrd=initrd0.img root=live:LABEL=TA live_dir=/multiboot/$JustISOName/LiveOS rootfstype=auto ro rd.live.image rhgb rd.luks=0 rd.md=0 rd.dm=0" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
     !insertmacro ReplaceInFile "initrd /SLUG" "initrd /multiboot/$JustISOName/isolinux/initrd0.img" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"    
   ${EndIf}   
   
@@ -1134,23 +1134,23 @@ FunctionEnd
 ; Archlinux
    ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\arch\boot\syslinux\archiso.cfg" 
    ${AndIf} $GrubConfigFile == "NULL"     
-   !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/arch/boot/x86_64/vmlinuz archisolabel=MULTIBOOT CONFIG /multiboot/$JustISOName/arch archisobasedir=/multiboot/$JustISOName/arch" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
+   !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/arch/boot/x86_64/vmlinuz archisolabel=TA CONFIG /multiboot/$JustISOName/arch archisobasedir=/multiboot/$JustISOName/arch" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
    !insertmacro ReplaceInFile "initrd /SLUG" "initrd /multiboot/$JustISOName/arch/boot/x86_64/archiso.img" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"    
    ${EndIf}  
    
 ; Archbang
    ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\arch\boot\syslinux\syslinux.cfg" 
    ${AndIf} $GrubConfigFile == "NULL"     
-   !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/arch/boot/x86_64/vmlinuz archisolabel=MULTIBOOT CONFIG /multiboot/$JustISOName/arch archisobasedir=/multiboot/$JustISOName/arch cow_spacesize=8G copytoram=y" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
+   !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/arch/boot/x86_64/vmlinuz archisolabel=TA CONFIG /multiboot/$JustISOName/arch archisobasedir=/multiboot/$JustISOName/arch cow_spacesize=8G copytoram=y" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
    !insertmacro ReplaceInFile "initrd /SLUG" "initrd /multiboot/$JustISOName/arch/boot/x86_64/archiso.img" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"    
    ${EndIf}     
 
 ; Manjaro i686
    ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\manjaro\boot\i686\manjaro" 
    ${AndIf} $GrubConfigFile == "NULL"     
-   !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/manjaro/boot/i686/manjaro misolabel=MULTIBOOT misobasedir=/multiboot/$JustISOName/manjaro" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
+   !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/manjaro/boot/i686/manjaro misolabel=TA misobasedir=/multiboot/$JustISOName/manjaro" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
    ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\manjaro\boot\i686\manjaroiso"  
-   !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/manjaro/boot/i686/manjaroiso misolabel=MULTIBOOT misobasedir=/multiboot/$JustISOName/manjaro" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
+   !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/manjaro/boot/i686/manjaroiso misolabel=TA misobasedir=/multiboot/$JustISOName/manjaro" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
    ${EndIf}   
    
    ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\manjaro\boot\i686\manjaro.img"  
@@ -1161,10 +1161,10 @@ FunctionEnd
 ; Manjaro x86_64
    ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\manjaro\boot\x86_64\manjaro"  
    ${AndIf} $GrubConfigFile == "NULL"     
-   !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/manjaro/boot/x86_64/manjaro misolabel=MULTIBOOT misobasedir=/multiboot/$JustISOName/manjaro" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"    
+   !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/manjaro/boot/x86_64/manjaro misolabel=TA misobasedir=/multiboot/$JustISOName/manjaro" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"    
    ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\manjaro\boot\x86_64\manjaroiso"  
    ${AndIf} $GrubConfigFile == "NULL"     
-   !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/manjaro/boot/x86_64/manjaroiso misolabel=MULTIBOOT misobasedir=/multiboot/$JustISOName/manjaro" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
+   !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/manjaro/boot/x86_64/manjaroiso misolabel=TA misobasedir=/multiboot/$JustISOName/manjaro" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"  
    ${EndIf}      
    
    ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\manjaro\boot\x86_64\manjaro.img"    
@@ -1215,7 +1215,7 @@ FunctionEnd
 /* ; Trinity Rescue Kit 
    ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\kernel.trk"     
    ${AndIf} $GrubConfigFile == "NULL"    
-   !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/kernel.trk from=/multiboot/$JustISOName vollabel=MULTIBOOT ramdisk_size=65536 root=/dev/ram0 splash=verbose pci=conf1 trkmenu" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"
+   !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/kernel.trk from=/multiboot/$JustISOName vollabel=TA ramdisk_size=65536 root=/dev/ram0 splash=verbose pci=conf1 trkmenu" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"
    ${AndIf} ${FileExists} "$BootDir\multiboot\$JustISOName\initrd.trk"  
    !insertmacro ReplaceInFile "initrd /SLUG" "initrd /multiboot/$JustISOName/initrd.trk$\r$\n}$\r$\n#MENUSLUG" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg" 
    ${AndIf} ${FileExists} "$BootDir\multiboot\$JustISOName\trk3\trkramfs" 
@@ -1245,10 +1245,10 @@ FunctionEnd
    ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\isolinux\isolinux.cfg"
    ${AndIf} ${FileExists} "$BootDir\multiboot\$JustISOName\LiveOS\*.*"   
    ${If} $GrubConfigFile == "NULL" 
-   !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/isolinux/vmlinuz0 root=live:LABEL=MULTIBOOT live_dir=/multiboot/$JustISOName/LiveOS" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg" 
+   !insertmacro ReplaceInFile "linux /SLUG" "linux /multiboot/$JustISOName/isolinux/vmlinuz0 root=live:LABEL=TA live_dir=/multiboot/$JustISOName/LiveOS" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg" 
    !insertmacro ReplaceInFile "initrd /SLUG" "initrd /multiboot/$JustISOName/isolinux/initrd0.img" "all" "all" "$BootDir\multiboot\$JustISOName\grub.cfg"    
    ${ElseIf} $GrubConfigFile != "NULL" 
-   !insertmacro ReplaceInFile "root=live:LABEL=Cent" "root=live:LABEL=MULTIBOOT live_dir=/multiboot/$JustISOName/LiveOS NULL=" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"   
+   !insertmacro ReplaceInFile "root=live:LABEL=Cent" "root=live:LABEL=TA live_dir=/multiboot/$JustISOName/LiveOS NULL=" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"   
    !insertmacro ReplaceInFile "isolinux/vmlin" "multiboot/$JustISOName/isolinux/vmlin" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"   
    !insertmacro ReplaceInFile "isolinux/init" "multiboot/$JustISOName/isolinux/init" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"      
    !insertmacro ReplaceInFile "set default=$\"1$\"" "set default=$\"0$\"" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"      
@@ -1264,13 +1264,13 @@ FunctionEnd
    ${AndIf} $GrubConfigFile != "NULL" 
    !insertmacro ReplaceInFile "images/pxeboot/vmlin" "multiboot/$JustISOName/isolinux/vmlin" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"   
    !insertmacro ReplaceInFile "images/pxeboot/init" "multiboot/$JustISOName/isolinux/init" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"         
-   !insertmacro ReplaceInFile "inst.stage2=hd:LABEL=Cent" "inst.stage2=hd:LABEL=MULTIBOOT root=live:LABEL=MULTIBOOT live_dir=/multiboot/$JustISOName/LiveOS NULL=" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"   
+   !insertmacro ReplaceInFile "inst.stage2=hd:LABEL=Cent" "inst.stage2=hd:LABEL=TA root=live:LABEL=TA live_dir=/multiboot/$JustISOName/LiveOS NULL=" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"   
    ${EndIf}  
 
 ; Mageia
    ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\isolinux\isolinux.cfg"
    ${AndIf} ${FileExists} "$BootDir\multiboot\$JustISOName\loopbacks\distrib-lzma.sqfs"   
-   !insertmacro ReplaceInFile "root=mgalive:LABEL=Mageia" "root=mgalive:LABEL=MULTIBOOT NULL=Mageia" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"  
+   !insertmacro ReplaceInFile "root=mgalive:LABEL=Mageia" "root=mgalive:LABEL=TA NULL=Mageia" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"  
    ${EndIf}        
    
 ; SlitaZ
@@ -1315,7 +1315,7 @@ FunctionEnd
 ; ESET SysRescue Live
    ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\eset-favicon.ico" 
    !insertmacro ReplaceInFile "live-media=/dev/disk/by-label/eSysRescueLiveCD" " " "all" "all" "$BootDir\multiboot\$JustISOName\$CopyPath\txt.cfg"   
-   !insertmacro ReplaceInFile "/dev/disk/by-label/eSysRescueLiveCD" "/dev/disk/by-label/MULTIBOOT" "all" "all" "$BootDir\multiboot\$JustISOName\boot\grub\grub.cfg"   
+   !insertmacro ReplaceInFile "/dev/disk/by-label/eSysRescueLiveCD" "/dev/disk/by-label/TA" "all" "all" "$BootDir\multiboot\$JustISOName\boot\grub\grub.cfg"   
    ${EndIf}  
 
 ; RIP Linux
@@ -1362,7 +1362,7 @@ FunctionEnd
   
   !insertmacro ReplaceInFile "/sysresccd/boot/" "/multiboot/$JustISOName/SLUGGER/boot/" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile" 
   !insertmacro ReplaceInFile "SLUGGER" "sysresccd" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile" 
-  !insertmacro ReplaceInFile "archisolabel=SYSRCD" "archisolabel=MULTIBOOT NULL=" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile" 
+  !insertmacro ReplaceInFile "archisolabel=SYSRCD" "archisolabel=TA NULL=" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile" 
   !insertmacro ReplaceInFile "archisobasedir=sys" "archisobasedir=/multiboot/$JustISOName/sysresccd NULL=" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"
   
 ; Xiaopan 
