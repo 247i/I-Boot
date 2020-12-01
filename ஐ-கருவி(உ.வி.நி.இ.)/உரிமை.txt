@@ -1,0 +1,4 @@
+﻿ஐ - பல துவக்கம் கருவி -உலகலாவிய விரிவாக்கக்கூடிய நிலைபொருள் இடைமுகம்
+https://TamilNeram.github.io 
+ஐ - பல துவக்கம் கருவி utilizes a Syslinux MBR to make the chosen drive bootable. Syslinux then hands control over to GRUB2 for Legacy BIOS booting. For UEFI booting GRUB is nativaly used. Distribution ISO files are copied directly or extracted using 7zip to the multiboot folder on the USB device. Configuration files are used to house the menus used to boot each distribution.
+ஐ -இலவசம் - நான் ஏற்கிறேன்
