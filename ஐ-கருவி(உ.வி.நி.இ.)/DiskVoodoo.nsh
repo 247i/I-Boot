@@ -139,11 +139,11 @@ Function Create
      i ${FILE_SHARE_READ}|${FILE_SHARE_WRITE}, \\ 
      i 0, i ${OPEN_EXISTING}, i 0, i 0) i.r8" 
      ${If} $8 != ${INVALID_HANDLE_VALUE} 
-	  DetailPrint "CreateFile Successful"
+	  DetailPrint "கோப்பு வெற்றிகரமாக உருவாக்கப்பட்டது"
 	  System::Call "kernel32::FlushFileBuffers(i r8)"
 	  System::Call "kernel32::CloseHandle(i r8)"
 	 ${Else} 
-	  DetailPrint "CreateFile Failed"	 
+	  DetailPrint "கோப்பை உருவாக்குவதில் தோல்வி"	 
 	  System::Call "kernel32::CloseHandle(i r8)" 
 	 ${EndIf}
 
@@ -167,15 +167,15 @@ Function LockVol
       i 0, i 0, \\
       i &bytesReturned, i 0) i.r7"
 	   ${If} $7 != 0
-	    DetailPrint "Volume $1 Locked"
+	    DetailPrint "தொகுதி $1 பூட்டப்பட்டுள்ளது"
 		System::Call "kernel32::CloseHandle(i r8) i.r7"
 	   ${Else}	
-		DetailPrint "Volume $1 Not Locked"
+		DetailPrint "தொகுதி $1 பூட்டப்படவில்லை"
 		System::Call "kernel32::CloseHandle(i r8) i.r7"
 	   ${EndIf} 
 	   
 	 ${Else}	
-		DetailPrint "Read Pre-Lock Failed"
+		DetailPrint "முன் பூட்டு தோல்வியுற்றது"
 		System::Call "kernel32::CloseHandle(i r8) i.r7"
 	${EndIf} 	
 
@@ -194,10 +194,10 @@ Function UnLockVol
      i 0, i 0, \\
      i &bytesReturned, i 0) i.r6" ;was i.r7
 	${If} $7 != 0
-	 DetailPrint "Volume $1 UnLocked"
+	 DetailPrint "தொகுதி $1 பூட்டப்பட்டுள்ளது"
      System::Call "kernel32::CloseHandle(i r8) i.r6"
 	${Else}	
-	 DetailPrint "Volume $1 NOT UnLocked"
+	 DetailPrint "தொகுதி $1 பூட்டப்படவில்லை"
      System::Call "kernel32::CloseHandle(i r8) i.r6"
     ${EndIf} 
 	

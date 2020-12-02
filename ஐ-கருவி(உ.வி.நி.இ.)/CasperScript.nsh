@@ -33,7 +33,7 @@ ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
  Banner::show /set 76 "Creating a Persistent File."
  Banner::getWindow
  Pop $1  
- DetailPrint "Creating a persistent file. Progress will not move until finished..."
+ DetailPrint "நிலைத்தன்மை கோப்பை உருவாக்குதல்: முடிவடையும் வரை முன்னேற்றப் பட்டி நகராது..." 
  Call ddProgress
  Banner::destroy
  
@@ -56,6 +56,6 @@ SetShellVarContext all
 InitPluginsDir
 File /oname=$PLUGINSDIR\dd.exe "tools\dd.exe"
 File /oname=$PLUGINSDIR\mke2fs.exe "tools\mke2fs.exe"
-DetailPrint "Now Creating a Persistence or Writable File" 
-DetailPrint "Creating the Persistent File: The progress bar will not move until finished. Please be patient..." 
+DetailPrint "இப்போது ஒரு நிலைத்தன்மை அல்லது எழுதக்கூடிய கோப்பை உருவாக்குதல்" 
+DetailPrint "நிலைத்தன்மை கோப்பை உருவாக்குதல்: முடிவடையும் வரை முன்னேற்றப் பட்டி நகராது. தயவுசெய்து பொருமையாயிறு..." 
 FunctionEnd
