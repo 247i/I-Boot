@@ -44,12 +44,12 @@ Function InstalledList ; Creates a list of installed distros in the multiboot fo
    Exch $R0 ;file to write to
    Exch
    Exch $1 ;text to write
-   ${If} ${FileExists} "$BootDir\multiboot\Installed.txt" 
-    FileOpen $R0 '$BootDir\multiboot\Installed.txt' a 
+   ${If} ${FileExists} "$BootDir\multiboot\நிறுவப்பட்டது.txt" 
+    FileOpen $R0 '$BootDir\multiboot\நிறுவப்பட்டது.txt' a 
     FileSeek $R0 0 END
 	FileWrite $R0 '$\r$\n$1' ; add subsequent entry on a new line
    ${Else}
-    FileOpen $R0 '$BootDir\multiboot\Installed.txt' a 
+    FileOpen $R0 '$BootDir\multiboot\நிறுவப்பட்டது.txt' a 
     FileSeek $R0 0 END
     FileWrite $R0 '$1'  ; add first entry without a new line
    ${EndIf}
@@ -101,9 +101,9 @@ FunctionEnd
 
 Function RemovalList ; Lists the distros installed on the select drive.
  ${NSD_SetText} $LinuxDistroSelection "Step 2: Select a Distribution from the list to remove from $DestDisk"  
- ${If} ${FileExists} "$BootDir\multiboot\Installed.txt" ; Are there distributions on the select drive? 
+ ${If} ${FileExists} "$BootDir\multiboot\நிறுவப்பட்டது.txt" ; Are there distributions on the select drive? 
  ClearErrors
- FileOpen $0 $BootDir\multiboot\Installed.txt r
+ FileOpen $0 $BootDir\multiboot\நிறுவப்பட்டது.txt r
   loop:
    FileRead $0 $1
     IfErrors done
@@ -119,7 +119,7 @@ Function RemovalList ; Lists the distros installed on the select drive.
 FunctionEnd
 
 !include "TextFunc.nsh" ; TextFunc.nsh required for the following DeleteInstall function
-Function DeleteInstall  ; Deletes Select Entry from Installed.txt          
+Function DeleteInstall  ; நிறுவப்பட்டது.txtஇலிருந்து உள்ளீட்டைத் தேர்ந்தெடு நீக்குகிறது          
 	StrLen $0 "$DistroName"
 	StrCpy $1 "$R9" $0
 	StrCmp $1 "$DistroName" 0 End

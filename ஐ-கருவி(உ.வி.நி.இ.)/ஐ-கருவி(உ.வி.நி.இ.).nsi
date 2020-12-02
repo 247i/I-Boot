@@ -164,16 +164,16 @@ Page custom SelectionsPage
 
 ; English Language files
 !insertmacro MUI_LANGUAGE "English" ; first language is the default language
-LangString License_Subtitle ${LANG_ENGLISH} "Please review the license terms before proceeding"
-LangString License_Text_Top ${LANG_ENGLISH} "The software within this program falls under the following Licenses."
-LangString License_Text_Bottom ${LANG_ENGLISH} "You must accept the terms of this License agreement to run this ${NAME}. If you agree, Click I Agree to Continue."
-LangString SelectDist_Title ${LANG_ENGLISH} "Drive Selection and Distro Options Page"
+LangString License_Subtitle ${LANG_ENGLISH} "தொடர்வதற்கு முன் உரிம விதிமுறைகளை மதிப்பாய்வு செய்யவும்"
+LangString License_Text_Top ${LANG_ENGLISH} "இந்த நிரலில் உள்ள மென்பொருள் பின்வரும் உரிமங்களின் கீழ் வருகிறது."
+LangString License_Text_Bottom ${LANG_ENGLISH} "இந்த ${NAME} பயன்பாட்டை இயக்க இந்த உரிம ஒப்பந்தத்தின் விதிமுறைகளை நீங்கள் ஏற்க வேண்டும் ${NAME}. நீங்கள் ஒப்புக்கொண்டால், தொடர நான் ஒப்புக்கொள்கிறேன் என்பதைக் சொடுக்கு."
+LangString SelectDist_Title ${LANG_ENGLISH} "இயக்கி தேர்வு மற்றும் விநியோக விருப்பங்கள் பக்கம்"
 LangString SelectDist_Subtitle ${LANG_ENGLISH} "Choose your Flash Drive, and a Distro, ISO/ZIP file.$\r$\nAdditional Distributions can be added each time this tool is run."
-LangString DrivePage_Text ${LANG_ENGLISH} "Step 1: Select your USB device."
-LangString Distro_Text ${LANG_ENGLISH} "Step 2: Select a Distribution from the list to put on your USB."
-LangString IsoPage_Text ${LANG_ENGLISH} "Step 3: Select the $FileFormat (Name must be the same as above)."
-LangString IsoPage_Title ${LANG_ENGLISH} "Select Your $FileFormat"
-LangString Casper_Text ${LANG_ENGLISH} "Step 4: Set a Persistent file size for storing changes (Optional)."
+LangString DrivePage_Text ${LANG_ENGLISH} "படி 1: உங்கள் யூ.எஸ்.பி சாதனத்தைத் தேர்ந்தெடுக்கவும்."
+LangString Distro_Text ${LANG_ENGLISH} "படி 2: உங்கள் யூ.எஸ்.பி-யில் வைக்க பட்டியலிலிருந்து ஒரு விநியோகத்தைத் தேர்ந்தெடுக்கவும்."
+LangString IsoPage_Text ${LANG_ENGLISH} "படி 3: $FileFormat ஐத் தேர்ந்தெடுக்கவும் (பெயர் மேலே உள்ளதைப் போலவே இருக்க வேண்டும்)."
+LangString IsoPage_Title ${LANG_ENGLISH} "$FileFormatஐத் தேர்ந்தெடுக்கவும்"
+LangString Casper_Text ${LANG_ENGLISH} "படி 4: மாற்றங்களைச் சேமிக்க ஒரு நிலையான கோப்பு அளவை அமைக்கவும் (விரும்பினால்)."
 LangString IsoFile ${LANG_ENGLISH} "$FileFormat file|$ISOFileName" ;$ISOFileName variable previously *.iso
 LangString Extract ${LANG_ENGLISH} "Extracting the $FileFormat: The progress bar will not move until finished. Please be patient..."
 LangString CreateSysConfig ${LANG_ENGLISH} "Creating configuration files for $DestDisk"
