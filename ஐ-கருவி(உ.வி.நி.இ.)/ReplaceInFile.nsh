@@ -1,4 +1,4 @@
-﻿;Macro by Lance of http://pendrivelinux.com
+﻿
 !macro ReplaceInFile SEARCH_TEXT REPLACEMENT_TEXT START_OCCURENCE END_OCCURENCE FILE
   Push "${SEARCH_TEXT}"
   Push "${REPLACEMENT_TEXT}"

@@ -1,95 +1,78 @@
-/*
- * This file is part of YUMI
- *
- * YUMI is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * any later version.
- *
- * YUMI is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with YUMI.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-; ------------ Install Distros Macro -------------- 
+﻿; ------------ Install Distros Macro -------------- 
 
 ; !include ReplaceInFile.nsh
 Function FindConfig ; Set config path and file
   ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\liberte\boot\syslinux\syslinux.cfg" ; Liberte
-	  StrCpy $ConfigPath "liberte/boot/syslinux"
-	  StrCpy $CopyPath "liberte\boot\syslinux"
-	  StrCpy $ConfigFile "syslinux.cfg"    
-	  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\boot\i386\loader\isolinux.cfg" ; OpenSuse based 32bit
-	  StrCpy $ConfigPath "boot/i386/loader"
-	  StrCpy $CopyPath "boot\i386\loader"
-	  StrCpy $ConfigFile "isolinux.cfg" 
-	  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\boot\x86_64\loader\isolinux.cfg" ; OpenSuse based 32bit
-	  StrCpy $ConfigPath "boot/x86_64/loader"
-	  StrCpy $CopyPath "boot\x86_64\loader"
-	  StrCpy $ConfigFile "isolinux.cfg"   
-	  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\syslinux\syslinux.cfg"    
-	  StrCpy $ConfigPath "syslinux"
-	  StrCpy $CopyPath "syslinux"
-	  StrCpy $ConfigFile "syslinux.cfg"  
-	  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\isolinux\isolinux.cfg" 
-	  StrCpy $ConfigPath "isolinux"
-	  StrCpy $CopyPath "isolinux"
-	  StrCpy $ConfigFile "isolinux.cfg" 
-	  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\isolinux\syslinux.cfg"  ; AVG
-	  StrCpy $ConfigPath "isolinux"
-	  StrCpy $CopyPath "isolinux"
-	  StrCpy $ConfigFile "syslinux.cfg"   
-	  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\isolinux\txt.cfg"  ; Probably Ubuntu based
-	  StrCpy $ConfigPath "isolinux"
-	  StrCpy $CopyPath "isolinux"
-	  StrCpy $ConfigFile "txt.cfg"
-	  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\isolinux\text.cfg"   ; Probably Ubuntu based
-	  StrCpy $ConfigPath "isolinux"
-	  StrCpy $CopyPath "isolinux"
-	  StrCpy $ConfigFile "text.cfg"
-	  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\syslinux\txt.cfg"   
-	  StrCpy $ConfigPath "syslinux"
-	  StrCpy $CopyPath "syslinux"
-	  StrCpy $ConfigFile "txt.cfg"
-	  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\syslinux\text.cfg"   
-	  StrCpy $ConfigPath "syslinux"
-	  StrCpy $CopyPath "syslinux"
-	  StrCpy $ConfigFile "text.cfg"  
-	  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\system\isolinux\isolinux.cfg"  ; AOSS
-	  StrCpy $ConfigPath "system/isolinux"
-	  StrCpy $CopyPath "system\isolinux"
-	  StrCpy $ConfigFile "isolinux.cfg"    
-	  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\isolinux.cfg"  ; Probably Puppy based 
-	  StrCpy $ConfigPath ""
-	  StrCpy $CopyPath ""
-	  StrCpy $ConfigFile "isolinux.cfg"  
-	  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\syslinux.cfg" 
-	  StrCpy $ConfigPath ""
-	  StrCpy $CopyPath ""
-	  StrCpy $ConfigFile "syslinux.cfg"    
-	  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\slax\boot\syslinux.cfg"  ; Slax based 
-	  StrCpy $ConfigPath "slax/boot"
-	  StrCpy $CopyPath "slax\boot"
-	  StrCpy $ConfigFile "syslinux.cfg"    
+  StrCpy $ConfigPath "liberte/boot/syslinux"
+  StrCpy $CopyPath "liberte\boot\syslinux"
+  StrCpy $ConfigFile "syslinux.cfg"    
+  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\boot\i386\loader\isolinux.cfg" ; OpenSuse based 32bit
+  StrCpy $ConfigPath "boot/i386/loader"
+  StrCpy $CopyPath "boot\i386\loader"
+  StrCpy $ConfigFile "isolinux.cfg" 
+  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\boot\x86_64\loader\isolinux.cfg" ; OpenSuse based 64bit
+  StrCpy $ConfigPath "boot/x86_64/loader"
+  StrCpy $CopyPath "boot\x86_64\loader"
+  StrCpy $ConfigFile "isolinux.cfg"   
+  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\syslinux\syslinux.cfg"    
+  StrCpy $ConfigPath "syslinux"
+  StrCpy $CopyPath "syslinux"
+  StrCpy $ConfigFile "syslinux.cfg"  
+  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\isolinux\isolinux.cfg" 
+  StrCpy $ConfigPath "isolinux"
+  StrCpy $CopyPath "isolinux"
+  StrCpy $ConfigFile "isolinux.cfg" 
+  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\isolinux\syslinux.cfg"  ; AVG
+  StrCpy $ConfigPath "isolinux"
+  StrCpy $CopyPath "isolinux"
+  StrCpy $ConfigFile "syslinux.cfg"   
+  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\isolinux\txt.cfg"  ; Probably Ubuntu based
+  StrCpy $ConfigPath "isolinux"
+  StrCpy $CopyPath "isolinux"
+  StrCpy $ConfigFile "txt.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\isolinux\text.cfg"   ; Probably Ubuntu based
+  StrCpy $ConfigPath "isolinux"
+  StrCpy $CopyPath "isolinux"
+  StrCpy $ConfigFile "text.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\syslinux\txt.cfg"   
+  StrCpy $ConfigPath "syslinux"
+  StrCpy $CopyPath "syslinux"
+  StrCpy $ConfigFile "txt.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\syslinux\text.cfg"   
+  StrCpy $ConfigPath "syslinux"
+  StrCpy $CopyPath "syslinux"
+  StrCpy $ConfigFile "text.cfg"  
+  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\system\isolinux\isolinux.cfg"  ; AOSS
+  StrCpy $ConfigPath "system/isolinux"
+  StrCpy $CopyPath "system\isolinux"
+  StrCpy $ConfigFile "isolinux.cfg"    
+  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\isolinux.cfg"  ; Probably Puppy based 
+  StrCpy $ConfigPath ""
+  StrCpy $CopyPath ""
+  StrCpy $ConfigFile "isolinux.cfg"  
+  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\syslinux.cfg" 
+  StrCpy $ConfigPath ""
+  StrCpy $CopyPath ""
+  StrCpy $ConfigFile "syslinux.cfg"    
+  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\slax\boot\syslinux.cfg"  ; Slax based 
+  StrCpy $ConfigPath "slax/boot"
+  StrCpy $CopyPath "slax\boot"
+  StrCpy $ConfigFile "syslinux.cfg"    
 
-	  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\boot\syslinux\syslinux.cfg"     
-	  StrCpy $ConfigPath "boot/syslinux"
-	  StrCpy $CopyPath "boot\syslinux"
-	  StrCpy $ConfigFile "syslinux.cfg"   
-	  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\boot\isolinux\isolinux.cfg"
-	  StrCpy $ConfigPath "boot/isolinux"
-	  StrCpy $CopyPath "boot\isolinux"
-	  StrCpy $ConfigFile "isolinux.cfg" 
-	  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\boot\isolinux\syslinux.cfg"     
-	  StrCpy $ConfigPath "boot/isolinux"
-	  StrCpy $CopyPath "boot\isolinux"
-	  StrCpy $ConfigFile "syslinux.cfg"    
-	  ${Else} 
-	   StrCpy $ConfigFile "NULL"
+  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\boot\syslinux\syslinux.cfg"     
+  StrCpy $ConfigPath "boot/syslinux"
+  StrCpy $CopyPath "boot\syslinux"
+  StrCpy $ConfigFile "syslinux.cfg"   
+  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\boot\isolinux\isolinux.cfg"
+  StrCpy $ConfigPath "boot/isolinux"
+  StrCpy $CopyPath "boot\isolinux"
+  StrCpy $ConfigFile "isolinux.cfg" 
+  ${ElseIf} ${FileExists} "$BootDir\multiboot\$JustISOName\boot\isolinux\syslinux.cfg"     
+  StrCpy $ConfigPath "boot/isolinux"
+  StrCpy $CopyPath "boot\isolinux"
+  StrCpy $ConfigFile "syslinux.cfg"    
+  ${Else} 
+   StrCpy $ConfigFile "NULL"
   ${EndIf}   
   ;MessageBox MB_OK "$ConfigPath/$ConfigFile"   
 FunctionEnd
@@ -123,10 +106,10 @@ Function WriteStuff
   ${If} $ConfigFile == "NULL" ; Isolinux/Syslinux config file doesn't exist!
 	  ${AndIf} $Config2Use != "menu.lst" ; menu.lst = GRUB, so we shouldn't expect to find a syslinux config file!
 		MessageBox MB_OK "YUMI couldn't find a configuration file.$\r$\n'$JustISO' not supported, please report the exact steps taken to arrive at this message!$\r$\nYUMI will now remove this entry."   
-		${DeleteMenuEntry} "$BootDir\multiboot\menu\$Config2Use" "#start $JustISOName" "#end $JustISOName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
-		StrCpy $DistroName "$JustISOName" ; So we can remove the following Installed.txt entry
-		${LineFind} "$BootDir\multiboot\Installed.txt" "$BootDir\multiboot\Installed.txt" "1:-1" "DeleteInstall" ; Remove the Installed.txt entry
-		${LineFind} "$BootDir\multiboot\Installed.txt" "$BootDir\multiboot\Installed.txt" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines from Installed.txt
+		${DeleteMenuEntry} "$BootDir\multiboot\menu\$Config2Use" "#[ $JustISOName" "#] $JustISOName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
+		StrCpy $DistroName "$JustISOName" ; So we can remove the following நிறுவப்பட்டது.உரை entry
+		${LineFind} "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "1:-1" "DeleteInstall" ; Remove the நிறுவப்பட்டது.உரை entry
+		${LineFind} "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines from நிறுவப்பட்டது.உரை
 		RMDir /R "$BootDir\multiboot\$JustISOName"  
 		DetailPrint "$JustISOName and its menu entry were Removed!"  	
   ${EndIf}	
@@ -140,12 +123,12 @@ FunctionEnd
 
 ; If distro is already installed, delete the entry, so we don't make a mess.
  ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\*.*"
-	 ${DeleteMenuEntry} "$BootDir\multiboot\menu\$Config2Use" "#start $DistroName" "#end $DistroName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
+	 ${DeleteMenuEntry} "$BootDir\multiboot\menu\$Config2Use" "#[ $DistroName" "#] $DistroName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
  ${EndIf}
  
-; Write $JustISOName to Installed.txt 
- ${InstalledList} "$JustISOName" $R0 ; Write the ISO name to the Installed List "Installed.txt" file (so we can keep track of installs for removal)
- ${LineFind} "$BootDir\multiboot\Installed.txt" "$BootDir\multiboot\Installed.txt" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
+; Write $JustISOName to நிறுவப்பட்டது.உரை 
+ ${InstalledList} "$JustISOName" $R0 ; Write the ISO name to the Installed List "நிறுவப்பட்டது.உரை" file (so we can keep track of installs for removal)
+ ${LineFind} "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
  
 ; Create the Directory for this ISOs files
  CreateDirectory "$BootDir\multiboot\$JustISOName\YUMI\" ; Create the YUMI Directory.. so we can eventually copy the config file (see line 90) to it.
@@ -153,30 +136,30 @@ FunctionEnd
 ; Acronis True Image 
  ${If} $DistroName == "Acronis True Image"
 		ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -x![BOOT] -o"$BootDir\multiboot\$JustISOName\" -y'  
-		File /oname=$PLUGINSDIR\acronisti.cfg "menu\acronisti.cfg"   
+		File /oname=$PLUGINSDIR\acronisti.cfg "பட்டியல்\acronisti.cfg"   
 		CopyFiles "$PLUGINSDIR\acronisti.cfg" "$BootDir\multiboot\$JustISOName\acronisti.cfg"  
-		${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nCONFIG /multiboot/$JustISOName/acronisti.cfg$\r$\nAPPEND /multiboot/$JustISOName$\r$\n#end $JustISOName" $R0 
+		${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nCONFIG /multiboot/$JustISOName/acronisti.cfg$\r$\nAPPEND /multiboot/$JustISOName$\r$\n#] $JustISOName" $R0 
 
  ; Calculate Linux Desktop
   ${ElseIf} $DistroName == "Calculate Linux Desktop"
 		CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" ; Copy the ISO to ISO Directory
 		ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitrd -ir!*mlinuz -o"$BootDir\multiboot\$JustISOName\" -y' 
-		${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nLINUX /multiboot/$JustISOName/vmlinuz$\r$\nINITRD /multiboot/$JustISOName/initrd$\r$\nAPPEND root=live:LABEL=CLD-20151230 vga=current init=/linuxrc rd.live.squashimg=livecd.squashfs nodevfs noresume splash=silent,theme:calculate console=tty1 iso-scan/filename=/multiboot/$JustISOName/$JustISO$\r$\n#end $JustISOName" $R0 
+		${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nLINUX /multiboot/$JustISOName/vmlinuz$\r$\nINITRD /multiboot/$JustISOName/initrd$\r$\nAPPEND root=live:LABEL=CLD-20151230 vga=current init=/linuxrc rd.live.squashimg=livecd.squashfs nodevfs noresume splash=silent,theme:calculate console=tty1 iso-scan/filename=/multiboot/$JustISOName/$JustISO$\r$\n#] $JustISOName" $R0 
  
  ; Linux Kid X
   ${ElseIf} $DistroName == "Linux Kid X" 
 		ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\multiboot\$JustISOName\" -y'  
-  ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nLINUX /multiboot/$JustISOName/boot/vmlinuz$\r$\nINITRD /multiboot/$JustISOName/boot/initrd.gz$\r$\nAPPEND from=/multiboot/$JustISOName vga=788 nocd max_loop=255 ramdisk_size=6666 root=/dev/ram0 rw $\r$\n#end $JustISOName" $R0      
+  ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nLINUX /multiboot/$JustISOName/boot/vmlinuz$\r$\nINITRD /multiboot/$JustISOName/boot/initrd.gz$\r$\nAPPEND from=/multiboot/$JustISOName vga=788 nocd max_loop=255 ramdisk_size=6666 root=/dev/ram0 rw $\r$\n#] $JustISOName" $R0      
  
 		; Bitdefender
 		; ${ElseIf} $DistroName == "Bitdefender Rescue CD"
 		; ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\multiboot\$JustISOName\" -y'  
-		; ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/$JustISOName/boot/kernel.i386-pc$\r$\nAPPEND initrd=/multiboot/$JustISOName/boot/initfs.i386-pc root=/dev/ram0 real_root=/dev/loop0 loop=/multiboot/$JustISOName/rescue/livecd.squashfs cdroot_marker=/multiboot/$JustISOName/rescue/livecd.squashfs initrd udev cdroot scandelay=10 quiet splash$\r$\n#end $JustISOName" $R0 
+		; ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/$JustISOName/boot/kernel.i386-pc$\r$\nAPPEND initrd=/multiboot/$JustISOName/boot/initfs.i386-pc root=/dev/ram0 real_root=/dev/loop0 loop=/multiboot/$JustISOName/rescue/livecd.squashfs cdroot_marker=/multiboot/$JustISOName/rescue/livecd.squashfs initrd udev cdroot scandelay=10 quiet splash$\r$\n#] $JustISOName" $R0 
  
   ${ElseIf} $DistroName == "Bitdefender Rescue CD"
 		CopyFiles $ISOFile "$BootDir\multiboot\ISOS\$JustISO" 
-		${WriteToFile} "#start $JustISOName$\r$\nlabel Bitdefender ($JustISOName)$\r$\nMENU LABEL Bitdefender ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/bitdefender.lst$\r$\n#end $JustISOName" $R0   
-		File /oname=$PLUGINSDIR\bitdefender.lst "Menu\bitdefender.lst"  
+		${WriteToFile} "#[ $JustISOName$\r$\nlabel Bitdefender ($JustISOName)$\r$\nMENU LABEL Bitdefender ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/bitdefender.lst$\r$\n#] $JustISOName" $R0   
+		File /oname=$PLUGINSDIR\bitdefender.lst "பட்டியல்\bitdefender.lst"  
 		CopyFiles "$PLUGINSDIR\bitdefender.lst" "$BootDir\multiboot\menu\bitdefender.lst" 
 		!insertmacro ReplaceInFile "SLUG" "$JustISO" "all" "all" "$BootDir\multiboot\menu\bitdefender.lst" 
  
@@ -231,8 +214,8 @@ FunctionEnd
       ${OrIf} $DistroName == "Rescatux" 		  
   
 	 CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" 
-	 ${WriteToFile} "#start $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/$JustISOName/basic.lst$\r$\n#end $JustISOName" $R0   
-	 File /oname=$PLUGINSDIR\basic.lst "Menu\basic.lst"  
+	 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/$JustISOName/basic.lst$\r$\n#] $JustISOName" $R0   
+	 File /oname=$PLUGINSDIR\basic.lst "பட்டியல்\basic.lst"  
 	 CopyFiles "$PLUGINSDIR\basic.lst" "$BootDir\multiboot\$JustISOName\basic.lst" 
 	 !insertmacro ReplaceInFile "SLUG" "$JustISO" "all" "all" "$BootDir\multiboot\$JustISOName\basic.lst" 
 	 !insertmacro ReplaceInFile "IPATH" "$JustISOName" "all" "all" "$BootDir\multiboot\$JustISOName\basic.lst"  
@@ -242,17 +225,17 @@ FunctionEnd
 	 StrCpy $JustISOName "$JustISOName" 14 ; Grabs the first 14 characters of the file name.
 	 StrCpy $JustISO "$JustISO.iso"
 	 CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" 
-	 ${WriteToFile} "#start $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/$JustISOName/$JustISOName.lst$\r$\n#end $JustISOName" $R0   
-	 File /oname=$PLUGINSDIR\basic.lst "Menu\basic.lst"  
+	 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/$JustISOName/$JustISOName.lst$\r$\n#] $JustISOName" $R0   
+	 File /oname=$PLUGINSDIR\basic.lst "பட்டியல்\basic.lst"  
 	 CopyFiles "$PLUGINSDIR\basic.lst" "$BootDir\multiboot\$JustISOName\$JustISOName.lst" 
 	 !insertmacro ReplaceInFile "SLUG" "$JustISO" "all" "all" "$BootDir\multiboot\$JustISOName\$JustISOName.lst" 
 	 !insertmacro ReplaceInFile "IPATH" "$JustISOName" "all" "all" "$BootDir\multiboot\$JustISOName\$JustISOName.lst"   
  
   ${ElseIf} $DistroName == "HD Sentinel (HDD Diagnostics)"
 	 ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -o"$BootDir\multiboot\$JustISOName\" -y' 
-	 File /oname=$PLUGINSDIR\customram.lst "Menu\customram.lst" 
+	 File /oname=$PLUGINSDIR\customram.lst "பட்டியல்\customram.lst" 
 	 CopyFiles "$PLUGINSDIR\customram.lst" "$BootDir\multiboot\$JustISOName\customram.lst" 
-	 ${WriteToFile} "#start $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/$JustISOName/customram.lst$\r$\n#end $JustISOName" $R0   
+	 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/$JustISOName/customram.lst$\r$\n#] $JustISOName" $R0   
 	 !insertmacro ReplaceInFile "SLUG" "hdsdos.iso" "all" "all" "$BootDir\multiboot\$JustISOName\customram.lst" 
 	 !insertmacro ReplaceInFile "IPATH" "$JustISOName" "all" "all" "$BootDir\multiboot\$JustISOName\customram.lst"  
 
@@ -261,13 +244,13 @@ FunctionEnd
 	 ;${ElseIf} $DistroName == "Dr.Web LiveDisk"
 	 ;ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\" -y'
 	 ;Call OldSysFix  ; Check for and replace vesamenu.c32, menu.c32, chain.c32 if found 
-	 ;${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nCONFIG /boot/isolinux/isolinux.cfg$\r$\nAPPEND /boot/isolinux$\r$\n#end $JustISOName" $R0 
+	 ;${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nCONFIG /boot/isolinux/isolinux.cfg$\r$\nAPPEND /boot/isolinux$\r$\n#] $JustISOName" $R0 
 
 	 ; Medicat (must use NTFS format)
   ${ElseIf} $DistroName == "Medicat (must use NTFS format)"
 	 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\" -y'
 	 ;Call OldSysFix  ; Check for and replace vesamenu.c32, menu.c32, chain.c32 if found 
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nCONFIG /isolinux.cfg$\r$\nAPPEND /$\r$\n#end $JustISOName" $R0
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nCONFIG /isolinux.cfg$\r$\nAPPEND /$\r$\n#] $JustISOName" $R0
  
   ${ElseIf} $DistroName == "Ubuntu" 
      ${OrIf} $DistroName == "Ubuntu Studio"   
@@ -290,9 +273,9 @@ FunctionEnd
    
 		CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" ; Copy the ISO to Directory
 		ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!vmlinu* -ir!init* -o"$BootDir\multiboot\$JustISOName\" -y'
-		File /oname=$PLUGINSDIR\ubuntu.lst "Menu\ubuntu.lst"  
+		File /oname=$PLUGINSDIR\ubuntu.lst "பட்டியல்\ubuntu.lst"  
 		CopyFiles "$PLUGINSDIR\ubuntu.lst" "$BootDir\multiboot\$JustISOName\ubuntu.lst"   
-		${WriteToFile} "#start $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/$JustISOName/ubuntu.lst$\r$\n#end $JustISOName" $R0   
+		${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/$JustISOName/ubuntu.lst$\r$\n#] $JustISOName" $R0   
  
 		${If} $DistroName == "Ubuntu"
 		${OrIf} $DistroName == "Cub Linux"
@@ -368,36 +351,36 @@ FunctionEnd
 		   ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitrd.* -ir!*mlinu* -o"$BootDir\multiboot\$JustISOName\" -y'  
 		   Rename "$BootDir\multiboot\$JustISOName\initrd.gz" "$BootDir\multiboot\$JustISOName\initrd.lz" 
 		   Rename "$BootDir\multiboot\$JustISOName\vmlinuz.efi" "$BootDir\multiboot\$JustISOName\vmlinuz" 
-		   ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/$JustISOName/vmlinuz$\r$\nAPPEND initrd=/multiboot/$JustISOName/initrd.lz cdrom-detect/try-usb=true persistent persistent-path=/multiboot/$JustISOName noprompt splash boot=casper iso-scan/filename=/multiboot/$JustISOName/$JustISO$\r$\n#end $JustISOName" $R0
+		   ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/$JustISOName/vmlinuz$\r$\nAPPEND initrd=/multiboot/$JustISOName/initrd.lz cdrom-detect/try-usb=true persistent persistent-path=/multiboot/$JustISOName noprompt splash boot=casper iso-scan/filename=/multiboot/$JustISOName/$JustISO$\r$\n#] $JustISOName" $R0
 	   ${EndIf}    
  
 	 ; OpenSUSE 32bit 
 	 ${ElseIf} $DistroName == "OpenSUSE 32bit"
 	 CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" ; Copy the ISO to ISO Directory
 	 ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitrd -ir!*inux -o"$BootDir\multiboot\$JustISOName\" -y'  
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/$JustISOName/linux$\r$\nAPPEND initrd=/multiboot/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/MULTIBOOT:/multiboot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/MULTIBOOT isofrom_system=/multiboot/$JustISOName/$JustISO loader=syslinux$\r$\n#end $JustISOName" $R0
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/$JustISOName/linux$\r$\nAPPEND initrd=/multiboot/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/MULTIBOOT:/multiboot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/MULTIBOOT isofrom_system=/multiboot/$JustISOName/$JustISO loader=syslinux$\r$\n#] $JustISOName" $R0
 	 
 	 ; OpenSUSE 64bit 
 	 ${ElseIf} $DistroName == "OpenSUSE 64bit"
 	 CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" ; Copy the ISO to ISO Directory
 	 ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitrd -ir!*inux -o"$BootDir\multiboot\$JustISOName\" -y'   
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/$JustISOName/linux$\r$\nAPPEND initrd=/multiboot/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/MULTIBOOT:/multiboot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/MULTIBOOT isofrom_system=/multiboot/$JustISOName/$JustISO loader=syslinux$\r$\n#end $JustISOName" $R0 
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/$JustISOName/linux$\r$\nAPPEND initrd=/multiboot/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/MULTIBOOT:/multiboot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/MULTIBOOT isofrom_system=/multiboot/$JustISOName/$JustISO loader=syslinux$\r$\n#] $JustISOName" $R0 
 
 	 ; OpenMediaVault - NOT WORKING YET
 	 ; ${ElseIf} $DistroName == "OpenMediaVault"
 	 ; CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO" ; Copy the ISO to ISO Directory
 	 ; ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitrd -ir!*inux -o"$BootDir\multiboot\$JustISOName\" -y'  
-	 ; ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/$JustISOName/linux$\r$\nAPPEND initrd=/multiboot/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/MULTIBOOT:/multiboot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/MULTIBOOT isofrom_system=/multiboot/$JustISOName/$JustISO loader=syslinux$\r$\n#end $JustISOName" $R0 
+	 ; ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/$JustISOName/linux$\r$\nAPPEND initrd=/multiboot/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/MULTIBOOT:/multiboot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/MULTIBOOT isofrom_system=/multiboot/$JustISOName/$JustISO loader=syslinux$\r$\n#] $JustISOName" $R0 
 	 
 	 ; FreeDOS (Balder img) 
 	 ${ElseIf} $DistroName == "FreeDOS (Balder img)"
 	 CopyFiles $ISOFile "$BootDir\multiboot\$JustISOName\$JustISO"
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL FreeDOS ($JustISOName)$\r$\nMENU LABEL FreeDOS ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/memdisk$\r$\nAPPEND initrd=/multiboot/$JustISOName/$JustISO$\r$\n#end $JustISOName" $R0
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL FreeDOS ($JustISOName)$\r$\nMENU LABEL FreeDOS ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/memdisk$\r$\nAPPEND initrd=/multiboot/$JustISOName/$JustISO$\r$\n#] $JustISOName" $R0
 	 
 	 ; Memtest86+ (Memory Testing Tool)
 	 ${ElseIf} $DistroName == "Memtest86+ (Memory Testing Tool)"
 	 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\multiboot\$JustISOName\" -y'  
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nLINUX /multiboot/$JustISOName/$JustISOName$\r$\n#end $JustISOName" $R0
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nLINUX /multiboot/$JustISOName/$JustISOName$\r$\n#] $JustISOName" $R0
 
 	 ; Kon-Boot  
 	 ${ElseIf} $DistroName == "Kon-Boot FREE"
@@ -406,8 +389,8 @@ FunctionEnd
 	 ExecWait '"$PLUGINSDIR\7zG.exe" e "$EXEDIR\TEMPYUMI\FD0-konboot*.zip" -pkon-boot -o"$EXEDIR\TEMPYUMI" -y' 
 	 CopyFiles $EXEDIR\TEMPYUMI\FD0-konboot-v1.1-2in1.img "$BootDir\multiboot\$JustISOName\konboot.img" 
 	 RMDir /R "$EXEDIR\TEMPYUMI"
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL Kon-Boot ($JustISOName)$\r$\nMENU LABEL Kon-Boot ($JustISOName)$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/konboot.cfg$\r$\nAPPEND /multiboot/menu$\r$\n#end $JustISOName" $R0 
-	 File /oname=$PLUGINSDIR\konboot.cfg "Menu\konboot.cfg"  
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Kon-Boot ($JustISOName)$\r$\nMENU LABEL Kon-Boot ($JustISOName)$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/konboot.cfg$\r$\nAPPEND /multiboot/menu$\r$\n#] $JustISOName" $R0 
+	 File /oname=$PLUGINSDIR\konboot.cfg "பட்டியல்\konboot.cfg"  
 	 CopyFiles "$PLUGINSDIR\konboot.cfg" "$BootDir\multiboot\menu\konboot.cfg"
 	 !insertmacro ReplaceInFile "SLUG" "$JustISOName" "all" "all" "$BootDir\multiboot\menu\konboot.cfg" 
 	 
@@ -418,36 +401,36 @@ FunctionEnd
 	 CopyFiles $EXEDIR\TEMPYUMI\konboot.img "$BootDir\multiboot\$JustISOName\konboot.img"  
 	 CopyFiles $EXEDIR\TEMPYUMI\konbootOLD.img "$BootDir\multiboot\$JustISOName\konbootOLD.img" 
 	 RMDir /R "$EXEDIR\TEMPYUMI"
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL Kon-Boot ($JustISOName)$\r$\nMENU LABEL Kon-Boot ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/$JustISOName/konboot.lst" $R0 
-	 File /oname=$PLUGINSDIR\konboot.lst "Menu\konboot.lst"  
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Kon-Boot ($JustISOName)$\r$\nMENU LABEL Kon-Boot ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/$JustISOName/konboot.lst" $R0 
+	 File /oname=$PLUGINSDIR\konboot.lst "பட்டியல்\konboot.lst"  
 	 CopyFiles "$PLUGINSDIR\konboot.lst" "$BootDir\multiboot\$JustISOName\konboot.lst"
 	 !insertmacro ReplaceInFile "SLUG" "$JustISOName" "all" "all" "$BootDir\multiboot\$JustISOName\konboot.lst" 
 	 
 	 ; Falcon 4 Boot CD
 	 ${ElseIf} $DistroName == "Falcon 4 Boot CD"
 	 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\" -y' 
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL Falcon 4 Boot CD ($JustISOName)$\r$\nMENU LABEL Falcon 4 Boot CD ($JustISOName)$\r$\nMENU INDENT 1$\r$\nCOM32 /multiboot/chain.c32 ntldr=/grldr$\r$\n#end $JustISOName" $R0
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Falcon 4 Boot CD ($JustISOName)$\r$\nMENU LABEL Falcon 4 Boot CD ($JustISOName)$\r$\nMENU INDENT 1$\r$\nCOM32 /multiboot/chain.c32 ntldr=/grldr$\r$\n#] $JustISOName" $R0
  
 	 ; Hiren's Boot CD 
 	 ${ElseIf} $DistroName == "Hiren's Boot CD" 
 	 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -ir!HBCD -o"$BootDir\" -y' 
 	   Call SysFixHirens  ; Check for and replace vesamenu.c32, menu.c32, chain.c32 if found 
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL Hiren's Boot CD ($JustISOName)$\r$\nMENU LABEL Hiren's Boot CD ($JustISOName)$\r$\nMENU INDENT 1$\r$\nCOM32 /HBCD/Boot/chain.c32 ntldr=/HBCD/grldr$\r$\n#end $JustISOName" $R0  
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Hiren's Boot CD ($JustISOName)$\r$\nMENU LABEL Hiren's Boot CD ($JustISOName)$\r$\nMENU INDENT 1$\r$\nCOM32 /HBCD/Boot/chain.c32 ntldr=/HBCD/grldr$\r$\n#] $JustISOName" $R0  
 
 	 ; Windows Defender Offline
 		 ${ElseIf} $DistroName == "Windows Defender Offline"
 		 CopyFiles $ISOFile "$BootDir\multiboot\ISOS\$JustISO" 
-		 ; ${WriteToFile} "#start $JustISOName$\r$\nLABEL Windows Defender Offline ($JustISOName)$\r$\nMENU LABEL Windows Defender Offline ($JustISOName)$\r$\nMENU INDENT 1$\r$\nLINUX /multiboot/grub.exe$\r$\nAPPEND --config-file=$\"ls /multiboot/ISOS/$JustISO || find --set-root /multiboot/ISOS/$JustISO;map --heads=0 --sectors-per-track=0 /multiboot/ISOS/$JustISO (0xff) || map --heads=0 --sectors-per-track=0 --mem /multiboot/ISOS/$JustISO (0xff);map --hook;chainloader (0xff)$\"$\r$\n#end $JustISOName" $R0
-		 ${WriteToFile} "#start $JustISOName$\r$\nlabel Windows Defender Offline ($JustISOName)$\r$\nmenu label title Windows Defender Offline ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/WDO.lst$\r$\n#end $JustISOName" $R0   
-		 File /oname=$PLUGINSDIR\WDO.lst "Menu\WDO.lst"  
+		 ; ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Windows Defender Offline ($JustISOName)$\r$\nMENU LABEL Windows Defender Offline ($JustISOName)$\r$\nMENU INDENT 1$\r$\nLINUX /multiboot/grub.exe$\r$\nAPPEND --config-file=$\"ls /multiboot/ISOS/$JustISO || find --set-root /multiboot/ISOS/$JustISO;map --heads=0 --sectors-per-track=0 /multiboot/ISOS/$JustISO (0xff) || map --heads=0 --sectors-per-track=0 --mem /multiboot/ISOS/$JustISO (0xff);map --hook;chainloader (0xff)$\"$\r$\n#] $JustISOName" $R0
+		 ${WriteToFile} "#[ $JustISOName$\r$\nlabel Windows Defender Offline ($JustISOName)$\r$\nmenu label title Windows Defender Offline ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/WDO.lst$\r$\n#] $JustISOName" $R0   
+		 File /oname=$PLUGINSDIR\WDO.lst "பட்டியல்\WDO.lst"  
 		 CopyFiles "$PLUGINSDIR\WDO.lst" "$BootDir\multiboot\menu\WDO.lst" 
 		 !insertmacro ReplaceInFile "SLUG" "$JustISO" "all" "all" "$BootDir\multiboot\menu\WDO.lst"  
 	 
 	 ; Windows (WIM) boot
 	 ${ElseIf} $DistroName == "Multiple Windows Vista/7/8/10 Installers -wimboot"
 	 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -o"$BootDir\multiboot\$JustISOName" -y -x![BOOT]*' 
-	  ;${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nCOM32 linux.c32$\r$\nappend wimboot initrdfile=$JustISOName/bootmgr,$JustISOName/boot/bcd,$JustISOName/boot/boot.sdi,$JustISOName/sources/boot.wim$\r$\n#end $JustISOName" $R0
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle Install $JustISOName - wimboot$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --hook$\r$\nkernel (hd1,0)/multiboot/wimboot$\r$\nkernel (hd1,0)/multiboot/wimboot$\r$\ninitrd @bootmgr=(hd1,0)/multiboot/$JustISOName/bootmgr @bcd=(hd1,0)/multiboot/$JustISOName/boot/bcd @boot.sdi=(hd1,0)/multiboot/$JustISOName/boot/boot.sdi @boot.wim=(hd1,0)/multiboot/$JustISOName/sources/boot.wim$\r$\n#end $JustISOName" $R0   
+	  ;${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nCOM32 linux.c32$\r$\nappend wimboot initrdfile=$JustISOName/bootmgr,$JustISOName/boot/bcd,$JustISOName/boot/boot.sdi,$JustISOName/sources/boot.wim$\r$\n#] $JustISOName" $R0
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle Install $JustISOName - wimboot$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --hook$\r$\nkernel (hd1,0)/multiboot/wimboot$\r$\nkernel (hd1,0)/multiboot/wimboot$\r$\ninitrd @bootmgr=(hd1,0)/multiboot/$JustISOName/bootmgr @bcd=(hd1,0)/multiboot/$JustISOName/boot/bcd @boot.sdi=(hd1,0)/multiboot/$JustISOName/boot/boot.sdi @boot.wim=(hd1,0)/multiboot/$JustISOName/sources/boot.wim$\r$\n#] $JustISOName" $R0   
 	   CopyFiles "$PLUGINSDIR\remount.cmd" "$BootDir\multiboot\$JustISOName\remount.cmd"    
 	   CopyFiles "$PLUGINSDIR\ei.cfg" "$BootDir\multiboot\$JustISOName\sources\ei.cfg"	  
 	   CopyFiles "$PLUGINSDIR\wimlib\stuff\autounattend.xml" "$BootDir\multiboot\$JustISOName\autounattend.xml"   
@@ -474,9 +457,9 @@ FunctionEnd
 	  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -o"$BootDir\multiboot\$JustISOName" -y -x![BOOT]*'    
 	 
 	  ${IfNot} ${FileExists} "$BootDir\multiboot\$JustISOName\efi\microsoft\boot\bcd"
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle Install $JustISOName - bootmgr at root$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0  
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle Install $JustISOName - bootmgr at root$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0  
 	  ${Else} ; For 32bit variants
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle Install $JustISOName - bootmgr at root$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/multiboot/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0 
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle Install $JustISOName - bootmgr at root$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/multiboot/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0 
 	  ${Endif}
 	   CopyFiles "$PLUGINSDIR\remount.cmd" "$BootDir\multiboot\$JustISOName\remount.cmd"    
 	   CopyFiles "$PLUGINSDIR\ei.cfg" "$BootDir\multiboot\$JustISOName\sources\ei.cfg"	  
@@ -537,7 +520,7 @@ FunctionEnd
 	 ; Windows PE (WIM) boot
 		 ${ElseIf} $DistroName == "Multiple Windows PE -wimboot"
 		 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -o"$BootDir\multiboot\$JustISOName" -y -x![BOOT]*' 
-		  ${WriteToFile} "#start $JustISOName$\r$\ntitle $JustISOName - wimboot$\r$\nkernel /multiboot/wimboot$\r$\nkernel /multiboot/wimboot$\r$\ninitrd @bootmgr=/multiboot/$JustISOName/bootmgr @bcd=/multiboot/$JustISOName/boot/bcd @boot.sdi=/multiboot/$JustISOName/boot/boot.sdi @boot.wim=/multiboot/$JustISOName/sources/boot.wim$\r$\n#end $JustISOName" $R0   
+		  ${WriteToFile} "#[ $JustISOName$\r$\ntitle $JustISOName - wimboot$\r$\nkernel /multiboot/wimboot$\r$\nkernel /multiboot/wimboot$\r$\ninitrd @bootmgr=/multiboot/$JustISOName/bootmgr @bcd=/multiboot/$JustISOName/boot/bcd @boot.sdi=/multiboot/$JustISOName/boot/boot.sdi @boot.wim=/multiboot/$JustISOName/sources/boot.wim$\r$\n#] $JustISOName" $R0   
 
 	 ; Windows PE - bootmgr at root of USB
 		 ${ElseIf} $DistroName == "Multiple Windows PE -bootmgr"
@@ -549,9 +532,9 @@ FunctionEnd
 		 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!Programs -o"$BootDir\"'   
 	 
 	  ${IfNot} ${FileExists} "$BootDir\multiboot\$JustISOName\efi\microsoft\boot\bcd"
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle $JustISOName - bootmgr at root$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0  
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle $JustISOName - bootmgr at root$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0  
 	  ${Else} ; For 32bit variants
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle $JustISOName - bootmgr at root$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/multiboot/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0 
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle $JustISOName - bootmgr at root$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/multiboot/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0 
 	  ${Endif}
 	  
 	  ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\CdUsb.Y"
@@ -604,11 +587,11 @@ FunctionEnd
 	 CopyFiles "$BootDir\boot" "$BootDir\multiboot\$JustISOName"
 	 
 	  ${IfNot} ${FileExists} "$BootDir\efi\microsoft\boot\bcd"
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle Install $JustISOName$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0  
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle Install $JustISOName$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0  
 	  ${Else} 
 	   CopyFiles "$BootDir\bootmgr.efi" "$BootDir\multiboot\$JustISOName"
 	   CopyFiles "$BootDir\efi" "$BootDir\multiboot\$JustISOName"
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle Install $JustISOName$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/multiboot/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0 
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle Install $JustISOName$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/multiboot/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0 
 	  ${Endif}
 	  
 	 ; Single Windows PE -files at root
@@ -618,24 +601,24 @@ FunctionEnd
 	 CopyFiles "$BootDir\boot" "$BootDir\multiboot\$JustISOName"
 	 
 	  ${IfNot} ${FileExists} "$BootDir\efi\microsoft\boot\bcd"
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle Start $JustISOName - Single PE$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0  
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle Start $JustISOName - Single PE$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0  
 	  ${Else} 
 	   CopyFiles "$BootDir\bootmgr.efi" "$BootDir\multiboot\$JustISOName"
 	   CopyFiles "$BootDir\efi" "$BootDir\multiboot\$JustISOName"
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle Start $JustISOName - Single PE$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/multiboot/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0 
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle Start $JustISOName - Single PE$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/multiboot/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0 
 	  ${Endif}  
 	  
-	 ; For Syslinux ---- ${WriteToFile} "#start $JustISOName$\r$\nLABEL Windows Vista/7/8 Installer$\r$\nMENU LABEL Windows Vista/7/8/10 Installer$\r$\nMENU INDENT 1$\r$\nCOM32 /multiboot/chain.c32 fs ntldr=/bootmgr$\r$\n#end $JustISOName" $R0  
+	 ; For Syslinux ---- ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Windows Vista/7/8 Installer$\r$\nMENU LABEL Windows Vista/7/8/10 Installer$\r$\nMENU INDENT 1$\r$\nCOM32 /multiboot/chain.c32 fs ntldr=/bootmgr$\r$\n#] $JustISOName" $R0  
 	 ; CopyFiles $ISOFile "$BootDir\multiboot\ISOS\$JustISO"
-	 ; ${WriteToFile} "title$\r$\nroot$\r$\n#start $JustISOName$\r$\ntitle Start $JustISOName Single Installer$\r$\nchainloader /bootmgr$\r$\n#end $JustISOName" $R0  
-	 ; File /oname=$PLUGINSDIR\firadisk.img "firadisk.img"  
+	 ; ${WriteToFile} "title$\r$\nroot$\r$\n#[ $JustISOName$\r$\ntitle Start $JustISOName Single Installer$\r$\nchainloader /bootmgr$\r$\n#] $JustISOName" $R0  
+	 ; File /oname=$PLUGINSDIR\firadisk.img "இருமங்கள்\firadisk.img"  
 	 ; CopyFiles "$PLUGINSDIR\firadisk.img" "$BootDir\multiboot\ISOS\firadisk.img"   
 
 	 ; Windows XP
 	 ${ElseIf} $DistroName == "Single Windows XP Installer" 
 	 CopyFiles $ISOFile "$BootDir\multiboot\ISOS\$JustISO"
-	 ${WriteToFile} "title$\r$\nroot$\r$\n#start $JustISOName$\r$\ntitle Begin Install of Windows XP from $JustISO (Stage 1)$\r$\nfind --set-root /multiboot/ISOS/$JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --mem /multiboot/ISOS/firadisk.img (fd0)$\r$\nmap --mem /multiboot/ISOS/firadisk.img (fd1)$\r$\nmap --mem /multiboot/ISOS/$JustISO (0xff)$\r$\nmap --hook$\r$\nchainloader (0xff)/I386/SETUPLDR.BIN$\r$\n$\r$\ntitle Continue Windows XP Install from $JustISO (Stage 2)$\r$\nfind --set-root /multiboot/ISOS/$JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --mem /multiboot/ISOS/$JustISO (0xff)$\r$\nmap --hook$\r$\nchainloader (hd0)+1$\r$\n$\r$\ntitle Boot Windows XP - If fails, reboot with USB removed (Stage 3)$\r$\nmap (hd1) (hd0)$\r$\nmap (hd0) (hd1)$\r$\nroot (hd1,0)$\r$\nfind --set-root /ntldr$\r$\nchainloader /ntldr$\r$\n#end $JustISOName" $R0  
-	 File /oname=$PLUGINSDIR\firadisk.img "firadisk.img"  
+	 ${WriteToFile} "title$\r$\nroot$\r$\n#[ $JustISOName$\r$\ntitle Begin Install of Windows XP from $JustISO (Stage 1)$\r$\nfind --set-root /multiboot/ISOS/$JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --mem /multiboot/ISOS/firadisk.img (fd0)$\r$\nmap --mem /multiboot/ISOS/firadisk.img (fd1)$\r$\nmap --mem /multiboot/ISOS/$JustISO (0xff)$\r$\nmap --hook$\r$\nchainloader (0xff)/I386/SETUPLDR.BIN$\r$\n$\r$\ntitle Continue Windows XP Install from $JustISO (Stage 2)$\r$\nfind --set-root /multiboot/ISOS/$JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --mem /multiboot/ISOS/$JustISO (0xff)$\r$\nmap --hook$\r$\nchainloader (hd0)+1$\r$\n$\r$\ntitle Boot Windows XP - If fails, reboot with USB removed (Stage 3)$\r$\nmap (hd1) (hd0)$\r$\nmap (hd0) (hd1)$\r$\nroot (hd1,0)$\r$\nfind --set-root /ntldr$\r$\nchainloader /ntldr$\r$\n#] $JustISOName" $R0  
+	 File /oname=$PLUGINSDIR\firadisk.img "இருமங்கள்\firadisk.img"  
 	 CopyFiles "$PLUGINSDIR\firadisk.img" "$BootDir\multiboot\ISOS\firadisk.img"   
 	 
 	 ; Unlisted ISOs
@@ -684,7 +667,7 @@ FunctionEnd
 	  ;${IfNot} ${FileExists} "$VHDDISK\efi\microsoft\boot\bcd"
 	   nsExec::ExecToLog '"cmd" /c bcdedit /store $BootDir/multiboot/$JustISOName/boot/bcd /set {default} device vhd=[locate]\multiboot\$JustISOName\$JustISOName.vhd'
 	   nsExec::ExecToLog '"cmd" /c bcdedit /store $BootDir/multiboot/$JustISOName/boot/bcd /set {default} osdevice vhd=[locate]\multiboot\$JustISOName\$JustISOName.vhd'
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle Boot $JustISOName$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0  
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle Boot $JustISOName$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0  
 	  ;${Else} 
 	  ; CopyFiles "$VHDDISK\bootmgr.efi" "$BootDir\multiboot\$JustISOName"
 	  ; CopyFiles "$VHDDISK\efi" "$BootDir\multiboot\$JustISOName"
@@ -692,8 +675,8 @@ FunctionEnd
 	  ; nsExec::ExecToLog '"cmd" /c bcdedit /store $BootDir/multiboot/$JustISOName/boot/bcd /set {default} osdevice vhd=[locate]\multiboot\$JustISOName\$JustISOName.vhd'
 	  ; nsExec::ExecToLog '"cmd" /c bcdedit /store $BootDir/multiboot/$JustISOName/efi/microsoft/boot/bcd /set {default} device vhd=[locate]\multiboot\$JustISOName\$JustISOName.vhd'
 	  ; nsExec::ExecToLog '"cmd" /c bcdedit /store $BootDir/multiboot/$JustISOName/efi/microsoft/boot/bcd /set {default} osdevice vhd=[locate]\multiboot\$JustISOName\$JustISOName.vhd'
-	  ; ${WriteToFile} "#start $JustISOName$\r$\ntitle Boot $JustISOName$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/multiboot/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0 
-	   ;;${WriteToFile} "#start $JustISOName$\r$\ntitle Boot $JustISO$\r$\nchainloader /bootmgr$\r$\n#end $JustISOName" $R0  
+	  ; ${WriteToFile} "#[ $JustISOName$\r$\ntitle Boot $JustISOName$\r$\ndd if=()/multiboot/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/multiboot/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /multiboot/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0 
+	   ;;${WriteToFile} "#[ $JustISOName$\r$\ntitle Boot $JustISO$\r$\nchainloader /bootmgr$\r$\n#] $JustISOName" $R0  
 	  ;${Endif}
 	 ${EnableX64FSRedirection} 
 	  
@@ -730,12 +713,12 @@ FunctionEnd
 	 nsExec::ExecToLog '"DiskPart" /S $BootDir\multiboot\$JustISOName\dd-diskpart.txt'
 	 ExecWait '"$PLUGINSDIR\dd.exe" if=$ISOFile of=$BootDir\multiboot\$JustISOName\$JustISOName.vhd bs=2M --progress'
 	; nsExec::ExecToLog '"DiskPart" /S $BootDir\multiboot\$JustISOName\diskpartdetach.txt' 
-	 ${WriteToFile} "#start $JustISOName$\r$\ntitle Boot $JustISO$\r$\nmap --heads=0 --sectors-per-track=0 /multiboot/$JustISOName/$JustISOName.vhd (hd0)$\r$\nmap --hook$\r$\nchainloader (hd0)+1$\r$\nrootnoverify (hd0)$\r$\n#end $JustISOName" $R0    
+	 ${WriteToFile} "#[ $JustISOName$\r$\ntitle Boot $JustISO$\r$\nmap --heads=0 --sectors-per-track=0 /multiboot/$JustISOName/$JustISOName.vhd (hd0)$\r$\nmap --hook$\r$\nchainloader (hd0)+1$\r$\nrootnoverify (hd0)$\r$\n#] $JustISOName" $R0    
 
 	 ${ElseIf} $DistroName == "Super Grub2 Disk" 
 	 CopyFiles $ISOFile "$BootDir\multiboot\ISOS\$JustISO"
-	 ${WriteToFile} "#start $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/sgd.lst$\r$\n#end $JustISOName" $R0   
-	 File /oname=$PLUGINSDIR\sgd.lst "Menu\sgd.lst"  
+	 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/sgd.lst$\r$\n#] $JustISOName" $R0   
+	 File /oname=$PLUGINSDIR\sgd.lst "பட்டியல்\sgd.lst"  
 	 CopyFiles "$PLUGINSDIR\sgd.lst" "$BootDir\multiboot\menu\sgd.lst" 
 	 !insertmacro ReplaceInFile "SLUG" "$JustISO" "all" "all" "$BootDir\multiboot\menu\sgd.lst"  
 
@@ -774,58 +757,58 @@ FunctionEnd
 	  nsExec::ExecToLog '"cmd" /c $PLUGINSDIR\wimlib\wimlib-imagex update V:\x86\sources\boot.wim 2 < $BootDir\multiboot\$JustISOName\au.txt'     
 	  ${Endif}
 	  nsExec::ExecToLog '"DiskPart" /S $BootDir\multiboot\$JustISOName\diskpartdetach.txt' 
-	 ${WriteToFile} "#start $JustISOName$\r$\ntitle Boot $JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --heads=0 --sectors-per-track=0 /multiboot/$JustISOName/$JustISOName.vhd (hd1)$\r$\nmap --hook$\r$\nchainloader (hd1)+1$\r$\nrootnoverify (hd1)$\r$\n#end $JustISOName" $R0    
+	 ${WriteToFile} "#[ $JustISOName$\r$\ntitle Boot $JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --heads=0 --sectors-per-track=0 /multiboot/$JustISOName/$JustISOName.vhd (hd1)$\r$\nmap --hook$\r$\nchainloader (hd1)+1$\r$\nrootnoverify (hd1)$\r$\n#] $JustISOName" $R0    
 	 
 	 
 		# The following Grub at Partition 4 entry adds a 4th partition table entry to the USB device and uses this as a placeholder for the ISO. 
 		# Entry derived from information obtained from Steve of rmprepusb.com. Steve said the following were his original sources: http://reboot.pro/topic/9916-grub4dos-isohybrided/page-2#entry88531 and http://reboot.pro/topic/9916-grub4dos-isohybrided/page-2#entry164127
 		 ${ElseIf} $DistroName == "Try Unlisted ISO (GRUB Partition 4)" 
 		 CopyFiles $ISOFile "$BootDir\multiboot\ISOS\$JustISO"
-		 ; ${WriteToFile} "#start $JustISOName$\r$\n#Modify the following entry if it does not boot$\r$\ntitle Boot $JustISOName$\r$\nset ISO=/multiboot/ISOS/$JustISO$\r$\nfind --set-root %ISO%$\r$\nparttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4% $\r$\nif %check%==0x00 partnew (hd0,3) 0x00 %ISO%$\r$\nif NOT %check%==0x00 echo ERROR: Fourth partition table entry is not empty, please delete it if you wish to use this method! && pause --wait=5 && configfile /multiboot/menu/grubpart4.lst$\r$\nmap %ISO% (0xff)$\r$\nmap --hook$\r$\nroot (0xff)$\r$\nchainloader (0xff)$\r$\n#end $JustISOName" $R0
-		 ; ${WriteToFile} "#start $JustISOName$\r$\nparttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4%$\r$\nif %check%==0x00 partnew (hd0,3) 0 0 0$\r$\nif not %check%==0x00 echo WARNING: Fourth partition is not empty, please delete it if you wish to use this boot method! && pause --wait=5 && configfile /multiboot/menu/menu.lst$\r$\n#Modify the following entry if it does not boot$\r$\ntitle Boot $JustISOName$\r$\nset ISO=/multiboot/ISOS/$JustISO$\r$\nfind --set-root %ISO%$\r$\nparttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4% $\r$\nif %check%==0x00 partnew (hd0,3) 0x00 %ISO%$\r$\nif NOT %check%==0x00 echo ERROR: Fourth partition table entry is not empty, please delete it if you wish to use this method! && pause --wait=5 && configfile /multiboot/menu/grubpart4.lst$\r$\nmap %ISO% (0xff)$\r$\nmap --hook$\r$\nroot (0xff)$\r$\nchainloader (0xff)$\r$\n#end $JustISOName" $R0
-		 ${WriteToFile} "#start $JustISOName$\r$\n#Modify the following entry if it does not boot$\r$\ntitle Boot $JustISOName$\r$\nset ISO=/multiboot/ISOS/$JustISO$\r$\nfind --set-root %ISO%$\r$\n$\r$\nparttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4%$\r$\nif $\"%check%$\"==$\"0x00$\" partnew (hd0,3) 0 0 0$\r$\nif NOT $\"%check%$\"==$\"0x00$\" echo ERROR: Fourth partition table entry is not empty, please delete it if you wish to use this method && pause --wait=5 && configfile /multiboot/menu/grubpart4.lst$\r$\npartnew (hd0,3) 0x00 %ISO%$\r$\nmap %ISO% (0xff)$\r$\nmap --hook$\r$\nroot (0xff)$\r$\nchainloader (0xff)$\r$\n#end $JustISOName" $R0
+		 ; ${WriteToFile} "#[ $JustISOName$\r$\n#Modify the following entry if it does not boot$\r$\ntitle Boot $JustISOName$\r$\nset ISO=/multiboot/ISOS/$JustISO$\r$\nfind --set-root %ISO%$\r$\nparttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4% $\r$\nif %check%==0x00 partnew (hd0,3) 0x00 %ISO%$\r$\nif NOT %check%==0x00 echo ERROR: Fourth partition table entry is not empty, please delete it if you wish to use this method! && pause --wait=5 && configfile /multiboot/menu/grubpart4.lst$\r$\nmap %ISO% (0xff)$\r$\nmap --hook$\r$\nroot (0xff)$\r$\nchainloader (0xff)$\r$\n#] $JustISOName" $R0
+		 ; ${WriteToFile} "#[ $JustISOName$\r$\nparttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4%$\r$\nif %check%==0x00 partnew (hd0,3) 0 0 0$\r$\nif not %check%==0x00 echo WARNING: Fourth partition is not empty, please delete it if you wish to use this boot method! && pause --wait=5 && configfile /multiboot/menu/menu.lst$\r$\n#Modify the following entry if it does not boot$\r$\ntitle Boot $JustISOName$\r$\nset ISO=/multiboot/ISOS/$JustISO$\r$\nfind --set-root %ISO%$\r$\nparttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4% $\r$\nif %check%==0x00 partnew (hd0,3) 0x00 %ISO%$\r$\nif NOT %check%==0x00 echo ERROR: Fourth partition table entry is not empty, please delete it if you wish to use this method! && pause --wait=5 && configfile /multiboot/menu/grubpart4.lst$\r$\nmap %ISO% (0xff)$\r$\nmap --hook$\r$\nroot (0xff)$\r$\nchainloader (0xff)$\r$\n#] $JustISOName" $R0
+		 ${WriteToFile} "#[ $JustISOName$\r$\n#Modify the following entry if it does not boot$\r$\ntitle Boot $JustISOName$\r$\nset ISO=/multiboot/ISOS/$JustISO$\r$\nfind --set-root %ISO%$\r$\n$\r$\nparttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4%$\r$\nif $\"%check%$\"==$\"0x00$\" partnew (hd0,3) 0 0 0$\r$\nif NOT $\"%check%$\"==$\"0x00$\" echo ERROR: Fourth partition table entry is not empty, please delete it if you wish to use this method && pause --wait=5 && configfile /multiboot/menu/grubpart4.lst$\r$\npartnew (hd0,3) 0x00 %ISO%$\r$\nmap %ISO% (0xff)$\r$\nmap --hook$\r$\nroot (0xff)$\r$\nchainloader (0xff)$\r$\n#] $JustISOName" $R0
 		 
 		 ${ElseIf} $DistroName == "Try Unlisted ISO (GRUB)" 
 		 CopyFiles $ISOFile "$BootDir\multiboot\ISOS\$JustISO"
-		 ${WriteToFile} "#start $JustISOName$\r$\n#Modify the following entry if it does not boot$\r$\ntitle Boot $JustISO$\r$\nfind --set-root --ignore-floppies --ignore-cd /multiboot/ISOS/$JustISO$\r$\nmap --heads=0 --sectors-per-track=0 /multiboot/ISOS/$JustISO (hd32)$\r$\nmap --hook$\r$\nchainloader (hd32)$\r$\n#end $JustISOName" $R0 
+		 ${WriteToFile} "#[ $JustISOName$\r$\n#Modify the following entry if it does not boot$\r$\ntitle Boot $JustISO$\r$\nfind --set-root --ignore-floppies --ignore-cd /multiboot/ISOS/$JustISO$\r$\nmap --heads=0 --sectors-per-track=0 /multiboot/ISOS/$JustISO (hd32)$\r$\nmap --hook$\r$\nchainloader (hd32)$\r$\n#] $JustISOName" $R0 
 		 
 		 ${ElseIf} $DistroName == "Try Unlisted ISO (GRUB from RAM)" 
 		 CopyFiles $ISOFile "$BootDir\multiboot\ISOS\$JustISO"
-		 ${WriteToFile} "#start $JustISOName$\r$\n#Modify the following memory based entry if it does not boot$\r$\ntitle Boot $JustISO from Memory$\r$\nfind --set-root --ignore-floppies --ignore-cd /multiboot/ISOS/$JustISO$\r$\nmap --heads=0 --sectors-per-track=0 --mem /multiboot/ISOS/$JustISO (hd32)$\r$\nmap --hook$\r$\nroot (hd32)$\r$\nchainloader (hd32)$\r$\n#end $JustISOName" $R0
+		 ${WriteToFile} "#[ $JustISOName$\r$\n#Modify the following memory based entry if it does not boot$\r$\ntitle Boot $JustISO from Memory$\r$\nfind --set-root --ignore-floppies --ignore-cd /multiboot/ISOS/$JustISO$\r$\nmap --heads=0 --sectors-per-track=0 --mem /multiboot/ISOS/$JustISO (hd32)$\r$\nmap --hook$\r$\nroot (hd32)$\r$\nchainloader (hd32)$\r$\n#] $JustISOName" $R0
 		 
 		; Ultimate Boot CD (Diagnostics Tools)
 		; ${ElseIf} $DistroName == "Ultimate Boot CD (Diagnostics Tools)"  
 		; CopyFiles $ISOFile "$BootDir\multiboot\ISOS\$JustISO"
-		; ${WriteToFile} "#start $JustISOName$\r$\nlabel Ultimate Boot CD ($JustISOName)$\r$\nmenu label Ultimate Boot CD ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/ubcd.lst$\r$\n#end $JustISOName" $R0   
-		; File /oname=$PLUGINSDIR\ubcd.lst "Menu\ubcd.lst"  
+		; ${WriteToFile} "#[ $JustISOName$\r$\nlabel Ultimate Boot CD ($JustISOName)$\r$\nmenu label Ultimate Boot CD ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/ubcd.lst$\r$\n#] $JustISOName" $R0   
+		; File /oname=$PLUGINSDIR\ubcd.lst "பட்டியல்\ubcd.lst"  
 		; CopyFiles "$PLUGINSDIR\ubcd.lst" "$BootDir\multiboot\menu\ubcd.lst" 
 		; !insertmacro ReplaceInFile "SLUG" "$JustISO" "all" "all" "$BootDir\multiboot\menu\ubcd.lst"  
 		 
 		 ${ElseIf} $DistroName == "Puppy Arcade"  
 		 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\multiboot\$JustISOName\" -y'  
-		 ${WriteToFile} "#start $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/$JustISOName/arcade.lst$\r$\n#end $JustISOName" $R0   
-		 File /oname=$PLUGINSDIR\arcade.lst "Menu\arcade.lst"  
+		 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/$JustISOName/arcade.lst$\r$\n#] $JustISOName" $R0   
+		 File /oname=$PLUGINSDIR\arcade.lst "பட்டியல்\arcade.lst"  
 		 CopyFiles "$PLUGINSDIR\arcade.lst" "$BootDir\multiboot\$JustISOName\arcade.lst" 
 		 !insertmacro ReplaceInFile "SLUG" "$JustISOName" "all" "all" "$BootDir\multiboot\$JustISOName\arcade.lst"  
 		 
 		 ${ElseIf} $DistroName == "Super Grub2 Disk"  
 		 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\multiboot\$JustISOName\" -y'  
-		 ${WriteToFile} "#start $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/$JustISOName/sgd.lst$\r$\n#end $JustISOName" $R0   
-		 File /oname=$PLUGINSDIR\sgd.lst "Menu\sgd.lst"  
+		 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/$JustISOName/sgd.lst$\r$\n#] $JustISOName" $R0   
+		 File /oname=$PLUGINSDIR\sgd.lst "பட்டியல்\sgd.lst"  
 		 CopyFiles "$PLUGINSDIR\sgd.lst" "$BootDir\multiboot\$JustISOName\sgd.lst" 
 		 !insertmacro ReplaceInFile "SLUG" "$JustISOName" "all" "all" "$BootDir\multiboot\$JustISOName\sgd.lst"   
 	 
 	 ; Vba32 Rescue - NOT READY YET
 	 ; ${ElseIf} $DistroName == "Vba32 Rescue"
 	 ; ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\" -y' 
-	 ; ${WriteToFile} "#start $JustISOName$\r$\nLABEL Vba32 Rescue ($JustISOName)$\r$\nMENU LABEL Vba32 Rescue ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/$JustISOName/vba/kernel$\r$\nAPPEND initrd=/multiboot/$JustISOName/vba/initrd$\r$\n#end $JustISOName" $R0
+	 ; ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Vba32 Rescue ($JustISOName)$\r$\nMENU LABEL Vba32 Rescue ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/$JustISOName/vba/kernel$\r$\nAPPEND initrd=/multiboot/$JustISOName/vba/initrd$\r$\n#] $JustISOName" $R0
 	 
 	 ${Else}
 	 ;Else:
 	 ; Start Catch All Install Methods 
 	 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\multiboot\$JustISOName\" -y'  
 	 Call FindConfig
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/$JustISOName/$ConfigPath/$ConfigFile$\r$\nAPPEND /multiboot/$JustISOName/$ConfigPath$\r$\n#end $JustISOName" $R0 
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/$JustISOName/$ConfigPath/$ConfigFile$\r$\nAPPEND /multiboot/$JustISOName/$ConfigPath$\r$\n#] $JustISOName" $R0 
 
 	 ; For Ubuntu Desktop and derivatives
 	  ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\isolinux\txt.cfg" ; Rename the following for isolinux txt.cfg
@@ -1821,7 +1804,7 @@ FunctionEnd
 			 !insertmacro ReplaceInFile "cdrom-detect/try-usb=true noprompt" "cdrom-detect/try-usb=true persistent persistent-path=/multiboot/$JustISOName noprompt" "all" "all" "$BootDir\multiboot\$JustISOName\boot\grub\loopback.cfg"  
 		 ${EndIf} 
 		 ; Create Casper-rw file
-		 Call CasperScriptAlt1  
+		 Call CasperScript  
 		 Call WriteStuff
     ${EndIf}
 !macroend

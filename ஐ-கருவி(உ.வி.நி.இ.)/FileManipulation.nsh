@@ -1,13 +1,12 @@
-﻿
-; -------- Configuration and Text File Manipulation Stuff! --------
+﻿; -------- Configuration and Text File Manipulation Stuff! --------
 
-Function WriteToFile ; <- WriteToFile Function originally written by Afrow UK http://nsis.sourceforge.net/Simple_write_text_to_file, and modified to populate *.cfg file with the distro user installed!
+Function WriteToFile ; modified to populate *.cfg file with the distro user installed!
  Exch $R0 ;file to write to
  Exch
  Exch $1 ;text to write
  FileOpen $R0 '$BootDir\multiboot\menu\$Config2Use' a 
  FileSeek $R0 0 END
- FileWrite $R0 '$\r$\n$1' ; was $\r$\n$1$\r$\n
+ FileWrite $R0 '$\r$\n$1' ; புதிய வரி மற்றும் தரவைச் சேர்க்கவும்
  FileClose $R0
  Pop $1
  Pop $R0
@@ -44,12 +43,12 @@ Function InstalledList ; Creates a list of installed distros in the multiboot fo
    Exch $R0 ;file to write to
    Exch
    Exch $1 ;text to write
-   ${If} ${FileExists} "$BootDir\multiboot\நிறுவப்பட்டது.txt" 
-    FileOpen $R0 '$BootDir\multiboot\நிறுவப்பட்டது.txt' a 
+   ${If} ${FileExists} "$BootDir\multiboot\நிறுவப்பட்டது.உரை" 
+    FileOpen $R0 '$BootDir\multiboot\நிறுவப்பட்டது.உரை' a 
     FileSeek $R0 0 END
 	FileWrite $R0 '$\r$\n$1' ; add subsequent entry on a new line
    ${Else}
-    FileOpen $R0 '$BootDir\multiboot\நிறுவப்பட்டது.txt' a 
+    FileOpen $R0 '$BootDir\multiboot\நிறுவப்பட்டது.உரை' a 
     FileSeek $R0 0 END
     FileWrite $R0 '$1'  ; add first entry without a new line
    ${EndIf}
@@ -65,7 +64,7 @@ FunctionEnd
 !macroend  
 !define InstalledList "!insertmacro InstalledList"
 
-Function Trim ; Remove leading and trailing whitespace from string - orgiginal function by Iceman_K  http://nsis.sourceforge.net/Remove_leading_and_trailing_whitespaces_from_a_string edited for use with ஐ
+Function Trim ; ஐ உடன் பயன்படுத்த திருத்தப்பட்ட முன்னணி மற்றும் பின்னால் உள்ள இடைவெளியை அகற்று
 	Exch $R1 ; Original string
 	Push $R2
 Loop:
@@ -100,10 +99,10 @@ FunctionEnd
 !define Trim "!insertmacro Trim" 
 
 Function RemovalList ; Lists the distros installed on the select drive.
- ${NSD_SetText} $LinuxDistroSelection "Step 2: Select a Distribution from the list to remove from $DestDisk"  
- ${If} ${FileExists} "$BootDir\multiboot\நிறுவப்பட்டது.txt" ; Are there distributions on the select drive? 
+ ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskஇலிருந்து அகற்ற தேர்வு"  
+ ${If} ${FileExists} "$BootDir\multiboot\நிறுவப்பட்டது.உரை" ; Are there distributions on the select drive? 
  ClearErrors
- FileOpen $0 $BootDir\multiboot\நிறுவப்பட்டது.txt r
+ FileOpen $0 $BootDir\multiboot\நிறுவப்பட்டது.உரை r
   loop:
    FileRead $0 $1
     IfErrors done
@@ -119,7 +118,7 @@ Function RemovalList ; Lists the distros installed on the select drive.
 FunctionEnd
 
 !include "TextFunc.nsh" ; TextFunc.nsh required for the following DeleteInstall function
-Function DeleteInstall  ; நிறுவப்பட்டது.txtஇலிருந்து உள்ளீட்டைத் தேர்ந்தெடு நீக்குகிறது          
+Function DeleteInstall  ; நிறுவப்பட்டது.உரைஇலிருந்து உள்ளீட்டைத் தேர்ந்தெடு நீக்குகிறது          
 	StrLen $0 "$DistroName"
 	StrCpy $1 "$R9" $0
 	StrCmp $1 "$DistroName" 0 End
@@ -128,7 +127,7 @@ Function DeleteInstall  ; நிறுவப்பட்டது.txtஇலி�
 	Push $0
 FunctionEnd
 
-Function DeleteEmptyLine ; Deletes empty lines    
+Function DeleteEmptyLine ;நிறுவப்பட்டது.உரையிலிருந்து வெற்று வரியை நீக்குகிறது
 	StrLen $0 "$\r$\n"
 	StrCpy $1 "$R9" $0
 	StrCmp $1 "$\r$\n" 0 End
@@ -232,8 +231,6 @@ Function StrRep ;http://nsis.sourceforge.net/mediawiki/index.php?title=StrRep&di
   Pop $R1
   Exch $R0
 FunctionEnd
-
-
 ; Persistent File Creation Progress
 Function ddProgress
  ${Do}

@@ -1,9 +1,7 @@
 ﻿; ------------ Distro List -------------- 
 
 Function SetISOFileName ; Distro2Check (Name of the Distro), ISO2Check2 (The ISO File name before extraction), Download2Get (Download Link), Path2Name (Final destination/Name of File), GimmeSize (Size of the File), Config2Use (Config File to Write To), File2Check (file to check for before adding Menu entry), Homepage, OfficialName
- 
      !insertmacro SetISOFileNames "--- உபுண்டு 32/64 இருமம் ---" "" "" "" "" "" ""
-	 	 
  !insertmacro SetISOFileNames "Ubuntu" "ubuntu*desktop*.iso" "https://www.ubuntu.com/download/desktop" "casper" "linux.cfg" "https://www.ubuntu.com/desktop" "Ubuntu"
  !insertmacro SetISOFileNames "Edubuntu" "edubuntu*.iso" "https://edubuntu.org/download" "casper" "linux.cfg" "https://edubuntu.org" "Edubuntu" 
  !insertmacro SetISOFileNames "Kubuntu" "kubuntu*desktop*.iso" "https://kubuntu.org/getkubuntu/" "casper" "linux.cfg" "https://www.kubuntu.org" "Kubuntu"
@@ -34,18 +32,15 @@ Function SetISOFileName ; Distro2Check (Name of the Distro), ISO2Check2 (The ISO
  !insertmacro SetISOFileNames "Debian Live" "debian-live*.iso" "https://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/" "NULL" "linux.cfg" "https://www.debian.org" "Debian Live"
  ;!insertmacro SetISOFileNames "Debian Live 64bit" "debian-live*desktop.iso" "http://cdimage.debian.org/cdimage/release/current-live/amd64/iso-hybrid/" "NULL" "linux.cfg" "http://live.debian.net" "Debian Live"
 
-
      !insertmacro SetISOFileNames "--- Fedora 32/64 இருமம் ---" "" "" "" "" "" ""
  
  !insertmacro SetISOFileNames "Fedora" "Fedora*Live*.iso" "https://getfedora.org/en/workstation/download/" "NULL" "linux.cfg" "https://fedoraproject.org" "Fedora"	 
-
 
      !insertmacro SetISOFileNames "--- OpenSUSE ---" "" "" "" "" "" ""
 
  ;!insertmacro SetISOFileNames "OpenSUSE 32bit" "openSUSE*86.iso" "http://suse.mirrors.tds.net/pub/opensuse/distribution/13.2/iso/openSUSE-13.2-GNOME-Live-i686.iso" "NULL" "linux.cfg" "http://software.opensuse.org" "OpenSUSE"	 
  ;!insertmacro SetISOFileNames "OpenSUSE 64bit" "openSUSE*64.iso" "http://suse.mirrors.tds.net/pub/opensuse/distribution/13.2/iso/openSUSE-13.2-GNOME-Live-x86_64.iso" "NULL" "linux.cfg" "http://software.opensuse.org" "OpenSUSE"	 
  !insertmacro SetISOFileNames "OpenSUSE" "openSUSE*.iso" "http://linuxfreedom.com/opensuse/distribution/13.2/iso/openSUSE-13.2-GNOME-Live-x86_64.iso" "NULL" "linux.cfg" "https://software.opensuse.org" "OpenSUSE"	 
-
 
      !insertmacro SetISOFileNames "--- Puppy Linux Based ---" "" "" "" "" "" ""
 	 
@@ -149,10 +144,8 @@ Function SetISOFileName ; Distro2Check (Name of the Distro), ISO2Check2 (The ISO
  !insertmacro SetISOFileNames "Xiaopan (Penetration Testing)" "Xiaopan*.iso" "https://sourceforge.net/projects/xiaopanos/files/latest/download" "NULL" "linux.cfg" "https://xiaopan.co" "Xiaopan" 
  !insertmacro SetISOFileNames "Zorin OS Core" "zorin*.iso" "https://zorinos.com/download/" "NULL" "linux.cfg" "https://zorin-os.com/" "Zorin OS"
  
+     !insertmacro SetISOFileNames "--- அறியப்படாத உலாவிகள் ---" "" "" "" "" "" ""
 
-     !insertmacro SetISOFileNames "--- Anonymous Browsers ---" "" "" "" "" "" ""
-
- 
  !insertmacro SetISOFileNames "Kodachi (Anonymous Browsing)" "kodachi*.iso" "https://sourceforge.net/projects/linuxkodachi/files/latest/download" "NULL" "anon.cfg" "https://www.digi77.com/linux-kodachi/" "Kodachi"
  !insertmacro SetISOFileNames "Liberte (Anonymous Browsing)" "liberte*.zip" "http://sourceforge.net/projects/liberte/files/2012.3/liberte-2012.3.zip/download" "NULL" "anon.cfg" "http://dee.su/liberte" "Liberte" 
  !insertmacro SetISOFileNames "Tails (Anonymous Browsing)" "tails*.iso" "http://dl.amnesia.boum.org/tails/stable/" "NULL" "anon.cfg" "http://amnesia.boum.org" "Tails"

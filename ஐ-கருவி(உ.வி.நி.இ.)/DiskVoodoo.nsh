@@ -20,20 +20,21 @@ Function "MBRID" ; Let's Get the MBRID for OpenSUSE
  ${Write2mbrid} "$OnlyVal" $R0
 FunctionEnd
 
- Function PhysDrive
+Function PhysDrive
  StrCpy $1 "$JustDrive"
  Push $1
  Call HDDNumber  
  StrCpy $DiskNum $0
- FunctionEnd
+FunctionEnd
 
 Function Lock_Only
  StrCpy $1 "\\.\$JustDrive" -1
  Push $1
  Call Create
  Call LockVol 
-FunctionEnd				  
-; WriteToFile Function originally written by Afrow UK http://nsis.sourceforge.net/Simple_write_text_to_file, modified to populate .cfg file with what the user chose!
+FunctionEnd
+
+; WriteToFile Function modified to populate .cfg file with what the user chose!
 Function Write2mbrid
  Exch $R0 ;file to write to
  Exch
@@ -65,6 +66,7 @@ FunctionEnd
 ; I/O control command
 !define IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS   0x00560000
 !define EXTENTS_BUFFER_SIZE  512
+
 ; Dismount_Volume
 !define FSCTL_DISMOUNT_VOLUME 0x00090020
 
@@ -72,7 +74,8 @@ FunctionEnd
 !define FSCTL_LOCK_VOLUME 0x00090018
 
 ; Unlock_Volume
-!define FSCTL_UNLOCK_VOLUME 0x0009001c										
+!define FSCTL_UNLOCK_VOLUME 0x0009001c
+
 ; Get hard disk number from drive letter
 ; provided as a parameter to this function.
 ; The hard disk number is returned in $0.
@@ -131,6 +134,7 @@ Function HDDNumber
   Pop $2
   Pop $1
 FunctionEnd
+
 Function Create
   Push $8
   
@@ -194,13 +198,13 @@ Function UnLockVol
      i 0, i 0, \\
      i &bytesReturned, i 0) i.r6" ;was i.r7
 	${If} $7 != 0
-	 DetailPrint "தொகுதி $1 பூட்டப்பட்டுள்ளது"
+	 DetailPrint "தொகுதி $1 திறக்கபட்டது"
      System::Call "kernel32::CloseHandle(i r8) i.r6"
 	${Else}	
-	 DetailPrint "தொகுதி $1 பூட்டப்படவில்லை"
+	 DetailPrint "தொகுதி $1 திறக்கவில்லை"
      System::Call "kernel32::CloseHandle(i r8) i.r6"
     ${EndIf} 
 	
   Pop $8  
   Pop $6	
-FunctionEnd 	   
+FunctionEnd

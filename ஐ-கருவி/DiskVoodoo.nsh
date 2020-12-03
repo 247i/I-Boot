@@ -1,21 +1,4 @@
-/*
- * This file is part of YUMI
- *
- * YUMI is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * any later version.
- *
- * YUMI is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with YUMI.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-; ------------- DriveStuff -------------
+﻿; ------------- DriveStuff -------------
 
 !macro Write2mbrid String File
  Push "${String}"
@@ -51,16 +34,7 @@ Function Lock_Only
  Call LockVol 
 FunctionEnd
 
-/*Function Lock_Dismount
- StrCpy $1 "\\.\$JustDrive" -1
- Push $1
- Call Create
- Call LockVol 
- Call DismountVol
- ;Call UnLockVol  
-;FunctionEnd */
-
-; WriteToFile Function originally written by Afrow UK http://nsis.sourceforge.net/Simple_write_text_to_file and further modified to populate .cfg file with what the user chose!
+; WriteToFile Function modified to populate .cfg file with what the user chose!
 Function Write2mbrid
  Exch $R0 ;file to write to
  Exch
@@ -169,11 +143,11 @@ Function Create
      i ${FILE_SHARE_READ}|${FILE_SHARE_WRITE}, \\ 
      i 0, i ${OPEN_EXISTING}, i 0, i 0) i.r8" 
      ${If} $8 != ${INVALID_HANDLE_VALUE} 
-	  DetailPrint "CreateFile Successful"
+	  DetailPrint "கோப்பு வெற்றிகரமாக உருவாக்கப்பட்டது"
 	  System::Call "kernel32::FlushFileBuffers(i r8)"
 	  System::Call "kernel32::CloseHandle(i r8)"
 	 ${Else} 
-	  DetailPrint "CreateFile Failed"	 
+	  DetailPrint "கோப்பை உருவாக்குவதில் தோல்வி"	 
 	  System::Call "kernel32::CloseHandle(i r8)" 
 	 ${EndIf}
 
@@ -197,65 +171,21 @@ Function LockVol
       i 0, i 0, \\
       i &bytesReturned, i 0) i.r7"
 	   ${If} $7 != 0
-	    DetailPrint "Volume $1 Locked"
+	    DetailPrint "தொகுதி $1 பூட்டப்பட்டுள்ளது"
 		System::Call "kernel32::CloseHandle(i r8) i.r7"
 	   ${Else}	
-		DetailPrint "Volume $1 Not Locked"
+		DetailPrint "தொகுதி $1 பூட்டப்படவில்லை"
 		System::Call "kernel32::CloseHandle(i r8) i.r7"
 	   ${EndIf} 
 	   
 	 ${Else}	
-		DetailPrint "Read Pre-Lock Failed"
+		DetailPrint "முன் பூட்டு தோல்வியுற்றது"
 		System::Call "kernel32::CloseHandle(i r8) i.r7"
 	${EndIf} 	
 
   Pop $7 
   Pop $8
 FunctionEnd 
-
-/* Function DismountVol
-  Push $4 
-  Push $8  
-  
-     System::Call "kernel32::CreateFile(t r1, \\ 
-     i ${GENERIC_READ}, \\ 
-     i ${FILE_SHARE_READ}|${FILE_SHARE_WRITE}, \\ 
-     i 0, i ${OPEN_EXISTING}, i 0, i 0) i.r8" 
-    ${If} $8 != ${INVALID_HANDLE_VALUE}   
-  
-	; Send FSCTL_DISMOUNT_VOLUME command		   
-     System::Call "kernel32::DeviceIoControl(i r8, \\
-     i ${FSCTL_DISMOUNT_VOLUME}, \\
-     i 0, i 0, \\
-     i 0, i 0, \\
-     i &bytesReturned, i 0) i.r4"
-     ${If} $4 != 0		
-	  DetailPrint "Volume $1 Dismounted" 
-	  System::Call "kernel32::CloseHandle(i r8) i.r4"
-       ;${If} $DismountAction == "DD_COPY"	
-	   ;DetailPrint "Performing DD Action on $DestDisk - This may take a while..." 
-       ;NsExec::ExecToLog '"$PLUGINSDIR\dd.exe" if=$ISOFile od=$DestDisk bs=1M --size --progress'
-       ;ExecWait '"$PLUGINSDIR\dd.exe" if=$ISOFile od=$DestDisk bs=1M --size --progress'
-       ;${ElseIf} $DismountAction == "WIPE_FORMAT"	
-		 ;Sleep 3000 ; Provide a few second delay to allow things to settle before DismountAction happens
-		 ;NsExec::ExecToLog '"$PLUGINSDIR\dd.exe" if=/dev/zero od=$DestDisk bs=3M count=1 --size --progress' ; this shouldn't be needed
-        ;DetailPrint "Formatting $DestDisk as Fat32. This may take a while, please be patient..."
-        ;nsExec::ExecToLog '"cmd" /c "echo y|$PLUGINSDIR\fat32format $DestDisk"' ;/Q /y
-	   ;${Else}
-	   ;${EndIf}
-     ${Else}	
-	  DetailPrint "Volume $1 Not Dismounted"
-     System::Call "kernel32::CloseHandle(i r8) i.r4"
-	 ${EndIf}
-	 
-    ${Else}	
-		DetailPrint "Read Pre-Dismount Failed"
-		System::Call "kernel32::CloseHandle(i r8) i.r4"
-    ${EndIf} 		 
-	
-  Pop $4 
-  Pop $8
-FunctionEnd	*/
 
 Function UnLockVol	
   Push $6 
@@ -268,16 +198,16 @@ Function UnLockVol
      i 0, i 0, \\
      i &bytesReturned, i 0) i.r6" ;was i.r7
 	${If} $7 != 0
-	 DetailPrint "Volume $1 UnLocked"
+	 DetailPrint "தொகுதி $1 திறக்கபட்டது"
      System::Call "kernel32::CloseHandle(i r8) i.r6"
 	${Else}	
-	 DetailPrint "Volume $1 NOT UnLocked"
+	 DetailPrint "தொகுதி $1 திறக்கவில்லை"
      System::Call "kernel32::CloseHandle(i r8) i.r6"
     ${EndIf} 
 	
   Pop $8  
   Pop $6	
-FunctionEnd 
+FunctionEnd
 
 Function GetVolNameDSK
 nsExec::ExecToLog '"cmd" /c for /f %D in ($\'wmic volume get DriveLetter^, Label ^| find "$VHDLBL"$\') do echo %D > $BootDir\multiboot\$JustISOName\dskvol.txt'

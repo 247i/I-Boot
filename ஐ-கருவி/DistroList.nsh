@@ -1,27 +1,7 @@
-/*
- * This file is part of YUMI
- *
- * YUMI is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * any later version.
- *
- * YUMI is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with YUMI.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-; ------------ Distro List -------------- 
+﻿; ------------ Distro List -------------- 
 
 Function SetISOFileName ; Distro2Check (Name of the Distro), ISO2Check2 (The ISO File name before extraction), Download2Get (Download Link), Path2Name (Final destination/Name of File), GimmeSize (Size of the File), Config2Use (Config File to Write To), File2Check (file to check for before adding Menu entry), Homepage, OfficialName
-
-     !insertmacro SetISOFileNames "--- Ubuntu 32/64 Bit ---" "" "" "" "" "" ""
-	 !insertmacro SetISOFileNames "" "" "" "" "" "" ""
-	 
+     !insertmacro SetISOFileNames "--- உபுண்டு 32/64 இருமம் ---" "" "" "" "" "" ""
  !insertmacro SetISOFileNames "Ubuntu" "ubuntu*desktop*.iso" "https://www.ubuntu.com/download/desktop" "casper" "linux.cfg" "https://www.ubuntu.com/desktop" "Ubuntu"
  !insertmacro SetISOFileNames "Edubuntu" "edubuntu*.iso" "https://edubuntu.org/download" "casper" "linux.cfg" "https://edubuntu.org" "Edubuntu" 
  !insertmacro SetISOFileNames "Kubuntu" "kubuntu*desktop*.iso" "https://kubuntu.org/getkubuntu/" "casper" "linux.cfg" "https://kubuntu.org" "Kubuntu"
@@ -36,51 +16,36 @@ Function SetISOFileName ; Distro2Check (Name of the Distro), ISO2Check2 (The ISO
  !insertmacro SetISOFileNames "Emmabuntus" "emmabuntus*.iso" "https://sourceforge.net/projects/emmabuntus/files/latest/download" "NULL" "linux.cfg" "https://sourceforge.net/projects/emmabuntus/" "Emmabuntus" 
 ;REVISIT !insertmacro SetISOFileNames "Ubuntu Rescue Remix (System Rescue)" "ubuntu-rescue-remix*.iso" "http://ubuntu-rescue-remix.org/Download" "NULL" "system.cfg" "http://ubuntu-rescue-remix.org" "URR"
 
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
-     !insertmacro SetISOFileNames "--- Linux Mint 32/64 Bit ---" "" "" "" "" "" ""
-	 !insertmacro SetISOFileNames "" "" "" "" "" "" ""  
+     !insertmacro SetISOFileNames "--- Linux Mint 32/64 இருமம் ---" "" "" "" "" "" ""
    
  !insertmacro SetISOFileNames "Linux Mint" "linuxmint*.iso" "https://www.linuxmint.com/download.php" "casper" "linux.cfg" "https://www.linuxmint.com" "Linux Mint"
  !insertmacro SetISOFileNames "Linux Mint Debian Edition" "lmde*.iso" "https://www.linuxmint.com/download_lmde.php" "NULL" "linux.cfg" "https://www.linuxmint.com" "Linux Mint"
 
-
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
-     !insertmacro SetISOFileNames "--- CentOS 32/64 Bit ---" "" "" "" "" "" ""
-	 !insertmacro SetISOFileNames "" "" "" "" "" "" ""  
+     !insertmacro SetISOFileNames "--- CentOS 32/64 இருமம் ---" "" "" "" "" "" ""
 	 
  !insertmacro SetISOFileNames "CentOS Live" "CentOS*Live*.iso" "http://mirror.cisp.com/CentOS/7/isos/x86_64/" "NULL" "linux.cfg" "https://www.centos.org" "CentOS"
  !insertmacro SetISOFileNames "CentOS Installer" "CentOS*.iso" "http://mirror.cisp.com/CentOS/7/isos/x86_64/" "NULL" "linux.cfg" "https://www.centos.org" "CentOS"
 
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
-     !insertmacro SetISOFileNames "--- Debian Live 32/64 Bit ---" "" "" "" "" "" ""
-	 !insertmacro SetISOFileNames "" "" "" "" "" "" ""
+     !insertmacro SetISOFileNames "--- Debian Live 32/64 இருமம் ---" "" "" "" "" "" ""
 	 
 ; !insertmacro  SetISOFileNames "Debian Live 32bit" "debian-live*desktop.iso" "http://cdimage.debian.org/debian-cd/current-live/i386/iso-hybrid/" "NULL" "linux.cfg" "http://live.debian.net" "Debian Live"
  !insertmacro SetISOFileNames "Debian Live" "debian-live*.iso" "https://cdimage.debian.org/cdimage/release/current-live/amd64/iso-hybrid/" "NULL" "linux.cfg" "https://www.debian.org" "Debian"
 
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
-     !insertmacro SetISOFileNames "--- Fedora 32/64 Bit ---" "" "" "" "" "" ""
-	 !insertmacro SetISOFileNames "" "" "" "" "" "" ""
+     !insertmacro SetISOFileNames "--- Fedora 32/64 இருமம் ---" "" "" "" "" "" ""
  
  !insertmacro SetISOFileNames "Fedora" "Fedora*Live*.iso" "https://getfedora.org/en/workstation/download/" "NULL" "linux.cfg" "https://getfedora.org/" "Fedora"	
 
  
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
      !insertmacro SetISOFileNames "--- OpenMandriva ---" "" "" "" "" "" ""
-	 !insertmacro SetISOFileNames "" "" "" "" "" "" ""   
 	 
  !insertmacro SetISOFileNames "OpenMandriva" "openMandriva*.iso" "https://sourceforge.net/projects/openmandriva/files/latest/download" "NULL" "linux.cfg" "https://www.openmandriva.org/" "OpenMandriva"	 
 
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
      !insertmacro SetISOFileNames "--- OpenSUSE ---" "" "" "" "" "" ""
-	 !insertmacro SetISOFileNames "" "" "" "" "" "" ""  
 
  !insertmacro SetISOFileNames "OpenSUSE" "openSUSE*.iso" "https://software.opensuse.org/distributions/leap#Live-ports" "NULL" "linux.cfg" "https://software.opensuse.org" "OpenSUSE"	 
  ;!insertmacro SetISOFileNames "OpenSUSE 64bit" "openSUSE*64.iso" "http://linuxfreedom.com/opensuse/distribution/13.2/iso/openSUSE-13.2-GNOME-Live-x86_64.iso" "NULL" "linux.cfg" "http://software.opensuse.org" "OpenSUSE"	 
  
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
      !insertmacro SetISOFileNames "--- Puppy Linux Based ---" "" "" "" "" "" ""
-	 !insertmacro SetISOFileNames "" "" "" "" "" "" ""  
 
  !insertmacro SetISOFileNames "Puppy Linux" "*pup*.iso" "https://distro.ibiblio.org/puppylinux/puppy-fossa/fossapup64-9.5.iso" "NULL" "linux.cfg" "puppylinux.com" "Puppy Linux" 	 
  !insertmacro SetISOFileNames "BionicPup" "bionicpup*.iso" "https://distro.ibiblio.org/puppylinux/puppy-bionic/" "NULL" "linux.cfg" "http://wikka.puppylinux.com/BionicPup" "Bionic Puppy 8"	 	 
@@ -96,17 +61,13 @@ Function SetISOFileName ; Distro2Check (Name of the Distro), ISO2Check2 (The ISO
  !insertmacro SetISOFileNames "Wary Puppy Linux" "wary*.iso" "https://distro.ibiblio.org/quirky/wary-5.5/wary-5.5.iso" "NULL" "linux.cfg" "http://wikka.puppylinux.com/Wary" "Wary Puppy Linux"	 
  !insertmacro SetISOFileNames "Xenialpup" "xenialpup*.iso" "https://distro.ibiblio.org/puppylinux/puppy-xenial/64/xenialpup64-7.5-uefi.iso" "NULL" "linux.cfg" "http://wikka.puppylinux.com/Xenialpup" "Xenialpup"
 
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
-     !insertmacro SetISOFileNames "--- Netbook Distributions 32/64 Bit---" "" "" "" "" "" ""
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
+     !insertmacro SetISOFileNames "--- Netbook Distributions 32/64 இருமம்---" "" "" "" "" "" ""
 	 
  !insertmacro SetISOFileNames "EasyPeasy (NetBook Distro)" "EasyPeasy*.iso" "http://sourceforge.net/projects/ubuntu-eee/files/EasyPeasy/EasyPeasy-1.6.iso/download" "NULL" "netbook.cfg" "https://sourceforge.net/projects/ubuntu-eee/" "EasyPeasy"
  ;Discontinued !insertmacro SetISOFileNames "Jolicloud (NetBook Distro)" "joli*.iso" "http://www.jolicloud.com/jolios/download/jolicloud-iso/thank-you" "NULL" "netbook.cfg" "http://www.jolicloud.com" "Jolicloud"
  !insertmacro SetISOFileNames "xPUD (Netbook Distro)" "xpud*.iso" "https://ftp.ubuntu-tw.org/mirror/download.xpud.org/xpud-0.9.2.iso" "NULL" "netbook.cfg" "http://www.xpud.org" "xPud"
 
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
-     !insertmacro SetISOFileNames "--- Other Distros 32/64 Bit ---" "" "" "" "" "" ""
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""	 
+     !insertmacro SetISOFileNames "--- மற்ற Distros 32/64 இருமம் ---" "" "" "" "" "" ""
 	 
  !insertmacro SetISOFileNames "Alpine Linux" "alpine*.iso" "https://alpinelinux.org/downloads/" "NULL" "linux.cfg" "https://alpinelinux.org/" "Alpine Linux" 
  !insertmacro SetISOFileNames "Android x86" "android-x86*.iso" "https://www.fosshub.com/Android-x86.html" "NULL" "linux.cfg" "http://www.android-x86.org/" "Android-x86"   	 
@@ -194,16 +155,12 @@ Function SetISOFileName ; Distro2Check (Name of the Distro), ISO2Check2 (The ISO
  !insertmacro SetISOFileNames "Xiaopan (Penetration Testing)" "Xiaopan*.iso" "http://sourceforge.net/projects/xiaopanos/files/latest/download" "NULL" "linux.cfg" "http://xiaopan.co" "Xiaopan" 
  !insertmacro SetISOFileNames "Zorin OS Core" "zorin*.iso" "https://zorinos.com/download/#core" "NULL" "linux.cfg" "https://zorin-os.com/" "Zorin OS"
  
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
-     !insertmacro SetISOFileNames "--- Anonymous Browsers ---" "" "" "" "" "" ""
-     !insertmacro SetISOFileNames "" "" "" "" "" "" "" 
+     !insertmacro SetISOFileNames "--- அறியப்படாத உலாவிகள் ---" "" "" "" "" "" ""
 	 
   !insertmacro SetISOFileNames "Kodachi (Anonymous Browsing)" "kodachi*.iso" "https://sourceforge.net/projects/linuxkodachi/files/latest/download" "NULL" "anon.cfg" "https://www.digi77.com/linux-kodachi/" "Kodachi"	 
   !insertmacro SetISOFileNames "Tails (Anonymous Browsing)" "tails*.iso" "http://dl.amnesia.boum.org/tails/stable/" "NULL" "anon.cfg" "http://amnesia.boum.org" "Tails"	 
  
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
      !insertmacro SetISOFileNames "--- Antivirus Tools ---" "" "" "" "" "" ""
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
 	 
  !insertmacro SetISOFileNames "Acronis Antimalware CD" "AcronisAntimalwareScanCD.iso" "http://download.acronis.com/iso/AcronisAntimalwareScanCD.iso" "NULL" "antivirus.cfg" "http://kb.acronis.com/content/18647" "Acronis"
  !insertmacro SetISOFileNames "Antivirus Live CD (Virus Scanner)" "AntivirusLiveCD*.iso" "http://sourceforge.net/projects/antiviruslivecd/files/latest/download" "NULL" "antivirus.cfg" "http://antiviruslivecd.4mlinux.com" "Antivirus Live CD"  
@@ -223,10 +180,8 @@ Function SetISOFileName ; Distro2Check (Name of the Distro), ISO2Check2 (The ISO
  !insertmacro SetISOFileNames "Panda SafeCD" "PandaSafeCD.iso" "http://www.pandasecurity.com/resources/sop/SafeCD/PandaSafeCD.iso" "NULL" "antivirus.cfg" "http://www.pandasecurity.com/usa/homeusers/support/card?id=80152" "Panda Safe CD"
  ;REVISIT !insertmacro SetISOFileNames "Vba32 Rescue" "vbarescue.iso" "ftp://anti-virus.by/pub/vbarescue.iso" "NULL" "antivirus.cfg" "http://www.anti-virus.by/en/vba32rescue.shtml" "Vba32 Rescue"
  !insertmacro SetISOFileNames "Windows Defender Offline" "WDO_Media*.iso" "http://go.microsoft.com/fwlink/?LinkID=234123" "NULL" "antivirus.cfg" "http://windows.microsoft.com/en-US/windows/what-is-windows-defender-offline" "Windows Defender"
- 
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
+
      !insertmacro SetISOFileNames "--- System Tools ---" "" "" "" "" "" ""
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
 	 
  ; BROKEN !insertmacro SetISOFileNames "Acronis True Image" "Acronis_True_Image*.iso" "NONE" "NULL" "system.cfg" "http://www.acronis.com" "Acronis True-Image" 
  !insertmacro SetISOFileNames "BackBox (Penetration Testing)" "backbox*.iso" "http://backbox.mirror.garr.it/mirrors/backbox/backbox-4.5.1-i386.iso" "NULL" "system.cfg" "http://www.backbox.org/" "BackBox"
@@ -241,6 +196,7 @@ Function SetISOFileName ; Distro2Check (Name of the Distro), ISO2Check2 (The ISO
  !insertmacro SetISOFileNames "Deft (Forensics)" "deft*.iso" "http://www.deftlinux.net/download/" "NULL" "system.cfg" "http://www.deftlinux.net/" "Deft"
  !insertmacro SetISOFileNames "DRBL (Diskless Remote Boot in Linux)" "drbl-live*.iso" "http://sourceforge.net/projects/drbl/files/latest/download" "NULL" "system.cfg" "http://drbl.sourceforge.net" "DRBL"	 
  !insertmacro SetISOFileNames "EASEUS Disk Copy (Disk Cloning Tool)" "Disk_Copy*.iso" "http://majorgeeks.com/EaseUs_Disk_Copy_d4845.html" "NULL" "system.cfg" "http://www.easeus.com" "EASEUS Disk Copy"
+																																							   
  !insertmacro SetISOFileNames "FreeDOS (Balder img)" "balder10.img" "http://www.finnix.org/files/balder10.img" "NULL" "system.cfg" "http://www.finnix.org/Balder" "Finnix Balder"
  !insertmacro SetISOFileNames "G4L (Ghost For Linux)" "g4l*.iso" "http://sourceforge.net/projects/g4l/files/latest/download" "NULL" "system.cfg" "http://sourceforge.net/projects/g4l/" "G4L"
  !insertmacro SetISOFileNames "GParted (Partition Tools)" "gparted-live*.iso" "http://sourceforge.net/projects/gparted/files/latest" "NULL" "system.cfg" "http://gparted.sourceforge.net" "gParted"
@@ -248,6 +204,7 @@ Function SetISOFileName ; Distro2Check (Name of the Distro), ISO2Check2 (The ISO
  !insertmacro SetISOFileNames "HD Sentinel (HDD Diagnostics)" "hdsdos_cd*.zip" "https://www.hdsentinel.com/hdsdos/hdsdos_cd.zip" "NULL" "system.cfg" "https://www.hdsentinel.com/" "HD Sentintel" 
 ;REVISIT !insertmacro SetISOFileNames "HDT (Hardware Detection Tool)" "hdt-0.5.2.img" "http://www.hdt-project.org/raw-attachment/wiki/hdt-0.5.0/hdt-0.5.2.img" "NULL" "system.cfg" "http://hdt-project.org" "HDT" 
  !insertmacro SetISOFileNames "Kali (Penetration Testing)" "kali*.iso" "http://www.kali.org/downloads/" "NULL" "system.cfg" "http://www.kali.org/" "Kali"
+																																														  
  !insertmacro SetISOFileNames "Memtest86+ (Memory Testing Tool)" "memtest86+*.bin.zip" "http://www.memtest.org/download/5.31b/memtest86+-5.31b.bin.zip" "NULL" "system.cfg" "http://www.memtest.org" "Memtest86+" 
  !insertmacro SetISOFileNames "Matriux (Penetration Testing)" "Matriux*.iso" "http://sourceforge.net/projects/matriux/files/latest/download" "NULL" "system.cfg" "http://www.matriux.com" "Matriux"
  !insertmacro SetISOFileNames "Offline NT Password & Registry Editor" "usb*.zip" "http://pogostick.net/~pnh/ntpasswd/usb140201.zip" "NULL" "system.cfg" "https://pogostick.net/~pnh/ntpasswd/" "Offline NT"
@@ -275,9 +232,7 @@ Function SetISOFileName ; Distro2Check (Name of the Distro), ISO2Check2 (The ISO
 
 ;REVISIT filename contains spaces !insertmacro SetISOFileNames "XIAOPAN (Wireless Penetration Testing)" "XIAOPAN*.iso" "http://sourceforge.net/projects/xiaopanos/files/latest/download" "NULL" "system.cfg" "http://xiaopan.co/forums/" "XIAOPAN"
 
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
      !insertmacro SetISOFileNames "--- Other OS/Tools ---" "" "" "" "" "" ""
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
 	 
 ;Unknown status !insertmacro SetISOFileNames "Linux Live Tools for OCZ" "ocz_tools*.iso" "NONE" "NULL" "other.cfg" "http://www.ocztechnologyforum.com/forum/showthread.php?99275-NEW!-Bootable-Linux-based-tools-for-OCZ-SSD-s" "OCZ" 
  !insertmacro SetISOFileNames "Falcon 4 Boot CD" "F4UBCD*.iso" "NONE" "NULL" "other.cfg" "" ""
@@ -289,9 +244,7 @@ Function SetISOFileName ; Distro2Check (Name of the Distro), ISO2Check2 (The ISO
  !insertmacro SetISOFileNames "Sergei Strelec" "*sergei*strelec*.iso" "NONE" "NULL" "other.cfg" "" "" 
  !insertmacro SetISOFileNames "Super Grub2 Disk" "super_grub2*.iso" "https://sourceforge.net/projects/supergrub2/files/latest/download" "https://www.supergrubdisk.org/" "other.cfg" "" "" 
  
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
      !insertmacro SetISOFileNames "--- Windows to Go/Installers ---" "" "" "" "" "" ""
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
 	 
  ;!insertmacro SetISOFileNames "Windows 10 Installer" "*.iso" "NONE" "NULL" "menu.lst" "" "" 
  ; For Syslinux --- !insertmacro SetISOFileNames "Windows Vista/7/8" "*.iso" "NONE" "NULL" "other.cfg" "" ""
@@ -301,17 +254,13 @@ Function SetISOFileName ; Distro2Check (Name of the Distro), ISO2Check2 (The ISO
  !insertmacro SetISOFileNames "Single Windows Vista/7/8/10 Installer" "*.iso" "NONE" "NULL" "win.lst" "" ""  
  !insertmacro SetISOFileNames "Single Windows XP Installer" "*.iso" "NONE" "NULL" "win.lst" "" ""   
  
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
      !insertmacro SetISOFileNames "--- Windows PE Builds ---" "" "" "" "" "" ""
-     !insertmacro SetISOFileNames "" "" "" "" "" "" "" 
  
  !insertmacro SetISOFileNames "Single Windows PE" "*.iso" "NONE" "NULL" "pe.lst" "" ""   
  !insertmacro SetISOFileNames "Multiple Windows PE -bootmgr" "*.iso" "NONE" "NULL" "pe.lst" "" ""  
  ;REVISIT !insertmacro SetISOFileNames "Multiple Windows PE -wimboot" "*.iso" "NONE" "NULL" "pe.lst" "" ""   
  
-     !insertmacro SetISOFileNames "" "" "" "" "" "" ""
      !insertmacro SetISOFileNames "--- Try an Unlisted ISO ---" "" "" "" "" "" ""
-     !insertmacro SetISOFileNames "" "" "" "" "" "" "" 	 
  
 ; REVISIT !insertmacro SetISOFileNames "Try Unlisted ISO (Virtual Hard Disk DD)" "*.iso" "NONE" "NULL" "vhd.lst" "" ""  
 ; REVISIT !insertmacro SetISOFileNames "Try Unlisted ISO (Virtual Hard Disk)" "*.iso" "NONE" "NULL" "vhd.lst" "" ""   

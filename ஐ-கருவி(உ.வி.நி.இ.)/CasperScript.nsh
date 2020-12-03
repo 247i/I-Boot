@@ -1,23 +1,8 @@
 ﻿; ------------ Casper Script --------------
-/* Function CasperScript
-${If} $Casper != "0"
- Call GetCaspTools
-  ${If} $DistroName == "Debian Live"
-  nsExec::ExecToLog '"$PLUGINSDIR\dd.exe" if=/dev/zero of=$BootDir\multiboot\$JustISOName\persistence bs=1M count=$Casper --progress'
-  nsExec::ExecToLog '"$PLUGINSDIR\mke2fs.exe" -L live-rw $BootDir\multiboot\$JustISOName\persistence'	; was using -b 1024
-  ${Else}
-  nsExec::ExecToLog '"$PLUGINSDIR\dd.exe" if=/dev/zero of=$BootDir\multiboot\$JustISOName\writable bs=1M count=$Casper --progress'
-  nsExec::ExecToLog '"$PLUGINSDIR\mke2fs.exe" -L casper-rw $BootDir\multiboot\$JustISOName\writable'	; was using -b 1024
-  ${EndIf}
-${EndIf}
-FunctionEnd */
-
-
 Function CasperScript
 ${If} $Casper != "0"
 ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
  Call GetCaspTools
- 
   ${If} $DistroName == "Debian Live"
   StrCpy $CasperName "persistence"
   ${ElseIf} $DistroName == "Raspberry Pi Desktop"
@@ -25,25 +10,23 @@ ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
   ${Else}
   StrCpy $CasperName "writable"
   ${EndIf} 
-  
  SetShellVarContext all
  InitPluginsDir
  ExpandEnvStrings $COMSPEC "%COMSPEC%"
- ExecShell "" '"$COMSPEC"' '/C if 1==1 "$PLUGINSDIR\dd.exe" if=/dev/zero of=$PLUGINSDIR\$CasperName bs=1M count=$Casper --progress 2>$PLUGINSDIR\ddlog.txt' SW_HIDE
+ ExecShell "" '"$COMSPEC"' '/C if 1==1 "$PLUGINSDIR\dd.exe" if=/dev/zero of=$BootDir\multiboot\$JustISOName\$CasperName bs=1M count=$Casper --progress 2>$PLUGINSDIR\ddlog.txt' SW_HIDE
  Banner::show /set 76 "Creating a Persistent File."
  Banner::getWindow
  Pop $1  
- DetailPrint "நிலைத்தன்மை கோப்பை உருவாக்குதல்: முடிவடையும் வரை முன்னேற்றப் பட்டி நகராது..." 
+ DetailPrint "நிலைத்தன்மை கோப்பை உருவாக்குதல்: முடிவடையும் வரை முன்னேற்றப் பட்டி நகராது..."
  Call ddProgress
  Banner::destroy
- 
   ${If} $DistroName == "Raspberry Pi Desktop"
-   nsExec::ExecToLog '"$PLUGINSDIR\mke2fs.exe" -L Persistence $PLUGINSDIR\$CasperName'
+   nsExec::ExecToLog '"$PLUGINSDIR\mke2fs.exe" -L persistence $BootDir\multiboot\$JustISOName\$CasperName'
   ${Else}
-   nsExec::ExecToLog '"$PLUGINSDIR\mke2fs.exe" -L $CasperName $PLUGINSDIR\$CasperName'
+   nsExec::ExecToLog '"$PLUGINSDIR\mke2fs.exe" -L $CasperName $BootDir\multiboot\$JustISOName\$CasperName'
   ${EndIf} 
- CopyFiles $PLUGINSDIR\$CasperName "$BootDir\multiboot\$JustISOName\$CasperName" ; Copy casper-rw to USB
- Delete "$PLUGINSDIR\$CasperName"
+ ;CopyFiles $PLUGINSDIR\$CasperName "$BootDir\multiboot\$JustISOName\$CasperName" ; Copy casper-rw to USB
+ ;Delete "$PLUGINSDIR\$CasperName"
 ${EndIf}
 FunctionEnd
 
@@ -54,8 +37,8 @@ FunctionEnd
 Function GetCaspTools
 SetShellVarContext all
 InitPluginsDir
-File /oname=$PLUGINSDIR\dd.exe "tools\dd.exe"
-File /oname=$PLUGINSDIR\mke2fs.exe "tools\mke2fs.exe"
+File /oname=$PLUGINSDIR\dd.exe "இருமங்கள்\dd.exe"
+File /oname=$PLUGINSDIR\mke2fs.exe "இருமங்கள்\mke2fs.exe"
 DetailPrint "இப்போது ஒரு நிலைத்தன்மை அல்லது எழுதக்கூடிய கோப்பை உருவாக்குதல்" 
 DetailPrint "நிலைத்தன்மை கோப்பை உருவாக்குதல்: முடிவடையும் வரை முன்னேற்றப் பட்டி நகராது. தயவுசெய்து பொருமையாயிறு..." 
 FunctionEnd

@@ -143,10 +143,10 @@ FunctionEnd
  ${DeleteMenuEntry} "$BootDir\multiboot\menu\$Config2Use" "#[ $DistroName" "#] $DistroName" ; கட்டமைப்பு கோப்பிலிருந்து உள்ளீட்டை அகற்று... I.E. linux.cfg, system.cfg, etc
  ${EndIf}
  
-; Write $JustISOName to நிறுவப்பட்டது.txt 
- ${InstalledList} "$JustISOName" $R0 ; Write the ISO name to the Installed List "நிறுவப்பட்டது.txt" file (so we can keep track of installs for removal)
- ${LineFind} "$BootDir\multiboot\நிறுவப்பட்டது.txt" "$BootDir\multiboot\நிறுவப்பட்டது.txt" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
- CopyFiles "$BootDir\multiboot\நிறுவப்பட்டது.txt" "$BootDir\multiboot\நிறுவப்பட்டது-நகல்.txt" ; பாதுகாப்பிற்காக நிறுவப்பட்டது காப்புப்பிரதியை உருவாக்கவும்
+; Write $JustISOName to நிறுவப்பட்டது.உரை 
+ ${InstalledList} "$JustISOName" $R0 ; Write the ISO name to the Installed List "நிறுவப்பட்டது.உரை" file (so we can keep track of installs for removal)
+ ${LineFind} "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
+ CopyFiles "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "$BootDir\multiboot\நிறுவப்பட்டது-நகல்.உரை" ; பாதுகாப்பிற்காக நிறுவப்பட்டது காப்புப்பிரதியை உருவாக்கவும்
  
 ; Create the Directory for this ISOs files
  CreateDirectory "$BootDir\multiboot\$JustISOName\I\" ; Create the I Directory.. so we can eventually copy the config file (see line 90) to it.
