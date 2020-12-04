@@ -1474,7 +1474,7 @@ Pop $NameThatISO
  ${ElseIf} $FormatMe != "Yes" 
 								
  ${AndIfNot} ${FileExists} $BootDir\multiboot\menu\syslinux.cfg
- MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} is Ready to perform the following actions:$\r$\n$\r$\n1. Create a Syslinux MBR on (Drive $DiskNum) $DestDisk - Existing MBR will be Overwritten!$\r$\n$\r$\n2. Create TA Label on $DestDisk (Drive $DiskNum) - Existing Label will be Overwritten!$\r$\n$\r$\n3. Install ($DistroName) on (Disk $DiskNum) $DestDisk$\r$\n$\r$\nAre you absolutely positive Drive $DestDisk on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nClick YES to perform these actions on (Disk $DiskNum) $DestDisk or NO to Go Back!" IDYES proceed
+ MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} is பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1. ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n2. Create TA Label on $DestDisk (Drive $DiskNum) - Existing Label will be Overwritten!$\r$\n$\r$\n3. Install ($DistroName) on (Disk $DiskNum) $DestDisk$\r$\n$\r$\nAre you absolutely positive Drive $DestDisk on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
  Quit
  ${EndIf}
 

@@ -824,7 +824,7 @@ Function ISOBrowse
   ${If} $FSType != "NTFS"
   ${AndIf} $FormatMe != "Yes"
   ${AndIf} $DistroName == "Windows to Go (Virtual Hard Disk)"
-  MessageBox MB_ICONSTOP|MB_OK "WARNING! ($DestDisk) is not NTFS formatted. NTFS is required for the Windows to Go option to work."
+  MessageBox MB_ICONSTOP|MB_OK "எச்சரிக்கை! ($DestDisk) என்.டி.எஃப்.எஸ் வடிவமைக்கப்படவில்லை. விண்டோஸ் டூ கோ விருப்பம் வேலை செய்ய என்.டி.எஃப்.எஸ் தேவை."
  
    ${ElseIf} $FSType != "NTFS"
    ${AndIf} $FormatMe != "Yes"
@@ -951,14 +951,14 @@ Function OnSelectDrive
   Call EnableNext
 
   ${If} $FSType == "exFAT"
-  MessageBox MB_ICONSTOP|MB_OK "WARNING! கணிலினக்சு won't work on exFAT formatted devices. Please format $DestDisk Fat32 or NTFS."
+  MessageBox MB_ICONSTOP|MB_OK "எச்சரிக்கை! கணிலினக்சு exFAT வடிவமைக்கப்பட்ட சாதனங்களில் இயங்காது. $DestDiskஐ Fat32 அல்லது என்.டி.எஃப்.எஸ் ஆக வடிவமைக்கவும்.."
   ${EndIf} 
   
   ${If} ${FileExists} "$BootDir\boot\grub\i.png"  
    ${AndIf} ${FileExists} "$BootDir\boot\grub\lnxboot.img"
     ${AndIf} ${FileExists} "$BootDir\boot\grub\core.img" 
      ${AndIf} ${FileExists} "$BootDir\boot\grub\grub.cfg"  
-     MessageBox MB_ICONSTOP|MB_OK "WARNING! ($DestDisk) contains a I UEFI or GRUB2 based Installation which is not compatible with this version.$\r$\n$\r$\nYou'll need to format this drive if you plan to use this version of I."
+     MessageBox MB_ICONSTOP|MB_OK "எச்சரிக்கை! ($DestDisk) இந்த பதிப்போடு பொருந்தாத உ.வி.நி.இ. அடிப்படையிலான நிறுவலைக் கொண்டிருக்கிறது.$\r$\n$\r$\n ஐ-கருவியின் இந்த பதிப்பைப் பயன்படுத்த நீங்கள் திட்டமிட்டால், இந்த இயக்ககத்தை வடிவமைக்க வேண்டும்."
   ${EndIf} 
 FunctionEnd
 
@@ -1383,21 +1383,21 @@ Pop $NameThatISO
 ; Wipe and Format ---
  ${If} $FormatMe == "Yes" 
   ${AndIf} $WipeMe == "Yes" 
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: Backup any data you want to keep before proceeding! All Data on (Disk $DiskNum) including any attached drive letters, partitions and volumes, even if hidden, will be wiped.$\r$\n$\r$\n${NAME} is ready to perform the following actions:$\r$\n$\r$\n1.) Wipe (Disk $DiskNum) - Data will be Irrecoverably Deleted!$\r$\n$\r$\n2.) Recreate Drive Letter ($DestDisk) with a single NTFS partition.$\r$\n$\r$\n3.) Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n4.) Create TA Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive (Disk $DiskNum) is the correct Disk?$\r$\nDouble Check with Windows diskmgmt to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Abort!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "எச்சரிக்கை: தொடர்வதற்கு முன் ($DestDisk)உடன் இணைக்கப்பட்ட அனைத்து பகிர்வுகளிலிருந்தும் உங்கள் தரவை காப்புப் பிரதி எடுக்கவும்! இணைக்கப்பட்ட இயக்கி எழுத்துக்கள், பகிர்வுகள் மற்றும் தொகுதிகள் உட்பட (வட்டு $DiskNum) உள்ள அனைத்து தரவும் மறைக்கப்பட்டிருந்தாலும் அழிக்கப்படும்.$\r$\n$\r$\n${NAME} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1.) துடை (வட்டு $DiskNum) - தரவு மீளமுடியாமல் நீக்கப்படும்!$\r$\n$\r$\n2.) Recreate Drive Letter ($DestDisk) with a single NTFS partition.$\r$\n$\r$\n3.) ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n4.) ($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\n(வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா??$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
   Quit
  ${ElseIf} $FormatMeFat == "Yes" 
   ${AndIf} $WipeMe == "Yes" 
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: Backup any data you want to keep before proceeding! All Data on (Disk $DiskNum) including any attached drive letters, partitions and volumes, even if hidden, will be wiped.$\r$\n$\r$\n${NAME} is ready to perform the following actions:$\r$\n$\r$\n1.) Wipe (Disk $DiskNum) - Data will be Irrecoverably Deleted!$\r$\n$\r$\n2.) Recreate Drive Letter ($DestDisk) with a single Fat32 partition.$\r$\n$\r$\n3.) Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n4.) Create TA Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive (Disk $DiskNum) is the correct USB Device?$\r$\nDouble Check with Windows diskmgmt to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Abort!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "எச்சரிக்கை: தொடர்வதற்கு முன் ($DestDisk)உடன் இணைக்கப்பட்ட அனைத்து பகிர்வுகளிலிருந்தும் உங்கள் தரவை காப்புப் பிரதி எடுக்கவும்! இணைக்கப்பட்ட இயக்கி எழுத்துக்கள், பகிர்வுகள் மற்றும் தொகுதிகள் உட்பட (வட்டு $DiskNum) உள்ள அனைத்து தரவும் மறைக்கப்பட்டிருந்தாலும் அழிக்கப்படும்.$\r$\n$\r$\n${NAME} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1.) துடை (வட்டு $DiskNum) - தரவு மீளமுடியாமல் நீக்கப்படும்!$\r$\n$\r$\n2.) Recreate Drive Letter ($DestDisk) with a single Fat32 partition.$\r$\n$\r$\n3.) ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n4.) ($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\n(வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
   Quit
   
 ; Format Only ---
  ${ElseIf} $FormatMe == "Yes" 
   ${AndIf} $WipeMe == "No" 
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: Backup any data you want to keep before proceeding! All Data on Drive Letter ($DestDisk) will be deleted.$\r$\n$\r$\n${NAME} is ready to perform the following actions:$\r$\n$\r$\n1.) Lock and Dismount Drive Letter ($DestDisk).$\r$\n$\r$\n2.) NTFS Format ($DestDisk) - Data on ($DestDisk) will be Irrecoverably Deleted!$\r$\n$\r$\n3.) Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n4.) Create TA Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive ($DestDisk) on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows and diskmgmt to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Abort!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "எச்சரிக்கை: தொடர்வதற்கு முன் ($DestDisk)உடன் இணைக்கப்பட்ட அனைத்து பகிர்வுகளிலிருந்தும் உங்கள் தரவை காப்புப் பிரதி எடுக்கவும்! ($DestDisk)உள்ள அனைத்து தரவும் மறைக்கப்பட்டிருந்தாலும் அழிக்கப்படும்.$\r$\n$\r$\n${NAME} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1.) இயக்கி எழுத்து ($DestDisk)பூட்டு மற்றும் இறக்கு.$\r$\n$\r$\n2.) NTFS வடிவமை ($DestDisk) - ($DestDisk)கொண்டிருக்கும் தரவு மீளமுடியாமல் நீக்கப்படும்!$\r$\n$\r$\n3.) ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n4.) ($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\n ($DestDisk)(வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
   Quit
  ${ElseIf} $FormatMeFat == "Yes" 
   ${AndIf} $WipeMe == "No" 
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: Backup your data from all partitions tied to ($DestDisk) before proceeding!$\r$\n$\r$\n${NAME} is Ready to perform the following actions:$\r$\n$\r$\n1.) Lock and Dismount Drive Letter ($DestDisk).$\r$\n$\r$\n2.) Fat32 Format ($DestDisk) - Data on ($DestDisk) will be Irrecoverably Deleted!$\r$\n$\r$\n3.) Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n4.) Create TA Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive ($DestDisk) on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Go Back!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "எச்சரிக்கை: தொடர்வதற்கு முன் ($DestDisk)உடன் இணைக்கப்பட்ட அனைத்து பகிர்வுகளிலிருந்தும் உங்கள் தரவை காப்புப் பிரதி எடுக்கவும்!$\r$\n$\r$\n${NAME} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1.)இயக்கி எழுத்து ($DestDisk)பூட்டு மற்றும் இறக்கு.$\r$\n$\r$\n2.) Fat32 வடிவமை ($DestDisk) - ($DestDisk)கொண்டிருக்கும் தரவு மீளமுடியாமல் நீக்கப்படும்!$\r$\n$\r$\n3.) ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n4.) ($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\n($DestDisk)(வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
    
 		 
 		 
@@ -1408,7 +1408,7 @@ Pop $NameThatISO
  ${ElseIf} $FormatMe != "Yes" 
   ${AndIf} $FormatMeFat != "Yes"
   ${AndIfNot} ${FileExists} $BootDir\multiboot\syslinux.cfg
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} is Ready to perform the following actions:$\r$\n$\r$\n1. Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n2. Create TA Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n3. Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive Drive Letter ($DestDisk) on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows to make sure!$\r$\n$\r$\nClick YES to perform these actions on ($DestDisk) or NO to Go Back!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1. ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n2. ($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n3. Install ($DistroName) on ($DestDisk)$\r$\n$\r$\n($DestDisk)(வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
   Quit
  ${EndIf}
 
