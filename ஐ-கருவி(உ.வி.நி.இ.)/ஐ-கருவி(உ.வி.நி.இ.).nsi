@@ -41,8 +41,6 @@ Var Checker
 Var FileFormat
 Var Format 
 Var FormatMe
-			  
-			   
 Var BlockSize
 Var Dialog
 Var LabelDrivePage
@@ -63,7 +61,6 @@ Var ISOSelection
 Var ISOTest
 Var JustISO
 Var JustISOName
-			
 Var JustISOPath
 Var ConfigFile
 Var ConfigPath
@@ -111,7 +108,6 @@ Var RepeatInstall
 Var ShowAll
 Var ForceShowAll
 Var ShowingAll
-
 Var SizeOfCasper 
 Var Casper
 Var CasperSlider
@@ -120,24 +116,13 @@ Var SlideSpot
 Var RemainingSpace
 Var MaxPersist
 Var Persistence
-
-				   
-		   
-		   
-		  
-		  
 Var CasperName
 Var COMSPEC
 Var PERCENT
-
 Var FSType
 Var DiskNum
 
 !include ReplaceInFile.nsh
-		  
-		  
-			   
-
 !include DiskVoodoo.nsh
 
 ; Interface settings
@@ -225,12 +210,6 @@ Function SelectionsPage
   ${NSD_CreateCheckBox} 60% 0 44% 15 "நிறுவப்பட்டது?"
   Pop $Uninstaller
   ${NSD_OnClick} $Uninstaller Uninstall  
-  
-											
-																  
-		   
-							   
-
  ; Distro Selection Starts
   ${NSD_CreateLabel} 0 50 50% 15 $(Distro_Text) 
   Pop $LinuxDistroSelection   
@@ -241,7 +220,7 @@ Function SelectionsPage
   ${NSD_CB_SelectString} $Distro $DistroName ; Was ${NSD_LB_SelectString} $Distro $DistroName  ; Enable For DropBox 
   
 ; அனைத்து ஐஎஸ்ஓ விருப்பத்தையும் கட்டாயப்படுத்து
-  ${NSD_CreateCheckBox} 80% 100 20% 15 "அனைத்து ஐஎஸ்ஓக்களையும் காண்பிக்கவா?"
+  ${NSD_CreateCheckBox} 80% 100 20% 15 "எல்லா ஐஎஸ்ஓ?"
   Pop $ForceShowAll
   ${NSD_OnClick} $ForceShowAll ShowAllISOs   
 
@@ -260,20 +239,14 @@ Function SelectionsPage
   Pop $LabelISOSelection
   ${NSD_CreateText} 0 120 78% 20 "உலாவி $FileFormat தேர்ந்தெடுக்கவும்"
   Pop $ISOFileTxt 
-  ${NSD_CreateBrowseButton} 85% 120 60 20 "Browse"
+  ${NSD_CreateBrowseButton} 85% 120 60 20 "உலாவு"
   Pop $ISOSelection 
   ${NSD_OnClick} $ISOSelection ISOBrowse   
   
 ; Casper-RW Selection Starts
   ${NSD_CreateLabel} 0 150 75% 15 $(Casper_Text)
   Pop $CasperSelection  
-  
-; CasperSlider - TrackBar
-  ;!define TBM_SETPOS 0x0405
-  ;!define TBM_GETPOS 0x0400
-  ;!define TBM_SETRANGEMIN 0x0407
-  ;!define TBM_SETRANGEMAX 0x0408
-
+ 
   ${NSD_CreateLabel} 52% 178 25% 25 ""
   Pop $SlideSpot  
 
@@ -420,12 +393,6 @@ Function SelectionsPage
 ; Casper-RW Selection Starts
   ${NSD_CreateLabel} 0 150 75% 15 $(Casper_Text)
   Pop $CasperSelection  
-  
-; CasperSlider - TrackBar
-  ; !define TBM_SETPOS 0x0405
-  ; !define TBM_GETPOS 0x0400
-  ; !define TBM_SETRANGEMIN 0x0407
-  ; !define TBM_SETRANGEMAX 0x0408
 
   ${NSD_CreateLabel} 52% 178 25% 25 ""
   Pop $SlideSpot  
@@ -644,12 +611,6 @@ Function EnableNext ; Enable Install Button
   ShowWindow $CasperSelection 1
   ShowWindow $CasperSlider 1
   ShowWindow $SlideSpot 1
-														   
-																		   
-																									  
-		 
-																	  
-																									   
 		   
   ;${NSD_SetText} $Format "Format $JustDrive Drive (Erases Content)"  
 	
@@ -1219,10 +1180,6 @@ FunctionEnd
 
 Function SetSpace ; Set space available for persistence
   ;StrCpy $0 '$0'
-							  
-							
- 
-														
   Call FreeDiskSpace
   IntOp $MaxPersist 4090 + $CasperSize ; Space required for distro and 4GB max persistent file
   ${If} $1 > $MaxPersist ; Check if more space is available than we need for distro + 4GB persistent file
@@ -1233,19 +1190,9 @@ Function SetSpace ; Set space available for persistence
  ${EndIf}
   IntOp $RemainingSpace $RemainingSpace - 1 ; Subtract 1MB so that we don't error for not having enough space
   SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Re-Setting Max Value
-  
-		  
-					
-							 
-																						   
-																											 
-																						
-		  
 FunctionEnd
 
 Function HaveSpacePre ; Check space required
-																																						
-							   
   Call CasperSize
   Call FreeDiskSpace
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
@@ -1265,8 +1212,7 @@ Function HaveSpace ; Check space required
   MessageBox MB_ICONSTOP|MB_OK "Not enough free space remains. Quitting ஐ-கருவி!"
   quit ; Close the program if the disk space was too small...
   okay: ; Proceed to execute...
-  ;MessageBox MB_OK "ISO + Persistence will use $SizeOfCasper MB of the $1 MB Free disk space on $JustDrive Drive."  
-  ;quit ; enable for testing message above
+
 FunctionEnd
 
 !macro DeleteMenuEntry file start stop
@@ -1277,7 +1223,6 @@ Call DeleteMenuEntry
 !macroend
 !define DeleteMenuEntry "!insertmacro DeleteMenuEntry"
 
-; DeleteMenuEntry function based on http://nsis.sourceforge.net/Delete_lines_from_one_line_to_another_line_inclusive.
 Function DeleteMenuEntry
  Exch $1 ;end string
  Exch
@@ -1324,8 +1269,8 @@ Done:
 FunctionEnd
 
 ; Custom Distros Installer - Uninstaller Include
-!include "InstallDistro.nsh" ; ##################################### ADD NEW DISTRO ########################################
-!include "RemoveDistro.nsh" ; ##################################### REM DISTRO ########################################
+!include "InstallDistro.nsh" ; #ADD NEW DISTRO#
+!include "RemoveDistro.nsh" ; # REM DISTRO#
 
 Function DoSyslinux ; Install Syslinux on USB
   ${IfNot} ${FileExists} "$BootDir\multiboot\libcom32.c32" 
@@ -1340,50 +1285,26 @@ Function DoSyslinux ; Install Syslinux on USB
   CreateDirectory $BootDir\multiboot\menu ; recursively create the directory structure if it doesn't exist
   ;CreateDirectory $BootDir\multiboot\ISOS ; create ISOS folder  
   DetailPrint $(ExecuteSyslinux)
-																	  
-									
   ExecWait '$PLUGINSDIR\syslinux.exe -maf -d /multiboot/menu $BootDir' $R8
-																										
-		 
   DetailPrint "Syslinux Errors $R8"
   Banner::destroy
   ${If} $R8 != 0
   MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinux)
   ${EndIf} 
-  DetailPrint "Creating Label TA on $DestDisk"
+  DetailPrint "$DestDisk மேல் TA சிட்டை உருவாக்குகிறது"
   nsExec::ExecToLog '"cmd" /c "LABEL $DestDiskTA"'
   
   SkipSyslinux: 
   DetailPrint $(SkipSyslinux)
   
   ${If} ${FileExists} $BootDir\multiboot\menu\syslinux.cfg   
-												  
-																
-																	  
-				
-
   ${AndIf} ${FileExists} $BootDir\multiboot\menu\memdisk
-												  
-																		  
-		   
-  
-														 
-   DetailPrint "A Previous MultiBoot Installation was detected."
+   DetailPrint "முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது."
    ; Call AddDir
   ${Else}
 ; Create and Copy files to your destination
   DetailPrint "Adding required files to the $BootDir\multiboot directory..." 
   CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\multiboot\உரிமை.உரை"
-																
-																				 
-																			   
-																		 
-																		
-																  
-																  
-																		  
-																			
-															  
   
 ; Copy these files to multiboot\menu
   DetailPrint "Adding required files to the $BootDir\multiboot\menu directory..." 
@@ -1449,28 +1370,8 @@ Pop $NameThatISO
  
 ;checkpoint:
  ${If} $FormatMe == "Yes" 
-							
-																																																																																																																																																																																																																											
-	  
-								 
-							
-																																																																																																																																																																																																																												   
-	  
-  
-				 
-							  
-						   
-																																																																																																																																																																																																														 
-	  
-								 
   MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: Backup your data from all partitions tied to (Disk $DiskNum) before proceeding!$\r$\n$\r$\n${NAME} is Ready to perform the following actions:$\r$\n$\r$\n1. துடைத்து Fat32 வடிவமை ($DestDisk) - All Data will be Irrecoverably Deleted!$\r$\n$\r$\n2. Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n3. Create TA Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n4. Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you positive Drive ($DestDisk) on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Go Back!" IDYES proceed
-	  
-								 
-						   
-																																																																																																																																																																																																														  
  Quit
-  
-						  
  ${ElseIf} $FormatMe != "Yes" 
 								
  ${AndIfNot} ${FileExists} $BootDir\multiboot\menu\syslinux.cfg
@@ -1515,62 +1416,31 @@ Function ConfigRemove ; Find and Set Removal Configuration file
   ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\other.cfg"
   StrCpy $Config2Use "other.cfg"
   ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\unlisted.cfg"
-							 
-																			
   StrCpy $Config2Use "unlisted.cfg"  
 ;  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\menu.lst"
 ;  StrCpy $Config2Use "menu.lst"
-																		  
-									
-																	  
-							   
-																		   
-								  
-																	   
-								
-																		  
-									
-																	  
-							   
-																		  
-									 
   ${EndIf}
   ; MessageBox MB_OK "$Config2Use"
 FunctionEnd
 
 Function Config2Write
- ${If} $Config2Use == "linux.cfg"
-  ${WriteToSysFile} "menuentry $\">ஐ$\"{configfile /multiboot/menu/linux.cfg}" $R0 
- ${ElseIf} $Config2Use == "anon.cfg"
+ ${If} $Config2Use == "anon.cfg"
   ${WriteToSysFile} "menuentry $\">அ$\"{configfile /multiboot/menu/anon.cfg}" $R0  
- ${ElseIf} $Config2Use == "system.cfg"
-  ${WriteToSysFile} "menuentry $\">System Tools$\"{configfile /multiboot/menu/system.cfg}" $R0
  ${ElseIf} $Config2Use == "antivirus.cfg"
-  ${WriteToSysFile} "menuentry $\">Antivirus Tools$\"{configfile /multiboot/menu/antivirus.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">இ$\"{configfile /multiboot/menu/antivirus.cfg}" $R0 
+ ${ElseIf} $Config2Use == "system.cfg"
+  ${WriteToSysFile} "menuentry $\">உ$\"{configfile /multiboot/menu/system.cfg}" $R0
+ ${ElseIf} $Config2Use == "linux.cfg"
+  ${WriteToSysFile} "menuentry $\">ஐ$\"{configfile /multiboot/menu/linux.cfg}" $R0 
  ${ElseIf} $Config2Use == "netbook.cfg"
-  ${WriteToSysFile} "menuentry $\">Netbook Distributions$\"{configfile /multiboot/menu/netbook.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">எ$\"{configfile /multiboot/menu/netbook.cfg}" $R0 
  ${ElseIf} $Config2Use == "other.cfg"
-  ${WriteToSysFile} "menuentry $\">Other OS and Tools$\"{configfile /multiboot/menu/other.cfg}" $R0 
-								  
-																																 
-								  
-																																											   
-									  
-																																																	
+  ${WriteToSysFile} "menuentry $\">ஒ$\"{configfile /multiboot/menu/other.cfg}" $R0 
  ${ElseIf} $Config2Use == "unlisted.cfg"
-  ${WriteToSysFile} "menuentry $\">Unlisted ISOs$\"{configfile /multiboot/menu/unlisted.cfg}" $R0  
+  ${WriteToSysFile} "menuentry $\">ஔ$\"{configfile /multiboot/menu/unlisted.cfg}" $R0  
 ; ${ElseIf} $Config2Use == "menu.lst"
-																																																		   
-								   
-																																																									
-										 
-																																																									   
-									   
 ;  ${WriteToSysFile} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/menu.lst" $R0 
-									
-																																															   
-									  
-																																														   
+ 
  ${EndIf} 
 FunctionEnd
 
@@ -1630,28 +1500,9 @@ StrCpy $R9 0 ; we start on page 0
  SetShellVarContext all
  InitPluginsDir   
   CreateDirectory "$PLUGINSDIR\new7z\"
-												  
-													  
-															  
-															
-																   
-																
   File /oname=$PLUGINSDIR\syslinux.exe "இருமங்கள்\syslinux.exe"  
   File /oname=$PLUGINSDIR\syslinux.cfg "பட்டியல்\syslinux.cfg"
-														  
-													
-												 
-															  
-															
   File /oname=$PLUGINSDIR\grubslug.cfg "பட்டியல்\grubslug.cfg"   
-													
-												 
-															  
-															
-												  
-														
-											   
-											 
   File /oname=$PLUGINSDIR\antivirus.cfg "பட்டியல்\antivirus.cfg" 
   File /oname=$PLUGINSDIR\system.cfg "பட்டியல்\system.cfg" 
   File /oname=$PLUGINSDIR\netbook.cfg "பட்டியல்\netbook.cfg"
@@ -1665,25 +1516,7 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\new7z\7z.dll "இருமங்கள்\new7z\7z.dll"  
   File /oname=$PLUGINSDIR\உரிமை.உரை "உரை\உரிமை.உரை" 
   File /oname=$PLUGINSDIR\memdisk "இருமங்கள்\memdisk"  
-													  
-													  
-												 
-											
-												
-													   
   File /oname=$PLUGINSDIR\EFIGRUBX64.zip "EFIGRUB\EFIGRUBX64.zip"   
-												 
-											  
-													
-													 
-												 
-															 
-										 
-										 
-															   
-							
-				   
-				 
 FunctionEnd
 
 Function onNotify_CasperSlider

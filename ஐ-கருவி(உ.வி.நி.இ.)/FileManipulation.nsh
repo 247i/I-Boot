@@ -26,7 +26,7 @@ Function WriteToSysFile ; Write entry to syslinux.cfg
  Exch $1 ;text to write
  FileOpen $R0 '$BootDir\boot\MEFI\grub.cfg' a 
  FileSeek $R0 0 END
- FileWrite $R0 '$\r$\n$1$\r$\n'
+ FileWriteUTF16LE $R0 '$\r$\n$1$\r$\n'
  FileClose $R0
  Pop $1
  Pop $R0
@@ -50,6 +50,7 @@ Function InstalledList ; Creates a list of installed distros in the multiboot fo
    ${Else}
     FileOpen $R0 '$BootDir\multiboot\நிறுவப்பட்டது.உரை' a 
     FileSeek $R0 0 END
+	;FileWriteUTF16LE $R0 /BOM
     FileWrite $R0 '$1'  ; add first entry without a new line
    ${EndIf}
     FileClose $R0
