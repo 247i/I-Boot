@@ -6,7 +6,7 @@ Function WriteToFile ; modified to populate *.cfg file with the distro user inst
  Exch $1 ;text to write
  FileOpen $R0 '$BootDir\multiboot\menu\$Config2Use' a 
  FileSeek $R0 0 END
- FileWrite $R0 '$\r$\n$1' ; புதிய வரி மற்றும் தரவைச் சேர்க்கவும்
+ FileWriteUTF16LE $R0 '$\r$\n$1' ; புதிய வரி மற்றும் தரவைச் சேர்க்கவும்
  FileClose $R0
  Pop $1
  Pop $R0
@@ -46,12 +46,12 @@ Function InstalledList ; Creates a list of installed distros in the multiboot fo
    ${If} ${FileExists} "$BootDir\multiboot\நிறுவப்பட்டது.உரை" 
     FileOpen $R0 '$BootDir\multiboot\நிறுவப்பட்டது.உரை' a 
     FileSeek $R0 0 END
-	FileWrite $R0 '$\r$\n$1' ; add subsequent entry on a new line
+	FileWriteUTF16LE $R0 '$\r$\n$1' ; add subsequent entry on a new line
    ${Else}
     FileOpen $R0 '$BootDir\multiboot\நிறுவப்பட்டது.உரை' a 
     FileSeek $R0 0 END
 	;FileWriteUTF16LE $R0 /BOM
-    FileWrite $R0 '$1'  ; add first entry without a new line
+    FileWriteUTF16LE $R0 '$1'  ; add first entry without a new line
    ${EndIf}
     FileClose $R0
     Pop $1

@@ -493,7 +493,6 @@ Function ListAllDrives ; Set to Display All Drives
 ;  ${EndIf}
 FunctionEnd
 
-						 
 Function onClickMyLink
   Pop $Links ; pop something to prevent corruption
   ExecShell "open" "https://TamilNeram.github.io"
@@ -1280,8 +1279,8 @@ Done:
 FunctionEnd
 
 ; Custom Distros Installer - Uninstaller Include
-!include "InstallDistro.nsh" ; ##################################### ADD NEW DISTRO ########################################
-!include "RemoveDistro.nsh" ; ##################################### REM DISTRO ########################################
+!include "InstallDistro.nsh" ; ### ADD NEW DISTRO ##
+!include "RemoveDistro.nsh" ; ### REM DISTRO ###
 
 Function DoSyslinux ; Install கணிலினக்சு on USB
   ${IfNot} ${FileExists} "$BootDir\multiboot\libcom32.c32" 
@@ -1323,7 +1322,7 @@ Function DoSyslinux ; Install கணிலினக்சு on USB
    ${EndIf}
   
   ${If} ${FileExists} $BootDir\multiboot\syslinux.cfg    
-   DetailPrint "A Previous MultiBoot Installation was detected."
+   DetailPrint "முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது."
    Call AddDir
   ${Else}
 ; Create and Copy files to your destination
@@ -1398,10 +1397,7 @@ Pop $NameThatISO
  ${ElseIf} $FormatMeFat == "Yes" 
   ${AndIf} $WipeMe == "No" 
   MessageBox MB_YESNO|MB_ICONEXCLAMATION "எச்சரிக்கை: தொடர்வதற்கு முன் ($DestDisk)உடன் இணைக்கப்பட்ட அனைத்து பகிர்வுகளிலிருந்தும் உங்கள் தரவை காப்புப் பிரதி எடுக்கவும்!$\r$\n$\r$\n${NAME} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1.)இயக்கி எழுத்து ($DestDisk)பூட்டு மற்றும் இறக்கு.$\r$\n$\r$\n2.) Fat32 வடிவமை ($DestDisk) - ($DestDisk)கொண்டிருக்கும் தரவு மீளமுடியாமல் நீக்கப்படும்!$\r$\n$\r$\n3.) ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n4.) ($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\n($DestDisk)(வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
-   
-		 
-		 
-																																																				
+
   Quit  
   
 ; Don't Wipe or Format ---

@@ -32,7 +32,6 @@ InstallButtonText "உருவாக்கு"
 !AddPluginDir "plugins"
 
 ; Variables
-		  
 Var Capacity
 Var VolName
 Var Checker
@@ -278,17 +277,7 @@ Function SelectionsPage
   Call FormatIt 
   Call EnableNext 
   ${NSD_OnChange} $DestDriveTxt OnSelectDrive 
-  
-					 
-																
-			   
-									 
 
-					 
-																 
-				  
-										  
-  
 ; Add Home Link
   ${NSD_CreateLink} 0 215 16% 15 "முகப்பு பக்கம்"
   Pop $Link
@@ -325,11 +314,6 @@ Function SelectionsPage
   ${NSD_CreateCheckBox} 60% 0 44% 15 "நிறுவப்பட்டது?"
   Pop $Uninstaller
   ${NSD_OnClick} $Uninstaller Uninstall  
-  
-											
-																  
-		   
-								  
   
 ; Drive Selection Starts  
   ${NSD_CreateLabel} 0 0 58% 15 ""    
@@ -485,17 +469,6 @@ Function ListAllDrives ; Set to Display All Drives
 ;  ${EndIf}
 FunctionEnd
 
-/* Function onClickMyLink
-  Pop $Links ; pop something to prevent corruption
-  ExecShell "open" "https://TamilNeram.github.io"
-FunctionEnd
-
-Function onClickLinuxSite
-  Pop $OfficialSite 
-  ExecShell "open" "$Homepage"
-FunctionEnd */
-
-	   
 Function onClickMyLink
   Pop $Links ; pop something to prevent corruption
   ExecShell "open" "https://TamilNeram.github.io"
@@ -530,19 +503,10 @@ FunctionEnd
 
 Function EnableNext ; Enable Install Button
   ${If} $Blocksize >= 4 
-  ${AndIf} $Removal != "Yes"
-						   
-							 
+  ${AndIf} $Removal != "Yes"							 
   ShowWindow $Format 1 
-			
-								
-							
-			
   ${Else}
   ShowWindow $Format 0
-						 
-						
-					   
   ${EndIf}
   ${If} $Removal != "Yes"    
    ${AndIf} $ISOFileName != ""
@@ -714,13 +678,7 @@ Function OnSelectDistro
   ${Else}
   ShowWindow $DistroLink 1
   ${EndIf}    
-  
-						 
-																	 
-		 
-																						  
-			  
-  
+    
 ; Autodetect ISO's in same folder and select if they exist  
  ${If} ${FileExists} "$EXEDIR\$ISOFileName"
  ${AndIf} $Removal != "Yes"
@@ -802,12 +760,6 @@ Function ISOBrowse
  StrCpy $JustISOName "NULL" ; Set to NULL until something is selected
  ${EndIf}
  
-					 
-															  
-		
-																	 
-		  
- 
  ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\*.*"
  ${AndIf} $JustISOName != ""
  ${AndIf} $FormatMe != "Yes"
@@ -817,23 +769,7 @@ Function ISOBrowse
  ${EndIf}
  Call EnableNext
  ; Uncomment for Testing --> MessageBox MB_ICONQUESTION|MB_OK 'Removal: "$Removal"  ISOFileName: "$ISOFileName" ISOFile "$ISOFile" BootDir: "$BootDir" DestDisk: "$DestDisk" DestDrive: "$DestDrive" ISOTest: "$ISOTest"'
-						 
-							 
-															 
-																																   
- 
-							  
-							  
-   
-										
-															   
-												   
-								 
-																								 
-			 
-		 
-  
-			
+
  FunctionEnd
 
 Function ClearAll
@@ -850,8 +786,6 @@ Function InstallorRemove ; Populate DistroName based on Install/Removal option
   ${Else}
 						   
    ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskவைக்க ஒரு விநியோகம்" 
-		 
-											
   Call SetISOFileName
   ${EndIf}
 FunctionEnd  
@@ -861,8 +795,6 @@ Function Uninstall
   ${NSD_GetState} $Uninstaller $Removal
   ${If} $Removal == ${BST_CHECKED}
   ShowWindow $Format 0
-						 
-					
     ShowWindow $LabelISOSelection 0 
 	Call ClearAll	
     EnableWindow $ISOFileTxt 0
@@ -926,18 +858,6 @@ Function OnSelectDrive
    ${OrIf} $FSType == "NTFS"
    MessageBox MB_ICONSTOP|MB_OK "கணிலினக்சு won't work on $FSType formatted devices. You can choose to format $JustDrive as Fat32."
   ${EndIf}   
- 
-								 
-					
-						
-													 
-									   
-					  
-					  
-													  
-															 
-				
-  
   
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
   StrCpy $Checker "Yes" 
@@ -948,15 +868,7 @@ Function OnSelectDrive
   Call EnableNext
  
   ${NSD_SetText} $LabelDrivePage "படி 1: மின்வெட்டொளி $DestDisk (தட்டு $DiskNum) தேர்ந்தெடுத்துள்ளீர்கள்"   
-																																
-		   
-  
-													 
-														  
-														 
-														   
-																																																										 
-		   
+
 FunctionEnd
 
 Function GetDiskVolumeName
@@ -967,21 +879,14 @@ Pop $0 ; Get the allocated string's address
 !define GetVolumeInformation "Kernel32::GetVolumeInformation(t,t,i,*i,*i,*i,t,i) i"
 System::Call '${GetVolumeInformation}("$9",.r0,1024,,,,,1024)' ;
 
-													  
-												  
-										   
-
 ;Push $0 ; Push result
 ${If} $0 != ""
  StrCpy $VolName "$0"
 ${Else}
  StrCpy $VolName ""
 ${EndIf}
-
-			  
+ 
 FunctionEnd ; GetDiskVolumeName
-			  
-			
 
 Function DiskSpace
 ${DriveSpace} "$9" "/D=T /S=G" $1 ; used to find total space of each drive
@@ -1008,64 +913,13 @@ Function DrivesList
  Push 1 ; must push something - see GetDrives documentation
 FunctionEnd
 
-									  
-							   
-								 
-					
-						
-													 
-									   
-					  
-					  
-													  
-															 
-			  
-		   
   
 Function FormatYes ; If Format is checked, do something
   SetShellVarContext all
   InitPluginsDir
   File /oname=$PLUGINSDIR\fat32format.exe "இருமங்கள்\fat32format.exe"
 
-																	  
-																 
-																   
-  
-																							   
-																						   
-																								
-																							
-
-					   
   ${If} $FormatMe == "Yes"
-							
-																
-																																				  
-																	
-		   
-																  
- 
-							   
-						  
-																  
-																																				  
-																	 
-
-						
-								   
-							
-																   
-																																				 
-																   
-			 
-																   
-			 
-																						   
-																					 
-   
-								   
-							   
-																	 
    Call Lock_Only ; Just get a lock on the Volume 
    Sleep 3000
    nsExec::ExecToLog '"cmd" /c "echo y|$PLUGINSDIR\fat32format $DestDisk"' ;/Q /y
@@ -1074,24 +928,6 @@ Function FormatYes ; If Format is checked, do something
 FunctionEnd
 
 Function FormatIt ; Set Format Option
-
-										 
-									  
-						 
-															
-					   
-							 
-											
-						   
-													  
-					   
-						   
-
-															
-						 
-				 
-			  
-
   ${NSD_GetState} $Format $FormatMe
   ${If} $FormatMe == ${BST_CHECKED}
   ${NSD_Check} $Format
@@ -1105,28 +941,12 @@ Function FormatIt ; Set Format Option
   ${NSD_Uncheck} $Format 
   ${NSD_SetText} $Format "துடைத்து Fat32 வடிவமை $DestDisk"  
     SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new format option may have been chosen ; Enable for DropBox
-						
 
     ShowWindow $Uninstaller 1 ; Re-enable Uninstaller option.
 	StrCpy $Checker "Yes" 
 	Call SetSpace
   ${EndIf}  
   
-						   
-								
-					  
-																								
-						  
-					 
-		 
-					   
-													   
-						
-  
-				   
-		  
-  
-				 
     Call InstallorRemove
 FunctionEnd
 
@@ -1321,21 +1141,7 @@ Function DoSyslinux ; Install Syslinux on USB
   DetailPrint "Proceeding to copy GRUB2 EFI files..."
 																
   ExecWait '"$PLUGINSDIR\7zG.exe" x "$PLUGINSDIR\EFIGRUBX64.zip" -o"$BootDir" -y' 
-																			   
-																		 
-																		
-																  
-																  
-																		  
-																		 
-															  
   ${EndIf}   
-
-															 
-													
-													  
-																  
-			 
 FunctionEnd
 
 /* Function AddDir ; changes to check if user had a version prior to 0.0.0.3 which now includes grub.exe 
@@ -1370,12 +1176,12 @@ Pop $NameThatISO
  
 ;checkpoint:
  ${If} $FormatMe == "Yes" 
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: Backup your data from all partitions tied to (Disk $DiskNum) before proceeding!$\r$\n$\r$\n${NAME} is Ready to perform the following actions:$\r$\n$\r$\n1. துடைத்து Fat32 வடிவமை ($DestDisk) - All Data will be Irrecoverably Deleted!$\r$\n$\r$\n2. Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n3. Create TA Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n4. Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you positive Drive ($DestDisk) on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Go Back!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: Backup your data from all partitions tied to (Disk $DiskNum) before proceeding!$\r$\n$\r$\n${NAME} is Ready to perform the following actions:$\r$\n$\r$\n1. துடைத்து Fat32 வடிவமை ($DestDisk) - All Data will be Irrecoverably Deleted!$\r$\n$\r$\n2. Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n3.($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n4. Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you positive Drive ($DestDisk) on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
  Quit
  ${ElseIf} $FormatMe != "Yes" 
 								
  ${AndIfNot} ${FileExists} $BootDir\multiboot\menu\syslinux.cfg
- MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} is பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1. ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n2. Create TA Label on $DestDisk (Drive $DiskNum) - Existing Label will be Overwritten!$\r$\n$\r$\n3. Install ($DistroName) on (Disk $DiskNum) $DestDisk$\r$\n$\r$\nAre you absolutely positive Drive $DestDisk on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
+ MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} is பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1. ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n2.  $DestDisk (வட்டு $DiskNum)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n3. Install ($DistroName) on (Disk $DiskNum) $DestDisk$\r$\n$\r$\nAre you absolutely positive Drive $DestDisk on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
  Quit
  ${EndIf}
 
@@ -1459,7 +1265,6 @@ StrCpy $ISOFile "" ; Reset
 StrCpy $Removal "" ; Reset
 StrCpy $Persistence "NULL" ; Reset
 StrCpy $NameThatISO "" ; Reset NameThatISO ISO Name
-										 
 StrCpy $Config2Use "" ; Clear Config File to create and write to
 StrCpy $DistroName "" ; Clear Distro Name
 StrCpy $ISOFileName "" ; Clear ISO Selection
@@ -1468,9 +1273,6 @@ StrCpy $DownloadMe 0 ; Ensure Uncheck of Download Option
 StrCpy $LocalSelection "" ; Reset Local Selection
 StrCpy $ShowingAll ""
 StrCpy $FormatMe "" ; Reset Format Option
-												 
-									   
-					  
     StrCmp $R8 4 0 End ;Compare $R8 variable with current page #
     StrCpy $R9 -3 ; Goes back to selections page
     Call RelGotoPage ; change pages
