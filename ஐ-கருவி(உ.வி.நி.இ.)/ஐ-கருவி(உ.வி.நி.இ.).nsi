@@ -2,7 +2,7 @@
 !define NAME "ஐ-கருவி(உ.வி.நி.இ.)"
 !define FILENAME "ஐ-கருவி(உ.வி.நி.இ.)"
 !define VERSION "0.0.3.2"
-!define MUI_ICON "படங்கள்\வண்ணத்துப்பூச்சி.ico"
+!define MUI_ICON "இருமங்கள்\வண்ணத்துப்பூச்சி.ico"
 
 ; MoreInfo Plugin - Adds Version Tab fields to Properties.
 VIProductVersion "${VERSION}"
@@ -127,7 +127,7 @@ Var DiskNum
 ; Interface settings
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_HEADERIMAGE
-!define MUI_HEADERIMAGE_BITMAP "படங்கள்\தலைப்பு.bmp" 
+!define MUI_HEADERIMAGE_BITMAP "இருமங்கள்\தலைப்பு.bmp" 
 !define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
 !define MUI_HEADERIMAGE_RIGHT
 
@@ -155,7 +155,7 @@ Page custom SelectionsPage
 !define MUI_FINISHPAGE_TEXT $(Finish_Text)
 !define MUI_FINISHPAGE_LINK $(Finish_Link)
 !define MUI_FINISHPAGE_LINK_LOCATION "https://TamilNeram.github.io"
-!define MUI_WELCOMEFINISHPAGE_BITMAP "படங்கள்\சரி.bmp"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "இருமங்கள்\சரி.bmp"
 !define MUI_PAGE_CUSTOMFUNCTION_PRE Finish_PreFunction
 !insertmacro MUI_PAGE_FINISH
 
@@ -1295,22 +1295,24 @@ StrCpy $R9 0 ; we start on page 0
  SetShellVarContext all
  InitPluginsDir   
   CreateDirectory "$PLUGINSDIR\new7z\"
-  File /oname=$PLUGINSDIR\syslinux.exe "இருமங்கள்\syslinux.exe"  
-  File /oname=$PLUGINSDIR\syslinux.cfg "பட்டியல்\syslinux.cfg"
-  File /oname=$PLUGINSDIR\grubslug.cfg "பட்டியல்\grubslug.cfg"   
-  File /oname=$PLUGINSDIR\antivirus.cfg "பட்டியல்\antivirus.cfg" 
-  File /oname=$PLUGINSDIR\system.cfg "பட்டியல்\system.cfg" 
-  File /oname=$PLUGINSDIR\netbook.cfg "பட்டியல்\netbook.cfg"
-  File /oname=$PLUGINSDIR\anon.cfg "பட்டியல்\anon.cfg"
- ;File /oname=$PLUGINSDIR\அகர.வடிவு "பட்டியல்\அகர.வடிவு"
-  File /oname=$PLUGINSDIR\linux.cfg "பட்டியல்\linux.cfg" 
-  File /oname=$PLUGINSDIR\unlisted.cfg "பட்டியல்\unlisted.cfg"
-  File /oname=$PLUGINSDIR\liveusb "பட்டியல்\liveusb"   
+ ;File /oname=$PLUGINSDIR\அகர.வடிவு "உரை\அகர.வடிவு"
+  File /oname=$PLUGINSDIR\anon.cfg "உரை\அறியப்படாத.வடிவு"
+  File /oname=$PLUGINSDIR\netbook.cfg "உரை\இணையபுத்தகம்.வடிவு"
+  File /oname=$PLUGINSDIR\உரிமை.உரை "உரை\உரிமை.உரை" 
+  File /oname=$PLUGINSDIR\syslinux.exe "இருமங்கள்\கணிலினக்சு.exe"  
+  File /oname=$PLUGINSDIR\syslinux.cfg "உரை\கணிலினக்சு.வடிவு"
+  File /oname=$PLUGINSDIR\system.cfg "உரை\கருவிகள்.வடிவு" 
+  File /oname=$PLUGINSDIR\antivirus.cfg "உரை\நோய்க்கிருமிதடுப்பு.வடிவு" 
+  File /oname=$PLUGINSDIR\unlisted.cfg "உரை\பட்டியலிடாத.வடிவு"
+  File /oname=$PLUGINSDIR\grubslug.cfg "உரை\மந்தமான.வடிவு"   
+ ;File /oname=$PLUGINSDIR\other.cfg "உரை\மற்றவை.வடிவு"   
+  File /oname=$PLUGINSDIR\linux.cfg "உரை\லினக்சு.வடிவு" 
+  File /oname=$PLUGINSDIR\liveusb "உரை\liveusb"
+ ;File /oname=$PLUGINSDIR\mbrid "உரை\முதன்மை_துவக்க_பதிவெண்"  
   File /oname=$PLUGINSDIR\7zG.exe "இருமங்கள்\7zG.exe"
   File /oname=$PLUGINSDIR\7z.dll "இருமங்கள்\7z.dll"  
   File /oname=$PLUGINSDIR\new7z\7zG.exe "இருமங்கள்\new7z\7zG.exe"
   File /oname=$PLUGINSDIR\new7z\7z.dll "இருமங்கள்\new7z\7z.dll"  
-  File /oname=$PLUGINSDIR\உரிமை.உரை "உரை\உரிமை.உரை" 
   File /oname=$PLUGINSDIR\memdisk "இருமங்கள்\memdisk"  
   File /oname=$PLUGINSDIR\EFIGRUBX64.zip "EFIGRUB\EFIGRUBX64.zip"   
 FunctionEnd
