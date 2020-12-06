@@ -20,7 +20,6 @@ FunctionEnd
 !macroend  
 !define WriteToFile "!insertmacro WriteToFile"
 
-
 !macro WriteConvertedUnicodeToFile handle codepage string
 Push $0
 Push $1

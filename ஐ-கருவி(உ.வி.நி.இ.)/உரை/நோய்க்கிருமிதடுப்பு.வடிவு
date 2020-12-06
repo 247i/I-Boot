@@ -24,8 +24,8 @@ else
   set menu_color_highlight=blue/black
 fi
 set default=3
-menuentry "0>Halt" {halt}
-menuentry "1<Reboot" {reboot}
+menuentry "0) ௰" {halt}
+menuentry "1) ஃ" {reboot}
 menuentry "<<Back"{configfile /boot/ஐ-விரிவாக்கக்கூடிய_நிலைபொருள்_இடைமுகம்/துவக்கஏற்றி.வடிவு}
 #தொடங்கு நோய்க்கிருமிதடுப்பு  வழங்கல்கள்  
  
