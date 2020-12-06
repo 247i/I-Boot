@@ -1,10 +1,9 @@
-﻿Unicode True
+﻿Unicode True ; தமிழ் எழுத்து அதரவு 
 !define NAME "ஐ-கருவி(உ.வி.நி.இ.)"
 !define FILENAME "ஐ-கருவி(உ.வி.நி.இ.)"
 !define VERSION "0.0.3.2"
 !define MUI_ICON "இருமங்கள்\வண்ணத்துப்பூச்சி.ico"
 
-; MoreInfo Plugin - Adds Version Tab fields to Properties.
 VIProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "ஐ"
 VIAddVersionKey LegalCopyright "உரிமை ©2021 ஐ"
@@ -28,7 +27,9 @@ InstallButtonText "உருவாக்கு"
 !include MUI2.nsh
 !include FileFunc.nsh
 !include LogicLib.nsh
-;!include TextFunc.nsh
+
+!include StrContains.nsh ; Let's check if a * wildcard exists
+
 !AddPluginDir "plugins"
 
 ; Variables
@@ -130,17 +131,14 @@ Var DiskNum
 !define MUI_HEADERIMAGE_BITMAP "இருமங்கள்\தலைப்பு.bmp" 
 !define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
 !define MUI_HEADERIMAGE_RIGHT
-
 ; License Agreement Page
 !define MUI_TEXT_LICENSE_SUBTITLE $(License_Subtitle)
 !define MUI_LICENSEPAGE_TEXT_TOP $(License_Text_Top)
 !define MUI_LICENSEPAGE_TEXT_BOTTOM $(License_Text_Bottom)
 !define MUI_PAGE_CUSTOMFUNCTION_PRE License_PreFunction
 !insertmacro MUI_PAGE_LICENSE "உரை\உரிமை.உரை"
-
 ; Distro Selection Page
 Page custom SelectionsPage
-
 ; Install Files Page
 !define MUI_INSTFILESPAGE_COLORS "00FF00 000000" ;Green and Black
 !define MUI_INSTFILESPAGE_FINISHHEADER_TEXT $(Finish_Install)
@@ -149,7 +147,6 @@ Page custom SelectionsPage
 !define MUI_TEXT_FINISH_SUBTITLE $(Install_Finish_Sucess)
 !define MUI_PAGE_CUSTOMFUNCTION_PRE InstFiles_PreFunction
 !insertmacro MUI_PAGE_INSTFILES
-
 ; Finish page
 !define MUI_FINISHPAGE_TITLE $(Finish_Title)
 !define MUI_FINISHPAGE_TEXT $(Finish_Text)
@@ -159,7 +156,7 @@ Page custom SelectionsPage
 !define MUI_PAGE_CUSTOMFUNCTION_PRE Finish_PreFunction
 !insertmacro MUI_PAGE_FINISH
 
-; தமிழ் மொழி கோப்புகள்
+; தமிழ் மொழி உரைகள்
 !insertmacro MUI_LANGUAGE "Tamil" ; தமிழே முதல் மொழி
 LangString License_Subtitle ${LANG_TAMIL} "தொடர்வதற்கு முன் உரிம விதிமுறைகளை மதிப்பாய்வு செய்யவும்"
 LangString License_Text_Top ${LANG_TAMIL} "இந்த நிரலில் உள்ள மென்பொருள் பின்வரும் உரிமங்களின் கீழ் வருகிறது."
@@ -190,7 +187,6 @@ LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் �
 !include FileNames.nsh ; Macro for FileNames
 !include DistroList.nsh ; List of Distributions
 !include "CasperScript.nsh" ; For creation of Persistent Casper-rw files
-						  
 
 Function License_PreFunction
   StrCpy $R8 1 ;This is the 1st page
@@ -223,7 +219,7 @@ Function SelectionsPage
   Pop $ForceShowAll
   ${NSD_OnClick} $ForceShowAll ShowAllISOs   
 
-; ISO Download Option
+; ஐஎஸ்ஓ Download Option
   ${NSD_CreateCheckBox} 60% 60 40% 15 "ஐஎஸ்ஓ பதிவிறக்கம்."
   Pop $DownloadISO
   ${NSD_OnClick} $DownloadISO DownloadIt  
@@ -233,7 +229,7 @@ Function SelectionsPage
   Pop $DistroLink
   ${NSD_OnClick} $DistroLink onClickLinuxSite    
 
-; ISO Selection Starts  
+; ஐஎஸ்ஓ Selection Starts  
   ${NSD_CreateLabel} 0 100 100% 15 $(IsoPage_Text)
   Pop $LabelISOSelection
   ${NSD_CreateText} 0 120 78% 20 "உலாவி $FileFormat தேர்ந்தெடுக்கவும்"
@@ -350,12 +346,12 @@ Function SelectionsPage
   ${NSD_OnChange} $Distro OnSelectDistro
   ${NSD_CB_SelectString} $Distro $DistroName ; Was ${NSD_LB_SelectString} $Distro $DistroName  ; Enable For DropBox
   
-; Force Show All ISO Option
-  ${NSD_CreateCheckBox} 80% 100 20% 15 "அனைத்து ஐஎஸ்ஓக்களையும் காண்பிக்கவா?"
+; Force Show All ஐஎஸ்ஓ Option
+  ${NSD_CreateCheckBox} 80% 100 20% 15 "ஐஎஸ்ஓகள்?"
   Pop $ForceShowAll
   ${NSD_OnClick} $ForceShowAll ShowAllISOs    
 
-; ISO Download Option
+; ஐஎஸ்ஓ Download Option
   ${NSD_CreateCheckBox} 60% 60 40% 15 "ஐஎஸ்ஓ பதிவிறக்கம்."
   Pop $DownloadISO
   ${NSD_OnClick} $DownloadISO DownloadIt  
@@ -365,7 +361,7 @@ Function SelectionsPage
   Pop $DistroLink
   ${NSD_OnClick} $DistroLink onClickLinuxSite    
 
-; ISO Selection Starts  
+; ஐஎஸ்ஓ Selection Starts  
   ${NSD_CreateLabel} 0 100 100% 15 $(IsoPage_Text)
   Pop $LabelISOSelection
   ${NSD_CreateText} 0 120 78% 20 "உலாவி $FileFormat தேர்ந்தெடுக்கவும்"
@@ -536,10 +532,10 @@ Function EnableNext ; Enable Install Button
     EnableWindow $6 1 ; Enable "Install" control button
   ${EndIf}
   
-; Test if ISO has been Selected. If not, disable Install Button
+; Test if ஐஎஸ்ஓ has been Selected. If not, disable Install Button
   ${If} $ISOTest == ""
   GetDlgItem $6 $HWNDPARENT 1
-  EnableWindow $6 0 ; Disable "Install" if ISO not set 
+  EnableWindow $6 0 ; Disable "Install" if ஐஎஸ்ஓ not set 
   ${EndIf}
   
 ; Show Steps in progression
@@ -560,7 +556,7 @@ Function EnableNext ; Enable Install Button
   ShowWindow $ISOSelection 0
   ${EndIf}  
   
-; Disable Window if ISO was downloaded
+; Disable Window if ஐஎஸ்ஓ was downloaded
   ${If} $TheISO == "$EXEDIR\$ISOFileName"
   ${AndIf} $ISOTest != ""  
   EnableWindow $ISOSelection 0
@@ -602,7 +598,7 @@ MessageBox MB_YESNO|MB_ICONQUESTION "பதிவிறக்க இணைப்
   end:
 FunctionEnd
 
-Function LocalISODetected ; The script autodetected the ISO, so let's do the following
+Function LocalISODetected ; The script autodetected the ஐஎஸ்ஓ, so let's do the following
  ${If} $DownloadMe != ${BST_CHECKED}
  ${AndIf} $LocalSelection != "Yes"
  StrCpy $ISOFile "$EXEDIR\$ISOFileName"
@@ -640,8 +636,6 @@ Function GrabNameOnly
     Exch $0 ; output string
 FunctionEnd
 
- !include StrContains.nsh ; Let's check if a * wildcard exists
- 
 ; On Selection of Linux Distro
 Function OnSelectDistro
   Pop $Distro
@@ -661,12 +655,12 @@ Function OnSelectDistro
   ${Else} 
   Call SetISOFileName
   StrCpy $ISOFileName "$ISOFileName" 
-  StrCpy $SomeFileExt "$ISOFileName" "" -3 ; Grabs the last 3 characters of the file name... zip or iso?
-  StrCpy $FileFormat "$SomeFileExt" ; Set file type to look for zip, tar, iso etc...
+  StrCpy $SomeFileExt "$ISOFileName" "" -3 ; Grabs the last 3 characters of the file name... zip or ஐஎஸ்ஓ?
+  StrCpy $FileFormat "$SomeFileExt" ; Set file type to look for zip, tar, ஐஎஸ்ஓ etc...
   ${NSD_SetText} $LabelISOSelection "படி 3: உலாவி $ISOFileName தேர்ந்தெடுக்கவும்"
   ${NSD_SetText} $ISOFileTxt "$ISOFile கோப்பிற்கு உலாவுக  -->"
   SetCtlColors $ISOFileTxt FF0000 FFFFFF  
-  StrCpy $ISOTest "" ; Set to null until a new ISO selection is made
+  StrCpy $ISOTest "" ; Set to null until a new ஐஎஸ்ஓ selection is made
   ${EndIf}
   
 ; Redraw முகப்பு பக்கம் Links as necessary
@@ -679,7 +673,7 @@ Function OnSelectDistro
   ShowWindow $DistroLink 1
   ${EndIf}    
     
-; Autodetect ISO's in same folder and select if they exist  
+; Autodetect ஐஎஸ்ஓ's in same folder and select if they exist  
  ${If} ${FileExists} "$EXEDIR\$ISOFileName"
  ${AndIf} $Removal != "Yes"
  ${StrContains} $WILD "*" "$ISOFileName" ; Check for Wildcard and force Browse if * exists.
@@ -729,7 +723,7 @@ Function OnSelectDistro
  ${EndIf}
 FunctionEnd 
 
-; On Selection of ISO File
+; On Selection of ஐஎஸ்ஓ File
 Function ISOBrowse
  ${If} $ShowingAll == "Yes"
   StrCpy $ISOFileName "*.iso" 
@@ -775,7 +769,7 @@ Function ISOBrowse
 Function ClearAll
 StrCpy $ISOTest ""
 StrCpy $DistroName "" ; Clear Distro Name
-StrCpy $ISOFileName "" ; Clear ISO Selection
+StrCpy $ISOFileName "" ; Clear ஐஎஸ்ஓ Selection
 StrCpy $SomeFileExt ""
 StrCpy $FileFormat ""
 FunctionEnd
@@ -955,12 +949,12 @@ Function ShowAllISOs ; Set Show All ISOs Option
   ${If} $ShowingAll == ${BST_CHECKED}
   ${NSD_Check} $ForceShowAll
   StrCpy $ShowingAll "Yes"
-  ${NSD_SetText} $ForceShowAll "அனைத்து ஐஎஸ்ஓக்களையும் காண்பி!"
+  ${NSD_SetText} $ForceShowAll "ஐஎஸ்ஓகள்!"
     SendMessage $ISOSelection ${CB_RESETCONTENT} 0 0 
  
   ${ElseIf} $ShowingAll == ${BST_UNCHECKED}
   ${NSD_Uncheck} $ForceShowAll
-  ${NSD_SetText} $ForceShowAll "அனைத்து ஐஎஸ்ஓக்களையும் காண்பிக்கவா?"  
+  ${NSD_SetText} $ForceShowAll "ஐஎஸ்ஓகள்?"  
     SendMessage $ISOSelection ${CB_RESETCONTENT} 0 0 
   ${EndIf}  
 FunctionEnd
@@ -1088,7 +1082,7 @@ Done:
  Pop $1
 FunctionEnd
 
-; Custom Distros Installer - Uninstaller Include
+; Custom Distros Installer - Uninstaller 
 !include "InstallDistro.nsh" ; #ADD NEW DISTRO#
 !include "RemoveDistro.nsh" ; # REM DISTRO#
 
@@ -1147,7 +1141,7 @@ FunctionEnd
 
 ; ---- Let's Do This Stuff ----
 Section  ; This is the only section that exists
-; Get just the name of the ISO file 
+; Get just the name of the ஐஎஸ்ஓ file 
 Push "$ISOFile"
 Push 1
 Call GrabNameOnly
@@ -1257,10 +1251,10 @@ StrCpy $ISOTest "" ; Reset
 StrCpy $ISOFile "" ; Reset
 StrCpy $Removal "" ; Reset
 StrCpy $Persistence "NULL" ; Reset
-StrCpy $NameThatISO "" ; Reset NameThatISO ISO Name
+StrCpy $NameThatISO "" ; Reset NameThatISO ஐஎஸ்ஓ Name
 StrCpy $Config2Use "" ; Clear Config File to create and write to
 StrCpy $DistroName "" ; Clear Distro Name
-StrCpy $ISOFileName "" ; Clear ISO Selection
+StrCpy $ISOFileName "" ; Clear ஐஎஸ்ஓ Selection
 StrCpy $FileFormat "" ; Clear File Format
 StrCpy $DownloadMe 0 ; Ensure Uncheck of Download Option
 StrCpy $LocalSelection "" ; Reset Local Selection
@@ -1323,14 +1317,14 @@ Function onNotify_CasperSlider
  ${NSD_SetText} $SlideSpot "$Casper MB"
 FunctionEnd
 
-Function SetISOSize ; Get size of ISO
+Function SetISOSize ; Get size of ஐஎஸ்ஓ
  System::Call 'kernel32::CreateFile(t "$TheISO", i 0x80000000, i 1, i 0, i 3, i 0, i 0) i .r0'
  System::Call "kernel32::GetFileSizeEx(i r0, *l .r1) i .r2"
  System::Alloc $1
  System::Int64Op $1 / 1048576 ; convert to MB
  Pop $1
  StrCpy $SizeOfCasper "$1"
- # MessageBox MB_OK|MB_ICONINFORMATION "ISO Size: $SizeOfCasper"
+ # MessageBox MB_OK|MB_ICONINFORMATION "ஐஎஸ்ஓ அளவு: $SizeOfCasper"
  System::Call 'kernel32::CloseHandle(i r0)'
 FunctionEnd
 
