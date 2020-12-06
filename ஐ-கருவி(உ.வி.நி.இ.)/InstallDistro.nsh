@@ -616,8 +616,8 @@ FunctionEnd
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -xr!bootx64.efi -o"$BootDir\" -y' 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!bootx64.efi -aou -o"$BootDir\" -y'  
  ReadEnvStr $R0 COMSPEC ; grab commandline
- nsExec::Exec "$R0 /C Rename $BootDir\boot\MEFI\bootx64_1.efi win10.efi" ; rename efi file  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then ntldr /bootmgr; fi$\r$\nif [ $${grub_platform} == $\"efi$\" ]; then chainloader /boot/MEFI/win10.efi; fi$\r$\n}$\r$\n#] $JustISOName" $R0
+ nsExec::Exec "$R0 /C Rename $BootDir\boot\ஐ-விரிவாக்கக்கூடிய_நிலைபொருள்_இடைமுகம்\bootx64_1.efi win10.efi" ; rename efi file  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then ntldr /bootmgr; fi$\r$\nif [ $${grub_platform} == $\"efi$\" ]; then chainloader /boot/ஐ-விரிவாக்கக்கூடிய_நிலைபொருள்_இடைமுகம்/win10.efi; fi$\r$\n}$\r$\n#] $JustISOName" $R0
 
  ; Windows Vista/7/8
  ${ElseIf} $DistroName == "Windows Vista/7/8 Installer"
@@ -636,8 +636,8 @@ FunctionEnd
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -xr!bootx64.efi -o"$BootDir\" -y' 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!bootx64.efi -aou -o"$BootDir\" -y'  
  ReadEnvStr $R0 COMSPEC ; grab commandline
- nsExec::Exec "$R0 /C Rename $BootDir\boot\MEFI\bootx64_1.efi HBCDPE.efi" ; rename efi file  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then ntldr /bootmgr; fi$\r$\nif [ $${grub_platform} == $\"efi$\" ]; then chainloader /boot/MEFI/HBCDPE.efi; fi$\r$\n}$\r$\n#] $JustISOName" $R0
+ nsExec::Exec "$R0 /C Rename $BootDir\boot\ஐ-விரிவாக்கக்கூடிய_நிலைபொருள்_இடைமுகம்\bootx64_1.efi HBCDPE.efi" ; rename efi file  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then ntldr /bootmgr; fi$\r$\nif [ $${grub_platform} == $\"efi$\" ]; then chainloader /boot/ஐ-விரிவாக்கக்கூடிய_நிலைபொருள்_இடைமுகம்/HBCDPE.efi; fi$\r$\n}$\r$\n#] $JustISOName" $R0
  
 ; RemixOS  
  ${ElseIf} $DistroName == "RemixOS"
@@ -806,7 +806,7 @@ FunctionEnd
   ${AndIf} $GrubConfigFile != "NULL" ; If native Grub config file does exist...  
   !insertmacro ReplaceInFile "initrd /isolinux/initrd.gz" "initrd /multiboot/$JustISOName/isolinux/initrd.gz" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"    
   ${AndIf} ${FileExists} "$BootDir\multiboot\$JustISOName\EFI\BOOT\grub.cfg"
-  !insertmacro ReplaceInFile "theme=($$root)/boot/MEFI/" "theme=($$root)/multiboot/$JustISOName/EFI/BOOT/" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"    
+  !insertmacro ReplaceInFile "theme=($$root)/boot/ஐ-விரிவாக்கக்கூடிய_நிலைபொருள்_இடைமுகம்/" "theme=($$root)/multiboot/$JustISOName/EFI/BOOT/" "all" "all" "$BootDir\multiboot\$JustISOName\$GrubCopyPath\$GrubConfigFile"    
  ${EndIf}    
  
 ; Partition Wizard 

@@ -219,7 +219,7 @@ Function SelectionsPage
   ${NSD_CB_SelectString} $Distro $DistroName ; Was ${NSD_LB_SelectString} $Distro $DistroName  ; Enable For DropBox 
   
 ; அனைத்து ஐஎஸ்ஓ விருப்பத்தையும் கட்டாயப்படுத்து
-  ${NSD_CreateCheckBox} 80% 100 20% 15 "எல்லா ஐஎஸ்ஓ?"
+  ${NSD_CreateCheckBox} 80% 100 20% 15 "ஐஎஸ்ஓகள்?"
   Pop $ForceShowAll
   ${NSD_OnClick} $ForceShowAll ShowAllISOs   
 
@@ -256,7 +256,7 @@ Function SelectionsPage
   ${NSD_OnNotify} $CasperSlider onNotify_CasperSlider    
 
 ; Drive Pre-Selection  
-  ${NSD_CreateLabel} 0 0 58% 15 "" ; was 58%
+  ${NSD_CreateLabel} 0 0 58% 15 ""
   Pop $LabelDrivePage 
   ${NSD_SetText} $LabelDrivePage "படி 1: மின்வெட்டொளி இயக்கமாக $DestDisk வரவழைக்கப்பட்டது"  
 ; Droplist for Drive Selection  
@@ -856,7 +856,7 @@ Function OnSelectDrive
   Call GetFSType
   ${If} $FSType == "exFAT"
    ${OrIf} $FSType == "NTFS"
-   MessageBox MB_ICONSTOP|MB_OK "கணிலினக்சு won't work on $FSType formatted devices. You can choose to format $JustDrive as Fat32."
+   MessageBox MB_ICONSTOP|MB_OK "$FSType வடிவமைக்கப்பட்ட சாதனங்களில் கணிலினக்சு செயல்படாது. $JustDriveஐ Fat32 ஆக வடிவமைக்க நீங்கள் தேர்வு செய்யலாம்."
   ${EndIf}   
   
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
@@ -1018,7 +1018,7 @@ Function HaveSpacePre ; Check space required
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...
   IntCmp $3 1 okay ; ... and compare it
-  MessageBox MB_ICONSTOP|MB_OK "Oops: There is not enough disk space! $1 MB Free, $SizeOfCasper MB Needed on $JustDrive Drive."
+  MessageBox MB_ICONSTOP|MB_OK "அச்சச்சோ: போதுமான வட்டு இடம் இல்லை!  $JustDriveஇயக்ககத்தில் $1 எம்பி உள்ளது, $SizeOfCasper எம்பி தேவை."
   okay: ; Proceed to execute...
 		 
 FunctionEnd
@@ -1029,8 +1029,8 @@ Function HaveSpace ; Check space required
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...
   IntCmp $3 1 okay ; ... and compare it
-  MessageBox MB_ICONSTOP|MB_OK "Not enough free space remains. Quitting ஐ-கருவி!"
-  quit ; Close the program if the disk space was too small...
+  MessageBox MB_ICONSTOP|MB_OK "போதுமான காலி இடம் இல்லை. ஐ-கருவி நிறுத்தம்!"
+  quit ; போதுமான காலி இடம் இல்லை. ஐ-கருவி நிறுத்தம்...
   okay: ; Proceed to execute...
 
 FunctionEnd
@@ -1123,18 +1123,18 @@ Function DoSyslinux ; Install Syslinux on USB
    ; Call AddDir
   ${Else}
 ; Create and Copy files to your destination
-  DetailPrint "Adding required files to the $BootDir\multiboot directory..." 
+  DetailPrint "தேவையான கோப்புகள் $BootDir\multiboot இதற்கு சேர்கப்பட்டன..." 
   CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\multiboot\உரிமை.உரை"
   
 ; Copy these files to multiboot\menu
-  DetailPrint "Adding required files to the $BootDir\multiboot\menu directory..." 
+  DetailPrint "தேவையான கோப்புகள் $BootDir\multiboot\menu directory இதற்கு சேர்கப்பட்டன..." 
   CopyFiles "$PLUGINSDIR\syslinux.cfg" "$BootDir\multiboot\menu\syslinux.cfg"  
   CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\multiboot\menu\memdisk"      
   ${EndIf}  
 
-; boot\ஐ-விரிவாக்கக்கூடிய-நிலைபொருள்-இடைமுகம் அடைவு மற்றும் கோப்புகள் இருப்பதை உறுதிப்படுத்தவும்.  
-  ${If} ${FileExists} $BootDir\boot\ஐ-விரிவாக்கக்கூடிய-நிலைபொருள்-இடைமுகம்\BOOTX64.EFI 
-  ${AndIf} ${FileExists} $BootDir\boot\ஐ-விரிவாக்கக்கூடிய-நிலைபொருள்-இடைமுகம்\grub.cfg
+; boot\ஐ-விரிவாக்கக்கூடிய_நிலைபொருள்_இடைமுகம் அடைவு மற்றும் கோப்புகள் இருப்பதை உறுதிப்படுத்தவும்.  
+  ${If} ${FileExists} $BootDir\boot\ஐ-விரிவாக்கக்கூடிய_நிலைபொருள்_இடைமுகம்\BOOTX64.EFI 
+  ${AndIf} ${FileExists} $BootDir\boot\ஐ-விரிவாக்கக்கூடிய_நிலைபொருள்_இடைமுகம்\துவக்கஏற்றி.வடிவு
   
   ${Else}  
 ; Copy GRUB2 EFI files 
@@ -1168,12 +1168,12 @@ Pop $NameThatISO
  
 ;checkpoint:
  ${If} $FormatMe == "Yes" 
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: Backup your data from all partitions tied to (Disk $DiskNum) before proceeding!$\r$\n$\r$\n${NAME} is Ready to perform the following actions:$\r$\n$\r$\n1. துடைத்து Fat32 வடிவமை ($DestDisk) - All Data will be Irrecoverably Deleted!$\r$\n$\r$\n2. Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n3.($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n4. Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you positive Drive ($DestDisk) on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "எச்சரிக்கை: தொடர்வதற்கு முன் ($DestDisk)உடன் இணைக்கப்பட்ட அனைத்து பகிர்வுகளிலிருந்தும் உங்கள் தரவை காப்புப் பிரதி எடுக்கவும்!$\r$\n$\r$\n${NAME}  பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1. துடைத்து Fat32 வடிவமை ($DestDisk) -  தரவு மீளமுடியாமல் நீக்கப்படு!$\r$\n$\r$\n2. ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n3.($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n4. ($DestDisk)இல் ($DistroName)வை நிறுவு$\r$\n$\r$\n($DestDisk) இல் (வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
  Quit
  ${ElseIf} $FormatMe != "Yes" 
 								
  ${AndIfNot} ${FileExists} $BootDir\multiboot\menu\syslinux.cfg
- MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} is பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1. ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n2.  $DestDisk (வட்டு $DiskNum)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n3. Install ($DistroName) on (Disk $DiskNum) $DestDisk$\r$\n$\r$\nAre you absolutely positive Drive $DestDisk on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
+ MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1. ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n2.$DestDisk இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n3. ($DestDisk)இல் ($DistroName)வை நிறுவு$\r$\n$\r$\nசரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
  Quit
  ${EndIf}
 
@@ -1238,8 +1238,9 @@ Function Config2Write
   ${WriteToSysFile} "menuentry $\">UL$\"{configfile /multiboot/menu/unlisted.cfg}" $R0  
 ; ${ElseIf} $Config2Use == "menu.lst"
 ;  ${WriteToSysFile} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/menu.lst" $R0 
- 
  ${EndIf} 
+;always write data to அகர.வடிவு not required
+ 
 FunctionEnd
 
 Function NoQuit
@@ -1301,6 +1302,7 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\system.cfg "பட்டியல்\system.cfg" 
   File /oname=$PLUGINSDIR\netbook.cfg "பட்டியல்\netbook.cfg"
   File /oname=$PLUGINSDIR\anon.cfg "பட்டியல்\anon.cfg"
+ ;File /oname=$PLUGINSDIR\அகர.வடிவு "பட்டியல்\அகர.வடிவு"
   File /oname=$PLUGINSDIR\linux.cfg "பட்டியல்\linux.cfg" 
   File /oname=$PLUGINSDIR\unlisted.cfg "பட்டியல்\unlisted.cfg"
   File /oname=$PLUGINSDIR\liveusb "பட்டியல்\liveusb"   

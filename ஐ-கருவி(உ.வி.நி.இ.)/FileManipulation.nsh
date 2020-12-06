@@ -20,13 +20,42 @@ FunctionEnd
 !macroend  
 !define WriteToFile "!insertmacro WriteToFile"
 
+
+!macro WriteConvertedUnicodeToFile handle codepage string
+Push $0
+Push $1
+Push ${handle}
+!define /ReDef /Math REGMEMNSCAP ${NSIS_MAX_STRLEN} - 24
+!define /ReDef /Math REGMEMNSCAP ${REGMEMNSCAP} * ${NSIS_CHAR_SIZE}
+System::Call 'KERNEL32::WideCharToMultiByte(i${codepage},i0,ws,i-1,@r0,i${REGMEMNSCAP},p0,p0)i.s' `${string}`
+Pop $1
+; Todo: Error check: Failed if $1 is 0 or $1 > ${REGMEMNSCAP}
+IntOp $1 $1 - 1 # Don't write \0
+System::Call 'KERNEL32::WriteFile(ps,pr0,ir1,*i,p-1)i.r1'
+; Todo: Error check: Failed if $1 is 0
+Pop $1
+Pop $0
+!macroend
+
+
+;LangString UFM_INSTALL_DATE 0 "${U+5b89}${U+88c5}${U+65e5}${U+671f}:" # "安装日期:" without Unicode .nsi
+/*
+Section
+FileOpen $R0 "$%temp%\utf8.txt" w
+!insertmacro WriteConvertedUnicodeToFile $R0 65001 'Hello "$(UFM_INSTALL_DATE)" World$\r$\n'
+FileClose $R0
+SectionEnd  
+*/
+
+
 Function WriteToSysFile ; Write entry to syslinux.cfg
  Exch $R0 ;file to write to
  Exch
  Exch $1 ;text to write
- FileOpen $R0 '$BootDir\boot\MEFI\grub.cfg' a 
+ FileOpen $R0 '$BootDir\boot\ஐ-விரிவாக்கக்கூடிய_நிலைபொருள்_இடைமுகம்\துவக்கஏற்றி.வடிவு' a 
  FileSeek $R0 0 END
  FileWrite $R0 '$\r$\n$1$\r$\n'
+#!insertmacro WriteConvertedUnicodeToFile $R0 65001 '$1'
  FileClose $R0
  Pop $1
  Pop $R0

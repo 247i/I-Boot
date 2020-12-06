@@ -4,7 +4,7 @@
 ; New Methods catch-all
  ${If} $DistroName != ""  
   ${DeleteMenuEntry} "$BootDir\multiboot\menu\$Config2Use" "#[ $DistroName" "#] $DistroName" ; கட்டமைப்பு கோப்பிலிருந்து உள்ளீட்டை அகற்று... I.E. linux.cfg, system.cfg, etc
-  ${DeleteMenuEntry} "$BootDir\boot\MEFI\grub.cfg" "#[ $DistroName" "#] $DistroName" ; Grub config கோப்பிலிருந்து உள்ளீட்டை அகற்று..
+  ${DeleteMenuEntry} "$BootDir\boot\ஐ-விரிவாக்கக்கூடிய_நிலைபொருள்_இடைமுகம்\துவக்கஏற்றி.வடிவு" "#[ $DistroName" "#] $DistroName" ; துவக்கஏற்றி வடிவு கோப்பிலிருந்து உள்ளீட்டை அகற்று..
   ${LineFind} "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "1:-1" "DeleteInstall" ; நிறுவப்பட்ட உள்ளீட்டை அகற்று
   ${LineFind} "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "1:-1" "DeleteEmptyLine" ; வெற்று வரிகளில் எஞ்சியவற்றை அகற்று
   ${LineFind} "$BootDir\multiboot\menu\$Config2Use" "$BootDir\multiboot\menu\$Config2Use" "1:-1" "DeleteEmptyLine" ; வெற்று வரிகளில் எஞ்சியவற்றை அகற்று
