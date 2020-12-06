@@ -1359,11 +1359,6 @@ FunctionEnd
 
 Function AddDir ; changes to check if user had a version prior to 0.0.0.3. Newer I includes grub.exe 
  ${IfNotThen} ${FileExists} "$BootDir\multiboot\grub.exe" 'CopyFiles "$PLUGINSDIR\grub.exe" "$BootDir\multiboot\grub.exe"' 
-									 
-											 
-								 
-													
-		  
 FunctionEnd
 
 ; ---- Let's Do This Stuff ----

@@ -8,7 +8,7 @@
   ${LineFind} "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "1:-1" "DeleteInstall" ; நிறுவப்பட்ட உள்ளீட்டை அகற்று
   ${LineFind} "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "1:-1" "DeleteEmptyLine" ; வெற்று வரிகளில் எஞ்சியவற்றை அகற்று
   ${LineFind} "$BootDir\multiboot\menu\$Config2Use" "$BootDir\multiboot\menu\$Config2Use" "1:-1" "DeleteEmptyLine" ; வெற்று வரிகளில் எஞ்சியவற்றை அகற்று
-  CopyFiles "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "$BootDir\multiboot\நிறுவப்பட்டது-நகல்.உரை" ; பாதுகாப்பிற்காக நிறுவப்பட்டது காப்புப்பிரதியை உருவாக்கவும்
+  ;CopyFiles "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "$BootDir\multiboot\நிறுவப்பட்டது-நகல்.உரை" ; பாதுகாப்பிற்காக நிறுவப்பட்டது காப்புப்பிரதியை உருவாக்கவும்
   RMDir /R "$BootDir\multiboot\$DistroName"
    ${AndIf} ${FileExists} "$BootDir\multiboot\ISOS\$DistroName.iso"   
    Delete "$BootDir\multiboot\ISOS\$DistroName.iso" 

@@ -1132,26 +1132,18 @@ Function DoSyslinux ; Install Syslinux on USB
   CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\multiboot\menu\memdisk"      
   ${EndIf}  
 
-; Make sure EFI\Boot directory and files exist.  
-  ${If} ${FileExists} $BootDir\boot\MEFI\BOOTX64.EFI 
-  ${AndIf} ${FileExists} $BootDir\boot\MEFI\grub.cfg
+; boot\ஐ-விரிவாக்கக்கூடிய-நிலைபொருள்-இடைமுகம் அடைவு மற்றும் கோப்புகள் இருப்பதை உறுதிப்படுத்தவும்.  
+  ${If} ${FileExists} $BootDir\boot\ஐ-விரிவாக்கக்கூடிய-நிலைபொருள்-இடைமுகம்\BOOTX64.EFI 
+  ${AndIf} ${FileExists} $BootDir\boot\ஐ-விரிவாக்கக்கூடிய-நிலைபொருள்-இடைமுகம்\grub.cfg
   
   ${Else}  
 ; Copy GRUB2 EFI files 
-  DetailPrint "Proceeding to copy GRUB2 EFI files..."
+  DetailPrint "GRUB2 EFI கோப்புகளை நகலெடுக்க தொடர்கிறது..."
 																
   ExecWait '"$PLUGINSDIR\7zG.exe" x "$PLUGINSDIR\EFIGRUBX64.zip" -o"$BootDir" -y' 
   ${EndIf}   
 FunctionEnd
 
-/* Function AddDir ; changes to check if user had a version prior to 0.0.0.3 which now includes grub.exe 
- ${IfNotThen} ${FileExists} "$BootDir\multiboot\grub.exe" 'CopyFiles "$PLUGINSDIR\grub.exe" "$BootDir\multiboot\grub.exe"' 
-  Windows/Ubuntu SOURCES conflict fix
-  ${IfNot} ${FileExists} $BootDir\.disk\info 
-  CreateDirectory $BootDir\.disk 
-  CopyFiles "$PLUGINSDIR\info" "$BootDir\.disk\info"
- ${EndIf} 
-FunctionEnd */
 
 ; ---- Let's Do This Stuff ----
 Section  ; This is the only section that exists
@@ -1231,19 +1223,19 @@ FunctionEnd
 
 Function Config2Write
  ${If} $Config2Use == "anon.cfg"
-  ${WriteToSysFile} "menuentry $\">அ$\"{configfile /multiboot/menu/anon.cfg}" $R0  
+  ${WriteToSysFile} "menuentry $\">AB$\"{configfile /multiboot/menu/anon.cfg}" $R0  
  ${ElseIf} $Config2Use == "antivirus.cfg"
-  ${WriteToSysFile} "menuentry $\">இ$\"{configfile /multiboot/menu/antivirus.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">AV$\"{configfile /multiboot/menu/antivirus.cfg}" $R0 
  ${ElseIf} $Config2Use == "system.cfg"
-  ${WriteToSysFile} "menuentry $\">உ$\"{configfile /multiboot/menu/system.cfg}" $R0
+  ${WriteToSysFile} "menuentry $\">SL$\"{configfile /multiboot/menu/system.cfg}" $R0
  ${ElseIf} $Config2Use == "linux.cfg"
-  ${WriteToSysFile} "menuentry $\">ஐ$\"{configfile /multiboot/menu/linux.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">I$\"{configfile /multiboot/menu/linux.cfg}" $R0 
  ${ElseIf} $Config2Use == "netbook.cfg"
-  ${WriteToSysFile} "menuentry $\">எ$\"{configfile /multiboot/menu/netbook.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">NB$\"{configfile /multiboot/menu/netbook.cfg}" $R0 
  ${ElseIf} $Config2Use == "other.cfg"
-  ${WriteToSysFile} "menuentry $\">ஒ$\"{configfile /multiboot/menu/other.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">O$\"{configfile /multiboot/menu/other.cfg}" $R0 
  ${ElseIf} $Config2Use == "unlisted.cfg"
-  ${WriteToSysFile} "menuentry $\">ஔ$\"{configfile /multiboot/menu/unlisted.cfg}" $R0  
+  ${WriteToSysFile} "menuentry $\">UL$\"{configfile /multiboot/menu/unlisted.cfg}" $R0  
 ; ${ElseIf} $Config2Use == "menu.lst"
 ;  ${WriteToSysFile} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/menu.lst" $R0 
  
