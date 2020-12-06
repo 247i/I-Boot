@@ -27,9 +27,7 @@ InstallButtonText "உருவாக்கு"
 !include MUI2.nsh
 !include FileFunc.nsh
 !include LogicLib.nsh
-
 !include StrContains.nsh ; Let's check if a * wildcard exists
-
 !AddPluginDir "plugins"
 
 ; Variables
@@ -366,7 +364,7 @@ Function SelectionsPage
   Pop $LabelISOSelection
   ${NSD_CreateText} 0 120 78% 20 "உலாவி $FileFormat தேர்ந்தெடுக்கவும்"
   Pop $ISOFileTxt 
-  ${NSD_CreateBrowseButton} 85% 120 60 20 "Browse"
+  ${NSD_CreateBrowseButton} 85% 120 60 20 "உலாவு"
   Pop $ISOSelection 
   ${NSD_OnClick} $ISOSelection ISOBrowse
 
@@ -403,15 +401,6 @@ Function SelectionsPage
   ${NSD_CreateLink} 25% 215 30% 15 "பரிந்துரை"
   Pop $Link2
   ${NSD_OnClick} $LINK2 onClickMyLinkUSB
-
-;; Add a custom donate button
-;   ${NSD_CreateBitmap} 80% 125 20% 50 "PayPal Donation"
-;   Var /Global Donate
-;   Var /Global DonateHandle  
-;   Pop $Donate
-;   ${NSD_SetImage} $Donate $PLUGINSDIR\paypal.bmp $DonateHandle 
-;  GetFunctionAddress $DonateHandle OnClickDonate
-;  nsDialogs::OnClick $Donate $DonateHandle  
   
 ; Disable Next Button until a selection is made for all 
   GetDlgItem $6 $HWNDPARENT 1
@@ -431,12 +420,9 @@ Function SelectionsPage
   ShowWindow $CasperSlider 0 
   ShowWindow $SlideSpot 0  
   ShowWindow $Format 0
-						 
   ShowWindow $ForceShowAll 0
   ShowWindow $Uninstaller 0
-					
   nsDialogs::Show 
-								 
  ${EndIf}
 FunctionEnd
 
@@ -451,32 +437,20 @@ FunctionEnd
 
 Function ListAllDrives ; Set to Display All Drives
   SendMessage $DestDriveTxt ${CB_RESETCONTENT} 0 0 
-; ${NSD_GetState} $AllDriveOption $DisplayAll
-; ${If} $DisplayAll == ${BST_CHECKED}
-; ${NSD_Check} $AllDriveOption
-; ${NSD_SetText} $AllDriveOption "Showing All!" 
-;  StrCpy $ShowAll "YES"
-   ${GetDrives} "FDD+HDD" DrivesList ; All Drives Listed  
-;  ${ElseIf} $DisplayAll == ${BST_UNCHECKED}
-;  ${NSD_Uncheck} $AllDriveOption
-;  ${NSD_SetText} $AllDriveOption "Show All Drives?"  
-;  ${GetDrives} "FDD" DrivesList ; FDD+HDD reduced to FDD for removable media only
-;  StrCpy $ShowAll "NO"
-;  ${EndIf}
 FunctionEnd
 
 Function onClickMyLink
-  Pop $Links ; pop something to prevent corruption
+  Pop $Links ; இணைப்பு திற
   ExecShell "open" "https://TamilNeram.github.io"
 FunctionEnd
 
 Function onClickMyLinkFAQ
-  Pop $Links1 ; pop something to prevent corruption
+  Pop $Links1 ; இணைப்பு திற
   ExecShell "open" "https://TamilNeram.github.io"
 FunctionEnd
 
 Function onClickMyLinkUSB
-  Pop $Links2 ; pop something to prevent corruption
+  Pop $Links2 ; இணைப்பு திற
   ExecShell "open" "https://TamilNeram.github.io"
 FunctionEnd
 
@@ -485,7 +459,7 @@ Function onClickLinuxSite
   ExecShell "open" "$Homepage"
 FunctionEnd
 
-Function DownloadIt ; Set Download Option
+Function DownloadIt ; பதிவிறக்க இணைப்பு அமை
   ${NSD_GetState} $DownloadISO $DownloadMe
   ${If} $DownloadMe == ${BST_CHECKED}
   ${NSD_Check} $DownloadISO
@@ -567,20 +541,14 @@ Function EnableNext ; Enable Install Button
   ${If} $Persistence == "casper" ; If can use Casper Persistence... 
   ${AndIf} $TheISO != ""
   ${AndIf} $BootDir != "" 
-																					   
   ShowWindow $CasperSelection 1
   ShowWindow $CasperSlider 1
   ShowWindow $SlideSpot 1
-		   
-  ;${NSD_SetText} $Format "Format $JustDrive Drive (Erases Content)"  
-	
-; Else If not using Casper Persistence...  
   ${ElseIf} $Persistence != "casper" ; Eventually change to "NULL"
   ${OrIf} $Removal == "Yes"  
   ShowWindow $CasperSelection 0
   ShowWindow $CasperSlider 0 
   ShowWindow $SlideSpot 0
-  ;${NSD_SetText} $Format "Format $JustDrive Drive (Erases Content)" 
   ${EndIf}    
 FunctionEnd
 
@@ -687,7 +655,7 @@ Function OnSelectDistro
 							   
   ${GetParent} "$TheISO" $JustISOPath  
   EnableWindow $DownloadISO 0
-  ${NSD_SetText} $DownloadISO "We Found and Selected the $SomeFileExt."    
+  ${NSD_SetText} $DownloadISO "நாங்கள் கண்டுபிடித்து $SomeFileExt தேர்ந்தெடுத்தோம்."    
   EnableWindow $ISOSelection 0 
   SetCtlColors $ISOFileTxt 009900 FFFFFF  
   ${NSD_SetText} $ISOFileTxt $ISOFile 
@@ -736,7 +704,7 @@ Function ISOBrowse
  ${NSD_SetText} $ISOFileTxt $TheISO
  SetCtlColors $ISOFileTxt 009900 FFFFFF
  EnableWindow $DownloadISO 0
- ${NSD_SetText} $DownloadISO "Local $SomeFileExt Selected." 
+ ${NSD_SetText} $DownloadISO "கணினியில் உள்ள $SomeFileExt தேர்ந்தெடுக்கப்பட்டது." 
  StrCpy $ISOTest "$TheISO" ; Populate ISOTest so we can enable Next 
  StrCpy $ISOFile "$TheISO" 
  ${GetFileName} "$TheISO" $JustISO
@@ -779,7 +747,7 @@ Function InstallorRemove ; Populate DistroName based on Install/Removal option
   Call RemovalList
   ${Else}
 						   
-   ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskவைக்க ஒரு விநியோகம்" 
+   ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskஇல் நிறுவ ஒரு விநியோகம்" 
   Call SetISOFileName
   ${EndIf}
 FunctionEnd  
@@ -1148,7 +1116,7 @@ Call GrabNameOnly
 Pop $NameThatISO
 
  ${If} ${FileExists} "$BootDir\windows\system32" ; Safeguard windows Installation.
- MessageBox MB_ICONSTOP|MB_OK "ABORTING! ($DestDisk) contains a WINDOWS/SYSTEM32 Directory."
+ MessageBox MB_ICONSTOP|MB_OK "கைவிடுகிறது! ($DestDisk) ஒரு WINDOWS/SYSTEM32 கோப்பகத்தைக் கொண்டுள்ளது."
  Quit
  ${EndIf}
  
@@ -1156,7 +1124,7 @@ Pop $NameThatISO
  ${If} $FSType == "exFAT"
   ${OrIf} $FSType == "NTFS"
    ${AndIf} $FormatMe != "Yes" 
-   MessageBox MB_ICONSTOP|MB_OK "Syslinux won't work on $FSType formatted devices. ஐ-கருவி will now Exit!" 
+   MessageBox MB_ICONSTOP|MB_OK "$FSType வடிவமைக்கப்பட்ட சாதனங்களில் கணிலினக்சு செயல்படாது. ஐ-கருவி வெளியேறும்!" 
    Quit
  ${EndIf}  
  
