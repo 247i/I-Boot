@@ -484,7 +484,7 @@ Function ListAllDrives ; Set to Display All Drives
 ; ${NSD_Check} $AllDriveOption
 ; ${NSD_SetText} $AllDriveOption "Showing All!" 
 ;  StrCpy $ShowAll "YES"
-   ${GetDrives} "FDD+HDD" DrivesList ; All Drives Listed  
+  ${GetDrives} "FDD+HDD" DrivesList ; All Drives Listed  
 ;  ${ElseIf} $DisplayAll == ${BST_UNCHECKED}
 ;  ${NSD_Uncheck} $AllDriveOption
 ;  ${NSD_SetText} $AllDriveOption "Show All Drives?"  
@@ -679,8 +679,7 @@ Function GrabNameOnly
     Exch $0 ; output string
 FunctionEnd
 
- !include StrContains.nsh ; Let's check if a * wildcard exists
- 
+!include StrContains.nsh ; Let's check if a * wildcard exists
 ; On Selection of Linux Distro
 Function OnSelectDistro
   Pop $Distro

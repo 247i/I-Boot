@@ -19,7 +19,7 @@ FunctionEnd
  ${LineFind} "$BootDir\multiboot\menu\$Config2Use" "$BootDir\multiboot\menu\$Config2Use" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
 !macroend  
 !define WriteToFile "!insertmacro WriteToFile"
-
+/*
 !macro WriteConvertedUnicodeToFile handle codepage string
 Push $0
 Push $1
@@ -35,7 +35,7 @@ System::Call 'KERNEL32::WriteFile(ps,pr0,ir1,*i,p-1)i.r1'
 Pop $1
 Pop $0
 !macroend
-
+*/
 
 ;LangString UFM_INSTALL_DATE 0 "${U+5b89}${U+88c5}${U+65e5}${U+671f}:" # "安装日期:" without Unicode .nsi
 /*
@@ -54,7 +54,7 @@ Function WriteToSysFile ; Write entry to syslinux.cfg
  FileOpen $R0 '$BootDir\boot\ஐ-விரிவாக்கக்கூடிய_நிலைபொருள்_இடைமுகம்\துவக்கஏற்றி.வடிவு' a 
  FileSeek $R0 0 END
  FileWrite $R0 '$\r$\n$1$\r$\n'
-#!insertmacro WriteConvertedUnicodeToFile $R0 65001 '$1'
+;!insertmacro WriteConvertedUnicodeToFile $R0 65001 '$1'
  FileClose $R0
  Pop $1
  Pop $R0
