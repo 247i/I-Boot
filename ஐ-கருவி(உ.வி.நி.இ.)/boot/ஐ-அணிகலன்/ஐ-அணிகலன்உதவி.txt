@@ -1,0 +1,32 @@
+by : Https://TamilNeram.github.io
+
+__________________________________________________
+
+how to use:
+
+open your terminal:
+
+go to : 
+
+cd /usr/share/plymouth/themes/
+ 
+sudo cp -r /home/***/Download/ஐ-அணிகலன்/ ./
+
+(note : *** = is a your user directory, so change it as your name) 
+
+and then:
+
+sudo update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/ஐ-அணிகலன்/ஐ-அணிகலன்.plymouth 100
+
+
+and:
+
+sudo update-alternatives --config default.plymouth
+
+and chose ஐ-அணிகலன் from list
+
+end run:
+
+sudo update-initramfs -u
+_____________________________________________________
+

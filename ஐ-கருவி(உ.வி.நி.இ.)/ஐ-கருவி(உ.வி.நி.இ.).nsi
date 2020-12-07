@@ -119,8 +119,8 @@ Var PERCENT
 Var FSType
 Var DiskNum
 
-!include ReplaceInFile.nsh
-!include DiskVoodoo.nsh
+!include துணைநிரல்உரைகள்\கோப்பில்மாற்று.nsh
+!include துணைநிரல்உரைகள்\துவக்கதட்டுஉரை.nsh
 
 ; Interface settings
 !define MUI_FINISHPAGE_NOAUTOCLOSE
@@ -180,10 +180,10 @@ LangString Finish_Title ${LANG_TAMIL} "${NAME} பயன்படுத்தி
 LangString Finish_Text ${LANG_TAMIL} "உங்கள் தேர்வுகள் மின்வெட்டொளியில் $InUnStalled .$\r$\n$\r$\nமேலும் விநியோகங்களை $InUnStall இந்த கருவியை மீண்டும் இயக்கவும்.$\r$\n$\r$\nஐ-கருவி நீங்கள் ஏற்கனவே $InUnStalled தேர்வுகளை கண்காணிக்கும்."
 LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் பார்க்க"
 
-!include FileManipulation.nsh ; Text File Manipulation
-!include FileNames.nsh ; Macro for FileNames
-!include DistroList.nsh ; List of Distributions
-!include "CasperScript.nsh" ; For creation of Persistent Casper-rw files
+!include துணைநிரல்உரைகள்\கோப்புதிருத்தி.nsh ; Text File Manipulation
+!include துணைநிரல்உரைகள்\கோப்புபெயர்கள்.nsh ; Macro for கோப்புபெயர்கள்
+!include துணைநிரல்உரைகள்\விநியோகபட்டியல்.nsh ; List of Distributions
+!include துணைநிரல்உரைகள்\தட்டுஉருவாகும்உரை.nsh ; For creation of Persistent Casper-rw files
 
 Function License_PreFunction
   StrCpy $R8 1 ;This is the 1st page
@@ -592,7 +592,7 @@ Function GrabNameOnly
     Exch $0 ; output string
 FunctionEnd
 
-!include StrContains.nsh ; Let's check if a * wildcard exists
+!include துணைநிரல்உரைகள்\தொடரில்உள்ள.nsh ; Let's check if a * wildcard exists
 ; On Selection of Linux Distro
 Function OnSelectDistro
   Pop $Distro
@@ -1023,8 +1023,8 @@ Done:
 FunctionEnd
 
 ; Custom Distros Installer - Uninstaller 
-!include "InstallDistro.nsh" ; #ADD NEW DISTRO#
-!include "RemoveDistro.nsh" ; # REM DISTRO#
+!include "துணைநிரல்உரைகள்\விநியோகநிறுவல்.nsh" ; #ADD NEW DISTRO#
+!include "துணைநிரல்உரைகள்\விநியோகநீக்கம்.nsh" ; # REM DISTRO#
 
 Function DoSyslinux ; Install Syslinux on USB
   ${IfNot} ${FileExists} "$BootDir\multiboot\libcom32.c32" 
@@ -1238,17 +1238,17 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\anon.cfg "உரை\அறியப்படாத.வடிவு"
   File /oname=$PLUGINSDIR\linux.cfg "உரை\லினக்சு.வடிவு" 
   File /oname=$PLUGINSDIR\unlisted.cfg "உரை\பட்டியலிடாத.வடிவு"
-  File /oname=$PLUGINSDIR\liveusb "உரை\liveusb"
+  File /oname=$PLUGINSDIR\liveusb "இருமங்கள்\liveusb"
   File /oname=$PLUGINSDIR\7zG.exe "இருமங்கள்\7zG.exe"
   File /oname=$PLUGINSDIR\7z.dll "இருமங்கள்\7z.dll"  
   File /oname=$PLUGINSDIR\new7z\7zG.exe "இருமங்கள்\new7z\7zG.exe"
   File /oname=$PLUGINSDIR\new7z\7z.dll "இருமங்கள்\new7z\7z.dll"  
   File /oname=$PLUGINSDIR\உரிமை.உரை "உரை\உரிமை.உரை" 
   File /oname=$PLUGINSDIR\memdisk "இருமங்கள்\memdisk"  
-  File /oname=$PLUGINSDIR\EFIGRUBX64.zip "EFIGRUB\EFIGRUBX64.zip"   
+  File /oname=$PLUGINSDIR\EFIGRUBX64.zip "EFIGRUBX64.zip"   
 ; File /oname=$PLUGINSDIR\அகர.வடிவு "உரை\அகர.வடிவு"
 ; File /oname=$PLUGINSDIR\other.cfg "உரை\மற்றவை.வடிவு"   
-; File /oname=$PLUGINSDIR\mbrid "உரை\முதன்மை_துவக்க_பதிவெண்"  
+; File /oname=$PLUGINSDIR\mbrid "இருமங்கள்\முதன்மை_துவக்க_பதிவெண்"  
 FunctionEnd
 
 Function onNotify_CasperSlider
