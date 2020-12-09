@@ -1066,9 +1066,9 @@ Function DoSyslinux ; Install Syslinux on USB
   CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\01\menu\memdisk"      
   ${EndIf}  
 
-; boot\ஐ-விரிவாக்கக்கூடிய_நிலைபொருள்_இடைமுகம் அடைவு மற்றும் கோப்புகள் இருப்பதை உறுதிப்படுத்தவும்.  
-  ${If} ${FileExists} $BootDir\boot\ஐ-விரிவாக்கக்கூடிய_நிலைபொருள்_இடைமுகம்\BOOTX64.EFI 
-  ${AndIf} ${FileExists} $BootDir\boot\ஐ-விரிவாக்கக்கூடிய_நிலைபொருள்_இடைமுகம்\துவக்கஏற்றி.வடிவு
+; boot\ஐ-நிலைபொருள்_இடைமுகம் அடைவு மற்றும் கோப்புகள் இருப்பதை உறுதிப்படுத்தவும்.  
+  ${If} ${FileExists} $BootDir\boot\ஐ-நிலைபொருள்_இடைமுகம்\BOOTX64.EFI 
+  ${AndIf} ${FileExists} $BootDir\boot\ஐ-நிலைபொருள்_இடைமுகம்\துவக்கஏற்றி.வடிவு
   
   ${Else}  
 ; Copy GRUB2 EFI files 
