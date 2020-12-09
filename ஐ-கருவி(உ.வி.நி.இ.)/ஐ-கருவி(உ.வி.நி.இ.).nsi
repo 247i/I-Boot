@@ -119,8 +119,8 @@ Var PERCENT
 Var FSType
 Var DiskNum
 
-!include துணைநிரல்உரைகள்\கோப்பில்மாற்று.nsh
-!include துணைநிரல்உரைகள்\துவக்கதட்டுஉரை.nsh
+!include துணைநிரல்உரைகள்\கோப்பில்மாற்று.நிரல்
+!include துணைநிரல்உரைகள்\துவக்கதட்டுஉரை.நிரல்
 
 ; Interface settings
 !define MUI_FINISHPAGE_NOAUTOCLOSE
@@ -171,7 +171,7 @@ LangString CreateSysConfig ${LANG_TAMIL} "$DestDisk இயக்ககத்த�
 LangString ExecuteSyslinux ${LANG_TAMIL} "கணிலினக்சை $BootDir மீது இயக்குகிறது"
 LangString SkipSyslinux ${LANG_TAMIL} "நல்ல கணிலினக்சு உள்ளது..."
 LangString WarningSyslinux ${LANG_TAMIL} "கணிலினக்சை இயக்கும் போது பிழை($R8) ஏற்பட்டது.$\r$\nமின்வெட்டொளி இயக்கி துவக்கப்படாது...$\r$\n$\r$\n$FSType கோப்பு முறைமை கண்டறியப்பட்டது. உங்கள் இயக்கி Fat32 அல்லது NTFS ஆக வடிவமைக்கப்பட வேண்டும்."
-LangString WarningSyslinuxOLD ${LANG_TAMIL} "This ஐ-கருவி revision uses a newer கணிலினக்சு version that is not compatible with earlier revisions.$\r$\nPlease ensure your USB drive doesn't contain earlier revision installs."
+LangString WarningSyslinuxOLD ${LANG_TAMIL} "இந்த ஐ-கருவி திருத்தம் முந்தைய திருத்தங்களுடன் பொருந்தாத புதிய கணிலினக்சு பதிப்பைப் பயன்படுத்துகிறது.$\r$\nஉங்கள் யூ.எஸ்.பி டிரைவில் முந்தைய திருத்த நிறுவல்கள் இல்லை என்பதை உறுதிப்படுத்தவும்."
 LangString Install_Title ${LANG_TAMIL} "$InUnName $InUnStalling"
 LangString Install_SubTitle ${LANG_TAMIL} "நாங்கள்   $JustDrive $OnFrom $InUnName $InUnStall போது காத்திருக்கவும்"
 LangString Install_Finish_Sucess ${LANG_TAMIL} "${NAME} $InUnStalled $InUnName $OnFrom $JustDrive"
@@ -180,10 +180,10 @@ LangString Finish_Title ${LANG_TAMIL} "${NAME} பயன்படுத்தி
 LangString Finish_Text ${LANG_TAMIL} "உங்கள் தேர்வுகள் மின்வெட்டொளியில் $InUnStalled .$\r$\n$\r$\nமேலும் விநியோகங்களை $InUnStall இந்த கருவியை மீண்டும் இயக்கவும்.$\r$\n$\r$\nஐ-கருவி நீங்கள் ஏற்கனவே $InUnStalled தேர்வுகளை கண்காணிக்கும்."
 LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் பார்க்க"
 
-!include துணைநிரல்உரைகள்\கோப்புதிருத்தி.nsh ; Text File Manipulation
-!include துணைநிரல்உரைகள்\கோப்புபெயர்கள்.nsh ; Macro for கோப்புபெயர்கள்
-!include துணைநிரல்உரைகள்\விநியோகபட்டியல்.nsh ; List of Distributions
-!include துணைநிரல்உரைகள்\தட்டுஉருவாகும்உரை.nsh ; For creation of Persistent Casper-rw files
+!include துணைநிரல்உரைகள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
+!include துணைநிரல்உரைகள்\கோப்புபெயர்கள்.நிரல் ; Macro for கோப்புபெயர்கள்
+!include துணைநிரல்உரைகள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
+!include துணைநிரல்உரைகள்\தட்டுஉருவாகும்உரை.நிரல் ; For creation of Persistent Casper-rw files
 
 Function License_PreFunction
   StrCpy $R8 1 ;This is the 1st page
@@ -592,7 +592,7 @@ Function GrabNameOnly
     Exch $0 ; output string
 FunctionEnd
 
-!include துணைநிரல்உரைகள்\தொடரில்உள்ள.nsh ; Let's check if a * wildcard exists
+!include துணைநிரல்உரைகள்\தொடரில்உள்ள.நிரல் ; Let's check if a * wildcard exists
 ; On Selection of Linux Distro
 Function OnSelectDistro
   Pop $Distro
@@ -708,7 +708,7 @@ Function ISOBrowse
  ${If} $JustISOName == "" 
  StrCpy $JustISOName "NULL" ; Set to NULL until something is selected
  ${EndIf}
- ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\*.*"
+ ${If} ${FileExists} "$BootDir\01\$JustISOName\*.*"
  ${AndIf} $JustISOName != ""
  ${AndIf} $FormatMe != "Yes"
  MessageBox MB_OK "$JustISOName is already on $DestDisk$\r$\nPlease Remove it first!"
@@ -1023,23 +1023,23 @@ Done:
 FunctionEnd
 
 ; Custom Distros Installer - Uninstaller 
-!include "துணைநிரல்உரைகள்\விநியோகநிறுவல்.nsh" ; #ADD NEW DISTRO#
-!include "துணைநிரல்உரைகள்\விநியோகநீக்கம்.nsh" ; # REM DISTRO#
+!include துணைநிரல்உரைகள்\விநியோகநிறுவல்.நிரல் ; #ADD NEW DISTRO#
+!include துணைநிரல்உரைகள்\விநியோகநீக்கம்.நிரல் ; # REM DISTRO#
 
 Function DoSyslinux ; Install Syslinux on USB
-  ${IfNot} ${FileExists} "$BootDir\multiboot\libcom32.c32" 
-  ${AndIf} ${FileExists} "$BootDir\multiboot\ldlinux.sys"   
+  ${IfNot} ${FileExists} "$BootDir\01\libcom32.c32" 
+  ${AndIf} ${FileExists} "$BootDir\01\ldlinux.sys"   
   MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinuxOLD)
   Quit
   ${EndIf}
   
-  ;IfFileExists "$BootDir\multiboot\libcom32.c32" SkipSyslinux CreateSyslinux ; checking for newer syslinux
-  IfFileExists "$BootDir\multiboot\menu\ldlinux.sys" SkipSyslinux CreateSyslinux ; checking for syslinux
+  ;IfFileExists "$BootDir\01\libcom32.c32" SkipSyslinux CreateSyslinux ; checking for newer syslinux
+  IfFileExists "$BootDir\01\menu\ldlinux.sys" SkipSyslinux CreateSyslinux ; checking for syslinux
   CreateSyslinux:
-  CreateDirectory $BootDir\multiboot\menu ; recursively create the directory structure if it doesn't exist
-  ;CreateDirectory $BootDir\multiboot\ISOS ; create ISOS folder  
+  CreateDirectory $BootDir\01\menu ; recursively create the directory structure if it doesn't exist
+  ;CreateDirectory $BootDir\01\ISOS ; create ISOS folder  
   DetailPrint $(ExecuteSyslinux)
-  ExecWait '$PLUGINSDIR\syslinux.exe -maf -d /multiboot/menu $BootDir' $R8
+  ExecWait '$PLUGINSDIR\syslinux.exe -maf -d /01/menu $BootDir' $R8
   DetailPrint "Syslinux Errors $R8"
   Banner::destroy
   ${If} $R8 != 0
@@ -1051,19 +1051,19 @@ Function DoSyslinux ; Install Syslinux on USB
   SkipSyslinux: 
   DetailPrint $(SkipSyslinux)
   
-  ${If} ${FileExists} $BootDir\multiboot\menu\syslinux.cfg   
-  ${AndIf} ${FileExists} $BootDir\multiboot\menu\memdisk
+  ${If} ${FileExists} $BootDir\01\menu\syslinux.cfg   
+  ${AndIf} ${FileExists} $BootDir\01\menu\memdisk
    DetailPrint "முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது."
    ; Call AddDir
   ${Else}
 ; Create and Copy files to your destination
-  DetailPrint "தேவையான கோப்புகள் $BootDir\multiboot இதற்கு சேர்கப்பட்டன..." 
-  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\multiboot\உரிமை.உரை"
+  DetailPrint "தேவையான கோப்புகள் $BootDir\01 இதற்கு சேர்கப்பட்டன..." 
+  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\01\உரிமை.உரை"
   
-; Copy these files to multiboot\menu
-  DetailPrint "தேவையான கோப்புகள் $BootDir\multiboot\menu directory இதற்கு சேர்கப்பட்டன..." 
-  CopyFiles "$PLUGINSDIR\syslinux.cfg" "$BootDir\multiboot\menu\syslinux.cfg"  
-  CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\multiboot\menu\memdisk"      
+; Copy these files to 01\menu
+  DetailPrint "தேவையான கோப்புகள் $BootDir\01\menu directory இதற்கு சேர்கப்பட்டன..." 
+  CopyFiles "$PLUGINSDIR\syslinux.cfg" "$BootDir\01\menu\syslinux.cfg"  
+  CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\01\menu\memdisk"      
   ${EndIf}  
 
 ; boot\ஐ-விரிவாக்கக்கூடிய_நிலைபொருள்_இடைமுகம் அடைவு மற்றும் கோப்புகள் இருப்பதை உறுதிப்படுத்தவும்.  
@@ -1074,7 +1074,7 @@ Function DoSyslinux ; Install Syslinux on USB
 ; Copy GRUB2 EFI files 
   DetailPrint "GRUB2 EFI கோப்புகளை நகலெடுக்க தொடர்கிறது..."
 																
-  ExecWait '"$PLUGINSDIR\7zG.exe" x "$PLUGINSDIR\EFIGRUBX64.zip" -o"$BootDir" -y' 
+  ExecWait '"$PLUGINSDIR\7zG.exe" x "$PLUGINSDIR\boot.zip" -o"$BootDir" -y' 
   ${EndIf}   
 FunctionEnd
 
@@ -1106,7 +1106,7 @@ Pop $NameThatISO
  Quit
  ${ElseIf} $FormatMe != "Yes" 
 								
- ${AndIfNot} ${FileExists} $BootDir\multiboot\menu\syslinux.cfg
+ ${AndIfNot} ${FileExists} $BootDir\01\menu\syslinux.cfg
  MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1. ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n2.$DestDisk இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n3. ($DestDisk)இல் ($DistroName)வை நிறுவு$\r$\n$\r$\nசரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
  Quit
  ${EndIf}
@@ -1119,8 +1119,8 @@ proceed:
  Call LocalISODetected
  
 ; Copy the config file if it doesn't exist and create the entry in syslinux.cfg 
- ${IfNot} ${FileExists} "$BootDir\multiboot\menu\$Config2Use" 
- CopyFiles "$PLUGINSDIR\$Config2Use" "$BootDir\multiboot\menu\$Config2Use"
+ ${IfNot} ${FileExists} "$BootDir\01\menu\$Config2Use" 
+ CopyFiles "$PLUGINSDIR\$Config2Use" "$BootDir\01\menu\$Config2Use"
  Call Config2Write
  ${EndIf} 
  
@@ -1135,21 +1135,21 @@ removeonly:
 SectionEnd
 
 Function ConfigRemove ; Find and Set Removal Configuration file
-  ${If} ${FileExists} "$BootDir\multiboot\$DistroName\I\linux.cfg"
+  ${If} ${FileExists} "$BootDir\01\$DistroName\I\linux.cfg"
   StrCpy $Config2Use "linux.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\anon.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\01\$DistroName\I\anon.cfg"
   StrCpy $Config2Use "anon.cfg"  
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\system.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\01\$DistroName\I\system.cfg"
   StrCpy $Config2Use "system.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\antivirus.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\01\$DistroName\I\antivirus.cfg"
   StrCpy $Config2Use "antivirus.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\netbook.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\01\$DistroName\I\netbook.cfg"
   StrCpy $Config2Use "netbook.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\other.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\01\$DistroName\I\other.cfg"
   StrCpy $Config2Use "other.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\unlisted.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\01\$DistroName\I\unlisted.cfg"
   StrCpy $Config2Use "unlisted.cfg"  
-;  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\menu.lst"
+;  ${ElseIf} ${FileExists} "$BootDir\01\$DistroName\I\menu.lst"
 ;  StrCpy $Config2Use "menu.lst"
   ${EndIf}
   ; MessageBox MB_OK "$Config2Use"
@@ -1157,21 +1157,21 @@ FunctionEnd
 
 Function Config2Write
  ${If} $Config2Use == "anon.cfg"
-  ${WriteToSysFile} "menuentry $\">AB$\"{configfile /multiboot/menu/anon.cfg}" $R0  
+  ${WriteToSysFile} "menuentry $\">AB$\"{configfile /01/menu/anon.cfg}" $R0  
  ${ElseIf} $Config2Use == "antivirus.cfg"
-  ${WriteToSysFile} "menuentry $\">AV$\"{configfile /multiboot/menu/antivirus.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">AV$\"{configfile /01/menu/antivirus.cfg}" $R0 
  ${ElseIf} $Config2Use == "system.cfg"
-  ${WriteToSysFile} "menuentry $\">SL$\"{configfile /multiboot/menu/system.cfg}" $R0
+  ${WriteToSysFile} "menuentry $\">SL$\"{configfile /01/menu/system.cfg}" $R0
  ${ElseIf} $Config2Use == "linux.cfg"
-  ${WriteToSysFile} "menuentry $\">I$\"{configfile /multiboot/menu/linux.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">I$\"{configfile /01/menu/linux.cfg}" $R0 
  ${ElseIf} $Config2Use == "netbook.cfg"
-  ${WriteToSysFile} "menuentry $\">NB$\"{configfile /multiboot/menu/netbook.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">NB$\"{configfile /01/menu/netbook.cfg}" $R0 
  ${ElseIf} $Config2Use == "other.cfg"
-  ${WriteToSysFile} "menuentry $\">O$\"{configfile /multiboot/menu/other.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">O$\"{configfile /01/menu/other.cfg}" $R0 
  ${ElseIf} $Config2Use == "unlisted.cfg"
-  ${WriteToSysFile} "menuentry $\">UL$\"{configfile /multiboot/menu/unlisted.cfg}" $R0  
+  ${WriteToSysFile} "menuentry $\">UL$\"{configfile /01/menu/unlisted.cfg}" $R0  
 ; ${ElseIf} $Config2Use == "menu.lst"
-;  ${WriteToSysFile} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/menu.lst" $R0 
+;  ${WriteToSysFile} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /01/grub.exe$\r$\nAPPEND --config-file=/01/menu/menu.lst" $R0 
  ${EndIf} 
 ;always write data to அகர.வடிவு not required
  
@@ -1245,7 +1245,7 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\new7z\7z.dll "இருமங்கள்\new7z\7z.dll"  
   File /oname=$PLUGINSDIR\உரிமை.உரை "உரை\உரிமை.உரை" 
   File /oname=$PLUGINSDIR\memdisk "இருமங்கள்\memdisk"  
-  File /oname=$PLUGINSDIR\EFIGRUBX64.zip "EFIGRUBX64.zip"   
+  File /oname=$PLUGINSDIR\boot.zip "boot.zip"   
 ; File /oname=$PLUGINSDIR\அகர.வடிவு "உரை\அகர.வடிவு"
 ; File /oname=$PLUGINSDIR\other.cfg "உரை\மற்றவை.வடிவு"   
 ; File /oname=$PLUGINSDIR\mbrid "இருமங்கள்\முதன்மை_துவக்க_பதிவெண்"  

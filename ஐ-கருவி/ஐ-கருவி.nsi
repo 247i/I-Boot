@@ -126,7 +126,7 @@ Var WipeIt
 Var WipeMe
 ;Var DisMounted
 
-!include துணைநிரல்உரைகள்\துவக்கதட்டுஉரை.nsh
+!include துணைநிரல்உரைகள்\துவக்கதட்டுஉரை.நிரல்
 
 ; Interface settings
 !define MUI_FINISHPAGE_NOAUTOCLOSE
@@ -190,11 +190,11 @@ LangString Finish_Title ${LANG_TAMIL} "${NAME} பயன்படுத்தி
 LangString Finish_Text ${LANG_TAMIL} "உங்கள் தேர்வுகள் மின்வெட்டொளியில் $InUnStalled .$\r$\n$\r$\nமேலும் விநியோகங்களை $InUnStall இந்த கருவியை மீண்டும் இயக்கவும்.$\r$\n$\r$\nஐ-கருவி நீங்கள் ஏற்கனவே $InUnStalled தேர்வுகளை கண்காணிக்கும்."
 LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் பார்க்க"
 
-!include துணைநிரல்உரைகள்\கோப்புதிருத்தி.nsh ; Text File Manipulation
-!include துணைநிரல்உரைகள்\கோப்புபெயர்கள்.nsh ; Macro for FileNames
-!include துணைநிரல்உரைகள்\விநியோகபட்டியல்.nsh ; List of Distributions
-!include துணைநிரல்உரைகள்\தட்டுஉருவாகும்உரை.nsh ; For creation of Persistent Casper-rw files
-!include துணைநிரல்உரைகள்\கோப்பில்மாற்று.nsh
+!include துணைநிரல்உரைகள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
+!include துணைநிரல்உரைகள்\கோப்புபெயர்கள்.நிரல் ; Macro for FileNames
+!include துணைநிரல்உரைகள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
+!include துணைநிரல்உரைகள்\தட்டுஉருவாகும்உரை.நிரல் ; For creation of Persistent Casper-rw files
+!include துணைநிரல்உரைகள்\கோப்பில்மாற்று.நிரல்
 
 Function License_PreFunction
   StrCpy $R8 1 ;This is the 1st page
@@ -679,7 +679,7 @@ Function GrabNameOnly
     Exch $0 ; output string
 FunctionEnd
 
-!include துணைநிரல்உரைகள்\தொடரில்உள்ள.nsh ; Let's check if a * wildcard exists
+!include துணைநிரல்உரைகள்\தொடரில்உள்ள.நிரல் ; Let's check if a * wildcard exists
 ; On Selection of Linux Distro
 Function OnSelectDistro
   Pop $Distro
@@ -1279,8 +1279,8 @@ Done:
 FunctionEnd
 
 ; Custom Distros Installer - Uninstaller Include
-!include "துணைநிரல்உரைகள்\விநியோகநிறுவல்.nsh" ; ### ADD NEW DISTRO ##
-!include "துணைநிரல்உரைகள்\விநியோகநீக்கம்.nsh" ; ### REM DISTRO ###
+!include "துணைநிரல்உரைகள்\விநியோகநிறுவல்.நிரல்" ; ### ADD NEW DISTRO ##
+!include "துணைநிரல்உரைகள்\விநியோகநீக்கம்.நிரல்" ; ### REM DISTRO ###
 
 Function DoSyslinux ; Install கணிலினக்சு on USB
   ${IfNot} ${FileExists} "$BootDir\multiboot\libcom32.c32" 
