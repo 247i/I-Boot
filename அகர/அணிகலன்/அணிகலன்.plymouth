@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=அணிகலன்
+Description=அணிகலன் Boot time plymouth theme
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/அணிகலன்
+ScriptFile=/usr/share/plymouth/themes/அணிகலன்/அணிகலன்.script

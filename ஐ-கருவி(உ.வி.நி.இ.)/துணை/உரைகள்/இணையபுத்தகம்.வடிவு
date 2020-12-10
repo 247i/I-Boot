@@ -1,0 +1,30 @@
+﻿#Https://Tamilneram.github.IO
+insmod png
+insmod part_msdos
+insmod fat
+insmod ntfs
+insmod ext2
+set timeout=8
+if loadfont /அகர/முதல/எழுத்தெல்லாம்/ஆதி.pf2 ; then
+	set gfxmode=auto
+	insmod efi_gop
+	insmod efi_uga
+	insmod vbe
+	insmod vga
+	insmod gfxterm
+	terminal_output gfxterm
+fi
+if background_image /அகர/அணிகலன்/ஐ56-2.png ; then
+	set color_normal=white/black
+	set color_highlight=blue/black
+	set menu_color_highlight=blue/black
+	set menu_color_normal=white/black
+else
+	set menu_color_normal=white/black
+	set menu_color_highlight=blue/black
+fi
+set default=3
+menuentry "௰" {halt}
+menuentry "ஃ" {reboot}
+menuentry "⮜⮘"{configfile /அகர/முதல/துவக்கஏற்றி.வடிவு}
+#தொடங்கு  இணையபுத்தகம் வழங்கல்கள் 
