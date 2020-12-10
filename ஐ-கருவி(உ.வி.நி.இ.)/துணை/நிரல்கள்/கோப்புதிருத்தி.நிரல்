@@ -74,12 +74,12 @@ Function InstalledList ; Creates a list of installed distros in the அகர\�
    ${If} ${FileExists} "$BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை" 
     FileOpen $R0 '$BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை' a 
     FileSeek $R0 0 END
-	FileWrite $R0 '$\r$\n$1' ; add subsequent entry on a new line
+	FileWriteUTF16LE $R0 '$\r$\n$1' ; add subsequent entry on a new line
    ${Else}
     FileOpen $R0 '$BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை' a 
     FileSeek $R0 0 END
-	;FileWriteUTF16LE /BOM $R0
-    FileWrite $R0 '$1'  ; add first entry without a new line
+	FileWriteUTF16LE $R0 /BOM 
+	FileWriteUTF16LE $R0 '$1'  ; add first entry without a new line
    ${EndIf}
     FileClose $R0
     Pop $1
@@ -133,7 +133,7 @@ Function RemovalList ; Lists the distros installed on the select drive.
  ClearErrors
  FileOpen $0 $BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை r
   loop:
-   FileRead $0 $1
+   FileReadUTF16LE $0 $1
     IfErrors done
     StrCpy $DistroName $1
 	${Trim} "$DistroName" "$DistroName" ; Remove spaces, newlines, and carriage return
