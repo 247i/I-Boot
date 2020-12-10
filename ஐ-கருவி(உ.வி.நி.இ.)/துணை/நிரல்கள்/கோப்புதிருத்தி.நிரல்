@@ -51,7 +51,7 @@ Function WriteToSysFile ; Write entry to syslinux.cfg
  Exch $R0 ;file to write to
  Exch
  Exch $1 ;text to write
- FileOpen $R0 '$BootDir\boot\வி_நி_இ\துவக்கஏற்றி.வடிவு' a 
+ FileOpen $R0 '$BootDir\அகர\முதல\துவக்கஏற்றி.வடிவு' a 
  FileSeek $R0 0 END
  FileWrite $R0 '$\r$\n$1$\r$\n'
 ;!insertmacro WriteConvertedUnicodeToFile $R0 65001 '$1'
@@ -66,17 +66,17 @@ FunctionEnd
 !macroend  
 !define WriteToSysFile "!insertmacro WriteToSysFile"
 
-Function InstalledList ; Creates a list of installed distros in the 01 folder on the USB drive (So we can uninstall the distros later)
+Function InstalledList ; Creates a list of installed distros in the அகர\முதற்றே folder on the USB drive (So we can uninstall the distros later)
  ${IfNot} ${FileExists} "$BootDir\01\$JustISOName\*.*" ; If the installation directory exists user must be reinstalling the same distro, so we won't add a removal entry. 
    Exch $R0 ;file to write to
    Exch
    Exch $1 ;text to write
-   ${If} ${FileExists} "$BootDir\01\நிறுவப்பட்டது.உரை" 
-    FileOpen $R0 '$BootDir\01\நிறுவப்பட்டது.உரை' a 
+   ${If} ${FileExists} "$BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை" 
+    FileOpen $R0 '$BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை' a 
     FileSeek $R0 0 END
 	FileWrite $R0 '$\r$\n$1' ; add subsequent entry on a new line
    ${Else}
-    FileOpen $R0 '$BootDir\01\நிறுவப்பட்டது.உரை' a 
+    FileOpen $R0 '$BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை' a 
     FileSeek $R0 0 END
 	;FileWriteUTF16LE /BOM $R0
     FileWrite $R0 '$1'  ; add first entry without a new line
@@ -129,9 +129,9 @@ FunctionEnd
 
 Function RemovalList ; Lists the distros installed on the select drive.
  ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskஇலிருந்து அகற்ற தேர்வு"  
- ${If} ${FileExists} "$BootDir\01\நிறுவப்பட்டது.உரை" ; Are there distributions on the select drive? 
+ ${If} ${FileExists} "$BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை" ; Are there distributions on the select drive? 
  ClearErrors
- FileOpen $0 $BootDir\01\நிறுவப்பட்டது.உரை r
+ FileOpen $0 $BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை r
   loop:
    FileRead $0 $1
     IfErrors done

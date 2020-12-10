@@ -1057,8 +1057,8 @@ Function DoSyslinux ; Install Syslinux on USB
    ; Call AddDir
   ${Else}
 ; Create and Copy files to your destination
-  DetailPrint "தேவையான கோப்புகள் $BootDir\01 இதற்கு சேர்கப்பட்டன..." 
-  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\01\உரிமை.உரை"
+  DetailPrint "தேவையான கோப்புகள் $BootDir\அகர\முதற்றே இதற்கு சேர்கப்பட்டன..." 
+  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\அகர\முதற்றே\உரிமை.உரை"
   
 ; Copy these files to 01\menu
   DetailPrint "தேவையான கோப்புகள் $BootDir\01\menu directory இதற்கு சேர்கப்பட்டன..." 
@@ -1066,14 +1066,13 @@ Function DoSyslinux ; Install Syslinux on USB
   CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\01\menu\memdisk"      
   ${EndIf}  
 
-; boot\ஐ-நிலைபொருள்_இடைமுகம் அடைவு மற்றும் கோப்புகள் இருப்பதை உறுதிப்படுத்தவும்.  
-  ${If} ${FileExists} $BootDir\boot\ஐ-நிலைபொருள்_இடைமுகம்\BOOTX64.EFI 
-  ${AndIf} ${FileExists} $BootDir\boot\ஐ-நிலைபொருள்_இடைமுகம்\துவக்கஏற்றி.வடிவு
+; அகர\முதல அடைவு மற்றும் கோப்புகள் இருப்பதை உறுதிப்படுத்தவும்.  
+  ${If} ${FileExists} $BootDir\அகர\முதல\BOOTX64.EFI 
+  ${AndIf} ${FileExists} $BootDir\அகர\முதல\துவக்கஏற்றி.வடிவு
   
   ${Else}  
-; Copy GRUB2 EFI files 
-  DetailPrint "GRUB2 EFI கோப்புகளை நகலெடுக்க தொடர்கிறது..."
-																
+; அகர முதல கோப்புகளை நகலெடுக்கிறது 
+  DetailPrint "அகர முதல கோப்புகளை நகலெடுக்க தொடர்கிறது..."
   ExecWait '"$PLUGINSDIR\7zG.exe" x "$PLUGINSDIR\boot.zip" -o"$BootDir" -y' 
   ${EndIf}   
 FunctionEnd

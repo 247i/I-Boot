@@ -10,16 +10,16 @@ if loadfont /அகர/முதல/எழுத்தெல்லாம்/ஆ�
 	set gfxmode=auto
 	insmod efi_gop
 	insmod efi_uga
-   insmod vbe
-   insmod vga
+	insmod vbe
+	insmod vga
 	insmod gfxterm
 	terminal_output gfxterm
 fi
 if background_image /அகர/அணிகலன்/ஐ56-1.png ; then
-  set color_normal=white/black
-  set color_highlight=blue/black
-     set menu_color_highlight=blue/black
-     set menu_color_normal=white/black
+	set color_normal=white/black
+	set color_highlight=blue/black
+	set menu_color_highlight=blue/black
+	set menu_color_normal=white/black
 else
   set menu_color_normal=white/black
   set menu_color_highlight=blue/black
@@ -29,5 +29,5 @@ set default=2
 menuentry "௰" {halt}
 menuentry "ஃ" {reboot}
 #புதிய அகர.வடிவு - அனைத்து நிறுவல்களும் துவக்கஏற்றி பதிப்பு
-menuentry ">அகர " {configfile /10/menu/அகர.வடிவு}
+menuentry ">அகர " {configfile /அகர/முதற்றே/அகர.வடிவு}
 #மற்ற குழுக்கள் இதற்கு கீழே பதிக்கப்படும்
