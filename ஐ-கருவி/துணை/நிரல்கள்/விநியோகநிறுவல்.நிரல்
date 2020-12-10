@@ -611,14 +611,14 @@ FunctionEnd
 	 ; For Syslinux ---- ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Windows Vista/7/8 Installer$\r$\nMENU LABEL Windows Vista/7/8/10 Installer$\r$\nMENU INDENT 1$\r$\nCOM32 /multiboot/chain.c32 fs ntldr=/bootmgr$\r$\n#] $JustISOName" $R0  
 	 ; CopyFiles $ISOFile "$BootDir\multiboot\ISOS\$JustISO"
 	 ; ${WriteToFile} "title$\r$\nroot$\r$\n#[ $JustISOName$\r$\ntitle Start $JustISOName Single Installer$\r$\nchainloader /bootmgr$\r$\n#] $JustISOName" $R0  
-	 ; File /oname=$PLUGINSDIR\firadisk.img "இருமங்கள்\firadisk.img"  
+	 ; File /oname=$PLUGINSDIR\firadisk.img "துணை\இருமங்கள்\firadisk.img"  
 	 ; CopyFiles "$PLUGINSDIR\firadisk.img" "$BootDir\multiboot\ISOS\firadisk.img"   
 
 	 ; Windows XP
 	 ${ElseIf} $DistroName == "Single Windows XP Installer" 
 	 CopyFiles $ISOFile "$BootDir\multiboot\ISOS\$JustISO"
 	 ${WriteToFile} "title$\r$\nroot$\r$\n#[ $JustISOName$\r$\ntitle Begin Install of Windows XP from $JustISO (Stage 1)$\r$\nfind --set-root /multiboot/ISOS/$JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --mem /multiboot/ISOS/firadisk.img (fd0)$\r$\nmap --mem /multiboot/ISOS/firadisk.img (fd1)$\r$\nmap --mem /multiboot/ISOS/$JustISO (0xff)$\r$\nmap --hook$\r$\nchainloader (0xff)/I386/SETUPLDR.BIN$\r$\n$\r$\ntitle Continue Windows XP Install from $JustISO (Stage 2)$\r$\nfind --set-root /multiboot/ISOS/$JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --mem /multiboot/ISOS/$JustISO (0xff)$\r$\nmap --hook$\r$\nchainloader (hd0)+1$\r$\n$\r$\ntitle Boot Windows XP - If fails, reboot with USB removed (Stage 3)$\r$\nmap (hd1) (hd0)$\r$\nmap (hd0) (hd1)$\r$\nroot (hd1,0)$\r$\nfind --set-root /ntldr$\r$\nchainloader /ntldr$\r$\n#] $JustISOName" $R0  
-	 File /oname=$PLUGINSDIR\firadisk.img "இருமங்கள்\firadisk.img"  
+	 File /oname=$PLUGINSDIR\firadisk.img "துணை\இருமங்கள்\firadisk.img"  
 	 CopyFiles "$PLUGINSDIR\firadisk.img" "$BootDir\multiboot\ISOS\firadisk.img"   
 	 
 	 ; Unlisted ISOs

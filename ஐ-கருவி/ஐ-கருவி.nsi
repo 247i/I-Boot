@@ -2,7 +2,7 @@
 !define NAME "ஐ-கருவி"
 !define FILENAME "ஐ-கருவி"
 !define VERSION "2.0.7.10"
-!define MUI_ICON "இருமங்கள்\வண்ணத்துப்பூச்சி.ico"
+!define MUI_ICON "துணை\இருமங்கள்\வண்ணத்துப்பூச்சி.ico"
 
 ; MoreInfo Plugin - Adds Version Tab fields to Properties.
 VIProductVersion "${VERSION}"
@@ -126,12 +126,12 @@ Var WipeIt
 Var WipeMe
 ;Var DisMounted
 
-!include துணைநிரல்உரைகள்\துவக்கதட்டுஉரை.நிரல்
+!include துணை\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்
 
 ; Interface settings
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_HEADERIMAGE
-!define MUI_HEADERIMAGE_BITMAP "இருமங்கள்\தலைப்பு.bmp" 
+!define MUI_HEADERIMAGE_BITMAP "துணை\இருமங்கள்\தலைப்பு.bmp" 
 !define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
 !define MUI_HEADERIMAGE_RIGHT
 
@@ -140,7 +140,7 @@ Var WipeMe
 !define MUI_LICENSEPAGE_TEXT_TOP $(License_Text_Top)
 !define MUI_LICENSEPAGE_TEXT_BOTTOM $(License_Text_Bottom)
 !define MUI_PAGE_CUSTOMFUNCTION_PRE License_PreFunction
-!insertmacro MUI_PAGE_LICENSE "உரை\உரிமை.உரை"
+!insertmacro MUI_PAGE_LICENSE "துணை\உரைகள்\உரிமை.உரை"
 
 ; Distro Selection Page
 Page custom SelectionsPage
@@ -159,7 +159,7 @@ Page custom SelectionsPage
 !define MUI_FINISHPAGE_TEXT $(Finish_Text)
 !define MUI_FINISHPAGE_LINK $(Finish_Link)
 !define MUI_FINISHPAGE_LINK_LOCATION "https://TamilNeram.github.io"
-!define MUI_WELCOMEFINISHPAGE_BITMAP "இருமங்கள்\சரி.bmp"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "துணை\இருமங்கள்\சரி.bmp"
 !define MUI_PAGE_CUSTOMFUNCTION_PRE Finish_PreFunction
 !insertmacro MUI_PAGE_FINISH
 
@@ -190,11 +190,11 @@ LangString Finish_Title ${LANG_TAMIL} "${NAME} பயன்படுத்தி
 LangString Finish_Text ${LANG_TAMIL} "உங்கள் தேர்வுகள் மின்வெட்டொளியில் $InUnStalled .$\r$\n$\r$\nமேலும் விநியோகங்களை $InUnStall இந்த கருவியை மீண்டும் இயக்கவும்.$\r$\n$\r$\nஐ-கருவி நீங்கள் ஏற்கனவே $InUnStalled தேர்வுகளை கண்காணிக்கும்."
 LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் பார்க்க"
 
-!include துணைநிரல்உரைகள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
-!include துணைநிரல்உரைகள்\கோப்புபெயர்கள்.நிரல் ; Macro for FileNames
-!include துணைநிரல்உரைகள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
-!include துணைநிரல்உரைகள்\தட்டுஉருவாகும்உரை.நிரல் ; For creation of Persistent Casper-rw files
-!include துணைநிரல்உரைகள்\கோப்பில்மாற்று.நிரல்
+!include துணை\நிரல்கள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
+!include துணை\நிரல்கள்\கோப்புபெயர்கள்.நிரல் ; Macro for FileNames
+!include துணை\நிரல்கள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
+!include துணை\நிரல்கள்\தட்டுஉருவாகும்உரை.நிரல் ; For creation of Persistent Casper-rw files
+!include துணை\நிரல்கள்\கோப்பில்மாற்று.நிரல்
 
 Function License_PreFunction
   StrCpy $R8 1 ;This is the 1st page
@@ -679,7 +679,7 @@ Function GrabNameOnly
     Exch $0 ; output string
 FunctionEnd
 
-!include துணைநிரல்உரைகள்\தொடரில்உள்ள.நிரல் ; Let's check if a * wildcard exists
+!include துணை\நிரல்கள்\தொடரில்உள்ள.நிரல் ; Let's check if a * wildcard exists
 ; On Selection of Linux Distro
 Function OnSelectDistro
   Pop $Distro
@@ -1024,9 +1024,9 @@ FunctionEnd
   
 Function FormatYes ; If Format is checked, do something
 
-  File /oname=$PLUGINSDIR\diskpartformat.txt "உரை\diskpartformat.txt"     
-  File /oname=$PLUGINSDIR\diskpartwipe1.txt "உரை\diskpartwipe1.txt"  
-  File /oname=$PLUGINSDIR\diskpartwipe2.txt "உரை\diskpartwipe2.txt"    
+  File /oname=$PLUGINSDIR\diskpartformat.txt "துணை\உரைகள்\diskpartformat.txt"     
+  File /oname=$PLUGINSDIR\diskpartwipe1.txt "துணை\உரைகள்\diskpartwipe1.txt"  
+  File /oname=$PLUGINSDIR\diskpartwipe2.txt "துணை\உரைகள்\diskpartwipe2.txt"    
   
   !insertmacro ReplaceInFile "DISKNUM" "$DiskNum" "all" "all" "$PLUGINSDIR\diskpartwipe1.txt"  
   !insertmacro ReplaceInFile "DSK" "$DestDisk" "all" "all" "$PLUGINSDIR\diskpartwipe2.txt" 
@@ -1279,8 +1279,8 @@ Done:
 FunctionEnd
 
 ; Custom Distros Installer - Uninstaller Include
-!include "துணைநிரல்உரைகள்\விநியோகநிறுவல்.நிரல்" ; ### ADD NEW DISTRO ##
-!include "துணைநிரல்உரைகள்\விநியோகநீக்கம்.நிரல்" ; ### REM DISTRO ###
+!include "துணை\நிரல்கள்\விநியோகநிறுவல்.நிரல்" ; ### ADD NEW DISTRO ##
+!include "துணை\நிரல்கள்\விநியோகநீக்கம்.நிரல்" ; ### REM DISTRO ###
 
 Function DoSyslinux ; Install கணிலினக்சு on USB
   ${IfNot} ${FileExists} "$BootDir\multiboot\libcom32.c32" 
@@ -1564,13 +1564,13 @@ StrCpy $R9 0 ; we start on page 0
  done:
  SetShellVarContext all
  InitPluginsDir
-  File /oname=$PLUGINSDIR\dskvol.txt "உரை\dskvol.txt" 
-  File /oname=$PLUGINSDIR\diskpart.txt "உரை\diskpart.txt" 
-  File /oname=$PLUGINSDIR\w2gdiskpart.txt "உரை\w2gdiskpart.txt"   
-  File /oname=$PLUGINSDIR\dd-diskpart.txt "உரை\dd-diskpart.txt" 
-  File /oname=$PLUGINSDIR\diskpartdetach.txt "உரை\diskpartdetach.txt"  
-  File /oname=$PLUGINSDIR\autounattend.xml "உரை\autounattend.xml"   
-  File /oname=$PLUGINSDIR\syslinux.exe "இருமங்கள்\syslinux.exe"  
+  File /oname=$PLUGINSDIR\dskvol.txt "துணை\உரைகள்\dskvol.txt" 
+  File /oname=$PLUGINSDIR\diskpart.txt "துணை\உரைகள்\diskpart.txt" 
+  File /oname=$PLUGINSDIR\w2gdiskpart.txt "துணை\உரைகள்\w2gdiskpart.txt"   
+  File /oname=$PLUGINSDIR\dd-diskpart.txt "துணை\உரைகள்\dd-diskpart.txt" 
+  File /oname=$PLUGINSDIR\diskpartdetach.txt "துணை\உரைகள்\diskpartdetach.txt"  
+  File /oname=$PLUGINSDIR\autounattend.xml "துணை\உரைகள்\autounattend.xml"   
+  File /oname=$PLUGINSDIR\syslinux.exe "துணை\இருமங்கள்\syslinux.exe"  
   File /oname=$PLUGINSDIR\syslinux.cfg "பட்டியல்\syslinux.cfg"
   File /oname=$PLUGINSDIR\legacy-i "பட்டியல்\legacy-i"  
   File /oname=$PLUGINSDIR\menu.lst "பட்டியல்\menu.lst"  
@@ -1579,7 +1579,7 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\grubram.lst "பட்டியல்\grubram.lst"    
   File /oname=$PLUGINSDIR\win.lst "பட்டியல்\win.lst"  
   File /oname=$PLUGINSDIR\win2go.lst "பட்டியல்\win2go.lst"  
-  File /oname=$PLUGINSDIR\grub.exe "இருமங்கள்\grub.exe"  
+  File /oname=$PLUGINSDIR\grub.exe "துணை\இருமங்கள்\grub.exe"  
   File /oname=$PLUGINSDIR\info "பட்டியல்\info"   
   File /oname=$PLUGINSDIR\antivirus.cfg "பட்டியல்\antivirus.cfg" 
   File /oname=$PLUGINSDIR\system.cfg "பட்டியல்\system.cfg" 
@@ -1590,26 +1590,26 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\other.cfg "பட்டியல்\other.cfg"   
   File /oname=$PLUGINSDIR\pe.cfg "பட்டியல்\pe.cfg"    
   File /oname=$PLUGINSDIR\pe.lst "பட்டியல்\pe.lst"  
-  File /oname=$PLUGINSDIR\liveusb "இருமங்கள்\liveusb"
-  File /oname=$PLUGINSDIR\7zG.exe "இருமங்கள்\7zG.exe"
-  File /oname=$PLUGINSDIR\7z.dll "இருமங்கள்\7z.dll"  
-  File /oname=$PLUGINSDIR\ஐ.png "இருமங்கள்\ஐ.png"
-  File /oname=$PLUGINSDIR\உரிமை.உரை "உரை\உரிமை.உரை" 
-  File /oname=$PLUGINSDIR\vesamenu.c32 "இருமங்கள்\vesamenu.c32" 
-  File /oname=$PLUGINSDIR\menu.c32 "இருமங்கள்\menu.c32"    
-  File /oname=$PLUGINSDIR\memdisk "இருமங்கள்\memdisk" 
-  File /oname=$PLUGINSDIR\chain.c32 "இருமங்கள்\chain.c32" 
-  File /oname=$PLUGINSDIR\libcom32.c32 "இருமங்கள்\libcom32.c32"  
-  File /oname=$PLUGINSDIR\libutil.c32 "இருமங்கள்\libutil.c32"   
-  File /oname=$PLUGINSDIR\linux.c32 "இருமங்கள்\linux.c32"  
-  File /oname=$PLUGINSDIR\wimboot "இருமங்கள்\wimboot"   
-  File /oname=$PLUGINSDIR\ifcpu64.c32 "இருமங்கள்\ifcpu64.c32" 
-  File /oname=$PLUGINSDIR\remount.cmd "உரை\remount.cmd"  
-  File /oname=$PLUGINSDIR\boot.cmd "உரை\boot.cmd"    
-  File /oname=$PLUGINSDIR\vhdremount.cmd "உரை\vhdremount.cmd"    
+  File /oname=$PLUGINSDIR\liveusb "துணை\இருமங்கள்\liveusb"
+  File /oname=$PLUGINSDIR\7zG.exe "துணை\இருமங்கள்\7zG.exe"
+  File /oname=$PLUGINSDIR\7z.dll "துணை\இருமங்கள்\7z.dll"  
+  File /oname=$PLUGINSDIR\ஐ.png "துணை\இருமங்கள்\ஐ.png"
+  File /oname=$PLUGINSDIR\உரிமை.உரை "துணை\உரைகள்\உரிமை.உரை" 
+  File /oname=$PLUGINSDIR\vesamenu.c32 "துணை\இருமங்கள்\vesamenu.c32" 
+  File /oname=$PLUGINSDIR\menu.c32 "துணை\இருமங்கள்\menu.c32"    
+  File /oname=$PLUGINSDIR\memdisk "துணை\இருமங்கள்\memdisk" 
+  File /oname=$PLUGINSDIR\chain.c32 "துணை\இருமங்கள்\chain.c32" 
+  File /oname=$PLUGINSDIR\libcom32.c32 "துணை\இருமங்கள்\libcom32.c32"  
+  File /oname=$PLUGINSDIR\libutil.c32 "துணை\இருமங்கள்\libutil.c32"   
+  File /oname=$PLUGINSDIR\linux.c32 "துணை\இருமங்கள்\linux.c32"  
+  File /oname=$PLUGINSDIR\wimboot "துணை\இருமங்கள்\wimboot"   
+  File /oname=$PLUGINSDIR\ifcpu64.c32 "துணை\இருமங்கள்\ifcpu64.c32" 
+  File /oname=$PLUGINSDIR\remount.cmd "துணை\உரைகள்\remount.cmd"  
+  File /oname=$PLUGINSDIR\boot.cmd "துணை\உரைகள்\boot.cmd"    
+  File /oname=$PLUGINSDIR\vhdremount.cmd "துணை\உரைகள்\vhdremount.cmd"    
   File /oname=$PLUGINSDIR\ei.cfg "பட்டியல்\ei.cfg"
-  File /oname=$PLUGINSDIR\dd.exe "இருமங்கள்\dd.exe"
-  File /oname=$PLUGINSDIR\fat32format.exe "இருமங்கள்\fat32format.exe"    
+  File /oname=$PLUGINSDIR\dd.exe "துணை\இருமங்கள்\dd.exe"
+  File /oname=$PLUGINSDIR\fat32format.exe "துணை\இருமங்கள்\fat32format.exe"    
   SetOutPath "$PLUGINSDIR"  
   File /r "wimlib" 
   SetOutPath ""  

@@ -37,8 +37,8 @@ FunctionEnd
 Function GetCaspTools
 SetShellVarContext all
 InitPluginsDir
-File /oname=$PLUGINSDIR\dd.exe "இருமங்கள்\dd.exe"
-File /oname=$PLUGINSDIR\mke2fs.exe "இருமங்கள்\mke2fs.exe"
+File /oname=$PLUGINSDIR\dd.exe "துணை\இருமங்கள்\dd.exe"
+File /oname=$PLUGINSDIR\mke2fs.exe "துணை\இருமங்கள்\mke2fs.exe"
 DetailPrint "இப்போது ஒரு நிலைத்தன்மை அல்லது எழுதக்கூடிய கோப்பை உருவாக்குதல்" 
 DetailPrint "நிலைத்தன்மை கோப்பை உருவாக்குதல்: முடிவடையும் வரை முன்னேற்றப் பட்டி நகராது. தயவுசெய்து பொருமையாயிறு..." 
 FunctionEnd
