@@ -39,7 +39,7 @@ Function Write2mbrid
  Exch $R0 ;file to write to
  Exch
  Exch $1 ;text to write
- FileOpen $R0 '$BootDir\01\$SUSEDIR\boot\grub\mbrid' a  ;FileOpen $R0 '$BootDir\01\menu\$Config2Use' a 
+ FileOpen $R0 '$BootDir\01\$SUSEDIR\boot\grub\mbrid' a  ;FileOpen $R0 '$BootDir\boot\menu\$Config2Use' a 
  FileSeek $R0 0 END
  FileWrite $R0 '$1'
  FileClose $R0

@@ -139,7 +139,7 @@ FunctionEnd
 
 ; If distro is already installed, delete the entry, so we don't make a mess.
  ${If} ${FileExists} "$BootDir\01\$JustISOName\*.*"
- ${DeleteMenuEntry} "$BootDir\01\menu\$Config2Use" "#[ $DistroName" "#] $DistroName" ; கட்டமைப்பு கோப்பிலிருந்து உள்ளீட்டை அகற்று... I.E. linux.cfg, system.cfg, etc
+ ${DeleteMenuEntry} "$BootDir\boot\menu\$Config2Use" "#[ $DistroName" "#] $DistroName" ; கட்டமைப்பு கோப்பிலிருந்து உள்ளீட்டை அகற்று... I.E. linux.cfg, system.cfg, etc
  ${EndIf}
  
 ; Write $JustISOName to நிறுவப்பட்டது.உரை 
@@ -223,9 +223,9 @@ FunctionEnd
  ;${StrRep} '$ISONameDotLess' '$JustISOName' '-x86_64-' '-'
  ${StrRep} '$ISONameDotLess' '$JustISOName' '.' '-'
  ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /01/$JustISOName/$JustISO$\r$\nlinux (loop)/isolinux/$Vmlinuz iso-scan/filename=/01/$JustISOName/$JustISO rootfstype=auto root=live:CDLABEL=$ISONameDotLess ro rd.live.image$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/isolinux/$Initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
- !insertmacro ReplaceInFile "CDLABEL=Fedora-Live-Workstation" "CDLABEL=Fedora-Live-WS" "all" "all" "$BootDir\01\menu\linux.cfg"   
- !insertmacro ReplaceInFile "CDLABEL=Fedora-Workstation-Live" "CDLABEL=Fedora-WS-Live" "all" "all" "$BootDir\01\menu\linux.cfg" 
- !insertmacro ReplaceInFile "CDLABEL=Fedora-WS-Live-x86_64" "CDLABEL=Fedora-WS-Live" "all" "all" "$BootDir\01\menu\linux.cfg" 
+ !insertmacro ReplaceInFile "CDLABEL=Fedora-Live-Workstation" "CDLABEL=Fedora-Live-WS" "all" "all" "$BootDir\boot\menu\linux.cfg"   
+ !insertmacro ReplaceInFile "CDLABEL=Fedora-Workstation-Live" "CDLABEL=Fedora-WS-Live" "all" "all" "$BootDir\boot\menu\linux.cfg" 
+ !insertmacro ReplaceInFile "CDLABEL=Fedora-WS-Live-x86_64" "CDLABEL=Fedora-WS-Live" "all" "all" "$BootDir\boot\menu\linux.cfg" 
  
 ; Linpus Lite (New Method) 
  ${ElseIf} $DistroName == "Linpus Lite" 
@@ -441,7 +441,7 @@ FunctionEnd
 ; RIPLinux (New Method) 
  ${ElseIf} $DistroName == "Rip Linux (Recovery Distro) - BIOS ONLY" 
  CopyFiles $ISOFile "$BootDir\01\$JustISOName\$JustISO" ; Copy the ISO to Directory 
- ${WriteToFile} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/01/$JustISOName/$JustISO$\"$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\nlinux16 /01/menu/memdisk iso raw$\r$\ninitrd16 $$isofile$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/01/$JustISOName/$JustISO$\"$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\nlinux16 /boot/menu/memdisk iso raw$\r$\ninitrd16 $$isofile$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
  
 ; Finnix 
  ${ElseIf} $DistroName == "Finnix x86/64- BIOS ONLY" 
@@ -554,25 +554,25 @@ FunctionEnd
  ${EndIf} 
  
  ${If} $DistroName == "Ubuntu"  
- !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntu.seed" "all" "all" "$BootDir\01\menu\linux.cfg"  
+ !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntu.seed" "all" "all" "$BootDir\boot\menu\linux.cfg"  
  ${ElseIf} $DistroName == "Cub Linux"  
- !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntu.seed" "all" "all" "$BootDir\01\menu\linux.cfg"  
+ !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntu.seed" "all" "all" "$BootDir\boot\menu\linux.cfg"  
  ${ElseIf} $DistroName == "Ubuntu Gnome"
- !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntu-gnome.seed" "all" "all" "$BootDir\01\menu\linux.cfg"  
+ !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntu-gnome.seed" "all" "all" "$BootDir\boot\menu\linux.cfg"  
  ${ElseIf} $DistroName == "Ubuntu Studio"
- !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntustudio.seed" "all" "all" "$BootDir\01\menu\linux.cfg"  
+ !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntustudio.seed" "all" "all" "$BootDir\boot\menu\linux.cfg"  
  ${ElseIf} $DistroName == "Xubuntu"
- !insertmacro ReplaceInFile "SOMETHING.seed" "xubuntu.seed" "all" "all" "$BootDir\01\menu\linux.cfg"  
+ !insertmacro ReplaceInFile "SOMETHING.seed" "xubuntu.seed" "all" "all" "$BootDir\boot\menu\linux.cfg"  
  ${ElseIf} $DistroName == "Kubuntu"
- !insertmacro ReplaceInFile "SOMETHING.seed" "kubuntu.seed" "all" "all" "$BootDir\01\menu\linux.cfg"  
+ !insertmacro ReplaceInFile "SOMETHING.seed" "kubuntu.seed" "all" "all" "$BootDir\boot\menu\linux.cfg"  
  ${ElseIf} $DistroName == "Lubuntu"
- !insertmacro ReplaceInFile "SOMETHING.seed" "lubuntu.seed" "all" "all" "$BootDir\01\menu\linux.cfg"  
+ !insertmacro ReplaceInFile "SOMETHING.seed" "lubuntu.seed" "all" "all" "$BootDir\boot\menu\linux.cfg"  
  ${ElseIf} $DistroName == "Edubuntu"
- !insertmacro ReplaceInFile "SOMETHING.seed" "edubuntu.seed" "all" "all" "$BootDir\01\menu\linux.cfg"  
+ !insertmacro ReplaceInFile "SOMETHING.seed" "edubuntu.seed" "all" "all" "$BootDir\boot\menu\linux.cfg"  
  ${ElseIf} $DistroName == "Ubuntu Budgie"
- !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntu-budgie.seed" "all" "all" "$BootDir\01\menu\linux.cfg"
+ !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntu-budgie.seed" "all" "all" "$BootDir\boot\menu\linux.cfg"
  ${ElseIf} $DistroName == "Feren OS"
- !insertmacro ReplaceInFile "SOMETHING.seed" "lubuntu.seed" "all" "all" "$BootDir\01\menu\linux.cfg"
+ !insertmacro ReplaceInFile "SOMETHING.seed" "lubuntu.seed" "all" "all" "$BootDir\boot\menu\linux.cfg"
  ${EndIf}  
   
 ; OpenSUSE
@@ -597,7 +597,7 @@ FunctionEnd
 ; FreeDOS (Balder img) 
  ${ElseIf} $DistroName == "FreeDOS (Balder img)"
  CopyFiles $ISOFile "$BootDir\01\$JustISOName\$JustISO"
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux16 /01/menu/memdisk$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd16 /01/$JustISOName/$JustISO$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux16 /boot/menu/memdisk$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd16 /01/$JustISOName/$JustISO$\r$\n}$\r$\n#] $JustISOName" $R0  
  
  ; XPUD (New Method) 
  ${ElseIf} $DistroName == "xPUD (Netbook Distro)" 
@@ -686,7 +686,7 @@ FunctionEnd
  ${OrIf} $DistroName == "Hiren's Boot CD - BIOS ONLY" 
  ${OrIf} $DistroName == "Falcon 4 Boot CD - BIOS ONLY"  
  CopyFiles $ISOFile "$BootDir\01\$JustISOName\$JustISO" 
- ${WriteToFile} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/01/$JustISOName/$JustISO$\"$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\nlinux16 /01/menu/memdisk iso raw$\r$\ninitrd16 $$isofile$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
+ ${WriteToFile} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/01/$JustISOName/$JustISO$\"$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\nlinux16 /boot/menu/memdisk iso raw$\r$\ninitrd16 $$isofile$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
 
  ${Else} ; Start Catch All Install Methods 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\01\$JustISOName\" -y'  
