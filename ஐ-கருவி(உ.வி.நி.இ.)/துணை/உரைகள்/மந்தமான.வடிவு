@@ -4,9 +4,7 @@ insmod part_msdos
 insmod fat
 insmod ntfs
 insmod ext2
-#set root='hd0,msdos1'
 set root --label TA --hint hd0,msdos1
-#பின்வரும் இரண்டு வரிகள் பட்டியலைக் காட்டாமல் இயல்புநிலை உள்ளீட்டை துவக்க அனுமதிக்கிறது
 set timeout=0
 set TIMEOUT_STYLE=hidden
 if loadfont /அகர/முதல/எழுத்தெல்லாம்/ஆதி.pf2 ; then

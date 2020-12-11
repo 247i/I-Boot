@@ -39,10 +39,18 @@ Function Write2mbrid
  Exch $R0 ;file to write to
  Exch
  Exch $1 ;text to write
- FileOpen $R0 '$BootDir\01\$SUSEDIR\boot\grub\mbrid' a  ;FileOpen $R0 '$BootDir\boot\menu\$Config2Use' a 
+ ;wrapper before write. Assumption UTF-8 file. 
+${FileRecode} '$BootDir\01\$SUSEDIR\boot\grub\mbrid' "ToUTF16LE"
+;Convert file from UTF-8 to UTF16LE
+ FileOpen $R0 '$BootDir\01\$SUSEDIR\boot\grub\mbrid' a  ; 
  FileSeek $R0 0 END
- FileWrite $R0 '$1'
+;FileWrite $R0 '$1'
+FileWriteUTF16LE $R0 '$1'
  FileClose $R0
+; Convert file back to UTF-8
+${FileRecode} '$BootDir\01\$SUSEDIR\boot\grub\mbrid' "ToUTF8"
+; Convert file UTF16LE to UTF-8
+
  Pop $1
  Pop $R0
 FunctionEnd

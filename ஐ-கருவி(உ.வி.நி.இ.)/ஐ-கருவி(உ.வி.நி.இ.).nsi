@@ -119,8 +119,10 @@ Var PERCENT
 Var FSType
 Var DiskNum
 
+!include துணை\நிரல்கள்\ஒற்றைகுறியீடுஉரை.நிரல்
 !include துணை\நிரல்கள்\கோப்பில்மாற்று.நிரல்
 !include துணை\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்
+
 
 ; Interface settings
 !define MUI_FINISHPAGE_NOAUTOCLOSE
@@ -989,26 +991,40 @@ Function DeleteMenuEntry
  Push $R2
  Push $R3
   GetTempFileName $R2
+
+;wrapper before write. Assumption UTF-8 file. 
+${FileRecode} $R2 "ToUTF16LE"
+${FileRecode} $3 "ToUTF16LE"
+;Convert file from UTF-8 to UTF16LE
   FileOpen $R1 $R2 w
   FileOpen $R0 $3 r
   ClearErrors
-  FileRead $R0 $R3
+ ;FileRead $R0 $R3
+  FileReadUTF16LE $R0 $R3
   IfErrors Done
   StrCmp $R3 $2 +3
-  FileWrite $R1 $R3
+ ;FileWrite $R1 $R3
+  FileWriteUTF16LE $R1 $R3
   Goto -5
   ClearErrors
-  FileRead $R0 $R3
+ ;FileRead $R0 $R3
+  FileReadUTF16LE $R0 $R3
   IfErrors Done
   StrCmp $R3 $1 +4 -3 
-  FileRead $R0 $R3
+ ;FileRead $R0 $R3
+  FileReadUTF16LE $R0 $R3
   IfErrors Done
-  FileWrite $R1 $R3
+ ;FileWrite $R1 $R3
+  FileWriteUTF16LE $R1 $R3
   ClearErrors
   Goto -4
 Done:
    FileClose $R0
    FileClose $R1
+; Convert file back to UTF-8
+${FileRecode} $R2 "ToUTF8"
+${FileRecode} $3 "ToUTF16LE"
+; Convert file UTF16LE to UTF-8
    SetDetailsPrint none
    Delete $3
    Rename $R2 $3

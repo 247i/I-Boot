@@ -37,6 +37,11 @@ Push $R5 ;count (after)
 Push $R6 ;temp file name
  
   GetTempFileName $R6
+;wrapper before write. Assumption UTF-8 file. 
+;${FileRecode} $0 "ToUTF16LE"
+;${FileRecode} $R6 "ToUTF16LE" ;probably this is new file so no recoding required
+;Convert file from UTF-8 to UTF16LE
+
   FileOpen $R1 $0 r ;file to search in
   FileOpen $R0 $R6 w ;temp file
    StrLen $R3 $4
@@ -45,9 +50,9 @@ Push $R6 ;temp file name
  
 loop_read:
  ClearErrors
- FileRead $R1 $R2 ;read line
+FileRead $R1 $R2 ;read line
+;FileReadUTF16LE $R1 $R2 ;read line
  IfErrors exit
- 
    StrCpy $5 0
    StrCpy $7 $R2
  
@@ -80,22 +85,28 @@ IntOp $R5 $R5 - 1
 Goto file_write2
  
 file_write1:
- FileWrite $R0 $7 ;write modified line
+FileWrite $R0 $7 ;write modified line
+;FileWriteUTF16LE $R0 $7 ;write modified line
 Goto loop_read
  
 file_write2:
- FileWrite $R0 $R2 ;write unmodified line
+FileWrite $R0 $R2 ;write unmodified line
+;FileWriteUTF16LE $R0 $R2 ;write unmodified line
 Goto loop_read
  
 exit:
   FileClose $R0
   FileClose $R1
+; Convert file back to UTF-8
+;${FileRecode} $0 "ToUTF8"; anyway getting deleted no point in recoding.
+;${FileRecode} $R6 "ToUTF8"
+; Convert file UTF16LE to UTF-8
  
-   SetDetailsPrint none
+  SetDetailsPrint none
   Delete $0
   Rename $R6 $0
   Delete $R6
-   SetDetailsPrint both
+  SetDetailsPrint both
  
 Pop $R6
 Pop $R5
