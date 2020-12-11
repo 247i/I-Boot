@@ -1171,18 +1171,18 @@ Function ConfigRemove ; Find and Set Removal Configuration file
 FunctionEnd
 
 Function Config2Write
- ${If} $Config2Use == "anon.cfg"
-  ${WriteToSysFile} "menuentry $\">மற$\"{configfile /boot/menu/anon.cfg}" $R0  
- ${ElseIf} $Config2Use == "antivirus.cfg"
-  ${WriteToSysFile} "menuentry $\">தட$\"{configfile /boot/menu/antivirus.cfg}" $R0 
- ${ElseIf} $Config2Use == "system.cfg"
+ ${If} $Config2Use == "system.cfg"
   ${WriteToSysFile} "menuentry $\">அகர$\"{configfile /boot/menu/system.cfg}" $R0
- ${ElseIf} $Config2Use == "linux.cfg"
-  ${WriteToSysFile} "menuentry $\">ஐ$\"{configfile /boot/menu/linux.cfg}" $R0 
  ${ElseIf} $Config2Use == "netbook.cfg"
   ${WriteToSysFile} "menuentry $\">இ$\"{configfile /boot/menu/netbook.cfg}" $R0 
+ ${ElseIf} $Config2Use == "linux.cfg"
+  ${WriteToSysFile} "menuentry $\">ஐ$\"{configfile /boot/menu/linux.cfg}" $R0 
  ${ElseIf} $Config2Use == "other.cfg"
   ${WriteToSysFile} "menuentry $\">ஒ$\"{configfile /boot/menu/other.cfg}" $R0 
+ ${ElseIf} $Config2Use == "antivirus.cfg"
+  ${WriteToSysFile} "menuentry $\">தட$\"{configfile /boot/menu/antivirus.cfg}" $R0 
+ ${ElseIf} $Config2Use == "anon.cfg"
+  ${WriteToSysFile} "menuentry $\">பற$\"{configfile /boot/menu/anon.cfg}" $R0  
  ${ElseIf} $Config2Use == "unlisted.cfg"
   ${WriteToSysFile} "menuentry $\">மற$\"{configfile /boot/menu/unlisted.cfg}" $R0  
 ; ${ElseIf} $Config2Use == "menu.lst"

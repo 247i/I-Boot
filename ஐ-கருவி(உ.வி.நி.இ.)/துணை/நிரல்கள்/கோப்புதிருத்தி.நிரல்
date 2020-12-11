@@ -25,7 +25,7 @@ FunctionEnd
  Push "${String}"
  Push "${File}"
  Call WriteToFile
- ;${LineFind} "$BootDir\boot\menu\$Config2Use" "$BootDir\boot\menu\$Config2Use" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
+ ${LineFind} "$BootDir\boot\menu\$Config2Use" "$BootDir\boot\menu\$Config2Use" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
 !macroend  
 !define WriteToFile "!insertmacro WriteToFile"
 
