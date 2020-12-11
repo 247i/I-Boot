@@ -1172,19 +1172,19 @@ FunctionEnd
 
 Function Config2Write
  ${If} $Config2Use == "anon.cfg"
-  ${WriteToSysFile} "menuentry $\">AB$\"{configfile /boot/menu/anon.cfg}" $R0  
+  ${WriteToSysFile} "menuentry $\">மற$\"{configfile /boot/menu/anon.cfg}" $R0  
  ${ElseIf} $Config2Use == "antivirus.cfg"
-  ${WriteToSysFile} "menuentry $\">AV$\"{configfile /boot/menu/antivirus.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">தட$\"{configfile /boot/menu/antivirus.cfg}" $R0 
  ${ElseIf} $Config2Use == "system.cfg"
-  ${WriteToSysFile} "menuentry $\">SL$\"{configfile /boot/menu/system.cfg}" $R0
+  ${WriteToSysFile} "menuentry $\">அகர$\"{configfile /boot/menu/system.cfg}" $R0
  ${ElseIf} $Config2Use == "linux.cfg"
-  ${WriteToSysFile} "menuentry $\">I$\"{configfile /boot/menu/linux.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">ஐ$\"{configfile /boot/menu/linux.cfg}" $R0 
  ${ElseIf} $Config2Use == "netbook.cfg"
-  ${WriteToSysFile} "menuentry $\">NB$\"{configfile /boot/menu/netbook.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">இ$\"{configfile /boot/menu/netbook.cfg}" $R0 
  ${ElseIf} $Config2Use == "other.cfg"
-  ${WriteToSysFile} "menuentry $\">O$\"{configfile /boot/menu/other.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">ஒ$\"{configfile /boot/menu/other.cfg}" $R0 
  ${ElseIf} $Config2Use == "unlisted.cfg"
-  ${WriteToSysFile} "menuentry $\">UL$\"{configfile /boot/menu/unlisted.cfg}" $R0  
+  ${WriteToSysFile} "menuentry $\">மற$\"{configfile /boot/menu/unlisted.cfg}" $R0  
 ; ${ElseIf} $Config2Use == "menu.lst"
 ;  ${WriteToSysFile} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /01/grub.exe$\r$\nAPPEND --config-file=/boot/menu/menu.lst" $R0 
  ${EndIf} 
@@ -1249,7 +1249,7 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\antivirus.cfg "துணை\உரைகள்\நோய்க்கிருமிதடுப்பு.வடிவு" 
   File /oname=$PLUGINSDIR\system.cfg "துணை\உரைகள்\கருவிகள்.வடிவு" 
   File /oname=$PLUGINSDIR\netbook.cfg "துணை\உரைகள்\இணையபுத்தகம்.வடிவு"
-  File /oname=$PLUGINSDIR\anon.cfg "துணை\உரைகள்\அறியப்படாத.வடிவு"
+  File /oname=$PLUGINSDIR\anon.cfg "துணை\உரைகள்\உலாவி.வடிவு"
   File /oname=$PLUGINSDIR\linux.cfg "துணை\உரைகள்\லினக்சு.வடிவு" 
   File /oname=$PLUGINSDIR\unlisted.cfg "துணை\உரைகள்\பட்டியலிடாத.வடிவு"
   File /oname=$PLUGINSDIR\liveusb "துணை\இருமங்கள்\liveusb"

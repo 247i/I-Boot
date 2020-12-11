@@ -1,4 +1,50 @@
-﻿This file outlines where to find the third party tools (tools authored entirely by others) that are either used in ஐ or used to create it.
+﻿அ - 
+ஆ 
+இ
+ஈ
+உ
+ஊ
+எ
+ஏ
+ஐ
+ஒ
+ஓ
+ஔ 
+க
+ங
+ச
+ஞ
+ட
+ண
+த
+ன 
+
+
+
+Function Config2Write
+ ${If} $Config2Use == "anon.cfg"
+  ${WriteToSysFile} "menuentry $\">பற$\"{configfile /boot/menu/anon.cfg}" $R0  
+ ${ElseIf} $Config2Use == "antivirus.cfg"
+  ${WriteToSysFile} "menuentry $\">தட$\"{configfile /boot/menu/antivirus.cfg}" $R0 
+ ${ElseIf} $Config2Use == "system.cfg"
+  ${WriteToSysFile} "menuentry $\">ஐ$\"{configfile /boot/menu/system.cfg}" $R0
+ ${ElseIf} $Config2Use == "linux.cfg"
+  ${WriteToSysFile} "menuentry $\">அகர$\"{configfile /boot/menu/linux.cfg}" $R0 
+ ${ElseIf} $Config2Use == "netbook.cfg"
+  ${WriteToSysFile} "menuentry $\">இ$\"{configfile /boot/menu/netbook.cfg}" $R0 
+ ${ElseIf} $Config2Use == "other.cfg"
+  ${WriteToSysFile} "menuentry $\">ஒ$\"{configfile /boot/menu/other.cfg}" $R0 
+ ${ElseIf} $Config2Use == "unlisted.cfg"
+  ${WriteToSysFile} "menuentry $\">மற$\"{configfile /boot/menu/unlisted.cfg}" $R0  
+; ${ElseIf} $Config2Use == "menu.lst"
+;  ${WriteToSysFile} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /01/grub.exe$\r$\nAPPEND --config-file=/boot/menu/menu.lst" $R0 
+ ${EndIf} 
+;always write data to அகர.வடிவு not required
+ 
+FunctionEnd
+
+
+This file outlines where to find the third party tools (tools authored entirely by others) that are either used in ஐ or used to create it.
 The binarysources.zip file contains the sources for grub4DOS, Syslinux, 7zip, Firadisk, Wimlib, Fat32format, etc.
 It can be found at https://www.pendrivelinux.com/downloads/YUMI/binarysources.zip
 
