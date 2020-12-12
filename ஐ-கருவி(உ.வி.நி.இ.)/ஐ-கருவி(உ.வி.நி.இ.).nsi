@@ -2,7 +2,7 @@
 !define NAME "ஐ-கருவி(உ.வி.நி.இ.)"
 !define FILENAME "ஐ-கருவி(உ.வி.நி.இ.)"
 !define VERSION "0.0.3.2"
-!define MUI_ICON "துணை\இருமங்கள்\வண்ணத்துப்பூச்சி.ico"
+!define MUI_ICON "இருமங்கள்\வண்ணத்துப்பூச்சி.ico"
 
 VIProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "ஐ"
@@ -119,15 +119,15 @@ Var PERCENT
 Var FSType
 Var DiskNum
 
-!include துணை\நிரல்கள்\ஒற்றைகுறியீடுஉரை.நிரல்
-!include துணை\நிரல்கள்\கோப்பில்மாற்று.நிரல்
-!include துணை\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்
+!include துணைநிரல்கள்\ஒற்றைகுறியீடுஉரை.நிரல்
+!include துணைநிரல்கள்\கோப்பில்மாற்று.நிரல்
+!include துணைநிரல்கள்\துவக்கதட்டுஉரை.நிரல்
 
 
 ; Interface settings
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_HEADERIMAGE
-!define MUI_HEADERIMAGE_BITMAP "துணை\இருமங்கள்\தலைப்பு.bmp" 
+!define MUI_HEADERIMAGE_BITMAP "இருமங்கள்\தலைப்பு.bmp" 
 !define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
 !define MUI_HEADERIMAGE_RIGHT
 ; License Agreement Page
@@ -135,7 +135,7 @@ Var DiskNum
 !define MUI_LICENSEPAGE_TEXT_TOP $(License_Text_Top)
 !define MUI_LICENSEPAGE_TEXT_BOTTOM $(License_Text_Bottom)
 !define MUI_PAGE_CUSTOMFUNCTION_PRE License_PreFunction
-!insertmacro MUI_PAGE_LICENSE "துணை\உரைகள்\உரிமை.உரை"
+!insertmacro MUI_PAGE_LICENSE "உரைகள்\உரிமை.உரை"
 ; Distro Selection Page
 Page custom SelectionsPage
 ; Install Files Page
@@ -151,7 +151,7 @@ Page custom SelectionsPage
 !define MUI_FINISHPAGE_TEXT $(Finish_Text)
 !define MUI_FINISHPAGE_LINK $(Finish_Link)
 !define MUI_FINISHPAGE_LINK_LOCATION "https://TamilNeram.github.io"
-!define MUI_WELCOMEFINISHPAGE_BITMAP "துணை\இருமங்கள்\சரி.bmp"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "இருமங்கள்\சரி.bmp"
 !define MUI_PAGE_CUSTOMFUNCTION_PRE Finish_PreFunction
 !insertmacro MUI_PAGE_FINISH
 
@@ -182,10 +182,10 @@ LangString Finish_Title ${LANG_TAMIL} "${NAME} பயன்படுத்தி
 LangString Finish_Text ${LANG_TAMIL} "உங்கள் தேர்வுகள் மின்வெட்டொளியில் $InUnStalled .$\r$\n$\r$\nமேலும் விநியோகங்களை $InUnStall இந்த கருவியை மீண்டும் இயக்கவும்.$\r$\n$\r$\nஐ-கருவி நீங்கள் ஏற்கனவே $InUnStalled தேர்வுகளை கண்காணிக்கும்."
 LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் பார்க்க"
 
-!include துணை\நிரல்கள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
-!include துணை\நிரல்கள்\கோப்புபெயர்கள்.நிரல் ; Macro for கோப்புபெயர்கள்
-!include துணை\நிரல்கள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
-!include துணை\நிரல்கள்\தட்டுஉருவாகும்உரை.நிரல் ; For creation of Persistent Casper-rw files
+!include துணைநிரல்கள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
+!include துணைநிரல்கள்\கோப்புபெயர்கள்.நிரல் ; Macro for கோப்புபெயர்கள்
+!include துணைநிரல்கள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
+!include துணைநிரல்கள்\தட்டுஉருவாகும்உரை.நிரல் ; For creation of Persistent Casper-rw files
 
 Function License_PreFunction
   StrCpy $R8 1 ;This is the 1st page
@@ -594,7 +594,7 @@ Function GrabNameOnly
     Exch $0 ; output string
 FunctionEnd
 
-!include துணை\நிரல்கள்\தொடரில்உள்ள.நிரல் ; Let's check if a * wildcard exists
+!include துணைநிரல்கள்\தொடரில்உள்ள.நிரல் ; Let's check if a * wildcard exists
 ; On Selection of Linux Distro
 Function OnSelectDistro
   Pop $Distro
@@ -854,7 +854,7 @@ FunctionEnd
 Function FormatYes ; If Format is checked, do something
   SetShellVarContext all
   InitPluginsDir
-  File /oname=$PLUGINSDIR\fat32format.exe "துணை\இருமங்கள்\fat32format.exe"
+  File /oname=$PLUGINSDIR\fat32format.exe "இருமங்கள்\fat32format.exe"
   ${If} $FormatMe == "Yes"
    Call Lock_Only ; Just get a lock on the Volume 
    Sleep 3000
@@ -1039,8 +1039,8 @@ ${FileRecode} $3 "ToUTF16LE"
 FunctionEnd
 
 ; Custom Distros Installer - Uninstaller 
-!include துணை\நிரல்கள்\விநியோகநிறுவல்.நிரல் ; #ADD NEW DISTRO#
-!include துணை\நிரல்கள்\விநியோகநீக்கம்.நிரல் ; # REM DISTRO#
+!include துணைநிரல்கள்\விநியோகநிறுவல்.நிரல் ; #ADD NEW DISTRO#
+!include துணைநிரல்கள்\விநியோகநீக்கம்.நிரல் ; # REM DISTRO#
 
 Function DoSyslinux ; Install Syslinux on USB
   ${IfNot} ${FileExists} "$BootDir\boot\libcom32.c32" 
@@ -1243,24 +1243,24 @@ StrCpy $R9 0 ; we start on page 0
  done:
  SetShellVarContext all
  InitPluginsDir   
-  File /oname=$PLUGINSDIR\syslinux.exe "துணை\இருமங்கள்\கணிலினக்சு.exe"  
-  File /oname=$PLUGINSDIR\syslinux.cfg "துணை\உரைகள்\கணிலினக்சு.வடிவு"
-  File /oname=$PLUGINSDIR\grubslug.cfg "துணை\உரைகள்\மந்தமான.வடிவு"   
-  File /oname=$PLUGINSDIR\antivirus.cfg "துணை\உரைகள்\நோய்க்கிருமிதடுப்பு.வடிவு" 
-  File /oname=$PLUGINSDIR\system.cfg "துணை\உரைகள்\கருவிகள்.வடிவு" 
-  File /oname=$PLUGINSDIR\netbook.cfg "துணை\உரைகள்\இணையபுத்தகம்.வடிவு"
-  File /oname=$PLUGINSDIR\anon.cfg "துணை\உரைகள்\உலாவி.வடிவு"
-  File /oname=$PLUGINSDIR\linux.cfg "துணை\உரைகள்\லினக்சு.வடிவு" 
-  File /oname=$PLUGINSDIR\unlisted.cfg "துணை\உரைகள்\பட்டியலிடாத.வடிவு"
-  File /oname=$PLUGINSDIR\liveusb "துணை\இருமங்கள்\liveusb"
-  File /oname=$PLUGINSDIR\7zG.exe "துணை\இருமங்கள்\7zG.exe"
-  File /oname=$PLUGINSDIR\7z.dll "துணை\இருமங்கள்\7z.dll"  
-  File /oname=$PLUGINSDIR\உரிமை.உரை "துணை\உரைகள்\உரிமை.உரை" 
-  File /oname=$PLUGINSDIR\memdisk "துணை\இருமங்கள்\memdisk"  
+  File /oname=$PLUGINSDIR\syslinux.exe "இருமங்கள்\கணிலினக்சு.exe"  
+  File /oname=$PLUGINSDIR\syslinux.cfg "உரைகள்\கணிலினக்சு.வடிவு"
+  File /oname=$PLUGINSDIR\grubslug.cfg "உரைகள்\மந்தமான.வடிவு"   
+  File /oname=$PLUGINSDIR\antivirus.cfg "உரைகள்\நோய்க்கிருமிதடுப்பு.வடிவு" 
+  File /oname=$PLUGINSDIR\system.cfg "உரைகள்\கருவிகள்.வடிவு" 
+  File /oname=$PLUGINSDIR\netbook.cfg "உரைகள்\இணையபுத்தகம்.வடிவு"
+  File /oname=$PLUGINSDIR\anon.cfg "உரைகள்\உலாவி.வடிவு"
+  File /oname=$PLUGINSDIR\linux.cfg "உரைகள்\லினக்சு.வடிவு" 
+  File /oname=$PLUGINSDIR\unlisted.cfg "உரைகள்\பட்டியலிடாத.வடிவு"
+  File /oname=$PLUGINSDIR\liveusb "இருமங்கள்\liveusb"
+  File /oname=$PLUGINSDIR\7zG.exe "இருமங்கள்\7zG.exe"
+  File /oname=$PLUGINSDIR\7z.dll "இருமங்கள்\7z.dll"  
+  File /oname=$PLUGINSDIR\உரிமை.உரை "உரைகள்\உரிமை.உரை" 
+  File /oname=$PLUGINSDIR\memdisk "இருமங்கள்\memdisk"  
   File /oname=$PLUGINSDIR\boot.zip "boot.zip"   
-; File /oname=$PLUGINSDIR\அகர.வடிவு "துணை\உரைகள்\அகர.வடிவு"
-; File /oname=$PLUGINSDIR\other.cfg "துணை\உரைகள்\மற்றவை.வடிவு"   
-; File /oname=$PLUGINSDIR\mbrid "துணை\இருமங்கள்\முதன்மை_துவக்க_பதிவெண்"  
+; File /oname=$PLUGINSDIR\அகர.வடிவு "உரைகள்\அகர.வடிவு"
+; File /oname=$PLUGINSDIR\other.cfg "உரைகள்\மற்றவை.வடிவு"   
+; File /oname=$PLUGINSDIR\mbrid "இருமங்கள்\முதன்மை_துவக்க_பதிவெண்"  
 FunctionEnd
 
 Function onNotify_CasperSlider
