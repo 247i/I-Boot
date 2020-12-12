@@ -28,8 +28,8 @@ Push $6 ;universal
 Push $7 ;end string
 Push $8 ;left string
 Push $9 ;right string
-Push $R0 ;file1
-Push $R1 ;file2
+Push $R0 ;original file ref
+Push $R1 ;temp file ref
 Push $R2 ;read
 Push $R3 ;universal
 Push $R4 ;count (onwards)
@@ -38,20 +38,21 @@ Push $R6 ;temp file name
  
   GetTempFileName $R6
 ;wrapper before write. Assumption UTF-8 file. 
-;${FileRecode} $0 "ToUTF16LE"
+${FileRecode} $0 "ToUTF16LE"
 ;${FileRecode} $R6 "ToUTF16LE" ;probably this is new file so no recoding required
 ;Convert file from UTF-8 to UTF16LE
 
-  FileOpen $R1 $0 r ;file to search in
-  FileOpen $R0 $R6 w ;temp file
+FileOpen $R1 $0 r ;file to search in
+FileOpen $R0 $R6 w ;temp file
+FileWriteUTF16LE /BOM $R0 "#Https://Tamilneram.github.IO/எண்முறை.html $\r$\n" ;write modified line
    StrLen $R3 $4
    StrCpy $R4 -1
    StrCpy $R5 -1
- 
+
 loop_read:
  ClearErrors
-FileRead $R1 $R2 ;read line
-;FileReadUTF16LE $R1 $R2 ;read line
+;FileRead $R1 $R2 ;read line
+FileReadUTF16LE $R1 $R2 ;read line
  IfErrors exit
    StrCpy $5 0
    StrCpy $7 $R2
@@ -85,13 +86,13 @@ IntOp $R5 $R5 - 1
 Goto file_write2
  
 file_write1:
-FileWrite $R0 $7 ;write modified line
-;FileWriteUTF16LE $R0 $7 ;write modified line
+;FileWrite $R0 $7 ;write modified line
+FileWriteUTF16LE $R0 $7 ;write modified line
 Goto loop_read
  
 file_write2:
-FileWrite $R0 $R2 ;write unmodified line
-;FileWriteUTF16LE $R0 $R2 ;write unmodified line
+;FileWrite $R0 $R2 ;write unmodified line
+FileWriteUTF16LE $R0 $R2 ;write unmodified line
 Goto loop_read
  
 exit:
@@ -99,7 +100,7 @@ exit:
   FileClose $R1
 ; Convert file back to UTF-8
 ;${FileRecode} $0 "ToUTF8"; anyway getting deleted no point in recoding.
-;${FileRecode} $R6 "ToUTF8"
+${FileRecode} $R6 "ToUTF8"
 ; Convert file UTF16LE to UTF-8
  
   SetDetailsPrint none

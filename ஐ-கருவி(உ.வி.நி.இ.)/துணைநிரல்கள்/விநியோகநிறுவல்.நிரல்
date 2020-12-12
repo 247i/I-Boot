@@ -1,6 +1,6 @@
 ﻿; ------------ Install Distros Macro -------------- 
 
-Function FindConfig ; Set config path and file
+Function FindConfig ; கட்டமைப்பு பாதை ($ConfigPath, $CopyPath)மற்றும் கோப்பை $ConfigFile அமைக்கவும் .
   ${If} ${FileExists} "$BootDir\அகர\$JustISOName\liberte\boot\syslinux\syslinux.cfg" ; Liberte
   StrCpy $ConfigPath "liberte/boot/syslinux"
   StrCpy $CopyPath "liberte\boot\syslinux"
@@ -78,7 +78,7 @@ FunctionEnd
 
 !insertmacro Locate
 
-Function FindGrubConfig ; Set Grub config path and file
+Function FindGrubConfig ; தீனி கட்டமைப்பு பாதை ($GrubConfigPath, $GrubCopyPath)மற்றும் கோப்பை $GrubConfigFile அமைக்கவும் .
   ${If} ${FileExists} "$BootDir\அகர\$JustISOName\liberte\boot\grub\grub.cfg" ; Liberte
   StrCpy $GrubConfigPath "liberte/boot/grub"
   StrCpy $GrubCopyPath "liberte\boot\grub"
