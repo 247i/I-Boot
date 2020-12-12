@@ -710,7 +710,7 @@ Function ISOBrowse
  ${If} $JustISOName == "" 
  StrCpy $JustISOName "NULL" ; Set to NULL until something is selected
  ${EndIf}
- ${If} ${FileExists} "$BootDir\01\$JustISOName\*.*"
+ ${If} ${FileExists} "$BootDir\அகர\$JustISOName\*.*"
  ${AndIf} $JustISOName != ""
  ${AndIf} $FormatMe != "Yes"
  MessageBox MB_OK "$JustISOName is already on $DestDisk$\r$\nPlease Remove it first!"
@@ -1043,19 +1043,19 @@ FunctionEnd
 !include துணை\நிரல்கள்\விநியோகநீக்கம்.நிரல் ; # REM DISTRO#
 
 Function DoSyslinux ; Install Syslinux on USB
-  ${IfNot} ${FileExists} "$BootDir\01\libcom32.c32" 
-  ${AndIf} ${FileExists} "$BootDir\01\ldlinux.sys"   
+  ${IfNot} ${FileExists} "$BootDir\boot\libcom32.c32" 
+  ${AndIf} ${FileExists} "$BootDir\boot\ldlinux.sys"   
   MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinuxOLD)
   Quit
   ${EndIf}
   
-  ;IfFileExists "$BootDir\01\libcom32.c32" SkipSyslinux CreateSyslinux ; checking for newer syslinux
-  IfFileExists "$BootDir\boot\menu\ldlinux.sys" SkipSyslinux CreateSyslinux ; checking for syslinux
+  ;IfFileExists "$BootDir\boot\libcom32.c32" SkipSyslinux CreateSyslinux ; checking for newer syslinux
+  IfFileExists "$BootDir\boot\SL\ldlinux.sys" SkipSyslinux CreateSyslinux ; checking for syslinux
   CreateSyslinux:
-  CreateDirectory $BootDir\boot\menu ; recursively create the directory structure if it doesn't exist
-  ;CreateDirectory $BootDir\01\ISOS ; create ISOS folder  
+  CreateDirectory $BootDir\boot\SL ; recursively create the directory structure if it doesn't exist
+  ;CreateDirectory $BootDir\அகர\ISOS ; create ISOS folder  
   DetailPrint $(ExecuteSyslinux)
-  ExecWait '$PLUGINSDIR\syslinux.exe -maf -d /boot/menu $BootDir' $R8
+  ExecWait '$PLUGINSDIR\syslinux.exe -maf -d /boot/SL $BootDir' $R8
   DetailPrint "Syslinux Errors $R8"
   Banner::destroy
   ${If} $R8 != 0
@@ -1067,19 +1067,19 @@ Function DoSyslinux ; Install Syslinux on USB
   SkipSyslinux: 
   DetailPrint $(SkipSyslinux)
   
-  ${If} ${FileExists} $BootDir\boot\menu\syslinux.cfg   
-  ${AndIf} ${FileExists} $BootDir\boot\menu\memdisk
+  ${If} ${FileExists} $BootDir\boot\SL\syslinux.cfg   
+  ${AndIf} ${FileExists} $BootDir\boot\SL\memdisk
    DetailPrint "முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது."
    ; Call AddDir
   ${Else}
 ; Create and Copy files to your destination
-  DetailPrint "தேவையான கோப்புகள் $BootDir\அகர\முதற்றே இதற்கு சேர்கப்பட்டன..." 
+  DetailPrint "தேவையான கோப்புகள் $BootDir\boot\SL இதற்கு சேர்கப்பட்டன..." 
   CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\அகர\முதற்றே\உரிமை.உரை"
   
-; Copy these files to boot\menu
-  DetailPrint "தேவையான கோப்புகள் $BootDir\boot\menu directory இதற்கு சேர்கப்பட்டன..." 
-  CopyFiles "$PLUGINSDIR\syslinux.cfg" "$BootDir\boot\menu\syslinux.cfg"  
-  CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\boot\menu\memdisk"      
+; Copy these files to அகர\முதற்றே
+  DetailPrint "தேவையான கோப்புகள் $BootDir\boot\SL directory இதற்கு சேர்கப்பட்டன..." 
+  CopyFiles "$PLUGINSDIR\syslinux.cfg" "$BootDir\boot\SL\syslinux.cfg"  
+  CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\boot\SL\memdisk"      
   ${EndIf}  
 
 ; அகர\முதல அடைவு மற்றும் கோப்புகள் இருப்பதை உறுதிப்படுத்தவும்.  
@@ -1121,7 +1121,7 @@ Pop $NameThatISO
  Quit
  ${ElseIf} $FormatMe != "Yes" 
 								
- ${AndIfNot} ${FileExists} $BootDir\boot\menu\syslinux.cfg
+ ${AndIfNot} ${FileExists} $BootDir\அகர\முதற்றே\syslinux.cfg
  MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1. ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n2.$DestDisk இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n3. ($DestDisk)இல் ($DistroName)வை நிறுவு$\r$\n$\r$\nசரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
  Quit
  ${EndIf}
@@ -1134,8 +1134,8 @@ proceed:
  Call LocalISODetected
  
 ; Copy the config file if it doesn't exist and create the entry in syslinux.cfg 
- ${IfNot} ${FileExists} "$BootDir\boot\menu\$Config2Use" 
- CopyFiles "$PLUGINSDIR\$Config2Use" "$BootDir\boot\menu\$Config2Use"
+ ${IfNot} ${FileExists} "$BootDir\அகர\முதற்றே\$Config2Use" 
+ CopyFiles "$PLUGINSDIR\$Config2Use" "$BootDir\அகர\முதற்றே\$Config2Use"
  Call Config2Write
  ${EndIf} 
  
@@ -1150,21 +1150,21 @@ removeonly:
 SectionEnd
 
 Function ConfigRemove ; Find and Set Removal Configuration file
-  ${If} ${FileExists} "$BootDir\01\$DistroName\I\linux.cfg"
+  ${If} ${FileExists} "$BootDir\அகர\$DistroName\I\linux.cfg"
   StrCpy $Config2Use "linux.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\01\$DistroName\I\anon.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\அகர\$DistroName\I\anon.cfg"
   StrCpy $Config2Use "anon.cfg"  
-  ${ElseIf} ${FileExists} "$BootDir\01\$DistroName\I\system.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\அகர\$DistroName\I\system.cfg"
   StrCpy $Config2Use "system.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\01\$DistroName\I\antivirus.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\அகர\$DistroName\I\antivirus.cfg"
   StrCpy $Config2Use "antivirus.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\01\$DistroName\I\netbook.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\அகர\$DistroName\I\netbook.cfg"
   StrCpy $Config2Use "netbook.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\01\$DistroName\I\other.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\அகர\$DistroName\I\other.cfg"
   StrCpy $Config2Use "other.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\01\$DistroName\I\unlisted.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\அகர\$DistroName\I\unlisted.cfg"
   StrCpy $Config2Use "unlisted.cfg"  
-;  ${ElseIf} ${FileExists} "$BootDir\01\$DistroName\I\menu.lst"
+;  ${ElseIf} ${FileExists} "$BootDir\அகர\$DistroName\I\menu.lst"
 ;  StrCpy $Config2Use "menu.lst"
   ${EndIf}
   ; MessageBox MB_OK "$Config2Use"
@@ -1172,21 +1172,21 @@ FunctionEnd
 
 Function Config2Write
  ${If} $Config2Use == "system.cfg"
-  ${WriteToSysFile} "menuentry $\">அகர$\"{configfile /boot/menu/system.cfg}" $R0
+  ${WriteToSysFile} "menuentry $\">அகர$\"{configfile /அகர/முதற்றே/system.cfg}" $R0
  ${ElseIf} $Config2Use == "netbook.cfg"
-  ${WriteToSysFile} "menuentry $\">இ$\"{configfile /boot/menu/netbook.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">இ$\"{configfile /அகர/முதற்றே/netbook.cfg}" $R0 
  ${ElseIf} $Config2Use == "linux.cfg"
-  ${WriteToSysFile} "menuentry $\">ஐ$\"{configfile /boot/menu/linux.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">ஐ$\"{configfile /அகர/முதற்றே/linux.cfg}" $R0 
  ${ElseIf} $Config2Use == "other.cfg"
-  ${WriteToSysFile} "menuentry $\">ஒ$\"{configfile /boot/menu/other.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">ஒ$\"{configfile /அகர/முதற்றே/other.cfg}" $R0 
  ${ElseIf} $Config2Use == "antivirus.cfg"
-  ${WriteToSysFile} "menuentry $\">தட$\"{configfile /boot/menu/antivirus.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">தட$\"{configfile /அகர/முதற்றே/antivirus.cfg}" $R0 
  ${ElseIf} $Config2Use == "anon.cfg"
-  ${WriteToSysFile} "menuentry $\">பற$\"{configfile /boot/menu/anon.cfg}" $R0  
+  ${WriteToSysFile} "menuentry $\">பற$\"{configfile /அகர/முதற்றே/anon.cfg}" $R0  
  ${ElseIf} $Config2Use == "unlisted.cfg"
-  ${WriteToSysFile} "menuentry $\">மற$\"{configfile /boot/menu/unlisted.cfg}" $R0  
+  ${WriteToSysFile} "menuentry $\">மற$\"{configfile /அகர/முதற்றே/unlisted.cfg}" $R0  
 ; ${ElseIf} $Config2Use == "menu.lst"
-;  ${WriteToSysFile} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /01/grub.exe$\r$\nAPPEND --config-file=/boot/menu/menu.lst" $R0 
+;  ${WriteToSysFile} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /அகர/grub.exe$\r$\nAPPEND --config-file=/அகர/முதற்றே/menu.lst" $R0 
  ${EndIf} 
 ;always write data to அகர.வடிவு not required
  

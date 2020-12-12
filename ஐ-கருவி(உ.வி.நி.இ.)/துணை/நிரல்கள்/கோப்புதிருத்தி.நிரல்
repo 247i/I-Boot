@@ -6,15 +6,15 @@ Function WriteToFile ; modified to populate *.cfg file with the distro user inst
  Exch $1 ;text to write
 
 ;wrapper before write. Assumption UTF-8 file. 
-${FileRecode} "$BootDir\boot\menu\$Config2Use" "ToUTF16LE"
+${FileRecode} "$BootDir\அகர\முதற்றே\$Config2Use" "ToUTF16LE"
 ;Convert file from UTF-8 to UTF16LE
- FileOpen $R0 '$BootDir\boot\menu\$Config2Use' a 
+ FileOpen $R0 '$BootDir\அகர\முதற்றே\$Config2Use' a 
  FileSeek $R0 0 END
 ;FileWrite $R0 '$\r$\n$1' ; புதிய வரி மற்றும் தரவைச் சேர்க்கவும்
  FileWriteUTF16LE $R0 '$\r$\n$1' ; புதிய வரி மற்றும் தரவைச் சேர்க்கவும்
  FileClose $R0
 ; Convert file back to UTF-8
-${FileRecode} "$BootDir\boot\menu\$Config2Use" "ToUTF8"
+${FileRecode} "$BootDir\அகர\முதற்றே\$Config2Use" "ToUTF8"
 ; Convert file UTF16LE to UTF-8
  
  Pop $1
@@ -25,7 +25,7 @@ FunctionEnd
  Push "${String}"
  Push "${File}"
  Call WriteToFile
- ${LineFind} "$BootDir\boot\menu\$Config2Use" "$BootDir\boot\menu\$Config2Use" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
+ ${LineFind} "$BootDir\அகர\முதற்றே\$Config2Use" "$BootDir\அகர\முதற்றே\$Config2Use" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
 !macroend  
 !define WriteToFile "!insertmacro WriteToFile"
 
@@ -56,21 +56,28 @@ FunctionEnd
 !define WriteToSysFile "!insertmacro WriteToSysFile"
 
 Function InstalledList ; Creates a list of installed distros in the அகர\முதற்றே folder on the USB drive (So we can uninstall the distros later)
- ${IfNot} ${FileExists} "$BootDir\01\$JustISOName\*.*" ; If the installation directory exists user must be reinstalling the same distro, so we won't add a removal entry. 
+ ${IfNot} ${FileExists} "$BootDir\அகர\$JustISOName\*.*" ; If the installation directory exists user must be reinstalling the same distro, so we won't add a removal entry. 
    Exch $R0 ;file to write to
    Exch
    Exch $1 ;text to write
    ${If} ${FileExists} "$BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை" 
+;wrapper before write. Assumption UTF-8 file. 
+;${FileRecode} $BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை "ToUTF16LE"
+;Convert file from UTF-8 to UTF16LE
     FileOpen $R0 '$BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை' a 
     FileSeek $R0 0 END
 	FileWriteUTF16LE $R0 '$\r$\n$1' ; add subsequent entry on a new line
    ${Else}
     FileOpen $R0 '$BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை' a 
     FileSeek $R0 0 END
-	FileWriteUTF16LE $R0 /BOM 
+;FileWriteUTF16LE $R0 /BOM 
 	FileWriteUTF16LE $R0 '$1'  ; add first entry without a new line
    ${EndIf}
     FileClose $R0
+; Convert file back to UTF-8
+;${FileRecode} "$BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை" "ToUTF8"
+; Convert file UTF16LE to UTF-8
+
     Pop $1
     Pop $R0
  ${EndIf}
@@ -120,6 +127,9 @@ Function RemovalList ; Lists the distros installed on the select drive.
  ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskஇலிருந்து அகற்ற தேர்வு"  
  ${If} ${FileExists} "$BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை" ; Are there distributions on the select drive? 
  ClearErrors
+ ;wrapper before write. Assumption UTF-8 file. 
+;${FileRecode} $BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை "ToUTF16LE"
+;Convert file from UTF-8 to UTF16LE
  FileOpen $0 $BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை r
   loop:
    FileReadUTF16LE $0 $1
@@ -130,6 +140,10 @@ Function RemovalList ; Lists the distros installed on the select drive.
    Goto loop
   done:  
  FileClose $0
+ ; Convert file back to UTF-8
+;${FileRecode} $BootDir\அகர\முதற்றே\நிறுவப்பட்டது.உரை "ToUTF8"
+; Convert file UTF16LE to UTF-8
+
  ${Else}
      ;Call SetISOFileName
  ${EndIf}

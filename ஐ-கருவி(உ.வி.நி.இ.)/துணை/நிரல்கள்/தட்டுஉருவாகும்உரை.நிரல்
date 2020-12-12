@@ -13,7 +13,7 @@ ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
  SetShellVarContext all
  InitPluginsDir
  ExpandEnvStrings $COMSPEC "%COMSPEC%"
- ExecShell "" '"$COMSPEC"' '/C if 1==1 "$PLUGINSDIR\dd.exe" if=/dev/zero of=$BootDir\01\$JustISOName\$CasperName bs=1M count=$Casper --progress 2>$PLUGINSDIR\ddlog.txt' SW_HIDE
+ ExecShell "" '"$COMSPEC"' '/C if 1==1 "$PLUGINSDIR\dd.exe" if=/dev/zero of=$BootDir\அகர\$JustISOName\$CasperName bs=1M count=$Casper --progress 2>$PLUGINSDIR\ddlog.txt' SW_HIDE
  Banner::show /set 76 "Creating a Persistent File."
  Banner::getWindow
  Pop $1  
@@ -21,11 +21,11 @@ ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
  Call ddProgress
  Banner::destroy
   ${If} $DistroName == "Raspberry Pi Desktop"
-   nsExec::ExecToLog '"$PLUGINSDIR\mke2fs.exe" -L persistence $BootDir\01\$JustISOName\$CasperName'
+   nsExec::ExecToLog '"$PLUGINSDIR\mke2fs.exe" -L persistence $BootDir\அகர\$JustISOName\$CasperName'
   ${Else}
-   nsExec::ExecToLog '"$PLUGINSDIR\mke2fs.exe" -L $CasperName $BootDir\01\$JustISOName\$CasperName'
+   nsExec::ExecToLog '"$PLUGINSDIR\mke2fs.exe" -L $CasperName $BootDir\அகர\$JustISOName\$CasperName'
   ${EndIf} 
- ;CopyFiles $PLUGINSDIR\$CasperName "$BootDir\01\$JustISOName\$CasperName" ; Copy casper-rw to USB
+ ;CopyFiles $PLUGINSDIR\$CasperName "$BootDir\அகர\$JustISOName\$CasperName" ; Copy casper-rw to USB
  ;Delete "$PLUGINSDIR\$CasperName"
 ${EndIf}
 FunctionEnd
