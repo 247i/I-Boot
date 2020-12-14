@@ -26,5 +26,5 @@ fi
 set default=3
 menuentry "௰" {halt}
 menuentry "ஃ" {reboot}
-menuentry "⮜⮘"{configfile /அகர/பகவான்/முதற்றே.உலகு}
+menuentry "⮜⮘"{configfile /அகர/பகவன்/முதற்றே.உலகு}
 #அனைத்து நிறுவல்களும் தொடங்குமிடம் 
