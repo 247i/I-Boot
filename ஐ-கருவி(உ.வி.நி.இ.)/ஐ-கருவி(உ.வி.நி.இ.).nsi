@@ -710,7 +710,7 @@ Function ISOBrowse
  ${If} $JustISOName == "" 
  StrCpy $JustISOName "NULL" ; Set to NULL until something is selected
  ${EndIf}
- ${If} ${FileExists} "$BootDir\அகர\$JustISOName\*.*"
+ ${If} ${FileExists} "$BootDir\boot\$JustISOName\*.*"
  ${AndIf} $JustISOName != ""
  ${AndIf} $FormatMe != "Yes"
  MessageBox MB_OK "$JustISOName is already on $DestDisk$\r$\nPlease Remove it first!"
@@ -1050,12 +1050,12 @@ Function DoSyslinux ; Install Syslinux on USB
   ${EndIf}
   
   ;IfFileExists "$BootDir\boot\libcom32.c32" SkipSyslinux CreateSyslinux ; checking for newer syslinux
-  IfFileExists "$BootDir\boot\SL\ldlinux.sys" SkipSyslinux CreateSyslinux ; checking for syslinux
+  IfFileExists "$BootDir\boot\01\ldlinux.sys" SkipSyslinux CreateSyslinux ; checking for syslinux
   CreateSyslinux:
-  CreateDirectory $BootDir\boot\SL ; recursively create the directory structure if it doesn't exist
-  ;CreateDirectory $BootDir\அகர\ISOS ; create ISOS folder  
+  CreateDirectory $BootDir\boot\01 ; recursively create the directory structure if it doesn't exist
+  ;CreateDirectory $BootDir\boot\ISOS ; create ISOS folder  
   DetailPrint $(ExecuteSyslinux)
-  ExecWait '$PLUGINSDIR\syslinux.exe -maf -d /boot/SL $BootDir' $R8
+  ExecWait '$PLUGINSDIR\syslinux.exe -maf -d /boot/01 $BootDir' $R8
   DetailPrint "Syslinux Errors $R8"
   Banner::destroy
   ${If} $R8 != 0
@@ -1067,24 +1067,24 @@ Function DoSyslinux ; Install Syslinux on USB
   SkipSyslinux: 
   DetailPrint $(SkipSyslinux)
   
-  ${If} ${FileExists} $BootDir\boot\SL\syslinux.cfg   
-  ${AndIf} ${FileExists} $BootDir\boot\SL\memdisk
+  ${If} ${FileExists} $BootDir\boot\01\syslinux.cfg   
+  ${AndIf} ${FileExists} $BootDir\boot\01\memdisk
    DetailPrint "முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது."
    ; Call AddDir
   ${Else}
 ; Create and Copy files to your destination
-  DetailPrint "தேவையான கோப்புகள் $BootDir\boot\SL இதற்கு சேர்கப்பட்டன..." 
-  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\அகர\முதற்றே\உரிமை.உரை"
+  DetailPrint "தேவையான கோப்புகள் $BootDir\boot\01 இதற்கு சேர்கப்பட்டன..." 
+  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\அகர\பகவன்\உரிமை.உரை"
   
-; Copy these files to அகர\முதற்றே
-  DetailPrint "தேவையான கோப்புகள் $BootDir\boot\SL directory இதற்கு சேர்கப்பட்டன..." 
-  CopyFiles "$PLUGINSDIR\syslinux.cfg" "$BootDir\boot\SL\syslinux.cfg"  
-  CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\boot\SL\memdisk"      
+; Copy these files to 00\01
+  DetailPrint "தேவையான கோப்புகள் $BootDir\boot\01 directory இதற்கு சேர்கப்பட்டன..." 
+  CopyFiles "$PLUGINSDIR\syslinux.cfg" "$BootDir\boot\01\syslinux.cfg"  
+  CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\boot\01\memdisk"      
   ${EndIf}  
 
-; அகர\முதல அடைவு மற்றும் கோப்புகள் இருப்பதை உறுதிப்படுத்தவும்.  
-  ${If} ${FileExists} $BootDir\அகர\முதல\BOOTX64.EFI 
-  ${AndIf} ${FileExists} $BootDir\அகர\முதல\துவக்கஏற்றி.வடிவு
+; அகர\பகவன் அடைவு மற்றும் கோப்புகள் இருப்பதை உறுதிப்படுத்தவும்.  
+  ${If} ${FileExists} $BootDir\அகர\பகவன்\BOOTX64.EFI 
+  ${AndIf} ${FileExists} $BootDir\அகர\பகவன்\முதற்றே.உலகு
   
   ${Else}  
 ; அகர முதல கோப்புகளை நகலெடுக்கிறது 
@@ -1121,7 +1121,7 @@ Pop $NameThatISO
  Quit
  ${ElseIf} $FormatMe != "Yes" 
 								
- ${AndIfNot} ${FileExists} $BootDir\அகர\முதற்றே\syslinux.cfg
+ ${AndIfNot} ${FileExists} $BootDir\boot\01\syslinux.cfg
  MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1. ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n2.$DestDisk இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n3. ($DestDisk)இல் ($DistroName)வை நிறுவு$\r$\n$\r$\nசரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
  Quit
  ${EndIf}
@@ -1134,8 +1134,8 @@ proceed:
  Call LocalISODetected
  
 ; Copy the config file if it doesn't exist and create the entry in syslinux.cfg 
- ${IfNot} ${FileExists} "$BootDir\அகர\முதற்றே\$Config2Use" 
- CopyFiles "$PLUGINSDIR\$Config2Use" "$BootDir\அகர\முதற்றே\$Config2Use"
+ ${IfNot} ${FileExists} "$BootDir\அகர\பகவன்\$Config2Use" 
+ CopyFiles "$PLUGINSDIR\$Config2Use" "$BootDir\அகர\பகவன்\$Config2Use"
  Call Config2Write
  ${EndIf} 
  
@@ -1150,21 +1150,21 @@ removeonly:
 SectionEnd
 
 Function ConfigRemove ; Find and Set Removal Configuration file
-  ${If} ${FileExists} "$BootDir\அகர\$DistroName\I\linux.cfg"
+  ${If} ${FileExists} "$BootDir\boot\$DistroName\I\linux.cfg"
   StrCpy $Config2Use "linux.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\அகர\$DistroName\I\anon.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\anon.cfg"
   StrCpy $Config2Use "anon.cfg"  
-  ${ElseIf} ${FileExists} "$BootDir\அகர\$DistroName\I\system.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\system.cfg"
   StrCpy $Config2Use "system.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\அகர\$DistroName\I\antivirus.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\antivirus.cfg"
   StrCpy $Config2Use "antivirus.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\அகர\$DistroName\I\netbook.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\netbook.cfg"
   StrCpy $Config2Use "netbook.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\அகர\$DistroName\I\other.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\other.cfg"
   StrCpy $Config2Use "other.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\அகர\$DistroName\I\unlisted.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\unlisted.cfg"
   StrCpy $Config2Use "unlisted.cfg"  
-;  ${ElseIf} ${FileExists} "$BootDir\அகர\$DistroName\I\menu.lst"
+;  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\menu.lst"
 ;  StrCpy $Config2Use "menu.lst"
   ${EndIf}
   ; MessageBox MB_OK "$Config2Use"
@@ -1172,23 +1172,23 @@ FunctionEnd
 
 Function Config2Write
  ${If} $Config2Use == "system.cfg"
-  ${WriteToSysFile} "menuentry $\">அகர$\"{configfile /அகர/முதற்றே/system.cfg}" $R0
+  ${WriteToSysFile} "menuentry $\">அகர$\"{configfile /அகர/பகவன்/system.cfg}" $R0
  ${ElseIf} $Config2Use == "netbook.cfg"
-  ${WriteToSysFile} "menuentry $\">இ$\"{configfile /அகர/முதற்றே/netbook.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">இ$\"{configfile /அகர/பகவன்/netbook.cfg}" $R0 
  ${ElseIf} $Config2Use == "linux.cfg"
-  ${WriteToSysFile} "menuentry $\">ஐ$\"{configfile /அகர/முதற்றே/linux.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">ஐ$\"{configfile /அகர/பகவன்/linux.cfg}" $R0 
  ${ElseIf} $Config2Use == "other.cfg"
-  ${WriteToSysFile} "menuentry $\">ஒ$\"{configfile /அகர/முதற்றே/other.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">ஒ$\"{configfile /அகர/பகவன்/other.cfg}" $R0 
  ${ElseIf} $Config2Use == "antivirus.cfg"
-  ${WriteToSysFile} "menuentry $\">தட$\"{configfile /அகர/முதற்றே/antivirus.cfg}" $R0 
+  ${WriteToSysFile} "menuentry $\">தட$\"{configfile /அகர/பகவன்/antivirus.cfg}" $R0 
  ${ElseIf} $Config2Use == "anon.cfg"
-  ${WriteToSysFile} "menuentry $\">பற$\"{configfile /அகர/முதற்றே/anon.cfg}" $R0  
+  ${WriteToSysFile} "menuentry $\">பற$\"{configfile /அகர/பகவன்/anon.cfg}" $R0  
  ${ElseIf} $Config2Use == "unlisted.cfg"
-  ${WriteToSysFile} "menuentry $\">மற$\"{configfile /அகர/முதற்றே/unlisted.cfg}" $R0  
+  ${WriteToSysFile} "menuentry $\">மற$\"{configfile /அகர/பகவன்/unlisted.cfg}" $R0  
 ; ${ElseIf} $Config2Use == "menu.lst"
-;  ${WriteToSysFile} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /அகர/grub.exe$\r$\nAPPEND --config-file=/அகர/முதற்றே/menu.lst" $R0 
+;  ${WriteToSysFile} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /boot/grub.exe$\r$\nAPPEND --config-file=/அகர/பகவன்/menu.lst" $R0 
  ${EndIf} 
-;always write data to அகர.வடிவு not required
+;always write data to அகர.உலகு not required
  
 FunctionEnd
 
@@ -1244,22 +1244,22 @@ StrCpy $R9 0 ; we start on page 0
  SetShellVarContext all
  InitPluginsDir   
   File /oname=$PLUGINSDIR\syslinux.exe "இருமங்கள்\கணிலினக்சு.exe"  
-  File /oname=$PLUGINSDIR\syslinux.cfg "உரைகள்\கணிலினக்சு.வடிவு"
-  File /oname=$PLUGINSDIR\grubslug.cfg "உரைகள்\மந்தமான.வடிவு"   
-  File /oname=$PLUGINSDIR\antivirus.cfg "உரைகள்\நோய்க்கிருமிதடுப்பு.வடிவு" 
-  File /oname=$PLUGINSDIR\system.cfg "உரைகள்\கருவிகள்.வடிவு" 
-  File /oname=$PLUGINSDIR\netbook.cfg "உரைகள்\இணையபுத்தகம்.வடிவு"
-  File /oname=$PLUGINSDIR\anon.cfg "உரைகள்\உலாவி.வடிவு"
-  File /oname=$PLUGINSDIR\linux.cfg "உரைகள்\லினக்சு.வடிவு" 
-  File /oname=$PLUGINSDIR\unlisted.cfg "உரைகள்\பட்டியலிடாத.வடிவு"
+  File /oname=$PLUGINSDIR\syslinux.cfg "உரைகள்\கணிலினக்சு.உலகு"
+  File /oname=$PLUGINSDIR\grubslug.cfg "உரைகள்\மந்தமான.உலகு"   
+  File /oname=$PLUGINSDIR\antivirus.cfg "உரைகள்\நோய்க்கிருமிதடுப்பு.உலகு" 
+  File /oname=$PLUGINSDIR\system.cfg "உரைகள்\கருவிகள்.உலகு" 
+  File /oname=$PLUGINSDIR\netbook.cfg "உரைகள்\இணையபுத்தகம்.உலகு"
+  File /oname=$PLUGINSDIR\anon.cfg "உரைகள்\உலாவி.உலகு"
+  File /oname=$PLUGINSDIR\linux.cfg "உரைகள்\லினக்சு.உலகு" 
+  File /oname=$PLUGINSDIR\unlisted.cfg "உரைகள்\பட்டியலிடாத.உலகு"
   File /oname=$PLUGINSDIR\liveusb "இருமங்கள்\liveusb"
   File /oname=$PLUGINSDIR\7zG.exe "இருமங்கள்\7zG.exe"
   File /oname=$PLUGINSDIR\7z.dll "இருமங்கள்\7z.dll"  
   File /oname=$PLUGINSDIR\உரிமை.உரை "உரைகள்\உரிமை.உரை" 
   File /oname=$PLUGINSDIR\memdisk "இருமங்கள்\memdisk"  
   File /oname=$PLUGINSDIR\boot.zip "boot.zip"   
-; File /oname=$PLUGINSDIR\அகர.வடிவு "உரைகள்\அகர.வடிவு"
-; File /oname=$PLUGINSDIR\other.cfg "உரைகள்\மற்றவை.வடிவு"   
+; File /oname=$PLUGINSDIR\அகர.உலகு "உரைகள்\அகர.உலகு"
+; File /oname=$PLUGINSDIR\other.cfg "உரைகள்\மற்றவை.உலகு"   
 ; File /oname=$PLUGINSDIR\mbrid "இருமங்கள்\முதன்மை_துவக்க_பதிவெண்"  
 FunctionEnd
 

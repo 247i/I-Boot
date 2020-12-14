@@ -16,7 +16,7 @@ Function "MBRID" ; Let's Get the MBRID for OpenSUSE
  StrCpy $OnlyVal "$1" "" 16 ; = Get the Decimal Value only, remove preceeding Signature=
  IntFmt $OnlyVal "0x%08X" $OnlyVal ; Convert the value from Decimal to Hexadecimal - was 0x%X - fixed using 0x%08X for 10 character
  ${StrFilter} "$OnlyVal" "-" "" "" $OnlyVal ; Convert the Hexadecimal value to lower case
- Rename "$BootDir\அகர\$SUSEDIR\boot\grub\mbrid" "$BootDir\அகர\$SUSEDIR\boot\grub\old-mbrid"
+ Rename "$BootDir\boot\$SUSEDIR\boot\grub\mbrid" "$BootDir\அகர\$SUSEDIR\boot\grub\old-mbrid"
  ${Write2mbrid} "$OnlyVal" $R0
 FunctionEnd
 
@@ -40,15 +40,15 @@ Function Write2mbrid
  Exch
  Exch $1 ;text to write
  ;wrapper before write. Assumption UTF-8 file. 
-${FileRecode} '$BootDir\அகர\$SUSEDIR\boot\grub\mbrid' "ToUTF16LE"
+${FileRecode} '$BootDir\boot\$SUSEDIR\boot\grub\mbrid' "ToUTF16LE"
 ;Convert file from UTF-8 to UTF16LE
- FileOpen $R0 '$BootDir\அகர\$SUSEDIR\boot\grub\mbrid' a  ; 
+ FileOpen $R0 '$BootDir\boot\$SUSEDIR\boot\grub\mbrid' a  ; 
  FileSeek $R0 0 END
 ;FileWrite $R0 '$1'
 FileWriteUTF16LE $R0 '$1'
  FileClose $R0
 ; Convert file back to UTF-8
-${FileRecode} '$BootDir\அகர\$SUSEDIR\boot\grub\mbrid' "ToUTF8"
+${FileRecode} '$BootDir\boot\$SUSEDIR\boot\grub\mbrid' "ToUTF8"
 ; Convert file UTF16LE to UTF-8
 
  Pop $1

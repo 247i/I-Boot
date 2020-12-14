@@ -19,28 +19,8 @@ _____________________________________________________________________________
                TextCompare|TextCompareS|ConfigRead|ConfigReadS|
                ConfigWrite|ConfigWriteS|FileRecode|TrimNewLines]
 
-_____________________________________________________________________________
 
-                       Thanks to:
-_____________________________________________________________________________
-
-Unicode support
-		Gringoloco aka Mark Sikkema, 2010-07-01, http://portableapps.com/node/21879
-LineRead
-		Afrow UK (Based on his idea of Function "ReadFileLine")
-LineSum
-		Afrow UK (Based on his idea of Function "LineCount")
-FileJoin
-		Afrow UK (Based on his idea of Function "JoinFiles")
-ConfigRead
-		vbgunz (His idea)
-ConfigWrite
-		vbgunz (His idea)
-TrimNewLines
-		sunjammer (Based on his Function "TrimNewLines")
 */
-
-
 ;_____________________________________________________________________________
 ;
 ;                                   Macros
