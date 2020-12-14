@@ -30,7 +30,7 @@ menuentry "௰" {halt}
 menuentry "ஃ" {reboot}
 menuentry "⮜⮘"{configfile /அகர/பகவன்/முதற்றே.உலகு}
 menuentry "மசமச" {
-#set gfxpayload=keep
+set gfxpayload=keep
 linux /SLUG  
 echo "Https://Tamilneram.github.IO..."
 initrd /SLUG
