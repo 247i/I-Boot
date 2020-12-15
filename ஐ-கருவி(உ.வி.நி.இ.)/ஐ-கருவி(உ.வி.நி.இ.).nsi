@@ -1078,8 +1078,8 @@ Function DoSyslinux ; Install Syslinux on USB
   
 ; Copy these files to 00\01
   DetailPrint "தேவையான கோப்புகள் $BootDir\boot\01 directory இதற்கு சேர்கப்பட்டன..." 
-  CopyFiles "$PLUGINSDIR\syslinux.cfg" "$BootDir\boot\01\syslinux.cfg"  
-  CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\boot\01\memdisk"      
+  CopyFiles "$PLUGINSDIR\கணிலினக்சு.உலகு" "$BootDir\boot\01\syslinux.cfg"  
+  CopyFiles "$PLUGINSDIR\நினைவுவட்டு" "$BootDir\boot\01\memdisk"      
   ${EndIf}  
 
 ; அகர\பகவன் அடைவு மற்றும் கோப்புகள் இருப்பதை உறுதிப்படுத்தவும்.  
@@ -1133,7 +1133,7 @@ proceed:
  Call DoSyslinux ; Run Syslinux on the Drive to make it bootable
  Call LocalISODetected
  
-; Copy the config file if it doesn't exist and create the entry in syslinux.cfg 
+; Copy the config file if it doesn't exist and create the entry in கணிலினக்சு.உலகு 
  ${IfNot} ${FileExists} "$BootDir\அகர\பகவன்\$Config2Use" 
  CopyFiles "$PLUGINSDIR\$Config2Use" "$BootDir\அகர\பகவன்\$Config2Use"
  Call Config2Write
@@ -1244,7 +1244,7 @@ StrCpy $R9 0 ; we start on page 0
  SetShellVarContext all
  InitPluginsDir   
   File /oname=$PLUGINSDIR\கணிலினக்சு.exe "இருமங்கள்\கணிலினக்சு.exe"  
-  File /oname=$PLUGINSDIR\syslinux.cfg "உரைகள்\கணிலினக்சு.உலகு"
+  File /oname=$PLUGINSDIR\கணிலினக்சு.உலகு "உரைகள்\கணிலினக்சு.உலகு"
   File /oname=$PLUGINSDIR\grubslug.cfg "உரைகள்\மந்தமான.உலகு"   
   File /oname=$PLUGINSDIR\நோய்தடுப்பு.உலகு "உரைகள்\நோய்தடுப்பு.உலகு" 
   File /oname=$PLUGINSDIR\கருவிகள்.உலகு "உரைகள்\கருவிகள்.உலகு" 
@@ -1252,15 +1252,15 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\உலாவி.உலகு "உரைகள்\உலாவி.உலகு"
   File /oname=$PLUGINSDIR\லினக்சு.உலகு "உரைகள்\லினக்சு.உலகு" 
   File /oname=$PLUGINSDIR\பட்டியலிடாத.உலகு "உரைகள்\பட்டியலிடாத.உலகு"
-  File /oname=$PLUGINSDIR\liveusb "இருமங்கள்\liveusb"
+  File /oname=$PLUGINSDIR\liveusb "இருமங்கள்\வாழ்உலகளாவியதொடர்பேருந்து"
   File /oname=$PLUGINSDIR\7zG.exe "இருமங்கள்\7zG.exe"
   File /oname=$PLUGINSDIR\7z.dll "இருமங்கள்\7z.dll"  
   File /oname=$PLUGINSDIR\உரிமை.உரை "உரைகள்\உரிமை.உரை" 
-  File /oname=$PLUGINSDIR\memdisk "இருமங்கள்\memdisk"  
+  File /oname=$PLUGINSDIR\நினைவுவட்டு "இருமங்கள்\நினைவுவட்டு"  
   File /oname=$PLUGINSDIR\boot.zip "boot.zip"   
 ; File /oname=$PLUGINSDIR\அகர.உலகு "உரைகள்\அகர.உலகு"
 ; File /oname=$PLUGINSDIR\மற்ற.உலகு "உரைகள்\மற்ற.உலகு"   
-; File /oname=$PLUGINSDIR\mbrid "இருமங்கள்\முதன்மை_துவக்க_பதிவெண்"  
+; File /oname=$PLUGINSDIR\mbrid "இருமங்கள்\முதன்மைதுவக்கபதிவெண்"  
 FunctionEnd
 
 Function onNotify_CasperSlider
