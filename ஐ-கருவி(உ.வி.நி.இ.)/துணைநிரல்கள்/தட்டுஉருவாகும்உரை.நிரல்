@@ -25,7 +25,7 @@ ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
   ${Else}
    nsExec::ExecToLog '"$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe" -L $CasperName $PLUGINSDIR\$CasperName'
   ${EndIf} 
- CopyFiles $PLUGINSDIR\$CasperName "$BootDir\boot\$JustISOName\$CasperName" ; Copy casper-rw to USB
+ CopyFiles $PLUGINSDIR\$CasperName "$BDir\boot\$JustISOName\$CasperName" ; Copy casper-rw to USB
  Delete "$PLUGINSDIR\$CasperName"
 ${EndIf}
 FunctionEnd

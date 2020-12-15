@@ -47,7 +47,7 @@ Var ISOFileName
 Var DestDriveTxt
 Var JustDrive
 Var DestDrive
-Var BootDir
+Var BDir
 Var LinuxDistroSelection
 Var LabelISOSelection
 Var ISOFileTxt
@@ -170,7 +170,7 @@ LangString Casper_Text ${LANG_TAMIL} "படி 4: மாற்றங்கள�
 LangString IsoFile ${LANG_TAMIL} "$FileFormat கோப்பு|$ISOFileName" 
 LangString Extract ${LANG_TAMIL} "$FileFormat பிரித்தெடுத்தல்: முடியும் வரை முன்னேற்றம் பட்டி நகராது. தயவுசெய்து பொருமையாயிறு..."
 LangString CreateSysConfig ${LANG_TAMIL} "$DestDisk இயக்ககத்திற்கான உள்ளமைவு கோப்புகளை உருவாக்குதல்"
-LangString ExecuteSyslinux ${LANG_TAMIL} "கணிலினக்சை $BootDir மீது இயக்குகிறது"
+LangString ExecuteSyslinux ${LANG_TAMIL} "கணிலினக்சை $BDir மீது இயக்குகிறது"
 LangString SkipSyslinux ${LANG_TAMIL} "நல்ல கணிலினக்சு உள்ளது..."
 LangString WarningSyslinux ${LANG_TAMIL} "கணிலினக்சை இயக்கும் போது பிழை($R8) ஏற்பட்டது.$\r$\nமின்வெட்டொளி இயக்கி துவக்கப்படாது...$\r$\n$\r$\n$FSType கோப்பு முறைமை கண்டறியப்பட்டது. உங்கள் இயக்கி Fat32 அல்லது NTFS ஆக வடிவமைக்கப்பட வேண்டும்."
 LangString WarningSyslinuxOLD ${LANG_TAMIL} "இந்த ஐ-கருவி திருத்தம் முந்தைய திருத்தங்களுடன் பொருந்தாத புதிய கணிலினக்சு பதிப்பைப் பயன்படுத்துகிறது.$\r$\nஉங்கள் யூ.எஸ்.பி டிரைவில் முந்தைய திருத்த நிறுவல்கள் இல்லை என்பதை உறுதிப்படுத்தவும்."
@@ -262,7 +262,7 @@ Function SelectionsPage
   
   ${NSD_CB_SelectString} $DestDriveTxt "$DestDrive"
   StrCpy $JustDrive $DestDrive 3
-  StrCpy $BootDir $DestDrive 2 ;was -1 
+  StrCpy $BDir $DestDrive 2 ;was -1 
   StrCpy $DestDisk $DestDrive 2 ;was -1
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
   StrCpy $Checker "Yes"  
@@ -530,7 +530,7 @@ Function EnableNext ; Enable Install Button
 ; If using Casper Persistence...  
   ${If} $Persistence == "casper" ; If can use Casper Persistence... 
   ${AndIf} $TheISO != ""
-  ${AndIf} $BootDir != "" 
+  ${AndIf} $BDir != "" 
   ShowWindow $CasperSelection 1
   ShowWindow $CasperSlider 1
   ShowWindow $SlideSpot 1
@@ -710,14 +710,14 @@ Function ISOBrowse
  ${If} $JustISOName == "" 
  StrCpy $JustISOName "NULL" ; Set to NULL until something is selected
  ${EndIf}
- ${If} ${FileExists} "$BootDir\boot\$JustISOName\*.*"
+ ${If} ${FileExists} "$BDir\boot\$JustISOName\*.*"
  ${AndIf} $JustISOName != ""
  ${AndIf} $FormatMe != "Yes"
  MessageBox MB_OK "$JustISOName is already on $DestDisk$\r$\nPlease Remove it first!"
  ${Else}
  ${EndIf}
  Call EnableNext
- ; Uncomment for Testing --> MessageBox MB_ICONQUESTION|MB_OK 'Removal: "$Removal"  ISOFileName: "$ISOFileName" ISOFile "$ISOFile" BootDir: "$BootDir" DestDisk: "$DestDisk" DestDrive: "$DestDrive" ISOTest: "$ISOTest"'
+ ; Uncomment for Testing --> MessageBox MB_ICONQUESTION|MB_OK 'Removal: "$Removal"  ISOFileName: "$ISOFileName" ISOFile "$ISOFile" BDir: "$BDir" DestDisk: "$DestDisk" DestDrive: "$DestDrive" ISOTest: "$ISOTest"'
  FunctionEnd
 
 Function ClearAll
@@ -793,7 +793,7 @@ Function OnSelectDrive
   ${NSD_GetText} $DestDriveTxt $Letters
   StrCpy $DestDrive "$Letters"
   StrCpy $JustDrive $DestDrive 3  
-  StrCpy $BootDir $DestDrive 2 ;was -1 
+  StrCpy $BDir $DestDrive 2 ;was -1 
   StrCpy $DestDisk $DestDrive 2 ;was -1
 
   Call PhysDrive
@@ -1043,19 +1043,19 @@ FunctionEnd
 !include துணைநிரல்கள்\விநியோகநீக்கம்.நிரல் ; # REM DISTRO#
 
 Function DoSyslinux ; Install Syslinux on USB
-  ${IfNot} ${FileExists} "$BootDir\boot\libcom32.c32" 
-  ${AndIf} ${FileExists} "$BootDir\boot\ldlinux.sys"   
+  ${IfNot} ${FileExists} "$BDir\boot\libcom32.c32" 
+  ${AndIf} ${FileExists} "$BDir\boot\ldlinux.sys"   
   MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinuxOLD)
   Quit
   ${EndIf}
   
-  ;IfFileExists "$BootDir\boot\libcom32.c32" SkipSyslinux CreateSyslinux ; checking for newer syslinux
-  IfFileExists "$BootDir\boot\01\ldlinux.sys" SkipSyslinux CreateSyslinux ; checking for syslinux
+  ;IfFileExists "$BDir\boot\libcom32.c32" SkipSyslinux CreateSyslinux ; checking for newer syslinux
+  IfFileExists "$BDir\boot\01\ldlinux.sys" SkipSyslinux CreateSyslinux ; checking for syslinux
   CreateSyslinux:
-  CreateDirectory $BootDir\boot\01 ; recursively create the directory structure if it doesn't exist
-  ;CreateDirectory $BootDir\boot\ISOS ; create ISOS folder  
+  CreateDirectory $BDir\boot\01 ; recursively create the directory structure if it doesn't exist
+  ;CreateDirectory $BDir\boot\ISOS ; create ISOS folder  
   DetailPrint $(ExecuteSyslinux)
-  ExecWait '$PLUGINSDIR\கணிலினக்சு.exe -maf -d /boot/01 $BootDir' $R8
+  ExecWait '$PLUGINSDIR\கணிலினக்சு.exe -maf -d /boot/01 $BDir' $R8
   DetailPrint "கணிலினக்சு பிழைகள் $R8"
   Banner::destroy
   ${If} $R8 != 0
@@ -1067,29 +1067,29 @@ Function DoSyslinux ; Install Syslinux on USB
   SkipSyslinux: 
   DetailPrint $(SkipSyslinux)
   
-  ${If} ${FileExists} $BootDir\boot\01\syslinux.cfg   
-  ${AndIf} ${FileExists} $BootDir\boot\01\memdisk
+  ${If} ${FileExists} $BDir\boot\01\syslinux.cfg   
+  ${AndIf} ${FileExists} $BDir\boot\01\memdisk
    DetailPrint "முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது."
    ; Call AddDir
   ${Else}
 ; Create and Copy files to your destination
-  DetailPrint "தேவையான கோப்புகள் $BootDir\boot\01 இதற்கு சேர்கப்பட்டன..." 
-  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\அகர\பகவன்\உரிமை.உரை"
+  DetailPrint "தேவையான கோப்புகள் $BDir\boot\01 இதற்கு சேர்கப்பட்டன..." 
+  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BDir\அகர\பகவன்\உரிமை.உரை"
   
 ; Copy these files to 00\01
-  DetailPrint "தேவையான கோப்புகள் $BootDir\boot\01 directory இதற்கு சேர்கப்பட்டன..." 
-  CopyFiles "$PLUGINSDIR\கணிலினக்சு.உலகு" "$BootDir\boot\01\syslinux.cfg"  
-  CopyFiles "$PLUGINSDIR\நினைவுவட்டு" "$BootDir\boot\01\memdisk"      
+  DetailPrint "தேவையான கோப்புகள் $BDir\boot\01 directory இதற்கு சேர்கப்பட்டன..." 
+  CopyFiles "$PLUGINSDIR\கணிலினக்சு.உலகு" "$BDir\boot\01\syslinux.cfg"  
+  CopyFiles "$PLUGINSDIR\நினைவுவட்டு" "$BDir\boot\01\memdisk"      
   ${EndIf}  
 
 ; அகர\பகவன் அடைவு மற்றும் கோப்புகள் இருப்பதை உறுதிப்படுத்தவும்.  
-  ${If} ${FileExists} $BootDir\அகர\பகவன்\BOOTX64.EFI 
-  ${AndIf} ${FileExists} $BootDir\அகர\பகவன்\முதற்றே.உலகு
+  ${If} ${FileExists} $BDir\அகர\பகவன்\BOOTX64.EFI 
+  ${AndIf} ${FileExists} $BDir\அகர\பகவன்\முதற்றே.உலகு
   
   ${Else}  
 ; அகர முதல கோப்புகளை நகலெடுக்கிறது 
   DetailPrint "அகர முதல கோப்புகளை நகலெடுக்க தொடர்கிறது..."
-  ExecWait '"$PLUGINSDIR\7zG.exe" x "$PLUGINSDIR\boot.zip" -o"$BootDir" -y' 
+  ExecWait '"$PLUGINSDIR\7zG.exe" x "$PLUGINSDIR\அகர.zip" -o"$BDir" -y' 
   ${EndIf}   
 FunctionEnd
 
@@ -1102,7 +1102,7 @@ Push 1
 Call GrabNameOnly
 Pop $NameThatISO
 
- ${If} ${FileExists} "$BootDir\windows\system32" ; Safeguard windows Installation.
+ ${If} ${FileExists} "$BDir\windows\system32" ; Safeguard windows Installation.
  MessageBox MB_ICONSTOP|MB_OK "கைவிடுகிறது! ($DestDisk) ஒரு WINDOWS/SYSTEM32 கோப்பகத்தைக் கொண்டுள்ளது."
  Quit
  ${EndIf}
@@ -1121,7 +1121,7 @@ Pop $NameThatISO
  Quit
  ${ElseIf} $FormatMe != "Yes" 
 								
- ${AndIfNot} ${FileExists} $BootDir\boot\01\syslinux.cfg
+ ${AndIfNot} ${FileExists} $BDir\boot\01\syslinux.cfg
  MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1. ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n2.$DestDisk இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n3. ($DestDisk)இல் ($DistroName)வை நிறுவு$\r$\n$\r$\nசரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
  Quit
  ${EndIf}
@@ -1134,8 +1134,8 @@ proceed:
  Call LocalISODetected
  
 ; Copy the config file if it doesn't exist and create the entry in கணிலினக்சு.உலகு 
- ${IfNot} ${FileExists} "$BootDir\அகர\பகவன்\$Config2Use" 
- CopyFiles "$PLUGINSDIR\$Config2Use" "$BootDir\அகர\பகவன்\$Config2Use"
+ ${IfNot} ${FileExists} "$BDir\அகர\பகவன்\$Config2Use" 
+ CopyFiles "$PLUGINSDIR\$Config2Use" "$BDir\அகர\பகவன்\$Config2Use"
  Call Config2Write
  ${EndIf} 
  
@@ -1150,21 +1150,21 @@ removeonly:
 SectionEnd
 
 Function ConfigRemove ; Find and Set Removal Configuration file
-  ${If} ${FileExists} "$BootDir\boot\$DistroName\I\லினக்சு.உலகு"
+  ${If} ${FileExists} "$BDir\boot\$DistroName\I\லினக்சு.உலகு"
   StrCpy $Config2Use "லினக்சு.உலகு"
-  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\உலாவி.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\boot\$DistroName\I\உலாவி.உலகு"
   StrCpy $Config2Use "உலாவி.உலகு"  
-  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\கருவிகள்.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\boot\$DistroName\I\கருவிகள்.உலகு"
   StrCpy $Config2Use "கருவிகள்.உலகு"
-  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\நோய்தடுப்பு.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\boot\$DistroName\I\நோய்தடுப்பு.உலகு"
   StrCpy $Config2Use "நோய்தடுப்பு.உலகு"
-  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\இணையபுத்தகம்.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\boot\$DistroName\I\இணையபுத்தகம்.உலகு"
   StrCpy $Config2Use "இணையபுத்தகம்.உலகு"
-  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\மற்ற.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\boot\$DistroName\I\மற்ற.உலகு"
   StrCpy $Config2Use "மற்ற.உலகு"
-  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\பட்டியலிடாத.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\boot\$DistroName\I\பட்டியலிடாத.உலகு"
   StrCpy $Config2Use "பட்டியலிடாத.உலகு"  
-;  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\menu.lst"
+;  ${ElseIf} ${FileExists} "$BDir\boot\$DistroName\I\menu.lst"
 ;  StrCpy $Config2Use "menu.lst"
   ${EndIf}
  MessageBox MB_OK "$Config2Use"
@@ -1245,7 +1245,7 @@ StrCpy $R9 0 ; we start on page 0
  InitPluginsDir   
   File /oname=$PLUGINSDIR\கணிலினக்சு.exe "இருமங்கள்\கணிலினக்சு.exe"  
   File /oname=$PLUGINSDIR\கணிலினக்சு.உலகு "உரைகள்\கணிலினக்சு.உலகு"
-  File /oname=$PLUGINSDIR\grubslug.cfg "உரைகள்\மந்தமான.உலகு"   
+  File /oname=$PLUGINSDIR\மந்தமான.உலகு "உரைகள்\மந்தமான.உலகு"   
   File /oname=$PLUGINSDIR\நோய்தடுப்பு.உலகு "உரைகள்\நோய்தடுப்பு.உலகு" 
   File /oname=$PLUGINSDIR\கருவிகள்.உலகு "உரைகள்\கருவிகள்.உலகு" 
   File /oname=$PLUGINSDIR\இணையபுத்தகம்.உலகு "உரைகள்\இணையபுத்தகம்.உலகு"
@@ -1257,7 +1257,7 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\7z.dll "இருமங்கள்\7z.dll"  
   File /oname=$PLUGINSDIR\உரிமை.உரை "உரைகள்\உரிமை.உரை" 
   File /oname=$PLUGINSDIR\நினைவுவட்டு "இருமங்கள்\நினைவுவட்டு"  
-  File /oname=$PLUGINSDIR\boot.zip "boot.zip"   
+  File /oname=$PLUGINSDIR\அகர.zip "அகர.zip"   
 ; File /oname=$PLUGINSDIR\அகர.உலகு "உரைகள்\அகர.உலகு"
 ; File /oname=$PLUGINSDIR\மற்ற.உலகு "உரைகள்\மற்ற.உலகு"   
 ; File /oname=$PLUGINSDIR\mbrid "இருமங்கள்\முதன்மைதுவக்கபதிவெண்"  

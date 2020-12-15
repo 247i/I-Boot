@@ -1,5 +1,5 @@
 ﻿
-!macro SetISOFileNames Distro2Check ISO2Check2 Download2Get Persistent Write2File Homepage OfficialName
+!macro ஐஎஸ்ஓகோப்புபெயர்அமை Distro2Check ISO2Check2 Download2Get Persistent Write2File Homepage OfficialName
  ${If} $Checker == "No" 
   ${AndIf} $DistroName == "${Distro2Check}" 
    StrCpy $ISOFileName "${ISO2Check2}"
@@ -11,7 +11,7 @@
  ${ElseIf} $Checker == "Yes"  
   ${AndIf} $Removal != "Yes" 
   ${AndIf} $FormatMe != "Yes"
- ;${AndIfNot} ${FileExists} $BootDir\${File2Check}  ; If Distro File exists, don't show Distro because it must already be installed.
+ ;${AndIfNot} ${FileExists} $BDir\${File2Check}  ; If Distro File exists, don't show Distro because it must already be installed.
    ${NSD_CB_AddString} $Distro "${Distro2Check}" ; was ${NSD_LB_AddString} $Distro "${Distro2Check}" ; Enable for Dropbox
  ${ElseIf} $Checker == "Yes"   
   ${AndIf} $Removal != "Yes"  
