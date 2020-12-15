@@ -1150,20 +1150,20 @@ removeonly:
 SectionEnd
 
 Function ConfigRemove ; Find and Set Removal Configuration file
-  ${If} ${FileExists} "$BootDir\boot\$DistroName\I\linux.cfg"
-  StrCpy $Config2Use "linux.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\anon.cfg"
-  StrCpy $Config2Use "anon.cfg"  
-  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\system.cfg"
-  StrCpy $Config2Use "system.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\antivirus.cfg"
-  StrCpy $Config2Use "antivirus.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\netbook.cfg"
-  StrCpy $Config2Use "netbook.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\other.cfg"
-  StrCpy $Config2Use "other.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\unlisted.cfg"
-  StrCpy $Config2Use "unlisted.cfg"  
+  ${If} ${FileExists} "$BootDir\boot\$DistroName\I\லினக்சு.உலகு"
+  StrCpy $Config2Use "லினக்சு.உலகு"
+  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\உலாவி.உலகு"
+  StrCpy $Config2Use "உலாவி.உலகு"  
+  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\கருவிகள்.உலகு"
+  StrCpy $Config2Use "கருவிகள்.உலகு"
+  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\நோய்தடுப்பு.உலகு"
+  StrCpy $Config2Use "நோய்தடுப்பு.உலகு"
+  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\இணையபுத்தகம்.உலகு"
+  StrCpy $Config2Use "இணையபுத்தகம்.உலகு"
+  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\மற்ற.உலகு"
+  StrCpy $Config2Use "மற்ற.உலகு"
+  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\பட்டியலிடாத.உலகு"
+  StrCpy $Config2Use "பட்டியலிடாத.உலகு"  
 ;  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\menu.lst"
 ;  StrCpy $Config2Use "menu.lst"
   ${EndIf}
@@ -1171,20 +1171,20 @@ Function ConfigRemove ; Find and Set Removal Configuration file
 FunctionEnd
 
 Function Config2Write
- ${If} $Config2Use == "system.cfg"
-  ${WriteToSysFile} "menuentry $\">அகர$\"{configfile /அகர/பகவன்/system.cfg}" $R0
- ${ElseIf} $Config2Use == "netbook.cfg"
-  ${WriteToSysFile} "menuentry $\">இ$\"{configfile /அகர/பகவன்/netbook.cfg}" $R0 
- ${ElseIf} $Config2Use == "linux.cfg"
-  ${WriteToSysFile} "menuentry $\">ஐ$\"{configfile /அகர/பகவன்/linux.cfg}" $R0 
- ${ElseIf} $Config2Use == "other.cfg"
-  ${WriteToSysFile} "menuentry $\">ஒ$\"{configfile /அகர/பகவன்/other.cfg}" $R0 
- ${ElseIf} $Config2Use == "antivirus.cfg"
-  ${WriteToSysFile} "menuentry $\">தட$\"{configfile /அகர/பகவன்/antivirus.cfg}" $R0 
- ${ElseIf} $Config2Use == "anon.cfg"
-  ${WriteToSysFile} "menuentry $\">பற$\"{configfile /அகர/பகவன்/anon.cfg}" $R0  
- ${ElseIf} $Config2Use == "unlisted.cfg"
-  ${WriteToSysFile} "menuentry $\">மற$\"{configfile /அகர/பகவன்/unlisted.cfg}" $R0  
+ ${If} $Config2Use == "கருவிகள்.உலகு"
+  ${WriteToSysFile} "menuentry $\">அகர$\"{configfile /அகர/பகவன்/கருவிகள்.உலகு}" $R0
+ ${ElseIf} $Config2Use == "இணையபுத்தகம்.உலகு"
+  ${WriteToSysFile} "menuentry $\">இ$\"{configfile /அகர/பகவன்/இணையபுத்தகம்.உலகு}" $R0 
+ ${ElseIf} $Config2Use == "லினக்சு.உலகு"
+  ${WriteToSysFile} "menuentry $\">ஐ$\"{configfile /அகர/பகவன்/லினக்சு.உலகு}" $R0 
+ ${ElseIf} $Config2Use == "மற்ற.உலகு"
+  ${WriteToSysFile} "menuentry $\">ஒ$\"{configfile /அகர/பகவன்/மற்ற.உலகு}" $R0 
+ ${ElseIf} $Config2Use == "நோய்தடுப்பு.உலகு"
+  ${WriteToSysFile} "menuentry $\">தட$\"{configfile /அகர/பகவன்/நோய்தடுப்பு.உலகு}" $R0 
+ ${ElseIf} $Config2Use == "உலாவி.உலகு"
+  ${WriteToSysFile} "menuentry $\">பற$\"{configfile /அகர/பகவன்/உலாவி.உலகு}" $R0  
+ ${ElseIf} $Config2Use == "பட்டியலிடாத.உலகு"
+  ${WriteToSysFile} "menuentry $\">மற$\"{configfile /அகர/பகவன்/பட்டியலிடாத.உலகு}" $R0  
 ; ${ElseIf} $Config2Use == "menu.lst"
 ;  ${WriteToSysFile} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /boot/grub.exe$\r$\nAPPEND --config-file=/அகர/பகவன்/menu.lst" $R0 
  ${EndIf} 
@@ -1246,12 +1246,12 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\syslinux.exe "இருமங்கள்\கணிலினக்சு.exe"  
   File /oname=$PLUGINSDIR\syslinux.cfg "உரைகள்\கணிலினக்சு.உலகு"
   File /oname=$PLUGINSDIR\grubslug.cfg "உரைகள்\மந்தமான.உலகு"   
-  File /oname=$PLUGINSDIR\antivirus.cfg "உரைகள்\நோய்க்கிருமிதடுப்பு.உலகு" 
-  File /oname=$PLUGINSDIR\system.cfg "உரைகள்\கருவிகள்.உலகு" 
-  File /oname=$PLUGINSDIR\netbook.cfg "உரைகள்\இணையபுத்தகம்.உலகு"
-  File /oname=$PLUGINSDIR\anon.cfg "உரைகள்\உலாவி.உலகு"
-  File /oname=$PLUGINSDIR\linux.cfg "உரைகள்\லினக்சு.உலகு" 
-  File /oname=$PLUGINSDIR\unlisted.cfg "உரைகள்\பட்டியலிடாத.உலகு"
+  File /oname=$PLUGINSDIR\நோய்தடுப்பு.உலகு "உரைகள்\நோய்தடுப்பு.உலகு" 
+  File /oname=$PLUGINSDIR\கருவிகள்.உலகு "உரைகள்\கருவிகள்.உலகு" 
+  File /oname=$PLUGINSDIR\இணையபுத்தகம்.உலகு "உரைகள்\இணையபுத்தகம்.உலகு"
+  File /oname=$PLUGINSDIR\உலாவி.உலகு "உரைகள்\உலாவி.உலகு"
+  File /oname=$PLUGINSDIR\லினக்சு.உலகு "உரைகள்\லினக்சு.உலகு" 
+  File /oname=$PLUGINSDIR\பட்டியலிடாத.உலகு "உரைகள்\பட்டியலிடாத.உலகு"
   File /oname=$PLUGINSDIR\liveusb "இருமங்கள்\liveusb"
   File /oname=$PLUGINSDIR\7zG.exe "இருமங்கள்\7zG.exe"
   File /oname=$PLUGINSDIR\7z.dll "இருமங்கள்\7z.dll"  
@@ -1259,7 +1259,7 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\memdisk "இருமங்கள்\memdisk"  
   File /oname=$PLUGINSDIR\boot.zip "boot.zip"   
 ; File /oname=$PLUGINSDIR\அகர.உலகு "உரைகள்\அகர.உலகு"
-; File /oname=$PLUGINSDIR\other.cfg "உரைகள்\மற்றவை.உலகு"   
+; File /oname=$PLUGINSDIR\மற்ற.உலகு "உரைகள்\மற்ற.உலகு"   
 ; File /oname=$PLUGINSDIR\mbrid "இருமங்கள்\முதன்மை_துவக்க_பதிவெண்"  
 FunctionEnd
 
