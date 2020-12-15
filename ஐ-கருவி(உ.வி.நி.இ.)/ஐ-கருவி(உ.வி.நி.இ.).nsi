@@ -854,11 +854,11 @@ FunctionEnd
 Function FormatYes ; If Format is checked, do something
   SetShellVarContext all
   InitPluginsDir
-  File /oname=$PLUGINSDIR\fat32format.exe "இருமங்கள்\fat32format.exe"
+  File /oname=$PLUGINSDIR\கோஒஅ32வடிவம்.exe "இருமங்கள்\கோஒஅ32வடிவம்.exe"
   ${If} $FormatMe == "Yes"
    Call Lock_Only ; Just get a lock on the Volume 
    Sleep 3000
-   nsExec::ExecToLog '"cmd" /c "echo y|$PLUGINSDIR\fat32format $DestDisk"' ;/Q /y
+   nsExec::ExecToLog '"cmd" /c "echo y|$PLUGINSDIR\கோஒஅ32வடிவம் $DestDisk"' ;/Q /y
    Call UnLockVol ; Unlock to allow Access   
   ${EndIf} 
 FunctionEnd
@@ -1055,8 +1055,8 @@ Function DoSyslinux ; Install Syslinux on USB
   CreateDirectory $BootDir\boot\01 ; recursively create the directory structure if it doesn't exist
   ;CreateDirectory $BootDir\boot\ISOS ; create ISOS folder  
   DetailPrint $(ExecuteSyslinux)
-  ExecWait '$PLUGINSDIR\syslinux.exe -maf -d /boot/01 $BootDir' $R8
-  DetailPrint "Syslinux Errors $R8"
+  ExecWait '$PLUGINSDIR\கணிலினக்சு.exe -maf -d /boot/01 $BootDir' $R8
+  DetailPrint "கணிலினக்சு பிழைகள் $R8"
   Banner::destroy
   ${If} $R8 != 0
   MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinux)
@@ -1167,7 +1167,7 @@ Function ConfigRemove ; Find and Set Removal Configuration file
 ;  ${ElseIf} ${FileExists} "$BootDir\boot\$DistroName\I\menu.lst"
 ;  StrCpy $Config2Use "menu.lst"
   ${EndIf}
-  ; MessageBox MB_OK "$Config2Use"
+ MessageBox MB_OK "$Config2Use"
 FunctionEnd
 
 Function Config2Write
@@ -1243,7 +1243,7 @@ StrCpy $R9 0 ; we start on page 0
  done:
  SetShellVarContext all
  InitPluginsDir   
-  File /oname=$PLUGINSDIR\syslinux.exe "இருமங்கள்\கணிலினக்சு.exe"  
+  File /oname=$PLUGINSDIR\கணிலினக்சு.exe "இருமங்கள்\கணிலினக்சு.exe"  
   File /oname=$PLUGINSDIR\syslinux.cfg "உரைகள்\கணிலினக்சு.உலகு"
   File /oname=$PLUGINSDIR\grubslug.cfg "உரைகள்\மந்தமான.உலகு"   
   File /oname=$PLUGINSDIR\நோய்தடுப்பு.உலகு "உரைகள்\நோய்தடுப்பு.உலகு" 
