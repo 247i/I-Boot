@@ -317,13 +317,13 @@ Function SelectionsPage
 ; Droplist for Drive Selection
   ${NSD_CreateDropList} 0 20 55% 15 "" ; was 0 20 15% 15
   Pop $DestDriveTxt
-  Call ListAllDrives
+  Call இயக்கிகளைபட்டியலிடு
   ${NSD_OnChange} $DestDriveTxt OnSelectDrive
  
 ; All Drives Option
 ;  ${NSD_CreateCheckBox} 36% 23 22% 15 "Show All Drives" ; was 17% 23 41% 15
 ;  Pop $AllDriveOption
-;  ${NSD_OnClick} $AllDriveOption ListAllDrives 
+;  ${NSD_OnClick} $AllDriveOption இயக்கிகளைபட்டியலிடு 
   
 ; Format Drive Option
   ${NSD_CreateCheckBox} 60% 23 100% 15 "துடைத்து Fat32 வடிவமை $DestDisk"
@@ -423,7 +423,7 @@ Function Finish_PreFunction
   Call NoQuit
 FunctionEnd
 
-Function ListAllDrives ; Set to Display All Drives
+Function இயக்கிகளைபட்டியலிடு ; Set to Display All Drives
   SendMessage $DestDriveTxt ${CB_RESETCONTENT} 0 0 
    ${GetDrives} "FDD+HDD" DrivesList ; All Drives Listed  
 FunctionEnd
