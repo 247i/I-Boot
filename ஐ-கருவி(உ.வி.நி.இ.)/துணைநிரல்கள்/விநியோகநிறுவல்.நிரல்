@@ -76,7 +76,7 @@ Function FindConfig ; கட்டமைப்பு பாதை ($ConfigPath, 
   ;MessageBox MB_OK "$ConfigPath/$ConfigFile"   
 FunctionEnd
 
-!insertmacro Locate
+!insertmacro locate
 
 Function FindGrubConfig ; தீனி கட்டமைப்பு பாதை ($GrubConfigPath, $GrubCopyPath)மற்றும் கோப்பை $GrubConfigFile அமைக்கவும் .
   ${If} ${FileExists} "$BDir\boot\$JustISOName\liberte\boot\grub\grub.cfg" ; Liberte
@@ -92,7 +92,7 @@ Function FindGrubConfig ; தீனி கட்டமைப்பு பாத�
   StrCpy $GrubCopyPath "boot\grub"
   StrCpy $GrubConfigFile "grub.cfg"   
   ${ElseIf} ${FileExists} "$BDir\boot\$JustISOName\boot\grub\grub*.cfg" ; System Rescue CD...
-  ${Locate} "$BDir\boot\$JustISOName\boot\grub" "/L=F /M=*.cfg" "FoundGrubFile" ; Could eventually replace this whole section using locate.
+  ${locate} "$BDir\boot\$JustISOName\boot\grub" "/L=F /M=*.cfg" "FoundGrubFile" ; Could eventually replace this whole section using locate.
   StrCpy $GrubConfigPath "boot/grub"
   StrCpy $GrubCopyPath "boot\grub"
   StrCpy $GrubConfigFile "grubsys.cfg"   

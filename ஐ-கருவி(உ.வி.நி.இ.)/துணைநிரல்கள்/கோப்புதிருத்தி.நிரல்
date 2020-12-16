@@ -144,7 +144,7 @@ Function RemovalList ; Lists the distros installed on the select drive.
 ; Convert file UTF16LE to UTF-8
 
  ${Else}
-     ;Call SetISOFileName
+     ;Call ஐஎஸ்ஓகோப்புபெயர்அமை
  ${EndIf}
 FunctionEnd
 

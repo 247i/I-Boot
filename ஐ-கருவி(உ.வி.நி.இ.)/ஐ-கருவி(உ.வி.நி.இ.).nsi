@@ -611,7 +611,7 @@ Function OnSelectDistro
   StrCpy $ISOFileName "$DistroName" 
   StrCpy $ISOTest "$DistroName"  
   ${Else} 
-  Call SetISOFileName
+  Call ஐஎஸ்ஓகோப்புபெயர்அமை
   StrCpy $ISOFileName "$ISOFileName" 
   StrCpy $SomeFileExt "$ISOFileName" "" -3 ; Grabs the last 3 characters of the file name... zip or ஐஎஸ்ஓ?
   StrCpy $FileFormat "$SomeFileExt" ; Set file type to look for zip, tar, ஐஎஸ்ஓ etc...
@@ -685,7 +685,7 @@ Function ISOBrowse
  ${If} $ShowingAll == "Yes"
   StrCpy $ISOFileName "*.iso" 
  ${ElseIf} $ShowingAll != "Yes"
-  Call SetISOFileName
+  Call ஐஎஸ்ஓகோப்புபெயர்அமை
  ${EndIf}
  
  nsDialogs::SelectFileDialog open "" $(IsoFile)
@@ -732,7 +732,7 @@ Function InstallorRemove ; Populate DistroName based on Install/Removal option
   Call RemovalList
   ${Else}
    ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskஇல் நிறுவ ஒரு விநியோகம்" 
-  Call SetISOFileName
+  Call ஐஎஸ்ஓகோப்புபெயர்அமை
   ${EndIf}
 FunctionEnd  
 
@@ -782,7 +782,7 @@ Function Uninstall
    ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskவைக்க ஒரு விநியோகம்" 
      SendMessage $Distro ${CB_RESETCONTENT} 0 0  ; Clear all distro entries because a new option may have been chosen ; Enable for DropBox
      StrCpy $Checker "Yes"         
-     Call SetISOFileName
+     Call ஐஎஸ்ஓகோப்புபெயர்அமை
   ${EndIf}  
 FunctionEnd
 
@@ -958,7 +958,7 @@ Function HaveSpacePre ; Check space required
 		 
 FunctionEnd
 
-Function HaveSpace ; Check space required
+Function இடமிருக்கு ; Check space required
   Call CasperSize
   Call FreeDiskSpace
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
@@ -1127,7 +1127,7 @@ Pop $NameThatISO
 
 proceed: 
  ${IfThen} $Removal == "Yes" ${|} Goto removeonly ${|}
- Call HaveSpace ; Got enough Space? Lets Check!
+ Call இடமிருக்கு ; Got enough Space? Lets Check!
  Call FormatYes ; Format the Drive?
  Call DoSyslinux ; Run Syslinux on the Drive to make it bootable
  Call LocalISODetected
