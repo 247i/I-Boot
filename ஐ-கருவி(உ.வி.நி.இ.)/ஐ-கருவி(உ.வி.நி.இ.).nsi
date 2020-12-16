@@ -796,7 +796,7 @@ Function OnSelectDrive
   StrCpy $DestDisk $DestDrive 2 ;was -1
 
   Call PhysDrive
-  Call GetFSType
+  Call கோமுவகைபெறு
   ${If} $FSType == "exFAT"
    ${OrIf} $FSType == "NTFS"
    MessageBox MB_ICONSTOP|MB_OK "$FSType வடிவமைக்கப்பட்ட சாதனங்களில் கணிலினக்சு செயல்படாது. $JustDriveஐ Fat32 ஆக வடிவமைக்க நீங்கள் தேர்வு செய்யலாம்."
@@ -841,7 +841,7 @@ Function DrivesList
  Call PhysDrive
  Call GetDiskVolumeName
  Call DiskSpace
- Call GetFSType
+ Call கோமுவகைபெறு
 ;Prevent System Drive from being selected
  StrCpy $7 $WINDIR 3
  ${If} $9 != "$7" 
@@ -1106,7 +1106,7 @@ Pop $NameThatISO
  Quit
  ${EndIf}
  
- Call GetFSType
+ Call கோமுவகைபெறு
  ${If} $FSType == "exFAT"
   ${OrIf} $FSType == "NTFS"
    ${AndIf} $FormatMe != "Yes" 
@@ -1303,7 +1303,7 @@ Function FindInitrd
  FindClose $0
 FunctionEnd
 
-Function GetFSType ; To know the filesystem type.
+Function கோமுவகைபெறு ; To know the filesystem type.
 System::Call 'Kernel32::GetVolumeInformation(t "$JustDrive",t,i ${NSIS_MAX_STRLEN},*i,*i,*i,t .r1" ,i ${NSIS_MAX_STRLEN}) i.r0'
  StrCpy $FSType "$1"
 FunctionEnd
