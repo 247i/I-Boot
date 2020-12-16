@@ -1,4 +1,4 @@
-﻿; ------------ Install Distros Macro -------------- 
+﻿; ------------ விநியோகநிறுவல்  Macro -------------- 
 
 Function FindConfig ; கட்டமைப்பு பாதை ($ConfigPath, $CopyPath)மற்றும் கோப்பை $ConfigFile அமைக்கவும் .
   ${If} ${FileExists} "$BDir\boot\$JustISOName\liberte\boot\syslinux\syslinux.cfg" ; Liberte
@@ -131,7 +131,7 @@ Function WriteStuff
  	
 FunctionEnd
 
-!macro Install_Distros 
+!macro விநியோகநிறுவல் 
 
 ; Initiate Plugins Directory for potential use
   SetShellVarContext all
@@ -139,7 +139,7 @@ FunctionEnd
 
 ; If distro is already installed, delete the entry, so we don't make a mess.
  ${If} ${FileExists} "$BDir\boot\$JustISOName\*.*"
- ${DeleteMenuEntry} "$BDir\அகர\பகவன்\$Config2Use" "#[ $DistroName" "#] $DistroName" ; கட்டமைப்பு கோப்பிலிருந்து உள்ளீட்டை அகற்று... I.E. linux.cfg, system.cfg, etc
+ ${பட்டிஉள்ளீட்டைநீக்கு} "$BDir\அகர\பகவன்\$Config2Use" "#[ $DistroName" "#] $DistroName" ; கட்டமைப்பு கோப்பிலிருந்து உள்ளீட்டை அகற்று... I.E. linux.cfg, system.cfg, etc
  ${EndIf}
  
 ; Write $JustISOName to நிறுவப்பட்டது.உரை 
