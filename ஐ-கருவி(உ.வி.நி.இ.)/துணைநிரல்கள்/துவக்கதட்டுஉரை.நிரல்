@@ -30,8 +30,8 @@ FunctionEnd
 Function Lock_Only
  StrCpy $1 "\\.\$JustDrive" -1
  Push $1
- Call Create
- Call LockVol 
+ Call உருவாக்கு
+ Call தொகுதிபூட்டு 
 FunctionEnd
 
 ; Function modified to populate .cfg file with what the user chose!
@@ -143,7 +143,7 @@ Function HDDNumber
   Pop $1
 FunctionEnd
 
-Function Create
+Function உருவாக்கு
   Push $8
   
      System::Call "kernel32::CreateFile(t r1, \\ 
@@ -162,7 +162,7 @@ Function Create
   Pop $8  
 FunctionEnd	 	
 
-Function LockVol
+Function தொகுதிபூட்டு
   Push $7 
   Push $8  
   
@@ -195,7 +195,7 @@ Function LockVol
   Pop $8
 FunctionEnd 
 
-Function UnLockVol	
+Function தொகுதிதிற	
   Push $6 
   Push $8
   

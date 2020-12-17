@@ -1,15 +1,15 @@
 ﻿
-!macro ReplaceInFile SEARCH_TEXT REPLACEMENT_TEXT START_OCCURENCE END_OCCURENCE FILE
+!macro கோப்பில்மாற்று SEARCH_TEXT REPLACEMENT_TEXT START_OCCURENCE END_OCCURENCE FILE
   Push "${SEARCH_TEXT}"
   Push "${REPLACEMENT_TEXT}"
   Push "${START_OCCURENCE}"
   Push "${END_OCCURENCE}"  
   Push "${FILE}" 
-  Call ReplaceInFile
+  Call கோப்பில்மாற்று
 !macroend
 
 ;The following function was created by Afrow UK - http://nsis.sourceforge.net/More_advanced_replace_text_in_file
-Function ReplaceInFile
+Function கோப்பில்மாற்று
 Exch $0 ;file to replace in
 Exch
 Exch $1 ;number to replace after

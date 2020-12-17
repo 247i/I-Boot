@@ -633,7 +633,7 @@ Function OnSelectDistro
 ; Autodetect ஐஎஸ்ஓ's in same folder and select if they exist  
  ${If} ${FileExists} "$EXEDIR\$ISOFileName"
  ${AndIf} $Removal != "Yes"
- ${StrContains} $WILD "*" "$ISOFileName" ; Check for Wildcard and force Browse if * exists.
+ ${சரம்கொண்டுள்ளது} $WILD "*" "$ISOFileName" ; Check for Wildcard and force Browse if * exists.
  ${AndIf} $WILD != "*"  
   StrCpy $TheISO "$EXEDIR\$ISOFileName"
   StrCpy $ISOFile "$TheISO"  
@@ -702,7 +702,7 @@ Function ISOBrowse
  ${StrRep} '$JustISOName' '$JustISOName' ' ' '-'
  ${GetParent} "$TheISO" $JustISOPath
  StrCpy $LocalSelection "Yes"
-  Call SetISOSize
+  Call ஐஎஸ்ஓஅளவைஅமை
   Call SetSpace
   Call CheckSpace
   Call HaveSpacePre
@@ -858,7 +858,7 @@ Function FormatYes ; If Format is checked, do something
    Call Lock_Only ; Just get a lock on the Volume 
    Sleep 3000
    nsExec::ExecToLog '"cmd" /c "echo y|$PLUGINSDIR\கோஒஅ32வடிவம் $DestDisk"' ;/Q /y
-   Call UnLockVol ; Unlock to allow Access   
+   Call தொகுதிதிற ; Unlock to allow Access   
   ${EndIf} 
 FunctionEnd
 
@@ -1268,7 +1268,7 @@ Function onNotify_CasperSlider
  ${NSD_SetText} $SlideSpot "$Casper MB"
 FunctionEnd
 
-Function SetISOSize ; Get size of ஐஎஸ்ஓ
+Function ஐஎஸ்ஓஅளவைஅமை ; Get size of ஐஎஸ்ஓ
  System::Call 'kernel32::CreateFile(t "$TheISO", i 0x80000000, i 1, i 0, i 3, i 0, i 0) i .r0'
  System::Call "kernel32::GetFileSizeEx(i r0, *l .r1) i .r2"
  System::Alloc $1

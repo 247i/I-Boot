@@ -1,5 +1,5 @@
 ﻿; ------------ Casper Script --------------
-Function CasperScript
+Function புதையல்உரை
 ${If} $Casper != "0"
 ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
  Call GetCaspTools
