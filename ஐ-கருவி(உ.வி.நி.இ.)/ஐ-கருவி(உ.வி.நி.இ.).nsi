@@ -133,7 +133,7 @@ Var DiskNum
 !define MUI_TEXT_LICENSE_SUBTITLE $(License_Subtitle)
 !define MUI_LICENSEPAGE_TEXT_TOP $(License_Text_Top)
 !define MUI_LICENSEPAGE_TEXT_BOTTOM $(License_Text_Bottom)
-!define MUI_PAGE_CUSTOMFUNCTION_PRE License_PreFunction
+!define MUI_PAGE_CUSTOMFUNCTION_PRE உரிமம்_முன்செயல்பாடு
 !insertmacro MUI_PAGE_LICENSE "உரைகள்\உரிமை.உரை"
 ; Distro Selection Page
 Page custom SelectionsPage
@@ -186,7 +186,7 @@ LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் �
 !include துணைநிரல்கள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
 !include துணைநிரல்கள்\தட்டுஉருவாகும்உரை.நிரல் ; For creation of Persistent Casper-rw files
 
-Function License_PreFunction
+Function உரிமம்_முன்செயல்பாடு
   StrCpy $R8 1 ;This is the 1st page
 FunctionEnd
 
@@ -1279,7 +1279,7 @@ Function SetISOSize ; Get size of ஐஎஸ்ஓ
  System::Call 'kernel32::CloseHandle(i r0)'
 FunctionEnd
 
-Function FindInitrd
+Function ஆரம்பசீவ_கண்டுபிடி
 ; FindFirst $0 $1 "$FindInitPath"
  loop:
   StrCmp $1 "" done
@@ -1291,7 +1291,7 @@ Function FindInitrd
  FindClose $0
  FunctionEnd
  
- Function FindVmlinuz ; find the path location of  
+ Function லினக்சுஉட்கரு_கண்டுபிடி ; find the path location of  
 ; FindFirst $0 $1 "$FindVmlinuzPath"
  loop:
   StrCmp $1 "" done

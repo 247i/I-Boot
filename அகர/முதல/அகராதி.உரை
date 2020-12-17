@@ -1,0 +1,5 @@
+﻿லினக்சுஉட்கரு_கண்டுபிடி -Find VMlinuz
+ஆரம்ப சீரற்ற அணுகல் நினைவக வட்டு - Initial Random Access memory Disk (initRD)
+ஆரம்பசீவ_கண்டுபிடி - InitRD_Find
+கோப்பு முறைமை - Filesystem (FS) 
+கோமுவகைபெறு - GetFSType

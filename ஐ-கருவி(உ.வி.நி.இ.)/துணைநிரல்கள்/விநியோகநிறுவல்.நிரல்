@@ -139,7 +139,7 @@ FunctionEnd
 
 ; If distro is already installed, delete the entry, so we don't make a mess.
  ${If} ${FileExists} "$BDir\boot\$JustISOName\*.*"
- ${பட்டிஉள்ளீட்டைநீக்கு} "$BDir\அகர\பகவன்\$Config2Use" "#[ $DistroName" "#] $DistroName" ; கட்டமைப்பு கோப்பிலிருந்து உள்ளீட்டை அகற்று... I.E. linux.cfg, system.cfg, etc
+ ${பட்டிஉள்ளீட்டைநீக்கு} "$BDir\அகர\பகவன்\$Config2Use" "#[ $DistroName" "#] $DistroName" ; கட்டமைப்பு கோப்பிலிருந்து உள்ளீட்டை அகற்று... I.E. லினக்சு.உலகு, system.cfg, etc
  ${EndIf}
  
 ; Write $JustISOName to நிறுவப்பட்டது.உரை 
@@ -217,15 +217,15 @@ FunctionEnd
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!*nitrd* -ir!*mlinu* -o"$BDir\boot\$JustISOName\" -y'  
  
  FindFirst $0 $1 "$BDir\boot\$JustISOName\isolinux\initrd*"
- Call FindInitrd
+ Call ஆரம்பசீவ_கண்டுபிடி
  FindFirst $0 $1 "$BDir\boot\$JustISOName\isolinux\vmlinuz*"
- Call FindVmlinuz
+ Call லினக்சுஉட்கரு_கண்டுபிடி
  ;${StrRep} '$ISONameDotLess' '$JustISOName' '-x86_64-' '-'
  ${StrRep} '$ISONameDotLess' '$JustISOName' '.' '-'
  ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/isolinux/$Vmlinuz iso-scan/filename=/boot/$JustISOName/$JustISO rootfstype=auto root=live:CDLABEL=$ISONameDotLess ro rd.live.image$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/isolinux/$Initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
- !insertmacro ReplaceInFile "CDLABEL=Fedora-Live-Workstation" "CDLABEL=Fedora-Live-WS" "all" "all" "$BDir\அகர\பகவன்\linux.cfg"   
- !insertmacro ReplaceInFile "CDLABEL=Fedora-Workstation-Live" "CDLABEL=Fedora-WS-Live" "all" "all" "$BDir\அகர\பகவன்\linux.cfg" 
- !insertmacro ReplaceInFile "CDLABEL=Fedora-WS-Live-x86_64" "CDLABEL=Fedora-WS-Live" "all" "all" "$BDir\அகர\பகவன்\linux.cfg" 
+ !insertmacro ReplaceInFile "CDLABEL=Fedora-Live-Workstation" "CDLABEL=Fedora-Live-WS" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு"   
+ !insertmacro ReplaceInFile "CDLABEL=Fedora-Workstation-Live" "CDLABEL=Fedora-WS-Live" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு" 
+ !insertmacro ReplaceInFile "CDLABEL=Fedora-WS-Live-x86_64" "CDLABEL=Fedora-WS-Live" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு" 
  
 ; Linpus Lite (New Method) 
  ${ElseIf} $DistroName == "Linpus Lite" 
@@ -315,9 +315,9 @@ FunctionEnd
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!*nitrd* -ir!*mlinu* -o"$BDir\boot\$JustISOName\" -y'  
  
  FindFirst $0 $1 "$BDir\boot\$JustISOName\live\initrd*" 
- Call FindInitrd
+ Call ஆரம்பசீவ_கண்டுபிடி
  FindFirst $0 $1 "$BDir\boot\$JustISOName\live\*mlinu*"
- Call FindVmlinuz
+ Call லினக்சுஉட்கரு_கண்டுபிடி
  
  ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
  !insertmacro ReplaceInFile "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"   
@@ -335,9 +335,9 @@ FunctionEnd
   ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!*nitrd* -ir!*mlinu* -o"$BDir\boot\$JustISOName\" -y'  
  
   FindFirst $0 $1 "$BDir\boot\$JustISOName\live\initrd*" 
-  Call FindInitrd
+  Call ஆரம்பசீவ_கண்டுபிடி
   FindFirst $0 $1 "$BDir\boot\$JustISOName\live\*mlinu*"
-  Call FindVmlinuz
+  Call லினக்சுஉட்கரு_கண்டுபிடி
  
   ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
   !insertmacro ReplaceInFile "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"   
@@ -360,9 +360,9 @@ FunctionEnd
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!*nitrd* -ir!*mlinu* -o"$BDir\boot\$JustISOName\" -y'  
  
  FindFirst $0 $1 "$BDir\boot\$JustISOName\initrd*" 
- Call FindInitrd
+ Call ஆரம்பசீவ_கண்டுபிடி
  FindFirst $0 $1 "$BDir\boot\$JustISOName\vmlinuz*"
- Call FindVmlinuz
+ Call லினக்சுஉட்கரு_கண்டுபிடி
  
  ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
  !insertmacro ReplaceInFile "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"   
@@ -380,9 +380,9 @@ FunctionEnd
  ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitrd* -ir!*mlinu* -o"$BDir\boot\$JustISOName\" -y'  
  
  FindFirst $0 $1 "$BDir\boot\$JustISOName\*initrd*" 
- Call FindInitrd
+ Call ஆரம்பசீவ_கண்டுபிடி
  FindFirst $0 $1 "$BDir\boot\$JustISOName\*mlinu*"
- Call FindVmlinuz
+ Call லினக்சுஉட்கரு_கண்டுபிடி
  
  ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
  !insertmacro ReplaceInFile "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"   
@@ -400,9 +400,9 @@ FunctionEnd
  ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitr* -ir!*mlinu* -o"$BDir\boot\$JustISOName\" -y'  
  
  FindFirst $0 $1 "$BDir\boot\$JustISOName\*initr*" 
- Call FindInitrd
+ Call ஆரம்பசீவ_கண்டுபிடி
  FindFirst $0 $1 "$BDir\boot\$JustISOName\*mlinu*"
- Call FindVmlinuz
+ Call லினக்சுஉட்கரு_கண்டுபிடி
  
  ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
  !insertmacro ReplaceInFile "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"   
@@ -420,9 +420,9 @@ FunctionEnd
  ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitrd* -ir!*mlinu* -o"$BDir\boot\$JustISOName\" -y'  
  
  FindFirst $0 $1 "$BDir\boot\$JustISOName\*initrd*" 
- Call FindInitrd
+ Call ஆரம்பசீவ_கண்டுபிடி
  FindFirst $0 $1 "$BDir\boot\$JustISOName\*mlinu*"
- Call FindVmlinuz
+ Call லினக்சுஉட்கரு_கண்டுபிடி
  
  ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
  !insertmacro ReplaceInFile "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"   
@@ -554,25 +554,25 @@ FunctionEnd
  ${EndIf} 
  
  ${If} $DistroName == "Ubuntu"  
- !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntu.seed" "all" "all" "$BDir\அகர\பகவன்\linux.cfg"  
+ !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntu.seed" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு"  
  ${ElseIf} $DistroName == "Cub Linux"  
- !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntu.seed" "all" "all" "$BDir\அகர\பகவன்\linux.cfg"  
+ !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntu.seed" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு"  
  ${ElseIf} $DistroName == "Ubuntu Gnome"
- !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntu-gnome.seed" "all" "all" "$BDir\அகர\பகவன்\linux.cfg"  
+ !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntu-gnome.seed" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு"  
  ${ElseIf} $DistroName == "Ubuntu Studio"
- !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntustudio.seed" "all" "all" "$BDir\அகர\பகவன்\linux.cfg"  
+ !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntustudio.seed" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு"  
  ${ElseIf} $DistroName == "Xubuntu"
- !insertmacro ReplaceInFile "SOMETHING.seed" "xubuntu.seed" "all" "all" "$BDir\அகர\பகவன்\linux.cfg"  
+ !insertmacro ReplaceInFile "SOMETHING.seed" "xubuntu.seed" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு"  
  ${ElseIf} $DistroName == "Kubuntu"
- !insertmacro ReplaceInFile "SOMETHING.seed" "kubuntu.seed" "all" "all" "$BDir\அகர\பகவன்\linux.cfg"  
+ !insertmacro ReplaceInFile "SOMETHING.seed" "kubuntu.seed" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு"  
  ${ElseIf} $DistroName == "Lubuntu"
- !insertmacro ReplaceInFile "SOMETHING.seed" "lubuntu.seed" "all" "all" "$BDir\அகர\பகவன்\linux.cfg"  
+ !insertmacro ReplaceInFile "SOMETHING.seed" "lubuntu.seed" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு"  
  ${ElseIf} $DistroName == "Edubuntu"
- !insertmacro ReplaceInFile "SOMETHING.seed" "edubuntu.seed" "all" "all" "$BDir\அகர\பகவன்\linux.cfg"  
+ !insertmacro ReplaceInFile "SOMETHING.seed" "edubuntu.seed" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு"  
  ${ElseIf} $DistroName == "Ubuntu Budgie"
- !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntu-budgie.seed" "all" "all" "$BDir\அகர\பகவன்\linux.cfg"
+ !insertmacro ReplaceInFile "SOMETHING.seed" "ubuntu-budgie.seed" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு"
  ${ElseIf} $DistroName == "Feren OS"
- !insertmacro ReplaceInFile "SOMETHING.seed" "lubuntu.seed" "all" "all" "$BDir\அகர\பகவன்\linux.cfg"
+ !insertmacro ReplaceInFile "SOMETHING.seed" "lubuntu.seed" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு"
  ${EndIf}  
   
 ; OpenSUSE
