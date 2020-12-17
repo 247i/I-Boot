@@ -23,7 +23,7 @@ FunctionEnd
 Function PhysDrive
  StrCpy $1 "$JustDrive"
  Push $1
- Call HDDNumber  
+ Call வன்வட்டுஎண்  
  StrCpy $DiskNum $0
 FunctionEnd
 
@@ -87,7 +87,7 @@ FunctionEnd
 ; Get hard disk number from drive letter
 ; provided as a parameter to this function.
 ; The hard disk number is returned in $0.
-Function HDDNumber
+Function வன்வட்டுஎண்
   ; Save registers
   Exch $1
   Push $2
