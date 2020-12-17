@@ -1,6 +1,6 @@
 ﻿; ------------ விநியோகநிறுவல்  Macro -------------- 
 
-Function FindConfig ; கட்டமைப்பு பாதை ($ConfigPath, $CopyPath)மற்றும் கோப்பை $ConfigFile அமைக்கவும் .
+Function கட்டமைப்பைக்கண்டறி ; கட்டமைப்பு பாதை ($ConfigPath, $CopyPath)மற்றும் கோப்பை $ConfigFile அமைக்கவும் .
   ${If} ${FileExists} "$BDir\boot\$JustISOName\liberte\boot\syslinux\syslinux.cfg" ; Liberte
   StrCpy $ConfigPath "liberte/boot/syslinux"
   StrCpy $CopyPath "liberte\boot\syslinux"
@@ -78,7 +78,7 @@ FunctionEnd
 
 !insertmacro locate
 
-Function FindGrubConfig ; தீனி கட்டமைப்பு பாதை ($GrubConfigPath, $GrubCopyPath)மற்றும் கோப்பை $GrubConfigFile அமைக்கவும் .
+Function மாதுஏகட்டமைப்பைக்கண்டறி ; தீனி கட்டமைப்பு பாதை ($GrubConfigPath, $GrubCopyPath)மற்றும் கோப்பை $GrubConfigFile அமைக்கவும் .
   ${If} ${FileExists} "$BDir\boot\$JustISOName\liberte\boot\grub\grub.cfg" ; Liberte
   StrCpy $GrubConfigPath "liberte/boot/grub"
   StrCpy $GrubCopyPath "liberte\boot\grub"
@@ -92,7 +92,7 @@ Function FindGrubConfig ; தீனி கட்டமைப்பு பாத�
   StrCpy $GrubCopyPath "boot\grub"
   StrCpy $GrubConfigFile "grub.cfg"   
   ${ElseIf} ${FileExists} "$BDir\boot\$JustISOName\boot\grub\grub*.cfg" ; System Rescue CD...
-  ${locate} "$BDir\boot\$JustISOName\boot\grub" "/L=F /M=*.cfg" "FoundGrubFile" ; Could eventually replace this whole section using locate.
+  ${locate} "$BDir\boot\$JustISOName\boot\grub" "/L=F /M=*.cfg" "மாதுஏகட்டமைப்புகிடைத்தது" ; Could eventually replace this whole section using locate.
   StrCpy $GrubConfigPath "boot/grub"
   StrCpy $GrubCopyPath "boot\grub"
   StrCpy $GrubConfigFile "grubsys.cfg"   
@@ -118,13 +118,13 @@ Function FindGrubConfig ; தீனி கட்டமைப்பு பாத�
   ;MessageBox MB_OK "$GrubConfigPath/$GrubConfigFile"   
 FunctionEnd
 
-Function FoundGrubFile
+Function மாதுஏகட்டமைப்புகிடைத்தது
   CopyFiles "$R9" "$BDir\boot\$JustISOName\boot\grub\grubsys.cfg"
   StrCpy $0 StopLocate
   Push $0
 FunctionEnd
 
-Function WriteStuff
+Function பொருள்எழுதுங்கள்
  ; Now done before this function is called (see line 122) CreateDirectory "$BDir\boot\$JustISOName\ஐ\" ; உருவாக்கு the ஐ Directory.. so we can copy the following config file to it.
  CopyFiles "$PLUGINSDIR\$Config2Use" "$BDir\boot\$JustISOName\ஐ\$Config2Use" ; Copy the $Config2Use file to $JustISOName\ஐ folder for the distro (so we know where to remove entry) 
  DetailPrint "$DistroName ($JustISOName) and its menu entry were added!"
@@ -643,7 +643,7 @@ FunctionEnd
  ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -o"$EXEDIR\TEMPI" -y' 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$EXEDIR\TEMPI\Remix_OS*.iso" -o"$BDir\boot\$JustISOName\" -y'  
  RMDir /R "$EXEDIR\TEMPI"
- Call FindGrubConfig
+ Call மாதுஏகட்டமைப்பைக்கண்டறி
  ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/$GrubConfigPath/$GrubConfigFile$\r$\n}$\r$\n#] $JustISOName" $R0   
   !insertmacro கோப்பில்மாற்று "linuxefi /kernel" "linux /boot/$JustISOName/kernel" "all" "all" "$BDir\boot\$JustISOName\$GrubCopyPath\$GrubConfigFile"  
   !insertmacro கோப்பில்மாற்று "initrdefi /initrd.img" "initrd /boot/$JustISOName/initrd.img" "all" "all" "$BDir\boot\$JustISOName\$GrubCopyPath\$GrubConfigFile"
@@ -676,7 +676,7 @@ FunctionEnd
   ${OrIf} $DistroName == "BionicPup"
     ${OrIf} $DistroName == "puppy Linux"
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BDir\boot\$JustISOName\" -y'  
- # Call FindGrubConfig
+ # Call மாதுஏகட்டமைப்பைக்கண்டறி
  ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0   
   !insertmacro கோப்பில்மாற்று "linux /vmlinuz" "linux /boot/$JustISOName/vmlinuz psubdir=/boot/$JustISOName psubok=TRUE" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"  
   !insertmacro கோப்பில்மாற்று "initrd /initrd" "initrd /boot/$JustISOName/initrd" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"
@@ -690,8 +690,8 @@ FunctionEnd
 
  ${Else} ; Start Catch All Install Methods 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BDir\boot\$JustISOName\" -y'  
- Call FindConfig
- Call FindGrubConfig
+ Call கட்டமைப்பைக்கண்டறி
+ Call மாதுஏகட்டமைப்பைக்கண்டறி
  ${If} $GrubConfigFile != "NULL" ; If native Grub config file does exist... 
     ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=auto$\r$\nconfigfile /boot/$JustISOName/$GrubConfigPath/$GrubConfigFile$\r$\n}$\r$\n#] $JustISOName" $R0   
  ${ElseIf} $GrubConfigFile == "NULL" ; If Grub config file does not exist... 
@@ -1408,6 +1408,6 @@ FunctionEnd
    Call புதையல்உரை  
   ${EndIf}
  
-Call WriteStuff
+Call பொருள்எழுதுங்கள்
 
 !macroend
