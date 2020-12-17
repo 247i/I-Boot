@@ -795,7 +795,7 @@ Function OnSelectDrive
   StrCpy $BDir $DestDrive 2 ;was -1 
   StrCpy $DestDisk $DestDrive 2 ;was -1
 
-  Call PhysDrive
+  Call இயற்பியக்கி
   Call கோமுவகைபெறு
   ${If} $FSType == "exFAT"
    ${OrIf} $FSType == "NTFS"
@@ -838,7 +838,7 @@ FunctionEnd
 
 Function DrivesList
  StrCpy $JustDrive $9
- Call PhysDrive
+ Call இயற்பியக்கி
  Call GetDiskVolumeName
  Call DiskSpace
  Call கோமுவகைபெறு
@@ -855,7 +855,7 @@ Function FormatYes ; If Format is checked, do something
   InitPluginsDir
   File /oname=$PLUGINSDIR\கோஒஅ32வடிவம்.exe "இருமங்கள்\கோஒஅ32வடிவம்.exe"
   ${If} $FormatMe == "Yes"
-   Call Lock_Only ; Just get a lock on the Volume 
+   Call பூட்டு_மட்டும் ; Just get a lock on the Volume 
    Sleep 3000
    nsExec::ExecToLog '"cmd" /c "echo y|$PLUGINSDIR\கோஒஅ32வடிவம் $DestDisk"' ;/Q /y
    Call தொகுதிதிற ; Unlock to allow Access   

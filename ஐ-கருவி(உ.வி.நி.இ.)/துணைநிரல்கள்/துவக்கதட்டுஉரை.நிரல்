@@ -1,14 +1,14 @@
 ﻿; ------------- DriveStuff -------------
 
-!macro Write2mbrid String File
+!macro முதுபஅடைவுக்குஎழுது String File
  Push "${String}"
  Push "${File}"
- Call Write2mbrid
+ Call முதுபஅடைவுக்குஎழுது
 !macroend  
-!define Write2mbrid "!insertmacro Write2mbrid"
+!define முதுபஅடைவுக்குஎழுது "!insertmacro முதுபஅடைவுக்குஎழுது"
 
-Function "MBRID" ; Let's Get the MBRID for OpenSUSE
- Call PhysDrive ; Get the Hard Disk Number from the Drive Letter
+Function "முதுபஅடை" ; Let's Get the முதுபஅடை for OpenSUSE
+ Call இயற்பியக்கி ; Get the Hard Disk Number from the Drive Letter
  nsexec::exectostack "wmic /NAMESPACE:\\root\CIMV2 path Win32_DiskDrive where name='\\\\.\\PHYSICALDRIVE$0' get Signature /VALUE" ; Use WMIC to get the PhysicalDrive Signature
  pop $0
  pop $1 ; Signature is stored here
@@ -17,17 +17,17 @@ Function "MBRID" ; Let's Get the MBRID for OpenSUSE
  IntFmt $OnlyVal "0x%08X" $OnlyVal ; Convert the value from Decimal to Hexadecimal - was 0x%X - fixed using 0x%08X for 10 character
  ${StrFilter} "$OnlyVal" "-" "" "" $OnlyVal ; Convert the Hexadecimal value to lower case
  Rename "$BDir\boot\$SUSEDIR\boot\grub\mbrid" "$BDir\அகர\$SUSEDIR\boot\grub\old-mbrid"
- ${Write2mbrid} "$OnlyVal" $R0
+ ${முதுபஅடைவுக்குஎழுது} "$OnlyVal" $R0
 FunctionEnd
 
-Function PhysDrive
+Function இயற்பியக்கி
  StrCpy $1 "$JustDrive"
  Push $1
  Call வன்வட்டுஎண்  
  StrCpy $DiskNum $0
 FunctionEnd
 
-Function Lock_Only
+Function பூட்டு_மட்டும்
  StrCpy $1 "\\.\$JustDrive" -1
  Push $1
  Call உருவாக்கு
@@ -35,7 +35,7 @@ Function Lock_Only
 FunctionEnd
 
 ; Function modified to populate .cfg file with what the user chose!
-Function Write2mbrid
+Function முதுபஅடைவுக்குஎழுது
  Exch $R0 ;file to write to
  Exch
  Exch $1 ;text to write

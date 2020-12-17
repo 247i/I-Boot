@@ -1385,7 +1385,7 @@ FunctionEnd
  ${If} ${FileExists} "$BDir\boot\$JustISOName\boot\grub\mbrid" 
   StrCpy $ConfigFile == "syslinux.cfg" ; Make sure it isn't NULL  
   StrCpy $SUSEDIR "$JustISOName" 
-  Call MBRID  
+  Call முதுபஅடை  
  ${EndIf}   
 
 ; Enable Casper  

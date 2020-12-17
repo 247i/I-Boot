@@ -19,3 +19,9 @@
 மாதுஏகட்டமைப்பைக்கண்டறி FindGrubConfig
 மாதுஏகட்டமைப்புகிடைத்தது FoundGrubFile
 வன்வட்டுஎண் HDDNumber
+முதன்மைதுவக்கபதிவு Master Boot record 
+அடையாளம் identification
+முதுபஅடை MBRID 
+முதுபஅடைவுக்குஎழுது Write2mbrid 
+பூட்டு_மட்டும் Lock_Only
+இயற்பியக்கி PhysDrive
