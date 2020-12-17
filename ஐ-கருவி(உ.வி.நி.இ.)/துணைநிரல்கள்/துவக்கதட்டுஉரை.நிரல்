@@ -1,4 +1,4 @@
-﻿; ------------- DriveStuff -------------
+﻿; ------------- இயக்கிபொருள் -------------
 
 !macro முதுபஅடைவுக்குஎழுது String File
  Push "${String}"
@@ -7,7 +7,7 @@
 !macroend  
 !define முதுபஅடைவுக்குஎழுது "!insertmacro முதுபஅடைவுக்குஎழுது"
 
-Function "முதுபஅடை" ; Let's Get the முதுபஅடை for OpenSUSE
+Function முதுபஅடை ; Let's Get the முதுபஅடை for OpenSUSE
  Call இயற்பியக்கி ; Get the Hard Disk Number from the Drive Letter
  nsexec::exectostack "wmic /NAMESPACE:\\root\CIMV2 path Win32_DiskDrive where name='\\\\.\\PHYSICALDRIVE$0' get Signature /VALUE" ; Use WMIC to get the PhysicalDrive Signature
  pop $0
