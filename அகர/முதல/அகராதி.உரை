@@ -10,5 +10,7 @@
 தொகுதிதிற UnLockVol
 தொகுதிபூட்டு LockVol
 புதையல்உரை CasperScript
+புதையல்அளவு CasperSize
+புதைகருவிகளைப்பெறு GetCaspTools
 உருவாக்கு Create
 கோப்பில்மாற்று ReplaceInFile

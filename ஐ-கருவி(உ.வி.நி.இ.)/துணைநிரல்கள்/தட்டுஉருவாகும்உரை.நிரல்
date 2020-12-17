@@ -2,7 +2,7 @@
 Function புதையல்உரை
 ${If} $Casper != "0"
 ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
- Call GetCaspTools
+ Call புதைகருவிகளைப்பெறு
   ${If} $DistroName == "Debian Live"
   StrCpy $CasperName "persistence"
   ${ElseIf} $DistroName == "Raspberry Pi Desktop"
@@ -30,11 +30,11 @@ ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
 ${EndIf}
 FunctionEnd
 
-Function CasperSize
+Function புதையல்அளவு
  IntOp $SizeOfCasper $SizeOfCasper + $Casper
 FunctionEnd
 
-Function GetCaspTools
+Function புதைகருவிகளைப்பெறு
 SetShellVarContext all
 InitPluginsDir
 File /oname=$PLUGINSDIR\தரவுவரையறை.exe "இருமங்கள்\தரவுவரையறை.exe"

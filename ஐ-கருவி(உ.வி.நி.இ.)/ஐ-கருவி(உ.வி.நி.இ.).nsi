@@ -948,7 +948,7 @@ Function SetSpace ; Set space available for persistence
 FunctionEnd
 
 Function HaveSpacePre ; Check space required
-  Call CasperSize
+  Call புதையல்அளவு
   Call FreeDiskSpace
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...
@@ -959,7 +959,7 @@ Function HaveSpacePre ; Check space required
 FunctionEnd
 
 Function இடமிருக்கு ; Check space required
-  Call CasperSize
+  Call புதையல்அளவு
   Call FreeDiskSpace
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...
