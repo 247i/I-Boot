@@ -4,7 +4,7 @@
 கோப்பு முறைமை - Filesystem (FS) 
 கோமுவகைபெறு - GetFSType
 ஐஎஸ்ஓஅளவைஅமை setISOsize
-அறிவிப்பதில் காஸ்பர் ஸ்லைடர் - onNotify_CasperSlider
+புதையல்நிலைமாற்றிஅறிவிப்பதில் onNotify_CasperSlider
 சரம்கொண்டுள்ளதுகட்டமைப்பாளர் - _StrContainsConstructor
 சரம்கொண்டுள்ளது -StrContains
 தொகுதிதிற UnLockVol

@@ -247,7 +247,7 @@ Function SelectionsPage
   Pop $CasperSlider
   SendMessage $CasperSlider ${TBM_SETRANGEMIN} 1 0 ; Min Range Value 0
   SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Max Range Value $RemainingSpace
-  ${NSD_OnNotify} $CasperSlider onNotify_CasperSlider    
+  ${NSD_OnNotify} $CasperSlider புதையல்நிலைமாற்றிஅறிவிப்பதில்    
 
 ; Drive Pre-Selection  
   ${NSD_CreateLabel} 0 0 58% 15 "" ;
@@ -374,7 +374,7 @@ Function SelectionsPage
 
   SendMessage $CasperSlider ${TBM_SETRANGEMIN} 1 0 ; Min Range Value 0
   SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Max Range Value $RemainingSpace
-  ${NSD_OnNotify} $CasperSlider onNotify_CasperSlider
+  ${NSD_OnNotify} $CasperSlider புதையல்நிலைமாற்றிஅறிவிப்பதில்
   
 ; Add Home Link
   ${NSD_CreateLink} 0 215 16% 15 "முகப்பு பக்கம்"
@@ -1261,7 +1261,7 @@ StrCpy $R9 0 ; we start on page 0
 ; File /oname=$PLUGINSDIR\mbrid "இருமங்கள்\முதன்மைதுவக்கபதிவெண்"  
 FunctionEnd
 
-Function onNotify_CasperSlider
+Function புதையல்நிலைமாற்றிஅறிவிப்பதில்
  Pop $Casper
  SendMessage $CasperSlider ${TBM_GETPOS} 0 0 $Casper ; Get Trackbar position
  ${NSD_SetText} $SlideSpot "$Casper MB"
