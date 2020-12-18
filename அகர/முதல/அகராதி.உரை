@@ -46,4 +46,6 @@
 கணிலினக்சுசெய் DoSyslinux; Install Syslinux on USB
 இடத்தைஅமை SetSpace
 மீதமுள்ளவட்டுஇடம் FreeDiskSpace
+மொத்தஇடம் TotalSpace
+இடத்தைசரிபார் CheckSpace
 

@@ -267,7 +267,7 @@ Function SelectionsPage
   StrCpy $Checker "Yes"  
   Call InstallorRemove
   Call இடத்தைஅமை
-  Call CheckSpace
+  Call இடத்தைசரிபார்
   Call FormatIt 
   Call EnableNext 
   ${NSD_OnChange} $DestDriveTxt OnSelectDrive 
@@ -704,7 +704,7 @@ Function ISOBrowse
  StrCpy $LocalSelection "Yes"
   Call ஐஎஸ்ஓஅளவைஅமை
   Call இடத்தைஅமை
-  Call CheckSpace
+  Call இடத்தைசரிபார்
   Call இடமிருக்குமுன்
  ${If} $JustISOName == "" 
  StrCpy $JustISOName "NULL" ; Set to NULL until something is selected
@@ -805,7 +805,7 @@ Function OnSelectDrive
   StrCpy $Checker "Yes" 
   Call InstallorRemove
   Call இடத்தைஅமை
-  Call CheckSpace
+  Call இடத்தைசரிபார்
   Call FormatIt  
   Call EnableNext
   ${NSD_SetText} $LabelDrivePage "படி 1: மின்வெட்டொளி $DestDisk (தட்டு $DiskNum) தேர்ந்தெடுத்துள்ளீர்கள்"   
@@ -900,8 +900,8 @@ Function ShowAllISOs ; Set Show All ISOs Option
   ${EndIf}  
 FunctionEnd
 
-Function CheckSpace ; Check total available space so we can set block size
-  Call TotalSpace
+Function இடத்தைசரிபார் ; Check total available space so we can set block size
+  Call மொத்தஇடம்
   ${If} $1 <= 511
   StrCpy $BlockSize 1
   ${ElseIf} $1 >= 512
@@ -919,7 +919,7 @@ Function CheckSpace ; Check total available space so we can set block size
  ; MessageBox MB_ICONSTOP|MB_OK "$0 Drive is $1 MB in size, blocksize = $BlockSize KB."  
 FunctionEnd
 
-Function TotalSpace
+Function மொத்தஇடம்
 ${DriveSpace} "$JustDrive" "/D=T /S=M" $1 ; used to find total space of select disk
  StrCpy $Capacity "$1"
 FunctionEnd
