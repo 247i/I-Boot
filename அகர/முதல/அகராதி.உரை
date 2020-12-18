@@ -44,3 +44,6 @@
 கட்டமைப்புஎழுது Config2Write
 கட்டமைப்புநீக்க ConfigRemove
 கணிலினக்சுசெய் DoSyslinux; Install Syslinux on USB
+இடத்தைஅமை SetSpace
+மீதமுள்ளவட்டுஇடம் FreeDiskSpace
+

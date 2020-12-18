@@ -266,7 +266,7 @@ Function SelectionsPage
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
   StrCpy $Checker "Yes"  
   Call InstallorRemove
-  Call SetSpace
+  Call இடத்தைஅமை
   Call CheckSpace
   Call FormatIt 
   Call EnableNext 
@@ -703,7 +703,7 @@ Function ISOBrowse
  ${GetParent} "$TheISO" $JustISOPath
  StrCpy $LocalSelection "Yes"
   Call ஐஎஸ்ஓஅளவைஅமை
-  Call SetSpace
+  Call இடத்தைஅமை
   Call CheckSpace
   Call இடமிருக்குமுன்
  ${If} $JustISOName == "" 
@@ -804,7 +804,7 @@ Function OnSelectDrive
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
   StrCpy $Checker "Yes" 
   Call InstallorRemove
-  Call SetSpace
+  Call இடத்தைஅமை
   Call CheckSpace
   Call FormatIt  
   Call EnableNext
@@ -879,7 +879,7 @@ Function FormatIt ; Set Format Option
 
     ShowWindow $Uninstaller 1 ; Re-enable Uninstaller option.
 	StrCpy $Checker "Yes" 
-	Call SetSpace
+	Call இடத்தைஅமை
   ${EndIf}  
   
     Call InstallorRemove
@@ -924,7 +924,7 @@ ${DriveSpace} "$JustDrive" "/D=T /S=M" $1 ; used to find total space of select d
  StrCpy $Capacity "$1"
 FunctionEnd
 
-Function FreeDiskSpace
+Function மீதமுள்ளவட்டுஇடம்
 ${If} $FormatMe == "Yes"
 							 
 ${DriveSpace} "$JustDrive" "/D=T /S=M" $1
@@ -933,9 +933,9 @@ ${DriveSpace} "$JustDrive" "/D=F /S=M" $1
 ${EndIf}
 FunctionEnd
 
-Function SetSpace ; Set space available for persistence
+Function இடத்தைஅமை ; Set space available for persistence
   ;StrCpy $0 '$0'
-  Call FreeDiskSpace
+  Call மீதமுள்ளவட்டுஇடம்
   IntOp $MaxPersist 4090 + $CasperSize ; Space required for distro and 4GB max persistent file
   ${If} $1 > $MaxPersist ; Check if more space is available than we need for distro + 4GB persistent file
   StrCpy $RemainingSpace 4090 ; Set maximum possible value to 4090 MB (any larger wont work on fat32 Filesystem)
@@ -949,7 +949,7 @@ FunctionEnd
 
 Function இடமிருக்குமுன் ; Check space required
   Call புதையல்அளவு
-  Call FreeDiskSpace
+  Call மீதமுள்ளவட்டுஇடம்
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...
   IntCmp $3 1 okay ; ... and compare it
@@ -960,7 +960,7 @@ FunctionEnd
 
 Function இடமிருக்கு ; Check space required
   Call புதையல்அளவு
-  Call FreeDiskSpace
+  Call மீதமுள்ளவட்டுஇடம்
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...
   IntCmp $3 1 okay ; ... and compare it
