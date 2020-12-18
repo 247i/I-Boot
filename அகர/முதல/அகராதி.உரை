@@ -56,3 +56,5 @@
 வட்டிடம் DiskSpace
 வட்டுதொகுதிபெயர்பெறு GetDiskVolumeName
 இயக்கிதேர்வில் OnSelectDrive
+நிறுவல்நீக்கு Uninstall
+நிறுவுஅல்லதுநீக்கு InstallorRemove

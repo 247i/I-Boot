@@ -199,10 +199,10 @@ Function SelectionsPage
  ${If} $RepeatInstall == "YES"   
  ${NSD_SetText} $DestDriveTxt "$DestDrive"
 
-; To Install or Uninstall? That is the question!  
+; To Install or நிறுவல்நீக்கு? That is the question!  
   ${NSD_CreateCheckBox} 60% 0 44% 15 "நிறுவப்பட்டது?"
   Pop $Uninstaller
-  ${NSD_OnClick} $Uninstaller Uninstall  
+  ${NSD_OnClick} $Uninstaller நிறுவல்நீக்கு  
  ; Distro Selection Starts
   ${NSD_CreateLabel} 0 50 50% 15 $(Distro_Text) 
   Pop $LinuxDistroSelection   
@@ -265,7 +265,7 @@ Function SelectionsPage
   StrCpy $DestDisk $DestDrive 2 ;was -1
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
   StrCpy $Checker "Yes"  
-  Call InstallorRemove
+  Call நிறுவுஅல்லதுநீக்கு
   Call இடத்தைஅமை
   Call இடத்தைசரிபார்
   Call இதைவடிவமை 
@@ -304,10 +304,10 @@ Function SelectionsPage
   
  ${Else}
   
-; To Install or Uninstall? That is the question!  
+; To Install or நிறுவல்நீக்கு? That is the question!  
   ${NSD_CreateCheckBox} 60% 0 44% 15 "நிறுவப்பட்டது?"
   Pop $Uninstaller
-  ${NSD_OnClick} $Uninstaller Uninstall  
+  ${NSD_OnClick} $Uninstaller நிறுவல்நீக்கு  
   
 ; Drive Selection Starts  
   ${NSD_CreateLabel} 0 0 58% 15 ""    
@@ -727,7 +727,7 @@ StrCpy $SomeFileExt ""
 StrCpy $FileFormat ""
 FunctionEnd
 
-Function InstallorRemove ; Populate DistroName based on Install/Removal option
+Function நிறுவுஅல்லதுநீக்கு ; Populate DistroName based on Install/Removal option
   ${If} $Removal == "Yes" 
   Call அகற்றும்பட்டியல்
   ${Else}
@@ -737,7 +737,7 @@ Function InstallorRemove ; Populate DistroName based on Install/Removal option
 FunctionEnd  
 
 ; On Selection of Uninstaller Option
-Function Uninstall
+Function நிறுவல்நீக்கு
   ${NSD_GetState} $Uninstaller $Removal
   ${If} $Removal == ${BST_CHECKED}
   ShowWindow $Format 0
@@ -803,7 +803,7 @@ Function இயக்கிதேர்வில்
   ${EndIf}   
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
   StrCpy $Checker "Yes" 
-  Call InstallorRemove
+  Call நிறுவுஅல்லதுநீக்கு
   Call இடத்தைஅமை
   Call இடத்தைசரிபார்
   Call இதைவடிவமை  
@@ -882,7 +882,7 @@ Function இதைவடிவமை ; Set Format Option
 	Call இடத்தைஅமை
   ${EndIf}  
   
-    Call InstallorRemove
+    Call நிறுவுஅல்லதுநீக்கு
 FunctionEnd
 
 Function அனைத்துஉதநிகாட்டு ; Set Show All ISOs Option
