@@ -33,6 +33,7 @@
 *menuentry: normal
 *pcidump: pcidump
 *probe: probe
+*rdmsr: rdmsr
 *read_byte: memrw
 *read_dword: memrw
 *read_word: memrw
@@ -136,6 +137,7 @@ net_bootp: net
 net_del_addr: net
 net_del_dns: net
 net_del_route: net
+net_dhcp: net
 net_get_dhcp_option: net
 net_ipv6_autoconf: net
 net_ls_addr: net
@@ -174,6 +176,7 @@ videotest: videotest
 write_byte: memrw
 write_dword: memrw
 write_word: memrw
+wrmsr: wrmsr
 xnu_devprop_load: xnu
 xnu_kernel64: xnu
 xnu_kernel: xnu
