@@ -49,6 +49,8 @@
 மொத்தஇடம் TotalSpace
 இடத்தைசரிபார் CheckSpace
 உலகதரநிறுவனம் ISO
+உள்உதநிகண்டறியப்பட்டது LocalISODetected
+உதநிஉலாவு ISOBrowse
 அனைத்துஉதநிகாட்டு ShowAllISOs
 இதைவடிவமை FormatIt
 ஆம்வடிவமை Formatyes
@@ -58,3 +60,7 @@
 இயக்கிதேர்வில் OnSelectDrive
 நிறுவல்நீக்கு Uninstall
 நிறுவுஅல்லதுநீக்கு InstallorRemove
+அனைத்தும்அழி ClearAll
+விநியோகதேர்வில் OnSelectDistro
+பெயரைமட்டும்பெறு GrabNameOnly
+

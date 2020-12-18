@@ -209,7 +209,7 @@ Function SelectionsPage
 
   ${NSD_CreateDroplist} 0 70 55% 95 "" ; was  ${NSD_CreateListBox} ; Enable For DropBox
   Pop $Distro
-  ${NSD_OnChange} $Distro OnSelectDistro
+  ${NSD_OnChange} $Distro விநியோகதேர்வில்
   ${NSD_CB_SelectString} $Distro $DistroName ; Was ${NSD_LB_SelectString} $Distro $DistroName  ; Enable For DropBox 
   
 ; அனைத்து ஐஎஸ்ஓ விருப்பத்தையும் கட்டாயப்படுத்து
@@ -234,7 +234,7 @@ Function SelectionsPage
   Pop $ISOFileTxt 
   ${NSD_CreateBrowseButton} 85% 120 60 20 "உலாவு"
   Pop $ISOSelection 
-  ${NSD_OnClick} $ISOSelection ISOBrowse   
+  ${NSD_OnClick} $ISOSelection உதநிஉலாவு   
   
 ; Casper-RW Selection Starts
   ${NSD_CreateLabel} 0 150 75% 15 $(Casper_Text)
@@ -336,7 +336,7 @@ Function SelectionsPage
 
   ${NSD_CreateDropList} 0 70 55% 95 "" ; was ${NSD_CreateListBox} ; Enable for Dropbox
   Pop $Distro
-  ${NSD_OnChange} $Distro OnSelectDistro
+  ${NSD_OnChange} $Distro விநியோகதேர்வில்
   ${NSD_CB_SelectString} $Distro $DistroName ; Was ${NSD_LB_SelectString} $Distro $DistroName  ; Enable For DropBox
   
 ; Force Show All ஐஎஸ்ஓ Option
@@ -361,7 +361,7 @@ Function SelectionsPage
   Pop $ISOFileTxt 
   ${NSD_CreateBrowseButton} 85% 120 60 20 "உலாவு"
   Pop $ISOSelection 
-  ${NSD_OnClick} $ISOSelection ISOBrowse
+  ${NSD_OnClick} $ISOSelection உதநிஉலாவு
 
 ; Casper-RW Selection Starts
   ${NSD_CreateLabel} 0 150 75% 15 $(Casper_Text)
@@ -555,7 +555,7 @@ MessageBox MB_YESNO|MB_ICONQUESTION "பதிவிறக்க இணைப்
   end:
 FunctionEnd
 
-Function LocalISODetected ; The script autodetected the ISO, so let's do the following
+Function உள்உதநிகண்டறியப்பட்டது ; The script autodetected the ISO, so let's do the following
  ${If} $DownloadMe != ${BST_CHECKED}
  ${AndIf} $LocalSelection != "Yes"
  StrCpy $ISOFile "$EXEDIR\$ISOFileName"
@@ -563,7 +563,7 @@ Function LocalISODetected ; The script autodetected the ISO, so let's do the fol
 FunctionEnd
 
 ; get only the filename
-Function GrabNameOnly
+Function பெயரைமட்டும்பெறு
   Exch $4 ; count to get part
   Exch
   Exch $0 ; input string
@@ -595,7 +595,7 @@ FunctionEnd
 
 !include துணைநிரல்கள்\தொடரில்உள்ள.நிரல் ; Let's check if a * wildcard exists
 ; On Selection of Linux Distro
-Function OnSelectDistro
+Function விநியோகதேர்வில்
   Pop $Distro
   
   ${If} $Removal == "Yes"
@@ -681,7 +681,7 @@ Function OnSelectDistro
 FunctionEnd 
 
 ; On Selection of ஐஎஸ்ஓ File
-Function ISOBrowse
+Function உதநிஉலாவு
  ${If} $ShowingAll == "Yes"
   StrCpy $ISOFileName "*.iso" 
  ${ElseIf} $ShowingAll != "Yes"
@@ -719,7 +719,7 @@ Function ISOBrowse
  ; Uncomment for Testing --> MessageBox MB_ICONQUESTION|MB_OK 'Removal: "$Removal"  ISOFileName: "$ISOFileName" ISOFile "$ISOFile" BDir: "$BDir" DestDisk: "$DestDisk" DestDrive: "$DestDrive" ISOTest: "$ISOTest"'
  FunctionEnd
 
-Function ClearAll
+Function அனைத்தும்அழி
 StrCpy $ISOTest ""
 StrCpy $DistroName "" ; Clear Distro Name
 StrCpy $ISOFileName "" ; Clear ஐஎஸ்ஓ Selection
@@ -742,7 +742,7 @@ Function நிறுவல்நீக்கு
   ${If} $Removal == ${BST_CHECKED}
   ShowWindow $Format 0
     ShowWindow $LabelISOSelection 0 
-	Call ClearAll	
+	Call அனைத்தும்அழி	
     EnableWindow $ISOFileTxt 0
 	ShowWindow $ISOFileTxt 0
 	ShowWindow $ISOSelection 0
@@ -770,7 +770,7 @@ Function நிறுவல்நீக்கு
     ShowWindow $LabelISOSelection 1 
     ShowWindow $ISOFileTxt 1
 	ShowWindow $ISOSelection 0
-	Call ClearAll
+	Call அனைத்தும்அழி
     ${NSD_SetText} $LabelISOSelection "படி 3: $ISOFileName கோப்பைத் தேர்ந்தெடுக்கவும்"
 	${NSD_SetText} $ISOFileTxt "படி 2 முடியும் வரை மறைக்கப்படும்"
      GetDlgItem $6 $HWNDPARENT 1 ; Get "Install" control handle
@@ -1097,7 +1097,7 @@ Section  ; This is the only section that exists
 ; Get just the name of the ஐஎஸ்ஓ file 
 Push "$ISOFile"
 Push 1
-Call GrabNameOnly
+Call பெயரைமட்டும்பெறு
 Pop $NameThatISO
 
  ${If} ${FileExists} "$BDir\windows\system32" ; Safeguard windows Installation.
@@ -1129,7 +1129,7 @@ proceed:
  Call இடமிருக்கு ; Got enough Space? Lets Check!
  Call ஆம்வடிவமை ; Format the Drive?
  Call கணிலினக்சுசெய் ; Run Syslinux on the Drive to make it bootable
- Call LocalISODetected
+ Call உள்உதநிகண்டறியப்பட்டது
  
 ; Copy the config file if it doesn't exist and create the entry in கணிலினக்சு.உலகு 
  ${IfNot} ${FileExists} "$BDir\அகர\பகவன்\$Config2Use" 
