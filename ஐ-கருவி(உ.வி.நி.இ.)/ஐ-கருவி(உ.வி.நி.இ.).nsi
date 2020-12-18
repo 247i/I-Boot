@@ -420,7 +420,7 @@ FunctionEnd
 
 Function Finish_PreFunction
   StrCpy $R8 4
-  Call NoQuit
+  Call வெளியேறாதே
 FunctionEnd
 
 Function இயக்கிகளைபட்டியலிடு ; Set to Display All Drives
@@ -1041,7 +1041,7 @@ FunctionEnd
 !include துணைநிரல்கள்\விநியோகநிறுவல்.நிரல் ; #ADD NEW DISTRO#
 !include துணைநிரல்கள்\விநியோகநீக்கம்.நிரல் ; # REM DISTRO#
 
-Function DoSyslinux ; Install Syslinux on USB
+Function கணிலினக்சுசெய் ; Install Syslinux on USB
   ${IfNot} ${FileExists} "$BDir\boot\libcom32.c32" 
   ${AndIf} ${FileExists} "$BDir\boot\ldlinux.sys"   
   MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinuxOLD)
@@ -1128,26 +1128,26 @@ proceed:
  ${IfThen} $Removal == "Yes" ${|} Goto removeonly ${|}
  Call இடமிருக்கு ; Got enough Space? Lets Check!
  Call FormatYes ; Format the Drive?
- Call DoSyslinux ; Run Syslinux on the Drive to make it bootable
+ Call கணிலினக்சுசெய் ; Run Syslinux on the Drive to make it bootable
  Call LocalISODetected
  
 ; Copy the config file if it doesn't exist and create the entry in கணிலினக்சு.உலகு 
  ${IfNot} ${FileExists} "$BDir\அகர\பகவன்\$Config2Use" 
  CopyFiles "$PLUGINSDIR\$Config2Use" "$BDir\அகர\பகவன்\$Config2Use"
- Call Config2Write
+ Call கட்டமைப்புஎழுது
  ${EndIf} 
  
 removeonly:
  ${If} $Removal != "Yes"
  !insertmacro விநியோகநிறுவல் ; Install those distros
  ${ElseIf} $Removal == "Yes"
-  Call ConfigRemove
+  Call கட்டமைப்புநீக்க
  !insertmacro விநியோகநீக்கம் ; Remove those distros
  ${EndIf}
  
 SectionEnd
 
-Function ConfigRemove ; Find and Set Removal Configuration file
+Function கட்டமைப்புநீக்க ; Find and Set Removal Configuration file
   ${If} ${FileExists} "$BDir\boot\$DistroName\I\லினக்சு.உலகு"
   StrCpy $Config2Use "லினக்சு.உலகு"
   ${ElseIf} ${FileExists} "$BDir\boot\$DistroName\I\உலாவி.உலகு"
@@ -1168,7 +1168,7 @@ Function ConfigRemove ; Find and Set Removal Configuration file
  MessageBox MB_OK "$Config2Use"
 FunctionEnd
 
-Function Config2Write
+Function கட்டமைப்புஎழுது
  ${If} $Config2Use == "கருவிகள்.உலகு"
   ${கணினிகோப்பில்எழுது} "menuentry $\">அகர$\"{configfile /அகர/பகவன்/கருவிகள்.உலகு}" $R0
  ${ElseIf} $Config2Use == "இணையபுத்தகம்.உலகு"
@@ -1190,11 +1190,11 @@ Function Config2Write
  
 FunctionEnd
 
-Function NoQuit
+Function வெளியேறாதே
 MessageBox MB_YESNO "$DestDisk இயக்ககத்தில் இப்போது மேலும் ஐஎஸ்ஓக்கள் / விநியோகங்களை சேர்க்க விரும்புகிறீர்களா?" IDYES noskip
     StrCmp $R8 3 0 End ;Compare $R8 variable with current page #
     StrCpy $R9 1 ; Goes to finish page
-    Call RelGotoPage
+    Call உறவுபக்கத்திற்குச்செல்
     Abort
 noskip:
 StrCpy $ShowAll "$ShowAll" ; Retain Display All Drives
@@ -1215,12 +1215,12 @@ StrCpy $ShowingAll ""
 StrCpy $FormatMe "" ; Reset Format Option
     StrCmp $R8 4 0 End ;Compare $R8 variable with current page #
     StrCpy $R9 -3 ; Goes back to selections page
-    Call RelGotoPage ; change pages
+    Call உறவுபக்கத்திற்குச்செல் ; change pages
     Abort
 End:
 FunctionEnd
 
-Function RelGotoPage
+Function உறவுபக்கத்திற்குச்செல்
   IntCmp $R9 0 0 Move Move
     StrCmp $R9 "X" 0 Move
       StrCpy $R9 "120"

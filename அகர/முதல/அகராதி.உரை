@@ -39,4 +39,8 @@
 கோப்பில்எழுது WriteToFile
 இடமிருக்குமுன் HaveSpacePre
 இடமிருக்கு HaveSpace
-
+உறவுபக்கத்திற்குச்செல் RelGotoPage
+வெளியேறாதே NoQuit
+கட்டமைப்புஎழுது Config2Write
+கட்டமைப்புநீக்க ConfigRemove
+கணிலினக்சுசெய் DoSyslinux; Install Syslinux on USB
