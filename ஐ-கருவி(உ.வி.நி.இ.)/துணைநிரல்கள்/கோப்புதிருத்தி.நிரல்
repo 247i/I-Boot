@@ -55,7 +55,7 @@ FunctionEnd
 !macroend  
 !define WriteToSysFile "!insertmacro WriteToSysFile"
 
-Function InstalledList ; Creates a list of installed distros in the அகர\பகவன் folder on the USB drive (So we can uninstall the distros later)
+Function நிறுவப்பட்டபட்டியல் ; Creates a list of installed distros in the அகர\பகவன் folder on the USB drive (So we can uninstall the distros later)
  ${IfNot} ${FileExists} "$BDir\boot\$JustISOName\*.*" ; If the installation directory exists user must be reinstalling the same distro, so we won't add a removal entry. 
    Exch $R0 ;file to write to
    Exch
@@ -81,14 +81,14 @@ Function InstalledList ; Creates a list of installed distros in the அகர\�
     Pop $R0
  ${EndIf}
 FunctionEnd
-!macro InstalledList String File
+!macro நிறுவப்பட்டபட்டியல் String File
   Push "${String}"
   Push "${File}"
-  Call InstalledList
+  Call நிறுவப்பட்டபட்டியல்
 !macroend  
-!define InstalledList "!insertmacro InstalledList"
+!define நிறுவப்பட்டபட்டியல் "!insertmacro நிறுவப்பட்டபட்டியல்"
 
-Function Trim ; ஐ உடன் பயன்படுத்த திருத்தப்பட்ட முன்னணி மற்றும் பின்னால் உள்ள இடைவெளியை அகற்று
+Function ஒழுங்கமை ; ஐ உடன் பயன்படுத்த திருத்தப்பட்ட முன்னணி மற்றும் பின்னால் உள்ள இடைவெளியை அகற்று
 	Exch $R1 ; Original string
 	Push $R2
 Loop:
@@ -115,14 +115,14 @@ Done:
 	Pop $R2
 	Exch $R1
 FunctionEnd
-!macro Trim TrimmedString OriginalString
+!macro ஒழுங்கமை TrimmedString OriginalString
   Push "${OriginalString}"
-  Call Trim
+  Call ஒழுங்கமை
   Pop "${TrimmedString}"
 !macroend
-!define Trim "!insertmacro Trim" 
+!define ஒழுங்கமை "!insertmacro ஒழுங்கமை" 
 
-Function RemovalList ; Lists the distros installed on the select drive.
+Function அகற்றும்பட்டியல் ; Lists the distros installed on the select drive.
  ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskஇலிருந்து அகற்ற தேர்வு"  
  ${If} ${FileExists} "$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை" ; Are there distributions on the select drive? 
  ClearErrors
@@ -134,7 +134,7 @@ Function RemovalList ; Lists the distros installed on the select drive.
    FileReadUTF16LE $0 $1
     IfErrors done
     StrCpy $DistroName $1
-	${Trim} "$DistroName" "$DistroName" ; Remove spaces, newlines, and carriage return
+	${ஒழுங்கமை} "$DistroName" "$DistroName" ; Remove spaces, newlines, and carriage return
     ${NSD_CB_AddString} $Distro "$DistroName" ; Add DistroName to the listbox of removable distros ; was ${NSD_LB_AddString} $Distro "$DistroName" ; Enable for DropBox
    Goto loop
   done:  

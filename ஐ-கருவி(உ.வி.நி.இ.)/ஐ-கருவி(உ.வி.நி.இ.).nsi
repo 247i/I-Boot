@@ -729,7 +729,7 @@ FunctionEnd
 
 Function InstallorRemove ; Populate DistroName based on Install/Removal option
   ${If} $Removal == "Yes" 
-  Call RemovalList
+  Call அகற்றும்பட்டியல்
   ${Else}
    ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskஇல் நிறுவ ஒரு விநியோகம்" 
   Call ஐஎஸ்ஓகோப்புபெயர்அமை
@@ -763,7 +763,7 @@ Function Uninstall
    ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDisk இலிருந்து அகற்ற ஒரு விநியோகத்தைத் தேர்ந்தெடுக்கவும் "  
     SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new option may have been chosen ; Enable for DropBox
      StrCpy $Checker "Yes"   
-	 Call RemovalList
+	 Call அகற்றும்பட்டியல்
 
   ${ElseIf} $Removal == ${BST_UNCHECKED}
    ShowWindow $Format 1  

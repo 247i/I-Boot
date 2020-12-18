@@ -32,3 +32,6 @@
 சரம்மாற்று StringReplace
 வெற்றுவரியைநீக்கு DeleteEmptyLine
 நிறுவலைநீக்கு DeleteInstall
+அகற்றும்பட்டியல் RemovalList
+ஒழுங்கமை Trim
+நிறுவப்பட்டபட்டியல் InstalledList

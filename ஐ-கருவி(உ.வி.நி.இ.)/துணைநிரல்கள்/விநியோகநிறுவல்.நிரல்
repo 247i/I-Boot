@@ -143,7 +143,7 @@ FunctionEnd
  ${EndIf}
  
 ; Write $JustISOName to நிறுவப்பட்டது.உரை 
- ${InstalledList} "$JustISOName" $R0 ; Write the ISO name to the Installed List "நிறுவப்பட்டது.உரை" file (so we can keep track of installs for removal)
+ ${நிறுவப்பட்டபட்டியல்} "$JustISOName" $R0 ; Write the ISO name to the Installed List "நிறுவப்பட்டது.உரை" file (so we can keep track of installs for removal)
  ${LineFind} "$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை" "$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை" "1:-1" "வெற்றுவரியைநீக்கு" ; Remove any left over empty lines
  
 ; உருவாக்கு the Directory for this ISOs files
