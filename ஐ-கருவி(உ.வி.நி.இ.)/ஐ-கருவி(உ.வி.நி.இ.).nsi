@@ -215,7 +215,7 @@ Function SelectionsPage
 ; அனைத்து ஐஎஸ்ஓ விருப்பத்தையும் கட்டாயப்படுத்து
   ${NSD_CreateCheckBox} 80% 100 20% 15 "ஐஎஸ்ஓகள்?"
   Pop $ForceShowAll
-  ${NSD_OnClick} $ForceShowAll ShowAllISOs   
+  ${NSD_OnClick} $ForceShowAll அனைத்துஉதநிகாட்டு   
 
 ; ஐஎஸ்ஓ Download Option
   ${NSD_CreateCheckBox} 60% 60 40% 15 "ஐஎஸ்ஓ பதிவிறக்கம்."
@@ -342,7 +342,7 @@ Function SelectionsPage
 ; Force Show All ஐஎஸ்ஓ Option
   ${NSD_CreateCheckBox} 80% 100 20% 15 "ஐஎஸ்ஓகள்?"
   Pop $ForceShowAll
-  ${NSD_OnClick} $ForceShowAll ShowAllISOs    
+  ${NSD_OnClick} $ForceShowAll அனைத்துஉதநிகாட்டு    
 
 ; ஐஎஸ்ஓ Download Option
   ${NSD_CreateCheckBox} 60% 60 40% 15 "ஐஎஸ்ஓ பதிவிறக்கம்."
@@ -885,7 +885,7 @@ Function FormatIt ; Set Format Option
     Call InstallorRemove
 FunctionEnd
 
-Function ShowAllISOs ; Set Show All ISOs Option
+Function அனைத்துஉதநிகாட்டு ; Set Show All ISOs Option
   ${NSD_GetState} $ForceShowAll $ShowingAll
   ${If} $ShowingAll == ${BST_CHECKED}
   ${NSD_Check} $ForceShowAll
