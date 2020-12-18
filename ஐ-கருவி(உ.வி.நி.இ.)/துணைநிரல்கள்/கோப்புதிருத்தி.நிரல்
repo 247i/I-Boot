@@ -263,7 +263,7 @@ Function StrRep ;http://nsis.sourceforge.net/mediawiki/index.php?title=StrRep&di
   Exch $R0
 FunctionEnd
 ; Persistent File Creation Progress
-Function ddProgress
+Function தவமுன்னேற்றம்
  ${Do}
  Sleep 1
  ReadEnvStr $COMSPEC COMSPEC
