@@ -257,7 +257,7 @@ Function SelectionsPage
   ${NSD_CreateDropList} 0 20 55% 15 "" ; was 0 20 15% 15 ; then was 28%
   Pop $DestDriveTxt 
    
-  ${GetDrives} "FDD+HDD" DrivesList ; All Drives Listed
+  ${GetDrives} "FDD+HDD" இயக்கிபட்டியல் ; All Drives Listed
   
   ${NSD_CB_SelectString} $DestDriveTxt "$DestDrive"
   StrCpy $JustDrive $DestDrive 3
@@ -268,7 +268,7 @@ Function SelectionsPage
   Call InstallorRemove
   Call இடத்தைஅமை
   Call இடத்தைசரிபார்
-  Call FormatIt 
+  Call இதைவடிவமை 
   Call EnableNext 
   ${NSD_OnChange} $DestDriveTxt OnSelectDrive 
 
@@ -328,7 +328,7 @@ Function SelectionsPage
 ; Format Drive Option
   ${NSD_CreateCheckBox} 60% 23 100% 15 "துடைத்து Fat32 வடிவமை $DestDisk"
   Pop $Format
-  ${NSD_OnClick} $Format FormatIt     
+  ${NSD_OnClick} $Format இதைவடிவமை     
 
 ; Distro Selection Starts
   ${NSD_CreateLabel} 0 50 50% 15 $(Distro_Text) 
@@ -425,7 +425,7 @@ FunctionEnd
 
 Function இயக்கிகளைபட்டியலிடு ; Set to Display All Drives
   SendMessage $DestDriveTxt ${CB_RESETCONTENT} 0 0 
-   ${GetDrives} "FDD+HDD" DrivesList ; All Drives Listed  
+   ${GetDrives} "FDD+HDD" இயக்கிபட்டியல் ; All Drives Listed  
 FunctionEnd
 
 Function onClickMyLink
@@ -806,7 +806,7 @@ Function OnSelectDrive
   Call InstallorRemove
   Call இடத்தைஅமை
   Call இடத்தைசரிபார்
-  Call FormatIt  
+  Call இதைவடிவமை  
   Call EnableNext
   ${NSD_SetText} $LabelDrivePage "படி 1: மின்வெட்டொளி $DestDisk (தட்டு $DiskNum) தேர்ந்தெடுத்துள்ளீர்கள்"   
 FunctionEnd
@@ -836,7 +836,7 @@ ${Else}
 ${EndIf}
 FunctionEnd
 
-Function DrivesList
+Function இயக்கிபட்டியல்
  StrCpy $JustDrive $9
  Call இயற்பியக்கி
  Call GetDiskVolumeName
@@ -850,7 +850,7 @@ Function DrivesList
  Push 1 ; must push something - see GetDrives documentation
 FunctionEnd
  
-Function FormatYes ; If Format is checked, do something
+Function ஆம்வடிவமை ; If Format is checked, do something
   SetShellVarContext all
   InitPluginsDir
   File /oname=$PLUGINSDIR\கோஒஅ32வடிவம்.exe "இருமங்கள்\கோஒஅ32வடிவம்.exe"
@@ -862,7 +862,7 @@ Function FormatYes ; If Format is checked, do something
   ${EndIf} 
 FunctionEnd
 
-Function FormatIt ; Set Format Option
+Function இதைவடிவமை ; Set Format Option
   ${NSD_GetState} $Format $FormatMe
   ${If} $FormatMe == ${BST_CHECKED}
   ${NSD_Check} $Format
@@ -1127,7 +1127,7 @@ Pop $NameThatISO
 proceed: 
  ${IfThen} $Removal == "Yes" ${|} Goto removeonly ${|}
  Call இடமிருக்கு ; Got enough Space? Lets Check!
- Call FormatYes ; Format the Drive?
+ Call ஆம்வடிவமை ; Format the Drive?
  Call கணிலினக்சுசெய் ; Run Syslinux on the Drive to make it bootable
  Call LocalISODetected
  
