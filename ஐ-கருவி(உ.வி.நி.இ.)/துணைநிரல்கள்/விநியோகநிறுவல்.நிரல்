@@ -152,7 +152,7 @@ FunctionEnd
 ; Kaspersky Rescue Disk - Gentoo
  ${If} $DistroName == "Kaspersky Rescue Disk (Antivirus Scanner)" 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BDir\boot\$JustISOName\" -y'   
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nif cpuid -l; then set krn=$\"k-x86_64$\"; else set krn=$\"k-x86$\"; fi$\r$\nsearch -s root -f /boot/$JustISOName/boot/grub/$${krn}$\r$\nlinux /boot/$JustISOName/boot/grub/$${krn} net.ifnames=0 lang=en dostartx subdir=/boot/$JustISOName/data$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd /boot/$JustISOName/boot/grub/initrd.xz$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nif cpuid -l; then set krn=$\"k-x86_64$\"; else set krn=$\"k-x86$\"; fi$\r$\nsearch -s root -f /boot/$JustISOName/boot/grub/$${krn}$\r$\nlinux /boot/$JustISOName/boot/grub/$${krn} net.ifnames=0 lang=en dostartx subdir=/boot/$JustISOName/data$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd /boot/$JustISOName/boot/grub/initrd.xz$\r$\n}$\r$\n#] $JustISOName" $R0  
 
  ; Acronis True Image 
  ${ElseIf} $DistroName == "Acronis True Image"
@@ -161,55 +161,55 @@ FunctionEnd
   ;${If} ${FileExists} "$BDir\boot\$JustISOName\ramdisk_merged64.dat" 
   ;Rename "$BDir\boot\$JustISOName\ramdisk_merged64.dat" "$BDir\boot\$JustISOName\ramdisk64.dat"  
   ;${EndIf}
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset isofile=$\"/boot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/dat10.dat quiet force_modules=usbhid quiet$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/dat11.dat (loop)/dat12.dat$\r$\n}$\r$\n#] $JustISOName" $R0 
- ;;ALT BIOS? ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset isofile=$\"/boot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/dat6.dat quiet force_modules=usbhid quiet$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/dat7.dat (loop)/dat8.dat$\r$\n}$\r$\n#] $JustISOName" $R0 
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset isofile=$\"/boot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/dat10.dat quiet force_modules=usbhid quiet$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/dat11.dat (loop)/dat12.dat$\r$\n}$\r$\n#] $JustISOName" $R0 
+ ;;ALT BIOS? ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset isofile=$\"/boot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/dat6.dat quiet force_modules=usbhid quiet$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/dat7.dat (loop)/dat8.dat$\r$\n}$\r$\n#] $JustISOName" $R0 
 
 ; Calculate Linux Desktop
  ${ElseIf} $DistroName == "Calculate Linux Desktop"
  CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO" 
  ;ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitrd -ir!*mlinuz -o"$BDir\boot\$JustISOName\" -y'    
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/boot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/vmlinuz root=live:LABEL=TA init=/linuxrc rd.live.squashimg=livecd.squashfs looptype=squashfs nodevfs iso-scan/filename=/boot/$JustISOName/$JustISO findiso=$$isofile isoboot=$$isofile$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/initrd$\r$\n}$\r$\n#] $JustISOName" $R0 
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/boot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/vmlinuz root=live:LABEL=TA init=/linuxrc rd.live.squashimg=livecd.squashfs looptype=squashfs nodevfs iso-scan/filename=/boot/$JustISOName/$JustISO findiso=$$isofile isoboot=$$isofile$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/initrd$\r$\n}$\r$\n#] $JustISOName" $R0 
  
 ; CentOS
  ${ElseIf} $DistroName == "CentOS Minimal"
  CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO" 
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile='/boot/$JustISOName/$JustISO'$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/isolinux/vmlinuz noeject inst.stage2=hd:LABEL=TA:/$$isofile$\r$\necho $\"https://ta01neram.github.io/...$\"$\r$\ninitrd (loop)/isolinux/initrd.img$\r$\n}$\r$\n#] $JustISOName" $R0 
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile='/boot/$JustISOName/$JustISO'$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/isolinux/vmlinuz noeject inst.stage2=hd:LABEL=TA:/$$isofile$\r$\necho $\"https://ta01neram.github.io/...$\"$\r$\ninitrd (loop)/isolinux/initrd.img$\r$\n}$\r$\n#] $JustISOName" $R0 
  
 ; Linux Kid X
  ${ElseIf} $DistroName == "Linux Kid X" 
  CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO"
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile='/boot/$JustISOName/$JustISO'$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/vmlinuz from=$$isofile$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/initrd.gz$\r$\n}$\r$\n#] $JustISOName" $R0 
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile='/boot/$JustISOName/$JustISO'$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/vmlinuz from=$$isofile$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/initrd.gz$\r$\n}$\r$\n#] $JustISOName" $R0 
  
 ; KNOPPIX - Wont work on Fat32- filesize too big, revisit after fat32/ntfs partition functional
  ;${ElseIf} $DistroName == "KNOPPIX" 
  ;CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO"
- ;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile='/boot/$JustISOName/$JustISO'$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/isolinux/linux  ;bootfrom=$$isofile acpi=off keyboard=us language-us$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/isolinux/minirt.gz$\r$\n}$\r$\n#] $JustISOName" $R0 
+ ;${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile='/boot/$JustISOName/$JustISO'$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/isolinux/linux  ;bootfrom=$$isofile acpi=off keyboard=us language-us$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/isolinux/minirt.gz$\r$\n}$\r$\n#] $JustISOName" $R0 
  
 ; Bitdefender Rescue CD
  ${ElseIf} $DistroName == "Bitdefender Rescue CD"
  CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO" 
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isopath=$\"/boot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isopath$\r$\nset root=(loop)$\r$\nlinux (loop)/boot/kernel.x86_64-efi root=/dev/ram0 real_root=/dev/loop0 looptype=squashfs cdroot loop=/rescue/livecd.squashfs cdroot_marker=/rescue/livecd.squashfs initrd udev cdroot scandelay=5 lang=en isoboot=$$isopath$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/initfs.x86_64-efi$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isopath=$\"/boot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isopath$\r$\nset root=(loop)$\r$\nlinux (loop)/boot/kernel.x86_64-efi root=/dev/ram0 real_root=/dev/loop0 looptype=squashfs cdroot loop=/rescue/livecd.squashfs cdroot_marker=/rescue/livecd.squashfs initrd udev cdroot scandelay=5 lang=en isoboot=$$isopath$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/initfs.x86_64-efi$\r$\n}$\r$\n#] $JustISOName" $R0  
  
 ; Dr.Web Live CD
  ${ElseIf} $DistroName == "Dr.Web LiveDisk"
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BDir\boot\$JustISOName\" -y'  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux /boot/$JustISOName/casper/vmlinuz boot=casper cdrom-detect/try-usb=true noprompt live-media-path=/boot/$JustISOName/casper union=aufs console=tty1 ignore_uuid$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd /boot/$JustISOName/casper/initrd.lz$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux /boot/$JustISOName/casper/vmlinuz boot=casper cdrom-detect/try-usb=true noprompt live-media-path=/boot/$JustISOName/casper union=aufs console=tty1 ignore_uuid$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd /boot/$JustISOName/casper/initrd.lz$\r$\n}$\r$\n#] $JustISOName" $R0  
  
 ; Antix (New Method) 
  ${ElseIf} $DistroName == "AntiX" 
   ${OrIf} $DistroName == "MX Linux" 
  CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO" ; Copy the ISO to Directory
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/antiX/vmlinuz load=all bootlabel=TA fromiso=/boot/$JustISOName/$JustISO nomodeset nouveau.modeset=0$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/antiX/initrd.gz$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/antiX/vmlinuz load=all bootlabel=TA fromiso=/boot/$JustISOName/$JustISO nomodeset nouveau.modeset=0$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/antiX/initrd.gz$\r$\n}$\r$\n#] $JustISOName" $R0  
 
 ; AOSS (New Method) 
  ${ElseIf} $DistroName == "AOSS (Malware Scanner)" 
  CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO" ; Copy the ISO to Directory
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/system/stage1 root=/dev/ram0 rw rdinit=/linuxrc video=vesa:ywrap,mtrr vga=0x303 loglevel=0 boot=cdrom fromiso=/boot/$JustISOName/$JustISO$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/system/stage2$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/system/stage1 root=/dev/ram0 rw rdinit=/linuxrc video=vesa:ywrap,mtrr vga=0x303 loglevel=0 boot=cdrom fromiso=/boot/$JustISOName/$JustISO$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/system/stage2$\r$\n}$\r$\n#] $JustISOName" $R0  
  
 ; DBAN (New Method) 
  ${ElseIf} $DistroName == "DBAN (Hard Drive Nuker)" 
  CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO" ; Copy the ISO to Directory
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/dban.bzi nuke=$\"dwipe$\" fromiso=/boot/$JustISOName/$JustISO$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/dban.bzi nuke=$\"dwipe$\" fromiso=/boot/$JustISOName/$JustISO$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\n}$\r$\n#] $JustISOName" $R0  
  
 ; Fedora (New Method) 
  ${ElseIf} $DistroName == "Fedora" 
@@ -222,7 +222,7 @@ FunctionEnd
  Call லினக்சுஉட்கரு_கண்டுபிடி
  ;${சரம்மாற்று} '$ISONameDotLess' '$JustISOName' '-x86_64-' '-'
  ${சரம்மாற்று} '$ISONameDotLess' '$JustISOName' '.' '-'
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/isolinux/$Vmlinuz iso-scan/filename=/boot/$JustISOName/$JustISO rootfstype=auto root=live:CDLABEL=$ISONameDotLess ro rd.live.image$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/isolinux/$Initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/isolinux/$Vmlinuz iso-scan/filename=/boot/$JustISOName/$JustISO rootfstype=auto root=live:CDLABEL=$ISONameDotLess ro rd.live.image$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/isolinux/$Initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
  !insertmacro கோப்பில்மாற்று "CDLABEL=Fedora-Live-Workstation" "CDLABEL=Fedora-Live-WS" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு"   
  !insertmacro கோப்பில்மாற்று "CDLABEL=Fedora-Workstation-Live" "CDLABEL=Fedora-WS-Live" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு" 
  !insertmacro கோப்பில்மாற்று "CDLABEL=Fedora-WS-Live-x86_64" "CDLABEL=Fedora-WS-Live" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு" 
@@ -231,13 +231,13 @@ FunctionEnd
  ${ElseIf} $DistroName == "Linpus Lite" 
  CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO" ; Copy the ISO to Directory
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!*nitrd* -ir!*mlinu* -o"$BDir\boot\$JustISOName\" -y'  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/isolinux/vmlinuz0 iso-scan/filename=/boot/$JustISOName/$JustISO rootfstype=auto root=live:LABEL=$JustISOName ro rd.live.image$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/isolinux/initrd0.img$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/isolinux/vmlinuz0 iso-scan/filename=/boot/$JustISOName/$JustISO rootfstype=auto root=live:LABEL=$JustISOName ro rd.live.image$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/isolinux/initrd0.img$\r$\n}$\r$\n#] $JustISOName" $R0  
 
 ; GRML 
  ${ElseIf} $DistroName == "GRML (system rescue)" 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BDir\boot\$JustISOName\" -y' 
  CopyFiles "$PLUGINSDIR\மந்தமான.உலகு" "$BDir\boot\$JustISOName\grub.cfg" 
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
  !insertmacro கோப்பில்மாற்று "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"  
  ${If} ${FileExists} "$BDir\boot\$JustISOName\boot\grml64full\vmlinuz"
  !insertmacro கோப்பில்மாற்று "linux /SLUG" "linux /boot/$JustISOName/boot/grml64full/vmlinuz boot=live live-media-path=/boot/$JustISOName/live/grml64-full/ verbose noeject noprompt" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"  
@@ -249,7 +249,7 @@ FunctionEnd
  ${ElseIf} $DistroName == "Liberte (Anonymous Browsing)" 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BDir\boot\$JustISOName\" -y' 
  CopyFiles "$PLUGINSDIR\மந்தமான.உலகு" "$BDir\boot\$JustISOName\grub.cfg" 
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
  !insertmacro கோப்பில்மாற்று "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"  
  ${If} ${FileExists} "$BDir\boot\$JustISOName\liberte\boot\kernel-x86.zi"
  !insertmacro கோப்பில்மாற்று "linux /SLUG" "linux /boot/$JustISOName/liberte/boot/kernel-x86.zi loop=/boot/$JustISOName/liberte/boot/root-x86.sfs" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"  
@@ -263,7 +263,7 @@ FunctionEnd
  CopyFiles "$PLUGINSDIR\மந்தமான.உலகு" "$BDir\boot\$JustISOName\grub.cfg" 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!*nitrd.* -ir!*mlinuz -o"$BDir\boot\$JustISOName\" -y'  
  Rename "$BDir\boot\casper\$JustISOName\initrd.gz" "$BDir\boot\$JustISOName\casper\initrd.lz"  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0 
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0 
  ${If} ${FileExists} "$BDir\boot\$JustISOName\casper\vmlinuz"
   ${AndIf} ${FileExists} "$BDir\boot\$JustISOName\$JustISO"  
  !insertmacro கோப்பில்மாற்று "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"  
@@ -284,7 +284,7 @@ FunctionEnd
  CopyFiles "$PLUGINSDIR\மந்தமான.உலகு" "$BDir\boot\$JustISOName\grub.cfg" 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!*nitrd.* -ir!*mlinuz -o"$BDir\boot\$JustISOName\" -y'  
  Rename "$BDir\boot\casper\$JustISOName\initrd.gz" "$BDir\boot\$JustISOName\casper\initrd.lz"  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0 
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0 
  ${If} ${FileExists} "$BDir\boot\$JustISOName\casper\vmlinuz"
   ${AndIf} ${FileExists} "$BDir\boot\$JustISOName\$JustISO"  
  !insertmacro கோப்பில்மாற்று "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"  
@@ -302,7 +302,7 @@ FunctionEnd
  ; Recatux
  ${ElseIf} $DistroName == "Rescatux" 
  CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO"
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\niso_path='/boot/$JustISOName/$JustISO'$\r$\nexport iso_path$\r$\nsearch --set=root --file $$iso_path$\r$\nloopback loop $$iso_path$\r$\nroot=(loop)$\r$\nconfigfile /boot/grub/loopback.cfg$\r$\nloopback --delete loop$\r$\n}$\r$\n#] $JustISOName" $R0 
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\niso_path='/boot/$JustISOName/$JustISO'$\r$\nexport iso_path$\r$\nsearch --set=root --file $$iso_path$\r$\nloopback loop $$iso_path$\r$\nroot=(loop)$\r$\nconfigfile /boot/grub/loopback.cfg$\r$\nloopback --delete loop$\r$\n}$\r$\n#] $JustISOName" $R0 
  
 ; Debian Live Based (New Method) 
  ${ElseIf} $DistroName == "Debian Live"
@@ -319,7 +319,7 @@ FunctionEnd
  FindFirst $0 $1 "$BDir\boot\$JustISOName\live\*mlinu*"
  Call லினக்சுஉட்கரு_கண்டுபிடி
  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
  !insertmacro கோப்பில்மாற்று "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"   
 
  ${If} ${FileExists} "$BDir\boot\$JustISOName\live\$Initrd"  ; likely 86_64
@@ -339,7 +339,7 @@ FunctionEnd
   FindFirst $0 $1 "$BDir\boot\$JustISOName\live\*mlinu*"
   Call லினக்சுஉட்கரு_கண்டுபிடி
  
-  ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
+  ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
   !insertmacro கோப்பில்மாற்று "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"   
 
   ${If} ${FileExists} "$BDir\boot\$JustISOName\live\$Initrd"  ; likely 86_64
@@ -351,7 +351,7 @@ FunctionEnd
 ; Solus
  ${ElseIf} $DistroName == "Solus"
  CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO" 
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile='/boot/$JustISOName/$JustISO'$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/kernel iso-scan/filename=/boot/$JustISOName/$JustISO root=live:CDLABEL=SolusLiveBudgie ro rd.luks=0 rd.md=0 rd.live.overlay.overlayfs=1 quiet splash$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/initrd.img$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile='/boot/$JustISOName/$JustISO'$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/kernel iso-scan/filename=/boot/$JustISOName/$JustISO root=live:CDLABEL=SolusLiveBudgie ro rd.luks=0 rd.md=0 rd.live.overlay.overlayfs=1 quiet splash$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/initrd.img$\r$\n}$\r$\n#] $JustISOName" $R0  
  
 ; Demon Linux 
  ${ElseIf} $DistroName == "Demon Linux (Penetration Testing)"
@@ -364,7 +364,7 @@ FunctionEnd
  FindFirst $0 $1 "$BDir\boot\$JustISOName\vmlinuz*"
  Call லினக்சுஉட்கரு_கண்டுபிடி
  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
  !insertmacro கோப்பில்மாற்று "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"   
 
  ${If} ${FileExists} "$BDir\boot\$JustISOName\$Initrd"  ; likely 86_64
@@ -384,7 +384,7 @@ FunctionEnd
  FindFirst $0 $1 "$BDir\boot\$JustISOName\*mlinu*"
  Call லினக்சுஉட்கரு_கண்டுபிடி
  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
  !insertmacro கோப்பில்மாற்று "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"   
 
  ${If} ${FileExists} "$BDir\boot\$JustISOName\$Initrd"  ; likely 86_64
@@ -404,7 +404,7 @@ FunctionEnd
  FindFirst $0 $1 "$BDir\boot\$JustISOName\*mlinu*"
  Call லினக்சுஉட்கரு_கண்டுபிடி
  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
  !insertmacro கோப்பில்மாற்று "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"   
 
  ${If} ${FileExists} "$BDir\boot\$JustISOName\$Initrd"  ; likely 86_64
@@ -424,7 +424,7 @@ FunctionEnd
  FindFirst $0 $1 "$BDir\boot\$JustISOName\*mlinu*"
  Call லினக்சுஉட்கரு_கண்டுபிடி
  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0    
  !insertmacro கோப்பில்மாற்று "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"   
 
  ${If} ${FileExists} "$BDir\boot\$JustISOName\$Initrd"  ; likely 86_64
@@ -436,24 +436,24 @@ FunctionEnd
 ; WIFISLAX (New Method) 
  ${ElseIf} $DistroName == "Wifislax (Wireless Penetration Testing)" 
  CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO" ; Copy the ISO to Directory
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/vmlinuz from=/boot/$JustISOName/$JustISO autoexec=telinit~4$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/initrd.xz$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/vmlinuz from=/boot/$JustISOName/$JustISO autoexec=telinit~4$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/initrd.xz$\r$\n}$\r$\n#] $JustISOName" $R0  
  
 ; RIPLinux (New Method) 
  ${ElseIf} $DistroName == "Rip Linux (Recovery Distro) - BIOS ONLY" 
  CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO" ; Copy the ISO to Directory 
- ${WriteToFile} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/boot/$JustISOName/$JustISO$\"$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\nlinux16 /boot/01/memdisk iso raw$\r$\ninitrd16 $$isofile$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/boot/$JustISOName/$JustISO$\"$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\nlinux16 /boot/01/memdisk iso raw$\r$\ninitrd16 $$isofile$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
  
 ; Finnix 
  ${ElseIf} $DistroName == "Finnix x86/64- BIOS ONLY" 
  CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO" ; Copy the ISO to Directory 
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName - 32bit$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/boot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/x86/linux findiso=$$isofile vga=791 nomodeset quiet$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/x86/initrd.xz$\r$\n}$\r$\nmenuentry $\"$JustISOName - 64bit$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/boot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/x86/linux64 findiso=$$isofile vga=791 nomodeset quiet$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/x86/initrd.xz$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName - 32bit$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/boot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/x86/linux findiso=$$isofile vga=791 nomodeset quiet$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/x86/initrd.xz$\r$\n}$\r$\nmenuentry $\"$JustISOName - 64bit$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/boot/$JustISOName/$JustISO$\"$\r$\nloopback loop $$isofile$\r$\nlinux (loop)/boot/x86/linux64 findiso=$$isofile vga=791 nomodeset quiet$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/x86/initrd.xz$\r$\n}$\r$\n#] $JustISOName" $R0  
  
 ; Trinity Rescue Kit (New Method) 
  ${ElseIf} $DistroName == "Trinity Rescue Kit - BIOS ONLY" 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BDir\boot\$JustISOName\" -y'  
    ${If} ${FileExists} "$BDir\boot\$JustISOName\kernel.trk"       
    ${AndIf} ${FileExists} "$BDir\boot\$JustISOName\initrd.trk"  
-   ${WriteToFile} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux /boot/$JustISOName/kernel.trk from=/boot/$JustISOName vollabel=TA ramdisk_size=65536 root=/dev/ram0 splash=verbose pci=conf1 trkmenu$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd /boot/$JustISOName/initrd.trk$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
+   ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux /boot/$JustISOName/kernel.trk from=/boot/$JustISOName vollabel=TA ramdisk_size=65536 root=/dev/ram0 splash=verbose pci=conf1 trkmenu$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd /boot/$JustISOName/initrd.trk$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
    ${AndIf} ${FileExists} "$BDir\boot\$JustISOName\trk3\trkramfs" 
    CopyFiles "$BDir\boot\$JustISOName\trk3\*.*" "$BDir\trk3\" ; Move trk3 to root, so we can boot!
    RMDir /R "$BDir\boot\$JustISOName\trk3"
@@ -464,10 +464,10 @@ FunctionEnd
  ;CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO" ; Copy the ISO to Directory
  ;ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!install\netboot\ubuntu-installer\*nitrd* -ir!*mlinuz -o"$BDir\boot\$JustISOName\" -y'  
  ;${If} ${FileExists} "$BDir\boot\$JustISOName\install\netboot\ubuntu-installer\amd64\*.*" 
- ;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/install/vmlinuz iso-scan/filename=/boot/$JustISOName/$JustISO findiso=/boot/$JustISOName/$JustISO file=/cdrom/preseed/ubuntu-server.seed$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/install/netboot/ubuntu-installer/amd64/initrd.gz$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ;${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/install/vmlinuz iso-scan/filename=/boot/$JustISOName/$JustISO findiso=/boot/$JustISOName/$JustISO file=/cdrom/preseed/ubuntu-server.seed$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/install/netboot/ubuntu-installer/amd64/initrd.gz$\r$\n}$\r$\n#] $JustISOName" $R0  
  ;${EndIf}
  ;${If} ${FileExists} "$BDir\boot\$JustISOName\install\netboot\ubuntu-installer\i386\*.*"
- ;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/install/vmlinuz iso-scan/filename=/boot/$JustISOName/$JustISO findiso=/boot/$JustISOName/$JustISO file=/cdrom/preseed/ubuntu-server.seed$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/install/netboot/ubuntu-installer/i386/initrd.gz$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ;${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/install/vmlinuz iso-scan/filename=/boot/$JustISOName/$JustISO findiso=/boot/$JustISOName/$JustISO file=/cdrom/preseed/ubuntu-server.seed$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/install/netboot/ubuntu-installer/i386/initrd.gz$\r$\n}$\r$\n#] $JustISOName" $R0  
  ;${EndIf}
  
 ; Ubuntu (New Method) 
@@ -494,7 +494,7 @@ FunctionEnd
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!*nitrd* -ir!*mlinu* -o"$BDir\boot\$JustISOName\" -y'    
  CopyFiles "$PLUGINSDIR\மந்தமான.உலகு" "$BDir\boot\$JustISOName\grub.cfg" 
  !insertmacro கோப்பில்மாற்று "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0 
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0 
  
  ${If} ${FileExists} "$BDir\boot\$JustISOName\casper\vmlinuz.efi" 
  ${AndIf} ${FileExists} "$BDir\boot\$JustISOName\$JustISO"  
@@ -578,36 +578,36 @@ FunctionEnd
 ; OpenSUSE
  ${ElseIf} $DistroName == "OpenSUSE"
   ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BDir\boot\$JustISOName\" -y'  
-  ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux /boot/$JustISOName/boot/x86_64/loader/linux rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 root=live:CDLABEL=TA live_dir=/boot/$JustISOName/LiveOS$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd /boot/$JustISOName/boot/x86_64/loader/initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
+  ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux /boot/$JustISOName/boot/x86_64/loader/linux rd.live.image rd.live.overlay.persistent rd.live.overlay.cowfs=ext4 root=live:CDLABEL=TA live_dir=/boot/$JustISOName/LiveOS$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd /boot/$JustISOName/boot/x86_64/loader/initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
 
  ;;CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO" ; Copy the ISO to Directory
 ; OpenSUSE 32bit  
  ;;${If} ${FileExists} "$BDir\boot\$JustISOName\OpenSUSE*86.iso"
- ;;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/i386/loader/linux ramdisk_size=512000 ramdisk_blocksize=4096 iso-scan/filename=/boot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/TA:/boot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/TA isofrom_system=/boot/$JustISOName/$JustISO$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/i386/loader/initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ;;${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/i386/loader/linux ramdisk_size=512000 ramdisk_blocksize=4096 iso-scan/filename=/boot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/TA:/boot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/TA isofrom_system=/boot/$JustISOName/$JustISO$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/i386/loader/initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
  ;;${EndIf} 
 ; OpenSUSE 64bit 
  ;;${If} ${FileExists} "$BDir\boot\$JustISOName\OpenSUSE*64.iso"
- ;;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/x86_64/loader/linux ramdisk_size=512000 ramdisk_blocksize=4096 iso-scan/filename=/boot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/TA:/boot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/TA isofrom_system=/boot/$JustISOName/$JustISO$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/x86_64/loader/initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ;;${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/x86_64/loader/linux ramdisk_size=512000 ramdisk_blocksize=4096 iso-scan/filename=/boot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/TA:/boot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/TA isofrom_system=/boot/$JustISOName/$JustISO$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/x86_64/loader/initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
  ;;${EndIf} 
  
  ;;${If} ${FileExists} "$BDir\boot\$JustISOName\OpenSUSE*Live-x86_64*.iso"
- ;;${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/x86_64/loader/linux ramdisk_size=512000 ramdisk_blocksize=4096 iso-scan/filename=/boot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/TA:/boot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/TA isofrom_system=/boot/$JustISOName/$JustISO$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/x86_64/loader/initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ;;${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/x86_64/loader/linux ramdisk_size=512000 ramdisk_blocksize=4096 iso-scan/filename=/boot/$JustISOName/$JustISO isofrom=/dev/disk/by-label/TA:/boot/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/TA isofrom_system=/boot/$JustISOName/$JustISO$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/boot/x86_64/loader/initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
  ;;${EndIf}
  
 ; FreeDOS (Balder img) 
  ${ElseIf} $DistroName == "FreeDOS (Balder img)"
  CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO"
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux16 /boot/01/memdisk$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd16 /boot/$JustISOName/$JustISO$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux16 /boot/01/memdisk$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd16 /boot/$JustISOName/$JustISO$\r$\n}$\r$\n#] $JustISOName" $R0  
  
  ; XPUD (New Method) 
  ${ElseIf} $DistroName == "xPUD (Netbook Distro)" 
  CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO" ; Copy the ISO to Directory
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/bzImage noisapnp lang=en kmap=us fromiso=/boot/$JustISOName/$JustISO$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/opt/core$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/boot/bzImage noisapnp lang=en kmap=us fromiso=/boot/$JustISOName/$JustISO$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/opt/core$\r$\n}$\r$\n#] $JustISOName" $R0  
  
 ; Memtest86+ (Memory Testing Tool)
  ${ElseIf} $DistroName == "Memtest86+ (Memory Testing Tool) BIOS ONLY"
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BDir\boot\$JustISOName\" -y'  
- ${WriteToFile} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nlinux16 /boot/$JustISOName/$JustISOName.bin$\r$\n}$\r$\nfi$\r$\n#] $JustISOName" $R0
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nlinux16 /boot/$JustISOName/$JustISOName.bin$\r$\n}$\r$\nfi$\r$\n#] $JustISOName" $R0
 
 ; Windows 10
  ${ElseIf} $DistroName == "Windows 10 Installer"
@@ -615,17 +615,17 @@ FunctionEnd
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!bootx64.efi -aou -o"$BDir\" -y'  
  ReadEnvStr $R0 COMSPEC ; grab commandline
  nsExec::Exec "$R0 /C Rename $BDir\boot\வி_நி_இ\bootx64_1.efi win10.efi" ; rename efi file  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then ntldr /bootmgr; fi$\r$\nif [ $${grub_platform} == $\"efi$\" ]; then chainloader /boot/வி_நி_இ/win10.efi; fi$\r$\n}$\r$\n#] $JustISOName" $R0
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then ntldr /bootmgr; fi$\r$\nif [ $${grub_platform} == $\"efi$\" ]; then chainloader /boot/வி_நி_இ/win10.efi; fi$\r$\n}$\r$\n#] $JustISOName" $R0
 
  ; Windows Vista/7/8
  ${ElseIf} $DistroName == "Windows Vista/7/8 Installer"
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -o"$BDir\" -y -x![BOOT]*' 
- ${WriteToFile} "#[ $JustISOName$\r$\ntitle Install $JustISOName$\r$\nchainloader /bootmgr$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\ntitle Install $JustISOName$\r$\nchainloader /bootmgr$\r$\n#] $JustISOName" $R0  
 
 ; Windows XP
 /*  ${ElseIf} $DistroName == "Windows XP Installer" 
  CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO" ; Copy the ISO to Directory
- ${WriteToFile} "#[ $JustISOName$\r$\ntitle Begin Install of Windows XP from $JustISO (Stage 1)$\r$\nfind --set-root /boot/$JustISOName/$JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --mem /boot/$JustISOName/firadisk.img (fd0)$\r$\nmap --mem /boot/$JustISOName/firadisk.img (fd1)$\r$\nmap --mem /boot/$JustISOName/$JustISO (0xff)$\r$\nmap --hook$\r$\nchainloader (0xff)/I386/SETUPLDR.BIN$\r$\n$\r$\ntitle Continue Windows XP Install from $JustISO (Stage 2)$\r$\nfind --set-root /boot/$JustISOName/$JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --mem /boot/$JustISOName/$JustISO (0xff)$\r$\nmap --hook$\r$\nchainloader (hd0)+1$\r$\n$\r$\ntitle Boot Windows XP - If fails, reboot with USB removed (Stage 3)$\r$\nmap (hd1) (hd0)$\r$\nmap (hd0) (hd1)$\r$\nroot (hd1,0)$\r$\nfind --set-root /ntldr$\r$\nchainloader /ntldr$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\ntitle Begin Install of Windows XP from $JustISO (Stage 1)$\r$\nfind --set-root /boot/$JustISOName/$JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --mem /boot/$JustISOName/firadisk.img (fd0)$\r$\nmap --mem /boot/$JustISOName/firadisk.img (fd1)$\r$\nmap --mem /boot/$JustISOName/$JustISO (0xff)$\r$\nmap --hook$\r$\nchainloader (0xff)/I386/SETUPLDR.BIN$\r$\n$\r$\ntitle Continue Windows XP Install from $JustISO (Stage 2)$\r$\nfind --set-root /boot/$JustISOName/$JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --mem /boot/$JustISOName/$JustISO (0xff)$\r$\nmap --hook$\r$\nchainloader (hd0)+1$\r$\n$\r$\ntitle Boot Windows XP - If fails, reboot with USB removed (Stage 3)$\r$\nmap (hd1) (hd0)$\r$\nmap (hd0) (hd1)$\r$\nroot (hd1,0)$\r$\nfind --set-root /ntldr$\r$\nchainloader /ntldr$\r$\n#] $JustISOName" $R0  
  File /oname=$PLUGINSDIR\firadisk.img "firadisk.img"  
  CopyFiles "$PLUGINSDIR\firadisk.img" "$BDir\boot\$JustISOName\firadisk.img"    */
  
@@ -635,7 +635,7 @@ FunctionEnd
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!bootx64.efi -aou -o"$BDir\" -y'  
  ReadEnvStr $R0 COMSPEC ; grab commandline
  nsExec::Exec "$R0 /C Rename $BDir\boot\வி_நி_இ\bootx64_1.efi HBCDPE.efi" ; rename efi file  
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then ntldr /bootmgr; fi$\r$\nif [ $${grub_platform} == $\"efi$\" ]; then chainloader /boot/வி_நி_இ/HBCDPE.efi; fi$\r$\n}$\r$\n#] $JustISOName" $R0
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then ntldr /bootmgr; fi$\r$\nif [ $${grub_platform} == $\"efi$\" ]; then chainloader /boot/வி_நி_இ/HBCDPE.efi; fi$\r$\n}$\r$\n#] $JustISOName" $R0
  
 ; RemixOS  
  ${ElseIf} $DistroName == "RemixOS"
@@ -644,7 +644,7 @@ FunctionEnd
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$EXEDIR\TEMPI\Remix_OS*.iso" -o"$BDir\boot\$JustISOName\" -y'  
  RMDir /R "$EXEDIR\TEMPI"
  Call மாதுஏகட்டமைப்பைக்கண்டறி
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/$GrubConfigPath/$GrubConfigFile$\r$\n}$\r$\n#] $JustISOName" $R0   
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/$GrubConfigPath/$GrubConfigFile$\r$\n}$\r$\n#] $JustISOName" $R0   
   !insertmacro கோப்பில்மாற்று "linuxefi /kernel" "linux /boot/$JustISOName/kernel" "all" "all" "$BDir\boot\$JustISOName\$GrubCopyPath\$GrubConfigFile"  
   !insertmacro கோப்பில்மாற்று "initrdefi /initrd.img" "initrd /boot/$JustISOName/initrd.img" "all" "all" "$BDir\boot\$JustISOName\$GrubCopyPath\$GrubConfigFile"
   !insertmacro கோப்பில்மாற்று "--set=root /kernel" "--set=root /boot/$JustISOName/kernel" "all" "all" "$BDir\boot\$JustISOName\$GrubCopyPath\$GrubConfigFile" 
@@ -653,7 +653,7 @@ FunctionEnd
 ; Pop!_OS  
  ${ElseIf} $DistroName == "POP!_OS"
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -o"$BDir\boot\$JustISOName\" -y'    
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/boot/grub/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0   
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/boot/grub/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0   
  !insertmacro கோப்பில்மாற்று "linux /casper_pop-os" "linux /boot/$JustISOName/casper_pop-os" "all" "all" "$BDir\boot\$JustISOName\boot\grub\grub.cfg"  
  !insertmacro கோப்பில்மாற்று "initrd /casper_pop-os" "initrd /boot/$JustISOName/casper_pop-os" "all" "all" "$BDir\boot\$JustISOName\boot\grub\grub.cfg" 
  !insertmacro கோப்பில்மாற்று "=/casper_pop-os" "=/boot/$JustISOName/casper_pop-os" "all" "all" "$BDir\boot\$JustISOName\boot\grub\grub.cfg" 
@@ -669,7 +669,7 @@ FunctionEnd
   ExecWait '"$PLUGINSDIR\new7z\7zG.exe" x "$BDir\boot\$JustISOName\memtest86-usb.img" -o"$BDir\boot\$JustISOName\" -y'
   ExecWait '"$PLUGINSDIR\new7z\7zG.exe" x "$BDir\boot\$JustISOName\EFI System Partition.img" -o"$BDir\boot\$JustISOName\" -y'
  ;RMDir /R "$EXEDIR\TEMPI" 
- ${WriteToFile} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"efi$\" ]; then$\r$\nmenuentry $\"$JustISOName X64$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/memtest86-usb.img$\r$\nchainloader /boot/$JustISOName/EFI/BOOT/BOOTX64.efi$\r$\n}$\r$\n$\r$\nmenuentry $\"$JustISOName IA32$\" {$\r$\nloopback loop /boot/$JustISOName/memtest86-usb.img$\r$\nchainloader /boot/$JustISOName/EFI/BOOT/BOOTIA32.efi$\r$\n}$\r$\nfi$\r$\n#] $JustISOName" $R0 
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"efi$\" ]; then$\r$\nmenuentry $\"$JustISOName X64$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/memtest86-usb.img$\r$\nchainloader /boot/$JustISOName/EFI/BOOT/BOOTX64.efi$\r$\n}$\r$\n$\r$\nmenuentry $\"$JustISOName IA32$\" {$\r$\nloopback loop /boot/$JustISOName/memtest86-usb.img$\r$\nchainloader /boot/$JustISOName/EFI/BOOT/BOOTIA32.efi$\r$\n}$\r$\nfi$\r$\n#] $JustISOName" $R0 
  
 ; Slacko Puppy/BionicPup
  ${ElseIf} $DistroName == "Slacko Puppy"
@@ -677,7 +677,7 @@ FunctionEnd
     ${OrIf} $DistroName == "puppy Linux"
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BDir\boot\$JustISOName\" -y'  
  # Call மாதுஏகட்டமைப்பைக்கண்டறி
- ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0   
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0   
   !insertmacro கோப்பில்மாற்று "linux /vmlinuz" "linux /boot/$JustISOName/vmlinuz psubdir=/boot/$JustISOName psubok=TRUE" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"  
   !insertmacro கோப்பில்மாற்று "initrd /initrd" "initrd /boot/$JustISOName/initrd" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"
  
@@ -686,18 +686,18 @@ FunctionEnd
  ${OrIf} $DistroName == "Hiren's Boot CD - BIOS ONLY" 
  ${OrIf} $DistroName == "Falcon 4 Boot CD - BIOS ONLY"  
  CopyFiles $ISOFile "$BDir\boot\$JustISOName\$JustISO" 
- ${WriteToFile} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/boot/$JustISOName/$JustISO$\"$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\nlinux16 /boot/01/memdisk iso raw$\r$\ninitrd16 $$isofile$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/boot/$JustISOName/$JustISO$\"$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\nlinux16 /boot/01/memdisk iso raw$\r$\ninitrd16 $$isofile$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
 
  ${Else} ; Start Catch All Install Methods 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BDir\boot\$JustISOName\" -y'  
  Call கட்டமைப்பைக்கண்டறி
  Call மாதுஏகட்டமைப்பைக்கண்டறி
  ${If} $GrubConfigFile != "NULL" ; If native Grub config file does exist... 
-    ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=auto$\r$\nconfigfile /boot/$JustISOName/$GrubConfigPath/$GrubConfigFile$\r$\n}$\r$\n#] $JustISOName" $R0   
+    ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=auto$\r$\nconfigfile /boot/$JustISOName/$GrubConfigPath/$GrubConfigFile$\r$\n}$\r$\n#] $JustISOName" $R0   
  ${ElseIf} $GrubConfigFile == "NULL" ; If Grub config file does not exist... 
  ${AndIfNot} ${FileExists} "$BDir\boot\$JustISOName\grub.cfg"  
     CopyFiles "$PLUGINSDIR\மந்தமான.உலகு" "$BDir\boot\$JustISOName\grub.cfg"
-    ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0 
+    ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nconfigfile /boot/$JustISOName/grub.cfg$\r$\n}$\r$\n#] $JustISOName" $R0 
     !insertmacro கோப்பில்மாற்று "menuentry $\"BOOT$\"" "menuentry $\"$JustISOName$\"" "all" "all" "$BDir\boot\$JustISOName\grub.cfg"  
  ${EndIf}
 

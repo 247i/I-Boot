@@ -1,6 +1,6 @@
 ﻿; -------- Configuration and Text File Manipulation Stuff! --------
 
-Function WriteToFile ; modified to populate *.cfg file with the distro user installed!
+Function கோப்பில்எழுது ; modified to populate *.cfg file with the distro user installed!
  Exch $R0 ;file to write to
  Exch
  Exch $1 ;text to write
@@ -21,13 +21,13 @@ ${FileRecode} "$BDir\அகர\பகவன்\$Config2Use" "ToUTF8"
  Pop $R0
 FunctionEnd
 
-!macro WriteToFile String File
+!macro கோப்பில்எழுது String File
  Push "${String}"
  Push "${File}"
- Call WriteToFile
+ Call கோப்பில்எழுது
  ${LineFind} "$BDir\அகர\பகவன்\$Config2Use" "$BDir\அகர\பகவன்\$Config2Use" "1:-1" "வெற்றுவரியைநீக்கு" ; Remove any left over empty lines
 !macroend  
-!define WriteToFile "!insertmacro WriteToFile"
+!define கோப்பில்எழுது "!insertmacro கோப்பில்எழுது"
 
 
 Function கணினிகோப்பில்எழுது ; Write entry to syslinux.cfg
