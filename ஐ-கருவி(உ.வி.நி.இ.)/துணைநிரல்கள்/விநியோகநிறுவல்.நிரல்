@@ -147,7 +147,7 @@ FunctionEnd
  ${LineFind} "$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை" "$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை" "1:-1" "வெற்றுவரியைநீக்கு" ; Remove any left over empty lines
  
 ; உருவாக்கு the Directory for this ISOs files
- CreateDirectory "$BDir\boot\$JustISOName\ஐ\" ; உருவாக்கு the I Directory.. so we can eventually copy the config file (see line 90) to it.
+ CreateDirectory "$BDir\boot\$JustISOName\ஐ\" ; உருவாக்கு the ஐ Directory.. so we can eventually copy the config file (see line 90) to it.
 
 ; Kaspersky Rescue Disk - Gentoo
  ${If} $DistroName == "Kaspersky Rescue Disk (Antivirus Scanner)" 
