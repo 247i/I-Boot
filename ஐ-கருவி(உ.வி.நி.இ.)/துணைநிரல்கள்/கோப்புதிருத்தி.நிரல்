@@ -269,12 +269,12 @@ Function ddProgress
  ReadEnvStr $COMSPEC COMSPEC
  nsExec::Exec '"$COMSPEC" /C "copy" $PLUGINSDIR\ddlog.txt $PLUGINSDIR\ddlog2.txt'
  Push "$PLUGINSDIR\ddlog2.txt"
- Call LineCount
+ Call வரிஎண்ணிக்கை
  Pop $R0
  
  Push $R0 ;line number to read from
  Push "$PLUGINSDIR\ddlog2.txt" ;text file to read
- Call ReadFileLine
+ Call கோப்புவரியைப்படி
  Pop $0 ;output string (read from file.txt)
  StrCpy $PERCENT "$0"
  GetDlgItem $2 $1 1030
@@ -282,7 +282,7 @@ Function ddProgress
  ${LoopUntil} $R0 >= "$Casper"
 FunctionEnd
 
-Function LineCount ; http://nsis.sourceforge.net/Get_number_of_lines_in_text_file
+Function வரிஎண்ணிக்கை ; http://nsis.sourceforge.net/Get_number_of_lines_in_text_file
 Exch $R0
 Push $R1
 Push $R2
@@ -300,7 +300,7 @@ Pop $R1
 Exch $R0
 FunctionEnd
 
-Function ReadFileLine ; http://nsis.sourceforge.net/Read_from_text_file_line_number
+Function கோப்புவரியைப்படி ; http://nsis.sourceforge.net/Read_from_text_file_line_number
 Exch $0 ;file
 Exch
 Exch $1 ;line number
