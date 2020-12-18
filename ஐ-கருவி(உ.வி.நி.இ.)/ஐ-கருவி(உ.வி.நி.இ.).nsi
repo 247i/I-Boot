@@ -705,7 +705,7 @@ Function ISOBrowse
   Call ஐஎஸ்ஓஅளவைஅமை
   Call SetSpace
   Call CheckSpace
-  Call HaveSpacePre
+  Call இடமிருக்குமுன்
  ${If} $JustISOName == "" 
  StrCpy $JustISOName "NULL" ; Set to NULL until something is selected
  ${EndIf}
@@ -947,7 +947,7 @@ Function SetSpace ; Set space available for persistence
   SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Re-Setting Max Value
 FunctionEnd
 
-Function HaveSpacePre ; Check space required
+Function இடமிருக்குமுன் ; Check space required
   Call புதையல்அளவு
   Call FreeDiskSpace
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
@@ -1091,7 +1091,6 @@ Function DoSyslinux ; Install Syslinux on USB
   ExecWait '"$PLUGINSDIR\7zG.exe" x "$PLUGINSDIR\அகர.zip" -o"$BDir" -y' 
   ${EndIf}   
 FunctionEnd
-
 
 ; ---- Let's Do This Stuff ----
 Section  ; This is the only section that exists

@@ -37,3 +37,6 @@
 நிறுவப்பட்டபட்டியல் InstalledList
 கணினிகோப்பில்எழுது WriteToSysFile
 கோப்பில்எழுது WriteToFile
+இடமிருக்குமுன் HaveSpacePre
+இடமிருக்கு HaveSpace
+
