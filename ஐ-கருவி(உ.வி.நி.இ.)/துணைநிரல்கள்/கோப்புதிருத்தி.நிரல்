@@ -25,7 +25,7 @@ FunctionEnd
  Push "${String}"
  Push "${File}"
  Call WriteToFile
- ${LineFind} "$BDir\அகர\பகவன்\$Config2Use" "$BDir\அகர\பகவன்\$Config2Use" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
+ ${LineFind} "$BDir\அகர\பகவன்\$Config2Use" "$BDir\அகர\பகவன்\$Config2Use" "1:-1" "வெற்றுவரியைநீக்கு" ; Remove any left over empty lines
 !macroend  
 !define WriteToFile "!insertmacro WriteToFile"
 
@@ -158,7 +158,7 @@ Function DeleteInstall  ; நிறுவப்பட்டது.உரைஇ�
 	Push $0
 FunctionEnd
 
-Function DeleteEmptyLine ;நிறுவப்பட்டது.உரையிலிருந்து வெற்று வரியை நீக்குகிறது
+Function வெற்றுவரியைநீக்கு ;நிறுவப்பட்டது.உரையிலிருந்து வெற்று வரியை நீக்குகிறது
 	StrLen $0 "$\r$\n"
 	StrCpy $1 "$R9" $0
 	StrCmp $1 "$\r$\n" 0 End
