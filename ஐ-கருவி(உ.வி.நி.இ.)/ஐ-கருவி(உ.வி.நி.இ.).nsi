@@ -453,7 +453,7 @@ Function DownloadIt ; பதிவிறக்க இணைப்பு அம�
   ${If} $DownloadMe == ${BST_CHECKED}
   ${NSD_Check} $DownloadISO
   ${NSD_SetText} $DownloadISO "பதிவிறக்க இணைப்பு திறக்கப்பட்டது"
-  Call DownloadLinks
+  Call பதிவிறக்கஇணைப்புகள்
   ${ElseIf} $DownloadMe == ${BST_UNCHECKED}
   ${NSD_Uncheck} $DownloadISO 
   ${NSD_SetText} $DownloadISO "பதிவிறக்க இணைப்பு" 
@@ -541,7 +541,7 @@ Function EnableNext ; Enable Install Button
   ${EndIf}    
 FunctionEnd
 
-Function DownloadLinks
+Function பதிவிறக்கஇணைப்புகள்
 MessageBox MB_YESNO|MB_ICONQUESTION "பதிவிறக்க இணைப்பைத் தொடங்கவா?$\r$\nபடி 2 க்குச் செல்வதற்கு முன் பதிவிறக்கம் முடிக்கட்டும்." IDYES DownloadIt IDNO Skip
   Skip: ; Reset Download Checkbox Options 
   ${NSD_Uncheck} $DownloadISO 
