@@ -167,17 +167,17 @@ Function DeleteEmptyLine ;நிறுவப்பட்டது.உரைய�
 	Push $0
 FunctionEnd
 
-!define StrRep "!insertmacro StrRep"
+!define சரம்மாற்று "!insertmacro சரம்மாற்று"
  
-!macro StrRep ResultVar String SubString RepString
+!macro சரம்மாற்று ResultVar String SubString RepString
   Push "${String}"
   Push "${SubString}"
   Push "${RepString}"
-  Call StrRep
+  Call சரம்மாற்று
   Pop "${ResultVar}"
 !macroend
  
-Function StrRep ;http://nsis.sourceforge.net/mediawiki/index.php?title=StrRep&direction=next&oldid=4565
+Function சரம்மாற்று 
 /*After this point:
   ------------------------------------------
   $R0 = RepString (input)
@@ -282,7 +282,7 @@ Function தவமுன்னேற்றம்
  ${LoopUntil} $R0 >= "$Casper"
 FunctionEnd
 
-Function வரிஎண்ணிக்கை ; http://nsis.sourceforge.net/Get_number_of_lines_in_text_file
+Function வரிஎண்ணிக்கை ;
 Exch $R0
 Push $R1
 Push $R2
@@ -300,7 +300,7 @@ Pop $R1
 Exch $R0
 FunctionEnd
 
-Function கோப்புவரியைப்படி ; http://nsis.sourceforge.net/Read_from_text_file_line_number
+Function கோப்புவரியைப்படி 
 Exch $0 ;file
 Exch
 Exch $1 ;line number

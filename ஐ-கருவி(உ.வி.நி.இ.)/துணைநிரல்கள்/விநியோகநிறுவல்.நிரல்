@@ -220,8 +220,8 @@ FunctionEnd
  Call ஆரம்பசீவ_கண்டுபிடி
  FindFirst $0 $1 "$BDir\boot\$JustISOName\isolinux\vmlinuz*"
  Call லினக்சுஉட்கரு_கண்டுபிடி
- ;${StrRep} '$ISONameDotLess' '$JustISOName' '-x86_64-' '-'
- ${StrRep} '$ISONameDotLess' '$JustISOName' '.' '-'
+ ;${சரம்மாற்று} '$ISONameDotLess' '$JustISOName' '-x86_64-' '-'
+ ${சரம்மாற்று} '$ISONameDotLess' '$JustISOName' '.' '-'
  ${WriteToFile} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nloopback loop /boot/$JustISOName/$JustISO$\r$\nlinux (loop)/isolinux/$Vmlinuz iso-scan/filename=/boot/$JustISOName/$JustISO rootfstype=auto root=live:CDLABEL=$ISONameDotLess ro rd.live.image$\r$\necho $\"https://Ta01Neram.github.io...$\"$\r$\ninitrd (loop)/isolinux/$Initrd$\r$\n}$\r$\n#] $JustISOName" $R0  
  !insertmacro கோப்பில்மாற்று "CDLABEL=Fedora-Live-Workstation" "CDLABEL=Fedora-Live-WS" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு"   
  !insertmacro கோப்பில்மாற்று "CDLABEL=Fedora-Workstation-Live" "CDLABEL=Fedora-WS-Live" "all" "all" "$BDir\அகர\பகவன்\லினக்சு.உலகு" 

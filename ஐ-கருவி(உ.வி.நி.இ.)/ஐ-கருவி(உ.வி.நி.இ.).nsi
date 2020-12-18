@@ -640,7 +640,7 @@ Function OnSelectDistro
   ${GetFileName} "$TheISO" $JustISO
 										   
   ${GetBaseName} "$JustISO" $JustISOName
-  ${StrRep} '$JustISOName' '$JustISOName' ' ' '-'
+  ${சரம்மாற்று} '$JustISOName' '$JustISOName' ' ' '-'
 							   
   ${GetParent} "$TheISO" $JustISOPath  
   EnableWindow $DownloadISO 0
@@ -697,9 +697,9 @@ Function ISOBrowse
  StrCpy $ISOTest "$TheISO" ; Populate ISOTest so we can enable Next 
  StrCpy $ISOFile "$TheISO" 
  ${GetFileName} "$TheISO" $JustISO
- ${StrRep} '$JustISO' '$JustISO' ' ' '-'
+ ${சரம்மாற்று} '$JustISO' '$JustISO' ' ' '-'
  ${GetBaseName} "$JustISO" $JustISOName
- ${StrRep} '$JustISOName' '$JustISOName' ' ' '-'
+ ${சரம்மாற்று} '$JustISOName' '$JustISOName' ' ' '-'
  ${GetParent} "$TheISO" $JustISOPath
  StrCpy $LocalSelection "Yes"
   Call ஐஎஸ்ஓஅளவைஅமை
