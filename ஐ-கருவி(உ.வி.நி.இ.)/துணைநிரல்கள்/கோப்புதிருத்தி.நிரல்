@@ -148,8 +148,8 @@ Function RemovalList ; Lists the distros installed on the select drive.
  ${EndIf}
 FunctionEnd
 
-!include "TextFunc.nsh" ; TextFunc.nsh required for the following DeleteInstall function
-Function DeleteInstall  ; நிறுவப்பட்டது.உரைஇலிருந்து உள்ளீட்டைத் தேர்ந்தெடு நீக்குகிறது          
+!include "TextFunc.nsh" ; TextFunc.nsh required for the following நிறுவலைநீக்கு function
+Function நிறுவலைநீக்கு  ; நிறுவப்பட்டது.உரைஇலிருந்து உள்ளீட்டைத் தேர்ந்தெடு நீக்குகிறது          
 	StrLen $0 "$DistroName"
 	StrCpy $1 "$R9" $0
 	StrCmp $1 "$DistroName" 0 End
