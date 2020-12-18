@@ -53,3 +53,6 @@
 இதைவடிவமை FormatIt
 ஆம்வடிவமை Formatyes
 இயக்கிபட்டியல் DrivesList
+வட்டிடம் DiskSpace
+வட்டுதொகுதிபெயர்பெறு GetDiskVolumeName
+இயக்கிதேர்வில் OnSelectDrive

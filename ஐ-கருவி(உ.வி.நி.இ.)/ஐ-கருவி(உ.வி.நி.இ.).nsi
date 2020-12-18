@@ -270,7 +270,7 @@ Function SelectionsPage
   Call இடத்தைசரிபார்
   Call இதைவடிவமை 
   Call EnableNext 
-  ${NSD_OnChange} $DestDriveTxt OnSelectDrive 
+  ${NSD_OnChange} $DestDriveTxt இயக்கிதேர்வில் 
 
 ; Add Home Link
   ${NSD_CreateLink} 0 215 16% 15 "முகப்பு பக்கம்"
@@ -318,7 +318,7 @@ Function SelectionsPage
   ${NSD_CreateDropList} 0 20 55% 15 "" ; was 0 20 15% 15
   Pop $DestDriveTxt
   Call இயக்கிகளைபட்டியலிடு
-  ${NSD_OnChange} $DestDriveTxt OnSelectDrive
+  ${NSD_OnChange} $DestDriveTxt இயக்கிதேர்வில்
  
 ; All Drives Option
 ;  ${NSD_CreateCheckBox} 36% 23 22% 15 "Show All Drives" ; was 17% 23 41% 15
@@ -787,7 +787,7 @@ Function Uninstall
 FunctionEnd
 
 ; On Selection of USB Drive
-Function OnSelectDrive
+Function இயக்கிதேர்வில்
   Pop $DestDriveTxt
   ${NSD_GetText} $DestDriveTxt $Letters
   StrCpy $DestDrive "$Letters"
@@ -811,7 +811,7 @@ Function OnSelectDrive
   ${NSD_SetText} $LabelDrivePage "படி 1: மின்வெட்டொளி $DestDisk (தட்டு $DiskNum) தேர்ந்தெடுத்துள்ளீர்கள்"   
 FunctionEnd
 
-Function GetDiskVolumeName
+Function வட்டுதொகுதிபெயர்பெறு
 ;Pop $1 ; get parameter
 System::Alloc 1024 ; Allocate string body
 Pop $0 ; Get the allocated string's address
@@ -825,9 +825,9 @@ ${If} $0 != ""
 ${Else}
  StrCpy $VolName ""
 ${EndIf}
-FunctionEnd ; GetDiskVolumeName
+FunctionEnd ; வட்டுதொகுதிபெயர்பெறு
 
-Function DiskSpace
+Function வட்டிடம்
 ${DriveSpace} "$9" "/D=T /S=G" $1 ; used to find total space of each drive
 ${If} $1 > "0"
  StrCpy $Capacity "$1GB"
@@ -839,8 +839,8 @@ FunctionEnd
 Function இயக்கிபட்டியல்
  StrCpy $JustDrive $9
  Call இயற்பியக்கி
- Call GetDiskVolumeName
- Call DiskSpace
+ Call வட்டுதொகுதிபெயர்பெறு
+ Call வட்டிடம்
  Call கோமுவகைபெறு
 ;Prevent System Drive from being selected
  StrCpy $7 $WINDIR 3
