@@ -30,7 +30,7 @@ FunctionEnd
 !define WriteToFile "!insertmacro WriteToFile"
 
 
-Function WriteToSysFile ; Write entry to syslinux.cfg
+Function கணினிகோப்பில்எழுது ; Write entry to syslinux.cfg
  Exch $R0 ;file to write to
  Exch
  Exch $1 ;text to write
@@ -48,12 +48,12 @@ ${FileRecode} '$BDir\அகர\பகவன்\முதற்றே.உலக�
  Pop $1
  Pop $R0
 FunctionEnd
-!macro WriteToSysFile String File
+!macro கணினிகோப்பில்எழுது String File
   Push "${String}"
   Push "${File}"
-  Call WriteToSysFile
+  Call கணினிகோப்பில்எழுது
 !macroend  
-!define WriteToSysFile "!insertmacro WriteToSysFile"
+!define கணினிகோப்பில்எழுது "!insertmacro கணினிகோப்பில்எழுது"
 
 Function நிறுவப்பட்டபட்டியல் ; Creates a list of installed distros in the அகர\பகவன் folder on the USB drive (So we can uninstall the distros later)
  ${IfNot} ${FileExists} "$BDir\boot\$JustISOName\*.*" ; If the installation directory exists user must be reinstalling the same distro, so we won't add a removal entry. 

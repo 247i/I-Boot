@@ -1171,21 +1171,21 @@ FunctionEnd
 
 Function Config2Write
  ${If} $Config2Use == "கருவிகள்.உலகு"
-  ${WriteToSysFile} "menuentry $\">அகர$\"{configfile /அகர/பகவன்/கருவிகள்.உலகு}" $R0
+  ${கணினிகோப்பில்எழுது} "menuentry $\">அகர$\"{configfile /அகர/பகவன்/கருவிகள்.உலகு}" $R0
  ${ElseIf} $Config2Use == "இணையபுத்தகம்.உலகு"
-  ${WriteToSysFile} "menuentry $\">இ$\"{configfile /அகர/பகவன்/இணையபுத்தகம்.உலகு}" $R0 
+  ${கணினிகோப்பில்எழுது} "menuentry $\">இ$\"{configfile /அகர/பகவன்/இணையபுத்தகம்.உலகு}" $R0 
  ${ElseIf} $Config2Use == "லினக்சு.உலகு"
-  ${WriteToSysFile} "menuentry $\">ஐ$\"{configfile /அகர/பகவன்/லினக்சு.உலகு}" $R0 
+  ${கணினிகோப்பில்எழுது} "menuentry $\">ஐ$\"{configfile /அகர/பகவன்/லினக்சு.உலகு}" $R0 
  ${ElseIf} $Config2Use == "மற்ற.உலகு"
-  ${WriteToSysFile} "menuentry $\">ஒ$\"{configfile /அகர/பகவன்/மற்ற.உலகு}" $R0 
+  ${கணினிகோப்பில்எழுது} "menuentry $\">ஒ$\"{configfile /அகர/பகவன்/மற்ற.உலகு}" $R0 
  ${ElseIf} $Config2Use == "நோய்தடுப்பு.உலகு"
-  ${WriteToSysFile} "menuentry $\">தட$\"{configfile /அகர/பகவன்/நோய்தடுப்பு.உலகு}" $R0 
+  ${கணினிகோப்பில்எழுது} "menuentry $\">தட$\"{configfile /அகர/பகவன்/நோய்தடுப்பு.உலகு}" $R0 
  ${ElseIf} $Config2Use == "உலாவி.உலகு"
-  ${WriteToSysFile} "menuentry $\">பற$\"{configfile /அகர/பகவன்/உலாவி.உலகு}" $R0  
+  ${கணினிகோப்பில்எழுது} "menuentry $\">பற$\"{configfile /அகர/பகவன்/உலாவி.உலகு}" $R0  
  ${ElseIf} $Config2Use == "பட்டியலிடாத.உலகு"
-  ${WriteToSysFile} "menuentry $\">மற$\"{configfile /அகர/பகவன்/பட்டியலிடாத.உலகு}" $R0  
+  ${கணினிகோப்பில்எழுது} "menuentry $\">மற$\"{configfile /அகர/பகவன்/பட்டியலிடாத.உலகு}" $R0  
 ; ${ElseIf} $Config2Use == "menu.lst"
-;  ${WriteToSysFile} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /boot/grub.exe$\r$\nAPPEND --config-file=/அகர/பகவன்/menu.lst" $R0 
+;  ${கணினிகோப்பில்எழுது} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /boot/grub.exe$\r$\nAPPEND --config-file=/அகர/பகவன்/menu.lst" $R0 
  ${EndIf} 
 ;always write data to அகர.உலகு not required
  
