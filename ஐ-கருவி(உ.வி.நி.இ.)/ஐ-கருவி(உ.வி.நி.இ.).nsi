@@ -136,14 +136,14 @@ Var DiskNum
 !define MUI_PAGE_CUSTOMFUNCTION_PRE உரிமம்_முன்செயல்பாடு
 !insertmacro MUI_PAGE_LICENSE "உரைகள்\உரிமை.உரை"
 ; Distro Selection Page
-Page custom SelectionsPage
+Page custom தேர்வுகள்பக்கம்
 ; Install Files Page
 !define MUI_INSTFILESPAGE_COLORS "00FF00 000000" ;Green and Black
 !define MUI_INSTFILESPAGE_FINISHHEADER_TEXT $(Finish_Install)
 !define MUI_TEXT_INSTALLING_TITLE $(Install_Title)
 !define MUI_TEXT_INSTALLING_SUBTITLE $(Install_SubTitle)
 !define MUI_TEXT_FINISH_SUBTITLE $(Install_Finish_Sucess)
-!define MUI_PAGE_CUSTOMFUNCTION_PRE InstFiles_PreFunction
+!define MUI_PAGE_CUSTOMFUNCTION_PRE நிறுவும்கோப்புகள்_முன்செயல்பாடு
 !insertmacro MUI_PAGE_INSTFILES
 ; Finish page
 !define MUI_FINISHPAGE_TITLE $(Finish_Title)
@@ -151,7 +151,7 @@ Page custom SelectionsPage
 !define MUI_FINISHPAGE_LINK $(Finish_Link)
 !define MUI_FINISHPAGE_LINK_LOCATION "https://TamilNeram.github.io"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "இருமங்கள்\சரி.bmp"
-!define MUI_PAGE_CUSTOMFUNCTION_PRE Finish_PreFunction
+!define MUI_PAGE_CUSTOMFUNCTION_PRE முடித்தல்_முன்செயல்பாடு
 !insertmacro MUI_PAGE_FINISH
 
 ; தமிழ் மொழி உரைகள்
@@ -190,7 +190,7 @@ Function உரிமம்_முன்செயல்பாடு
   StrCpy $R8 1 ;This is the 1st page
 FunctionEnd
 
-Function SelectionsPage
+Function தேர்வுகள்பக்கம்
   StrCpy $R8 2
  !insertmacro MUI_HEADER_TEXT $(SelectDist_Title) $(SelectDist_Subtitle) 
   nsDialogs::Create 1018
@@ -220,12 +220,12 @@ Function SelectionsPage
 ; ஐஎஸ்ஓ Download Option
   ${NSD_CreateCheckBox} 60% 60 40% 15 "ஐஎஸ்ஓ பதிவிறக்கம்."
   Pop $DownloadISO
-  ${NSD_OnClick} $DownloadISO DownloadIt  
+  ${NSD_OnClick} $DownloadISO இதைபதிவிறக்கு  
   
 ; Clickable Link to Distribution Homepage  
   ${NSD_CreateLink} 60% 80 40% 15 "$OfficialName பக்கத்தைப் பார்!"
   Pop $DistroLink
-  ${NSD_OnClick} $DistroLink onClickLinuxSite    
+  ${NSD_OnClick} $DistroLink லினக்சுதளசொடுக்த்தில்    
 
 ; ஐஎஸ்ஓ Selection Starts  
   ${NSD_CreateLabel} 0 100 100% 15 $(IsoPage_Text)
@@ -269,23 +269,23 @@ Function SelectionsPage
   Call இடத்தைஅமை
   Call இடத்தைசரிபார்
   Call இதைவடிவமை 
-  Call EnableNext 
+  Call அடுத்துஇயக்கு 
   ${NSD_OnChange} $DestDriveTxt இயக்கிதேர்வில் 
 
 ; Add Home Link
   ${NSD_CreateLink} 0 215 16% 15 "முகப்பு பக்கம்"
   Pop $Link
-  ${NSD_OnClick} $LINK onClickMyLink    
+  ${NSD_OnClick} $LINK என்தளசொடுக்த்தில்    
 
 ; Add Help Link
   ${NSD_CreateLink} 16% 215 9% 15 "கேள்வி"
   Pop $Link1
-  ${NSD_OnClick} $LINK1 onClickMyLinkFAQ 
+  ${NSD_OnClick} $LINK1 அகேகேதளசொடுக்த்தில் 
   
 ; Add Giveback Link
   ${NSD_CreateLink} 25% 215 30% 15 "பரிந்துரை"
   Pop $Link2
-  ${NSD_OnClick} $LINK2 onClickMyLinkUSB   
+  ${NSD_OnClick} $LINK2 என்உதொபேதளசொடுக்த்தில்   
  
 ; Disable Next Button until a selection is made for all 
   GetDlgItem $6 $HWNDPARENT 1
@@ -347,12 +347,12 @@ Function SelectionsPage
 ; ஐஎஸ்ஓ Download Option
   ${NSD_CreateCheckBox} 60% 60 40% 15 "ஐஎஸ்ஓ பதிவிறக்கம்."
   Pop $DownloadISO
-  ${NSD_OnClick} $DownloadISO DownloadIt  
+  ${NSD_OnClick} $DownloadISO இதைபதிவிறக்கு  
   
 ; Clickable Link to Distribution Homepage  
   ${NSD_CreateLink} 60% 80 40% 15 "$OfficialName முகப்புப்பக்கத்தைப் பார்வையிடவும்"
   Pop $DistroLink
-  ${NSD_OnClick} $DistroLink onClickLinuxSite    
+  ${NSD_OnClick} $DistroLink லினக்சுதளசொடுக்த்தில்    
 
 ; ஐஎஸ்ஓ Selection Starts  
   ${NSD_CreateLabel} 0 100 100% 15 $(IsoPage_Text)
@@ -379,17 +379,17 @@ Function SelectionsPage
 ; Add Home Link
   ${NSD_CreateLink} 0 215 16% 15 "முகப்பு பக்கம்"
   Pop $Link
-  ${NSD_OnClick} $LINK onClickMyLink    
+  ${NSD_OnClick} $LINK என்தளசொடுக்த்தில்    
   
 ; Add Help Link
   ${NSD_CreateLink} 16% 215 9% 15 "கேள்வி"
   Pop $Link1
-  ${NSD_OnClick} $LINK1 onClickMyLinkFAQ 
+  ${NSD_OnClick} $LINK1 அகேகேதளசொடுக்த்தில் 
   
 ; Add Giveback Link
   ${NSD_CreateLink} 25% 215 30% 15 "பரிந்துரை"
   Pop $Link2
-  ${NSD_OnClick} $LINK2 onClickMyLinkUSB
+  ${NSD_OnClick} $LINK2 என்உதொபேதளசொடுக்த்தில்
 ; Disable Next Button until a selection is made for all 
   GetDlgItem $6 $HWNDPARENT 1
   EnableWindow $6 0 
@@ -414,11 +414,11 @@ Function SelectionsPage
  ${EndIf}
 FunctionEnd
 
-Function InstFiles_PreFunction
+Function நிறுவும்கோப்புகள்_முன்செயல்பாடு
   StrCpy $R8 3
 FunctionEnd
 
-Function Finish_PreFunction
+Function முடித்தல்_முன்செயல்பாடு
   StrCpy $R8 4
   Call வெளியேறாதே
 FunctionEnd
@@ -428,27 +428,27 @@ Function இயக்கிகளைபட்டியலிடு ; Set to Disp
    ${GetDrives} "FDD+HDD" இயக்கிபட்டியல் ; All Drives Listed  
 FunctionEnd
 
-Function onClickMyLink
+Function என்தளசொடுக்த்தில்
   Pop $Links ; இணைப்பு திற
   ExecShell "open" "https://TamilNeram.github.io"
 FunctionEnd
 
-Function onClickMyLinkFAQ
+Function அகேகேதளசொடுக்த்தில்
   Pop $Links1 ; இணைப்பு திற
   ExecShell "open" "https://TamilNeram.github.io"
 FunctionEnd
 
-Function onClickMyLinkUSB
+Function என்உதொபேதளசொடுக்த்தில்
   Pop $Links2 ; இணைப்பு திற
   ExecShell "open" "https://TamilNeram.github.io"
 FunctionEnd
 
-Function onClickLinuxSite
+Function லினக்சுதளசொடுக்த்தில்
   Pop $OfficialSite 
   ExecShell "open" "$Homepage"
 FunctionEnd
 
-Function DownloadIt ; பதிவிறக்க இணைப்பு அமை
+Function இதைபதிவிறக்கு ; பதிவிறக்க இணைப்பு அமை
   ${NSD_GetState} $DownloadISO $DownloadMe
   ${If} $DownloadMe == ${BST_CHECKED}
   ${NSD_Check} $DownloadISO
@@ -460,7 +460,7 @@ Function DownloadIt ; பதிவிறக்க இணைப்பு அம�
   ${EndIf}  
 FunctionEnd
 
-Function EnableNext ; Enable Install Button
+Function அடுத்துஇயக்கு ; Enable Install Button
   ${If} $Blocksize >= 4 
   ${AndIf} $Removal != "Yes"
   ShowWindow $Format 1 
@@ -542,13 +542,13 @@ Function EnableNext ; Enable Install Button
 FunctionEnd
 
 Function பதிவிறக்கஇணைப்புகள்
-MessageBox MB_YESNO|MB_ICONQUESTION "பதிவிறக்க இணைப்பைத் தொடங்கவா?$\r$\nபடி 2 க்குச் செல்வதற்கு முன் பதிவிறக்கம் முடிக்கட்டும்." IDYES DownloadIt IDNO Skip
+MessageBox MB_YESNO|MB_ICONQUESTION "பதிவிறக்க இணைப்பைத் தொடங்கவா?$\r$\nபடி 2 க்குச் செல்வதற்கு முன் பதிவிறக்கம் முடிக்கட்டும்." IDYES இதைபதிவிறக்கு IDNO Skip
   Skip: ; Reset Download Checkbox Options 
   ${NSD_Uncheck} $DownloadISO 
   ${NSD_SetText} $DownloadISO "பதிவிறக்க இணைப்பு"  
   EnableWindow $DownloadISO 1
   Goto end
-  DownloadIt:
+  இதைபதிவிறக்கு:
   ${NSD_SetText} $LabelISOSelection "படி 3: பதிவிறக்கம் முடிந்ததும், உலாவி ஐஎஸ்ஓவைத் தேர்ந்தெடுக்கவும்."  
   EnableWindow $DownloadISO 0
   ExecShell "open" "$DownLink"    
@@ -650,7 +650,7 @@ Function விநியோகதேர்வில்
   ${NSD_SetText} $ISOFileTxt $ISOFile 
   ${NSD_SetText} $LabelISOSelection "படி 3 முடிந்தது: $ISOFileName கண்டுபிடிக்கப்பட்டு தேர்ந்தெடுக்கப்பட்டது! "  
   StrCpy $ISOTest "$TheISO" ; Populate ISOTest so we can enable Next    
-  Call EnableNext  
+  Call அடுத்துஇயக்கு  
   
  ${ElseIf} ${FileExists} "$EXEDIR\$ISOFileName"
  ${AndIf} $Removal != "Yes"
@@ -662,10 +662,10 @@ Function விநியோகதேர்வில்
   SetCtlColors $ISOFileTxt FF9B00 FFFFFF  
   ${NSD_SetText} $ISOFileTxt "உலாவி $ISOFileName தேர்ந்தெடுக்கவும்" 
   ${NSD_SetText} $LabelISOSelection "படி 3 நிலுவையில்:$ISOFile கோப்பிற்கு உலாவுக"    
-  Call EnableNext  
+  Call அடுத்துஇயக்கு  
   
  ${Else}
-  Call EnableNext
+  Call அடுத்துஇயக்கு
   EnableWindow $DownloadISO 1
   EnableWindow $ISOSelection 1
   ${NSD_Uncheck} $DownloadISO  
@@ -715,7 +715,7 @@ Function உதநிஉலாவு
  MessageBox MB_OK "$JustISOName is already on $DestDisk$\r$\nPlease Remove it first!"
  ${Else}
  ${EndIf}
- Call EnableNext
+ Call அடுத்துஇயக்கு
  ; Uncomment for Testing --> MessageBox MB_ICONQUESTION|MB_OK 'Removal: "$Removal"  ISOFileName: "$ISOFileName" ISOFile "$ISOFile" BDir: "$BDir" DestDisk: "$DestDisk" DestDrive: "$DestDrive" ISOTest: "$ISOTest"'
  FunctionEnd
 
@@ -807,7 +807,7 @@ Function இயக்கிதேர்வில்
   Call இடத்தைஅமை
   Call இடத்தைசரிபார்
   Call இதைவடிவமை  
-  Call EnableNext
+  Call அடுத்துஇயக்கு
   ${NSD_SetText} $LabelDrivePage "படி 1: மின்வெட்டொளி $DestDisk (தட்டு $DiskNum) தேர்ந்தெடுத்துள்ளீர்கள்"   
 FunctionEnd
 

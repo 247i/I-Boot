@@ -1,4 +1,7 @@
-﻿லினக்சுஉட்கரு_கண்டுபிடி -Find VMlinuz
+﻿உலகளாவியதொடர்பேருந்து Universalserialbus
+உதொபே USB
+அடிக்கடி கேட்கப்படும் கேள்விகள் FAQ
+லினக்சுஉட்கரு_கண்டுபிடி -Find VMlinuz
 ஆரம்ப சீரற்ற அணுகல் நினைவக வட்டு - Initial Random Access memory Disk (initRD)
 ஆரம்பசீவ_கண்டுபிடி - InitRD_Find
 கோப்பு முறைமை - Filesystem (FS) 
@@ -64,3 +67,12 @@
 விநியோகதேர்வில் OnSelectDistro
 பெயரைமட்டும்பெறு GrabNameOnly
 பதிவிறக்கஇணைப்புகள் DownloadLinks
+அடுத்துஇயக்கு EnableNext
+இதைபதிவிறக்கு DownloadIt
+லினக்சுதளசொடுக்த்தில் onClickLinuxSite
+என்உதொபேதளசொடுக்த்தில் onClickMyLinkUSB
+அகேகேதளசொடுக்த்தில் onClickMyLinkFAQ
+என்தளசொடுக்த்தில் onClickMyLink
+முடித்தல்_முன்செயல்பாடு Finish_PreFunction
+நிறுவும்கோப்புகள்_முன்செயல்பாடு InstFiles_PreFunction
+தேர்வுகள்பக்கம் SelectionsPage
