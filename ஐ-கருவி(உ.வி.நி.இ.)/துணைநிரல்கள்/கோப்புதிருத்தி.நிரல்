@@ -30,7 +30,7 @@ FunctionEnd
 !define கோப்பில்எழுது "!insertmacro கோப்பில்எழுது"
 
 
-Function கணினிகோப்பில்எழுது ; Write entry to syslinux.cfg
+Function கணினிகோப்பில்எழுது ; Write entry to கணிலினக்சு.உலகு
  Exch $R0 ;file to write to
  Exch
  Exch $1 ;text to write

@@ -1,0 +1,51 @@
+﻿
+Function கணிலினக்சுசெய் ; Install Syslinux on USB
+  ${IfNot} ${FileExists} "$BDir\boot\libcom32.c32" 
+  ${AndIf} ${FileExists} "$BDir\boot\ldlinux.sys"   
+  MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinuxOLD)
+  Quit
+  ${EndIf}
+  
+  ;IfFileExists "$BDir\boot\libcom32.c32" SkipSyslinux CreateSyslinux ; checking for newer syslinux
+  IfFileExists "$BDir\boot\01\ldlinux.sys" SkipSyslinux CreateSyslinux ; checking for syslinux
+  CreateSyslinux:
+  CreateDirectory $BDir\boot\01 ; recursively create the directory structure if it doesn't exist
+  ;CreateDirectory $BDir\boot\ISOS ; create ISOS folder  
+  DetailPrint $(ExecuteSyslinux)
+  ExecWait '$PLUGINSDIR\கணிலினக்சு.exe -maf -d /boot/01 $BDir' $R8
+  DetailPrint "கணிலினக்சு பிழைகள் $R8"
+  Banner::destroy
+  ${If} $R8 != 0
+  MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinux)
+  ${EndIf} 
+  DetailPrint "$DestDisk மேல் TA சிட்டை உருவாக்குகிறது"
+  nsExec::ExecToLog '"cmd" /c "LABEL $DestDiskTA"'
+  
+  SkipSyslinux: 
+  DetailPrint $(SkipSyslinux)
+  
+  ${If} ${FileExists} $BDir\boot\01\syslinux.cfg   
+  ${AndIf} ${FileExists} $BDir\boot\01\memdisk
+   DetailPrint "முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது."
+   ; Call AddDir
+  ${Else}
+; Create and Copy files to your destination
+  DetailPrint "தேவையான கோப்புகள் $BDir\boot\01 இதற்கு சேர்கப்பட்டன..." 
+  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BDir\அகர\பகவன்\உரிமை.உரை"
+  
+; Copy these files to 00\01
+  DetailPrint "தேவையான கோப்புகள் $BDir\boot\01 directory இதற்கு சேர்கப்பட்டன..." 
+  CopyFiles "$PLUGINSDIR\கணிலினக்சு.உலகு" "$BDir\boot\01\syslinux.cfg"  
+  CopyFiles "$PLUGINSDIR\நினைவுவட்டு" "$BDir\boot\01\memdisk"      
+  ${EndIf}  
+
+; அகர\பகவன் அடைவு மற்றும் கோப்புகள் இருப்பதை உறுதிப்படுத்தவும்.  
+  ${If} ${FileExists} $BDir\அகர\பகவன்\BOOTX64.EFI 
+  ${AndIf} ${FileExists} $BDir\அகர\பகவன்\முதற்றே.உலகு
+  
+  ${Else}  
+; அகர முதல கோப்புகளை நகலெடுக்கிறது 
+  DetailPrint "அகர முதல கோப்புகளை நகலெடுக்க தொடர்கிறது..."
+  ExecWait '"$PLUGINSDIR\7zG.exe" x "$PLUGINSDIR\அகர.zip" -o"$BDir" -y' 
+  ${EndIf}   
+FunctionEnd
