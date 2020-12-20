@@ -1241,7 +1241,7 @@ StrCpy $R9 0 ; we start on page 0
  done:
  SetShellVarContext all
  InitPluginsDir   
-  File /oname=$PLUGINSDIR\கணிலினக்சு.exe "இருமங்கள்\கணிலினக்சு.exe"  
+  File /oname=$PLUGINSDIR\கணிலினக்சு.exe "இருமங்கள்\கணிலினக்சு6.04.exe"  
   File /oname=$PLUGINSDIR\கணிலினக்சு.உலகு "உரைகள்\கணிலினக்சு.உலகு"
   File /oname=$PLUGINSDIR\மந்தமான.உலகு "உரைகள்\மந்தமான.உலகு"   
   File /oname=$PLUGINSDIR\நோய்தடுப்பு.உலகு "உரைகள்\நோய்தடுப்பு.உலகு" 
