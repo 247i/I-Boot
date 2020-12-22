@@ -1,8 +1,7 @@
 ﻿Unicode True ; தமிழ் எழுத்து அதரவு 
-;!system சுருக்கு.bat
-!execute 'துணைநிரல்கள்\சுருக்கு.bat'
-;!execute '"$%WINDIR%\notepad.exe" /P "${NSISDIR}\COPYING"'
 
+;!execute 'இருமங்கள்\அகர.bat' ; zip if required.
+;!execute '"$%WINDIR%\notepad.exe" /P "${NSISDIR}\COPYING"' ; Enable this to debug previous line. 
 !define பெயர் "ஐ-கருவி(உ.வி.நி.இ.)"
 !define பதிப்பு "0.0.3.2"
 !define MUI_ICON "இருமங்கள்\வண்ணத்துப்பூச்சி.ico"
