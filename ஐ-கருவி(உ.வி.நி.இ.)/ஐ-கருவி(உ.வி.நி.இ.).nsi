@@ -1,4 +1,8 @@
 ﻿Unicode True ; தமிழ் எழுத்து அதரவு 
+;!system சுருக்கு.bat
+!execute 'துணைநிரல்கள்\சுருக்கு.bat'
+;!execute '"$%WINDIR%\notepad.exe" /P "${NSISDIR}\COPYING"'
+
 !define பெயர் "ஐ-கருவி(உ.வி.நி.இ.)"
 !define பதிப்பு "0.0.3.2"
 !define MUI_ICON "இருமங்கள்\வண்ணத்துப்பூச்சி.ico"
@@ -11,7 +15,7 @@ VIAddVersionKey FileDescription "ஐ-கருவி"
 VIAddVersionKey License "இலவசம்"
 
 Name "${பெயர்} ${பதிப்பு}"
-OutFile "${பெயர்}.exe"
+OutFile "${பெயர்}${பதிப்பு}.exe"
 RequestExecutionLevel admin ;highest
 SetCompressor LZMA
 CRCCheck On
@@ -118,7 +122,7 @@ Var PERCENT
 Var FSType
 Var DiskNum
 
-!include துணைநிரல்கள்\ஒற்றைகுறியீடுஉரை.நிரல்
+!include துணைநிரல்கள்\ஒருங்குறிஉரை.நிரல்
 !include துணைநிரல்கள்\கோப்பில்மாற்று.நிரல்
 !include துணைநிரல்கள்\துவக்கதட்டுஉரை.நிரல்
 
@@ -709,7 +713,7 @@ Function உதநிஉலாவு
  ${If} $JustISOName == "" 
  StrCpy $JustISOName "NULL" ; Set to NULL until something is selected
  ${EndIf}
- ${If} ${FileExists} "$BDir\boot\$JustISOName\*.*"
+ ${If} ${FileExists} "$BDir\!\$JustISOName\*.*"
  ${AndIf} $JustISOName != ""
  ${AndIf} $FormatMe != "Yes"
  MessageBox MB_OK "$JustISOName is already on $DestDisk$\r$\nPlease Remove it first!"
@@ -1038,23 +1042,22 @@ ${FileRecode} $3 "ToUTF16LE"
 FunctionEnd
 
 ; Custom Distros Installer - Uninstaller 
-!include துணைநிரல்கள்\விநியோகநிறுவல்.நிரல் ; #ADD NEW DISTRO#
+!include துணைநிரல்கள்\விநியோகநிறுவல்.நிரல் ; #ADD DISTRO#
 !include துணைநிரல்கள்\விநியோகநீக்கம்.நிரல் ; # REM DISTRO#
 
 Function கணிலினக்சுசெய் ; Install Syslinux on USB
-  ${IfNot} ${FileExists} "$BDir\boot\libcom32.c32" 
-  ${AndIf} ${FileExists} "$BDir\boot\ldlinux.sys"   
+  ${IfNot} ${FileExists} "$BDir\!\libcom32.c32" 
+  ${AndIf} ${FileExists} "$BDir\!\ldlinux.sys"   
   MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinuxOLD)
   Quit
   ${EndIf}
-  
-  ;IfFileExists "$BDir\boot\libcom32.c32" SkipSyslinux CreateSyslinux ; checking for newer syslinux
-  IfFileExists "$BDir\boot\01\ldlinux.sys" SkipSyslinux CreateSyslinux ; checking for syslinux
-  CreateSyslinux:
-  CreateDirectory $BDir\boot\01 ; recursively create the directory structure if it doesn't exist
-  ;CreateDirectory $BDir\boot\ISOS ; create ISOS folder  
+
+  IfFileExists "$BDir\!\ldlinux.sys" SkipSyslinux CreateSyslinux ; checking for syslinux
+CreateSyslinux:
+  CreateDirectory $BDir\!\01 ; recursively create the directory structure if it doesn't exist
+  ;CreateDirectory $BDir\!\ISOS ; create ISOS folder  
   DetailPrint $(ExecuteSyslinux)
-  ExecWait '$PLUGINSDIR\கணிலினக்சு.exe -maf -d /boot/01 $BDir' $R8
+  ExecWait '$PLUGINSDIR\கணிலினக்சு.exe -maf -d /!/01 $BDir' $R8
   DetailPrint "கணிலினக்சு பிழைகள் $R8"
   Banner::destroy
   ${If} $R8 != 0
@@ -1062,29 +1065,26 @@ Function கணிலினக்சுசெய் ; Install Syslinux on USB
   ${EndIf} 
   DetailPrint "$DestDisk மேல் TA சிட்டை உருவாக்குகிறது"
   nsExec::ExecToLog '"cmd" /c "LABEL $DestDiskTA"'
-  
-  SkipSyslinux: 
+
+SkipSyslinux: 
   DetailPrint $(SkipSyslinux)
-  
-  ${If} ${FileExists} $BDir\boot\01\syslinux.cfg   
-  ${AndIf} ${FileExists} $BDir\boot\01\memdisk
+
+  ${If} ${FileExists} $BDir\!\01\syslinux.cfg   
+  ${AndIf} ${FileExists} $BDir\!\01\memdisk
    DetailPrint "முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது."
-   ; Call AddDir
   ${Else}
-; Create and Copy files to your destination
-  DetailPrint "தேவையான கோப்புகள் $BDir\boot\01 இதற்கு சேர்கப்பட்டன..." 
+  DetailPrint "தேவையான கோப்புகள் $BDir\!\01 இதற்கு சேர்கப்பட்டன..." 
+  CopyFiles "$PLUGINSDIR\கணிலினக்சு.உலகு" "$BDir\!\01\syslinux.cfg"  
+  CopyFiles "$PLUGINSDIR\நினைவுவட்டு" "$BDir\!\01\memdisk"
+  DetailPrint "தேவையான கோப்புகள் $BDir\அகர\பகவன் இதற்கு சேர்கப்பட்டன..." 
   CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BDir\அகர\பகவன்\உரிமை.உரை"
-  
-; Copy these files to 00\01
-  DetailPrint "தேவையான கோப்புகள் $BDir\boot\01 directory இதற்கு சேர்கப்பட்டன..." 
-  CopyFiles "$PLUGINSDIR\கணிலினக்சு.உலகு" "$BDir\boot\01\syslinux.cfg"  
-  CopyFiles "$PLUGINSDIR\நினைவுவட்டு" "$BDir\boot\01\memdisk"      
+
   ${EndIf}  
 
 ; அகர\பகவன் அடைவு மற்றும் கோப்புகள் இருப்பதை உறுதிப்படுத்தவும்.  
   ${If} ${FileExists} $BDir\அகர\பகவன்\BOOTX64.EFI 
   ${AndIf} ${FileExists} $BDir\அகர\பகவன்\முதற்றே.உலகு
-  
+
   ${Else}  
 ; அகர முதல கோப்புகளை நகலெடுக்கிறது 
   DetailPrint "அகர முதல கோப்புகளை நகலெடுக்க தொடர்கிறது..."
@@ -1119,7 +1119,7 @@ Pop $NameThatISO
  Quit
  ${ElseIf} $FormatMe != "Yes" 
 								
- ${AndIfNot} ${FileExists} $BDir\boot\01\syslinux.cfg
+ ${AndIfNot} ${FileExists} $BDir\!\01\syslinux.cfg
  MessageBox MB_YESNO|MB_ICONEXCLAMATION "${பெயர்} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1. ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n2.$DestDisk இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n3. ($DestDisk)இல் ($DistroName)வை நிறுவு$\r$\n$\r$\nசரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
  Quit
  ${EndIf}
@@ -1148,21 +1148,21 @@ removeonly:
 SectionEnd
 
 Function கட்டமைப்புநீக்க ; Find and Set Removal Configuration file
-  ${If} ${FileExists} "$BDir\boot\$DistroName\I\லினக்சு.உலகு"
+  ${If} ${FileExists} "$BDir\!\$DistroName\I\லினக்சு.உலகு"
   StrCpy $Config2Use "லினக்சு.உலகு"
-  ${ElseIf} ${FileExists} "$BDir\boot\$DistroName\I\உலாவி.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\I\உலாவி.உலகு"
   StrCpy $Config2Use "உலாவி.உலகு"  
-  ${ElseIf} ${FileExists} "$BDir\boot\$DistroName\I\கருவிகள்.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\I\கருவிகள்.உலகு"
   StrCpy $Config2Use "கருவிகள்.உலகு"
-  ${ElseIf} ${FileExists} "$BDir\boot\$DistroName\I\நோய்தடுப்பு.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\I\நோய்தடுப்பு.உலகு"
   StrCpy $Config2Use "நோய்தடுப்பு.உலகு"
-  ${ElseIf} ${FileExists} "$BDir\boot\$DistroName\I\இணையபுத்தகம்.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\I\இணையபுத்தகம்.உலகு"
   StrCpy $Config2Use "இணையபுத்தகம்.உலகு"
-  ${ElseIf} ${FileExists} "$BDir\boot\$DistroName\I\மற்ற.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\I\மற்ற.உலகு"
   StrCpy $Config2Use "மற்ற.உலகு"
-  ${ElseIf} ${FileExists} "$BDir\boot\$DistroName\I\பட்டியலிடாத.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\I\பட்டியலிடாத.உலகு"
   StrCpy $Config2Use "பட்டியலிடாத.உலகு"  
-;  ${ElseIf} ${FileExists} "$BDir\boot\$DistroName\I\menu.lst"
+;  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\I\menu.lst"
 ;  StrCpy $Config2Use "menu.lst"
   ${EndIf}
  MessageBox MB_OK "$Config2Use"
@@ -1184,7 +1184,7 @@ Function கட்டமைப்புஎழுது
  ${ElseIf} $Config2Use == "பட்டியலிடாத.உலகு"
   ${கணினிகோப்பில்எழுது} "menuentry $\">மற$\"{configfile /அகர/பகவன்/பட்டியலிடாத.உலகு}" $R0  
 ; ${ElseIf} $Config2Use == "menu.lst"
-;  ${கணினிகோப்பில்எழுது} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /boot/grub.exe$\r$\nAPPEND --config-file=/அகர/பகவன்/menu.lst" $R0 
+;  ${கணினிகோப்பில்எழுது} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/அகர/பகவன்/menu.lst" $R0 
  ${EndIf} 
 ;always write data to அகர.உலகு not required
  
@@ -1230,8 +1230,7 @@ FunctionEnd
 
 ; --- Stuff to do at startup of script ---
 Function .onInit
-StrCpy $R9 0 ; we start on page 0
-;StrCpy $InstallButton ""
+StrCpy $R9 2 ; உரிமை உரை தவிர், பக்கம் 2க்கு செல்
  StrCpy $FileFormat "ISO"
  userInfo::getAccountType
  Pop $Auth
@@ -1254,9 +1253,8 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\7zG.exe "இருமங்கள்\7zG.exe"
   File /oname=$PLUGINSDIR\7z.dll "இருமங்கள்\7z.dll"  
   File /oname=$PLUGINSDIR\உரிமை.உரை "உரைகள்\உரிமை.உரை" 
-  File /oname=$PLUGINSDIR\நினைவுவட்டு "இருமங்கள்\நினைவுவட்டு"  
-  File /oname=$PLUGINSDIR\அகர.zip "அகர.zip"   
-; File /oname=$PLUGINSDIR\அகர.உலகு "உரைகள்\அகர.உலகு"
+  File /oname=$PLUGINSDIR\நினைவுவட்டு "இருமங்கள்\நினைவுவட்டு"
+  File /oname=$PLUGINSDIR\அகர.zip "இருமங்கள்\அகர.zip"   
 ; File /oname=$PLUGINSDIR\மற்ற.உலகு "உரைகள்\மற்ற.உலகு"   
 ; File /oname=$PLUGINSDIR\mbrid "இருமங்கள்\முதன்மைதுவக்கபதிவெண்"  
 FunctionEnd

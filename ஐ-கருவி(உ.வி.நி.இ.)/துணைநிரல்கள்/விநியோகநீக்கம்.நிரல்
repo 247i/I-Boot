@@ -8,9 +8,9 @@
   ${LineFind} "$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை" "$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை" "1:-1" "நிறுவலைநீக்கு" ; நிறுவப்பட்ட உள்ளீட்டை அகற்று
   ${LineFind} "$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை" "$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை" "1:-1" "வெற்றுவரியைநீக்கு" ; வெற்று வரிகளில் எஞ்சியவற்றை அகற்று
   ${LineFind} "$BDir\அகர\பகவன்\$Config2Use" "$BDir\அகர\பகவன்\$Config2Use" "1:-1" "வெற்றுவரியைநீக்கு" ; வெற்று வரிகளில் எஞ்சியவற்றை அகற்று
-  RMDir /R "$BDir\boot\$DistroName"
-   ${AndIf} ${FileExists} "$BDir\boot\ISOS\$DistroName.iso"   
-   Delete "$BDir\boot\ISOS\$DistroName.iso" 
+  RMDir /R "$BDir\!\$DistroName"
+   ${AndIf} ${FileExists} "$BDir\!\ISOS\$DistroName.iso"   
+   Delete "$BDir\!\ISOS\$DistroName.iso" 
  ${EndIf}
  DetailPrint "$DistroName மற்றும் அதன் மெனு நுழைவு அகற்றப்பட்டது!" 
 !macroend

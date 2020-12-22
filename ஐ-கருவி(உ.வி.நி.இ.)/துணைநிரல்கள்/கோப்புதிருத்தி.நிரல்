@@ -56,14 +56,11 @@ FunctionEnd
 !define கணினிகோப்பில்எழுது "!insertmacro கணினிகோப்பில்எழுது"
 
 Function நிறுவப்பட்டபட்டியல் ; Creates a list of installed distros in the அகர\பகவன் folder on the USB drive (So we can uninstall the distros later)
- ${IfNot} ${FileExists} "$BDir\boot\$JustISOName\*.*" ; If the installation directory exists user must be reinstalling the same distro, so we won't add a removal entry. 
+ ${IfNot} ${FileExists} "$BDir\!\$JustISOName\*.*" ; If the installation directory exists user must be reinstalling the same distro, so we won't add a removal entry. 
    Exch $R0 ;file to write to
    Exch
    Exch $1 ;text to write
    ${If} ${FileExists} "$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை" 
-;wrapper before write. Assumption UTF-8 file. 
-;${FileRecode} $BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை "ToUTF16LE"
-;Convert file from UTF-8 to UTF16LE
     FileOpen $R0 '$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை' a 
     FileSeek $R0 0 END
 	FileWriteUTF16LE $R0 '$\r$\n$1' ; add subsequent entry on a new line
@@ -73,9 +70,6 @@ Function நிறுவப்பட்டபட்டியல் ; Creates a l
 	FileWriteUTF16LE /BOM $R0 '$1'  ; add first entry without a new line
    ${EndIf}
     FileClose $R0
-; Convert file back to UTF-8
-;${FileRecode} "$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை" "ToUTF8"
-; Convert file UTF16LE to UTF-8
 
     Pop $1
     Pop $R0
@@ -126,9 +120,6 @@ Function அகற்றும்பட்டியல் ; Lists the distros in
  ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskஇலிருந்து அகற்ற தேர்வு"  
  ${If} ${FileExists} "$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை" ; Are there distributions on the select drive? 
  ClearErrors
- ;wrapper before write. Assumption UTF-8 file. 
-;${FileRecode} $BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை "ToUTF16LE"
-;Convert file from UTF-8 to UTF16LE
  FileOpen $0 $BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை r
   loop:
    FileReadUTF16LE $0 $1
@@ -139,9 +130,6 @@ Function அகற்றும்பட்டியல் ; Lists the distros in
    Goto loop
   done:  
  FileClose $0
- ; Convert file back to UTF-8
-;${FileRecode} $BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை "ToUTF8"
-; Convert file UTF16LE to UTF-8
 
  ${Else}
      ;Call ஐஎஸ்ஓகோப்புபெயர்அமை
