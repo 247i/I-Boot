@@ -1,5 +1,4 @@
 ﻿Unicode True ; தமிழ் எழுத்து அதரவு 
-
 ;!execute 'இருமங்கள்\அகர.bat' ; zip if required.
 ;!execute '"$%WINDIR%\notepad.exe" /P "${NSISDIR}\COPYING"' ; Enable this to debug previous line. 
 !define பெயர் "ஐ-கருவி(உ.வி.நி.இ.)"
