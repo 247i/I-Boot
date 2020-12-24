@@ -1052,10 +1052,10 @@ Function கணிலினக்சுசெய் ; Install Syslinux on USB
 
   IfFileExists "$BDir\!\ldlinux.sys" SkipSyslinux CreateSyslinux ; checking for syslinux
 CreateSyslinux:
-  CreateDirectory $BDir\!\01 ; recursively create the directory structure if it doesn't exist
+  CreateDirectory $BDir\!\% ; recursively create the directory structure if it doesn't exist
   ;CreateDirectory $BDir\!\ISOS ; create ISOS folder  
   DetailPrint $(ExecuteSyslinux)
-  ExecWait '$PLUGINSDIR\கணிலினக்சு.exe -maf -d /!/01 $BDir' $R8
+  ExecWait '$PLUGINSDIR\கணிலினக்சு.exe -maf -d /!/% $BDir' $R8
   DetailPrint "கணிலினக்சு பிழைகள் $R8"
   Banner::destroy
   ${If} $R8 != 0
@@ -1067,13 +1067,13 @@ CreateSyslinux:
 SkipSyslinux: 
   DetailPrint $(SkipSyslinux)
 
-  ${If} ${FileExists} $BDir\!\01\syslinux.cfg   
-  ${AndIf} ${FileExists} $BDir\!\01\memdisk
+  ${If} ${FileExists} $BDir\!\%\syslinux.cfg   
+  ${AndIf} ${FileExists} $BDir\!\%\memdisk
    DetailPrint "முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது."
   ${Else}
-  DetailPrint "தேவையான கோப்புகள் $BDir\!\01 இதற்கு சேர்கப்பட்டன..." 
-  CopyFiles "$PLUGINSDIR\கணிலினக்சு.உலகு" "$BDir\!\01\syslinux.cfg"  
-  CopyFiles "$PLUGINSDIR\நினைவுவட்டு" "$BDir\!\01\memdisk"
+  DetailPrint "தேவையான கோப்புகள் $BDir\!\% இதற்கு சேர்கப்பட்டன..." 
+  CopyFiles "$PLUGINSDIR\கணிலினக்சு.உலகு" "$BDir\!\%\syslinux.cfg"  
+  CopyFiles "$PLUGINSDIR\நினைவுவட்டு" "$BDir\!\%\memdisk"
   DetailPrint "தேவையான கோப்புகள் $BDir\அகர\பகவன் இதற்கு சேர்கப்பட்டன..." 
   CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BDir\அகர\பகவன்\உரிமை.உரை"
 
@@ -1117,16 +1117,16 @@ Pop $NameThatISO
  Quit
  ${ElseIf} $FormatMe != "Yes" 
 								
- ${AndIfNot} ${FileExists} $BDir\!\01\syslinux.cfg
+ ${AndIfNot} ${FileExists} $BDir\!\%\syslinux.cfg
  MessageBox MB_YESNO|MB_ICONEXCLAMATION "${பெயர்} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1. ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n2.$DestDisk இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n3. ($DestDisk)இல் ($DistroName)வை நிறுவு$\r$\n$\r$\nசரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
  Quit
  ${EndIf}
 
 proceed: 
  ${IfThen} $Removal == "Yes" ${|} Goto removeonly ${|}
- Call இடமிருக்கு ; Got enough Space? Lets Check!
- Call ஆம்வடிவமை ; Format the Drive?
- Call கணிலினக்சுசெய் ; Run Syslinux on the Drive to make it bootable
+ Call இடமிருக்கு ; போதுமான இடம் கிடைத்ததா? சரிபார்க்கலாம்!
+ Call ஆம்வடிவமை ; இயக்ககத்தை வடிவமைக்கவா?
+ Call கணிலினக்சுசெய் ; துவக்கக்கூடியதாக மாற்ற இயக்ககத்தில் கணிலினக்சை இயக்கவும்
  Call உள்உதநிகண்டறியப்பட்டது
  
 ; Copy the config file if it doesn't exist and create the entry in கணிலினக்சு.உலகு 
@@ -1182,9 +1182,8 @@ Function கட்டமைப்புஎழுது
  ${ElseIf} $Config2Use == "பட்டியலிடாத.உலகு"
   ${கணினிகோப்பில்எழுது} "menuentry $\">மற$\"{configfile /அகர/பகவன்/பட்டியலிடாத.உலகு}" $R0  
 ; ${ElseIf} $Config2Use == "menu.lst"
-;  ${கணினிகோப்பில்எழுது} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/அகர/பகவன்/menu.lst" $R0 
+ ;${கணினிகோப்பில்எழுது} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/அகர/பகவன்/menu.lst" $R0 
  ${EndIf} 
-;always write data to அகர.உலகு not required
  
 FunctionEnd
 
@@ -1228,7 +1227,7 @@ FunctionEnd
 
 ; --- Stuff to do at startup of script ---
 Function .onInit
-StrCpy $R9 2 ; உரிமை உரை தவிர், பக்கம் 2க்கு செல்
+StrCpy $R9 0 ; உரிமை உரை தவிர், பக்கம் 0க்கு செல்
  StrCpy $FileFormat "ISO"
  userInfo::getAccountType
  Pop $Auth
@@ -1278,7 +1277,7 @@ Function ஆரம்பசீவ_கண்டுபிடி
 ; FindFirst $0 $1 "$FindInitPath"
  loop:
   StrCmp $1 "" done
-  ;DetailPrint Found $1
+  ;DetailPrint கண்டறியப்பட்டது $1
   StrCpy $Initrd $1 
   FindNext $0 $1
   Goto loop
@@ -1290,7 +1289,7 @@ Function ஆரம்பசீவ_கண்டுபிடி
 ; FindFirst $0 $1 "$FindVmlinuzPath"
  loop:
   StrCmp $1 "" done
-  ;DetailPrint Found $1
+  ;DetailPrint கண்டறியப்பட்டது $1
   StrCpy $Vmlinuz $1 
   FindNext $0 $1
   Goto loop

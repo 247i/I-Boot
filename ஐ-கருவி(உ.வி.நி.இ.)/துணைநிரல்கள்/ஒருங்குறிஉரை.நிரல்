@@ -1,31 +1,18 @@
-/*
-_____________________________________________________________________________
-
+﻿/*
                        Text Functions Header v2.5
-_____________________________________________________________________________
-
- 2006 Shengalts Aleksander aka Instructor (Shengalts@mail.ru)
-
- See documentation for more information about the following functions.
-
  Usage in script:
  1. !include "TextFunc.nsh"
  2. [Section|Function]
       ${TextFunction} "File" "..."  $var
     [SectionEnd|FunctionEnd]
 
-
  TextFunction=[LineFind|LineRead|FileReadFromEnd|LineSum|FileJoin|
                TextCompare|TextCompareS|ConfigRead|ConfigReadS|
                ConfigWrite|ConfigWriteS|FileRecode|TrimNewLines]
-
-
 */
 ;_____________________________________________________________________________
-;
 ;                                   Macros
-;_____________________________________________________________________________
-;
+;____________________________________________________________________________
 ; Change log window verbosity (default: 3=no script)
 ;
 ; Example:

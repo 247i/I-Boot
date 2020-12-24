@@ -56,8 +56,7 @@ Function கட்டமைப்பைக்கண்டறி ; கட்ட�
   ${ElseIf} ${FileExists} "$BDir\!\$JustISOName\slax\boot\syslinux.cfg"  ; Slax based 
   StrCpy $ConfigPath "slax/boot"
   StrCpy $CopyPath "slax\boot"
-  StrCpy $ConfigFile "syslinux.cfg"    
-
+  StrCpy $ConfigFile "syslinux.cfg" 
   ${ElseIf} ${FileExists} "$BDir\!\$JustISOName\boot\syslinux\syslinux.cfg"     
   StrCpy $ConfigPath "boot/syslinux"
   StrCpy $CopyPath "boot\syslinux"
@@ -92,7 +91,7 @@ Function மாதுஏகட்டமைப்பைக்கண்டறி ;
   StrCpy $GrubCopyPath "boot\grub"
   StrCpy $GrubConfigFile "grub.cfg"   
   ${ElseIf} ${FileExists} "$BDir\!\$JustISOName\boot\grub\grub*.cfg" ; System Rescue CD...
-  ${locate} "$BDir\!\$JustISOName\boot\grub" "/L=F /M=*.cfg" "மாதுஏகட்டமைப்புகிடைத்தது" ; Could eventually replace this whole section using locate.
+  ${locate} "$BDir\!\$JustISOName\boot\grub" "/L=F /M=*.cfg" "மாதுஏகட்டமைப்புகிடைத்தது" ; இருப்பிடத்தைப் பயன்படுத்தி மாற்ற முடியும்..
   StrCpy $GrubConfigPath "boot/grub"
   StrCpy $GrubCopyPath "boot\grub"
   StrCpy $GrubConfigFile "grubsys.cfg"   
@@ -125,19 +124,19 @@ Function மாதுஏகட்டமைப்புகிடைத்தத�
 FunctionEnd
 
 Function பொருள்எழுதுங்கள்
- ; Now done before this function is called (see line 122) CreateDirectory "$BDir\!\$JustISOName\ஐ\" ; உருவாக்கு the ஐ Directory.. so we can copy the following config file to it.
- CopyFiles "$PLUGINSDIR\$Config2Use" "$BDir\!\$JustISOName\ஐ\$Config2Use" ; Copy the $Config2Use file to $JustISOName\ஐ folder for the distro (so we know where to remove entry) 
- DetailPrint "$DistroName ($JustISOName) and its menu entry were added!"
+ ; இந்த செயல்பாடு அழைக்கப்படுவதற்கு முன்பு "$BDir\!\$JustISOName\ஐ\" அடைவை உருவாக்குகிறது (122 வது வரியைப் பார்க்கவும்)  ; பின்வரும் அடைவு கோப்பை நகலெடுக்க, ஐ அடைவை உருவாக்கவும்.
+ CopyFiles "$PLUGINSDIR\$Config2Use" "$BDir\!\$JustISOName\ஐ\$Config2Use" ; விநியோகத்திற்கான $Config2Use கோப்பை $JustISOName\ஐ கோப்புறையில் நகலெடுக்கவும் (எனவே உள்ளீட்டை எங்கு அகற்றுவது என்பது தெரியும்) 
+ DetailPrint "$DistroName ($JustISOName)மற்றும் அதன் பட்டியல் நுழைவு சேர்க்கப்பட்டது!"
  	
 FunctionEnd
 
 !macro விநியோகநிறுவல் 
 
-; Initiate Plugins Directory for potential use
+; சாத்தியமான பயன்பாட்டிற்கான செருகுநிரல் கோப்பகத்தைத் தொடங்கவும்
   SetShellVarContext all
   InitPluginsDir
 
-; If distro is already installed, delete the entry, so we don't make a mess.
+; விநியோகம் ஏற்கனவே நிறுவப்பட்டிருந்தால், உள்ளீட்டை நீக்கு, எனவே நாங்கள் குழப்பம் செய்ய மாட்டோம்.
  ${If} ${FileExists} "$BDir\!\$JustISOName\*.*"
  ${பட்டிஉள்ளீட்டைநீக்கு} "$BDir\அகர\பகவன்\$Config2Use" "#[ $DistroName" "#] $DistroName" ; கட்டமைப்பு கோப்பிலிருந்து உள்ளீட்டை அகற்று... I.E. லினக்சு.உலகு, system.cfg, etc
  ${EndIf}
@@ -597,7 +596,7 @@ FunctionEnd
 ; FreeDOS (Balder img) 
  ${ElseIf} $DistroName == "FreeDOS (Balder img)"
  CopyFiles $ISOFile "$BDir\!\$JustISOName\$JustISO"
- ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux16 /!/01/memdisk$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd16 /!/$JustISOName/$JustISO$\r$\n}$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nlinux16 /!/%/memdisk$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\ninitrd16 /!/$JustISOName/$JustISO$\r$\n}$\r$\n#] $JustISOName" $R0  
  
  ; XPUD (New Method) 
  ${ElseIf} $DistroName == "xPUD (Netbook Distro)" 
@@ -686,7 +685,7 @@ FunctionEnd
  ${OrIf} $DistroName == "Hiren's Boot CD - BIOS ONLY" 
  ${OrIf} $DistroName == "Falcon 4 Boot CD - BIOS ONLY"  
  CopyFiles $ISOFile "$BDir\!\$JustISOName\$JustISO" 
- ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/!/$JustISOName/$JustISO$\"$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\nlinux16 /!/01/memdisk iso raw$\r$\ninitrd16 $$isofile$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
+ ${கோப்பில்எழுது} "#[ $JustISOName$\r$\nif [ $${grub_platform} == $\"pc$\" ]; then$\r$\nmenuentry $\"$JustISOName$\" {$\r$\nset gfxpayload=keep$\r$\nset isofile=$\"/!/$JustISOName/$JustISO$\"$\r$\necho $\"https://TamilNeram.github.io...$\"$\r$\nlinux16 /!/%/memdisk iso raw$\r$\ninitrd16 $$isofile$\r$\n}; fi$\r$\n#] $JustISOName" $R0  
 
  ${Else} ; Start Catch All Install Methods 
  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BDir\!\$JustISOName\" -y'  

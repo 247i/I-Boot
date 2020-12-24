@@ -2,5 +2,5 @@
 Default Tamil
 LABEL Tamil
 SAY Https://Tamilneram.github.IO...
-Linux /!/01/lnxboot.img
-INITRD /!/01/core.img
+Linux /!/%/lnxboot.img
+INITRD /!/%/core.img
