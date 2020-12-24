@@ -1,0 +1,32 @@
+This file outlines where to find the third party tools (tools authored by others) that are either used in UEFI YUMI or used to create it.
+The binarysources.zip file contains the sources for grub, Syslinux, 7zip, dd, and Fat32format. 
+It can be found at http://www.pendrivelinux.com/downloads/UEFI-YUMI/binarysources.zip
+
+NSIS (Nullsoft Scriptable Install System) was used to create YUMI
+Homepage: http://nsis.sourceforge.net/Main_Page
+Binary/Source: http://nsis.sourceforge.net/Download
+
+Binaries for Grub2 Filemamager can be compiled from source using Ubuntu
+
+Modified version of GRUB2
+Binary/Source: https://github.com/a1ive/grub
+
+Grub2 File Manager
+Binary/Source: https://github.com/a1ive/grub2-filemanager
+
+The included grubfm directory contains YUMI's custom variation. Use this in place of the /boot/grubfm folder that ships with grub2-filemanager to produce the same build.
+
+7z 7z.dll (7zip)
+Homepage: https://www.7-zip.org
+Binary: https://www.7-zip.org/a/7z1900-extra.7z
+Source: https://www.7-zip.org/a/7z1900-src.7z
+
+dd.exe (dd for Windows)
+Homepage: http://www.chrysocome.net/dd
+Binary: http://www.chrysocome.net/downloads/dd-0.6beta3.zip
+Source: http://www.chrysocome.net/downloads/dd-0.6beta3.src.zip
+
+mke2fs.exe (Mke2fs for Winnt/2k/xp)
+Authors Homepage: https://www.ext2fsd.com/
+Project: https://sourceforge.net/projects/ext2fsd/ (part of the Ext2Fsd Project)
+Binary/Source: https://sourceforge.net/projects/ext2fsd/files/Mke2fs/0.02/mke2fs-0.02.zip/download

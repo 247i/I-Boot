@@ -1,0 +1,54 @@
+clear
+
+#set prefix="(hd0,msdos2)/boot/grubfm"
+#export prefix
+
+#set root="(hd0,msdos1)"
+#export root
+
+#set local_dir="$prefix/local"
+#export local_dir
+
+#set color_normal=light-green/black
+#echo -n "YUMI - using GRUB2 File Manager "
+
+set pager=0
+
+# allow jump to item via a-z keys
+export grub_enable_menu_jump=1
+
+# if type 0 in MBR then clear the table entry
+set x=NONE
+hexdump -q -s 0x1e2 -n 1 (${bootdev})0+1 x
+if [ "$x" = "\x00" ] ; then partnew -t 0 -s 0 -l 0 (${bootdev}) 3; fi
+set x=NONE
+hexdump -q -s 0x1f2 -n 1 (${bootdev})0+1 x
+if [ "$x" = "\x00" ] ; then partnew -t 0 -s 0 -l 0 (${bootdev}) 4; fi
+unset x
+
+#run .cfg and some other files immediately
+grubfm_set --boot 1
+
+#hide non-bootable files
+grubfm_set --hide 1
+
+#sort files by name (1=do not sort)
+export grubfm_disable_qsort=0
+
+#set default title
+export grub_normal_menu_title="YUMI UEFI/BIOS [Grub ${grub_version}]"
+
+export theme_std=${prefix}/themes/slack/theme.txt;
+export theme_fm=${prefix}/themes/slack/fm.txt;
+export theme_help=${prefix}/themes/slack/help.txt;
+export theme_info=${prefix}/themes/slack/info.txt;
+export theme=${theme_std};
+
+# Comment out the line below if you do not want a timeout
+set timeout=1
+
+if [ -f (${user})/boot/grubfm/startup_menu.txt ] ; then 
+		configfile (${user})/boot/grubfm/startup_menu.txt
+		else 
+		configfile (${user})/boot/grubfm/startup_default.cfg
+fi
