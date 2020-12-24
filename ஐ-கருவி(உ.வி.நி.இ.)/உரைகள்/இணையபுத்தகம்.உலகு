@@ -6,7 +6,7 @@ insmod ntfs
 insmod ext2
 set timeout=8
 if loadfont /அகர/முதல/எழுத்தெல்லாம்.ஆதி ; then
-	set gfxmode=auto
+	set gfxmode=1280×720
 	insmod efi_gop
 	insmod efi_uga
 	insmod vbe
