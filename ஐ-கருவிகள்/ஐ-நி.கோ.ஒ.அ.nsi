@@ -14,7 +14,7 @@ VIAddVersionKey FileDescription "YUMI - Your Universal MultiBoot Integrator"
 VIAddVersionKey License "GPL Version 2"
 
 Name "${பெயர்} ${VERSION}"
-OutFile "${பெயர்}-${VERSION}.exe"
+OutFile "..\${பெயர்}-${VERSION}.exe"
 RequestExecutionLevel admin ;highest
 SetCompressor /SOLID lzma
 CRCCheck On
@@ -163,7 +163,7 @@ Page custom SelectionsPage
 !insertmacro MUI_LANGUAGE "English" ; first language is the default language
 LangString License_Subtitle ${LANG_ENGLISH} "Please review the license terms before proceeding"
 LangString License_Text_Top ${LANG_ENGLISH} "The software within this program falls under the following Licenses."
-LangString License_Text_Bottom ${LANG_ENGLISH} "You must accept the terms of this License agreement to run this ${NAME}. If you agree, Click I Agree to Continue."
+LangString License_Text_Bottom ${LANG_ENGLISH} "You must accept the terms of this License agreement to run this ${பெயர்}. If you agree, Click I Agree to Continue."
 LangString SelectDist_Title ${LANG_ENGLISH} "Drive Selection and Distro Options Page"
 LangString SelectDist_Subtitle ${LANG_ENGLISH} "Choose your Flash Drive, and a Distro, ISO/ZIP file.$\r$\nAdditional Distributions can be added each time this tool is run."
 LangString DrivePage_Text ${LANG_ENGLISH} "Step 1: Select your USB device."
@@ -180,16 +180,16 @@ LangString WarningSyslinux ${LANG_ENGLISH} "An error ($R8) occurred while execut
 LangString WarningSyslinuxOLD ${LANG_ENGLISH} "This YUMI revision uses a newer Syslinux version that is not compatible with earlier revisions.$\r$\nPlease ensure your USB drive doesn't contain earlier revision installs."
 LangString Install_Title ${LANG_ENGLISH} "$InUnStalling $InUnName"
 LangString Install_SubTitle ${LANG_ENGLISH} "Please wait while we $InUnStall $InUnName $OnFrom $JustDrive"
-LangString Install_Finish_Sucess ${LANG_ENGLISH} "${NAME} $InUnStalled $InUnName $OnFrom $JustDrive"
+LangString Install_Finish_Sucess ${LANG_ENGLISH} "${பெயர்} $InUnStalled $InUnName $OnFrom $JustDrive"
 LangString Finish_Install ${LANG_ENGLISH} "Process Complete."
-LangString Finish_Title ${LANG_ENGLISH} "Thanks for using ${NAME}"
+LangString Finish_Title ${LANG_ENGLISH} "Thanks for using ${பெயர்}"
 LangString Finish_Text ${LANG_ENGLISH} "Your Selections have been $InUnStalled on your USB drive.$\r$\n$\r$\nFeel Free to run this tool again to $InUnStall more Distros.$\r$\n$\r$\nYUMI will keep track of selections you have already $InUnStalled."
 LangString Finish_Link ${LANG_ENGLISH} "Visit the YUMI Home Page"
 
 !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\FileManipulation.nsh ; Text File Manipulation
 !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\FileNames.nsh ; Macro for FileNames
 !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\DistroList.nsh ; List of Distributions
-!include துணை\தொடரில்உள்ள.நிரல் ; Let's check if a * wildcard exists
+!include துணை\சரம்கொண்டுள்ளது.நிரல் ; Let's check if a * wildcard exists
 !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\CasperScript.nsh ; For creation of Persistent Casper-rw files
 
 Function License_PreFunction
@@ -654,7 +654,7 @@ Function GrabNameOnly
     Exch $0 ; output string
 FunctionEnd
 
-; !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\StrContains.nsh ; Let's check if a * wildcard exists
+; !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\சரம்கொண்டுள்ளது.nsh ; Let's check if a * wildcard exists
  
 ; On Selection of Linux Distro
 Function OnSelectDistro
@@ -696,7 +696,7 @@ Function OnSelectDistro
 ; Autodetect ISO's in same folder and select if they exist  
  ${If} ${FileExists} "$EXEDIR\$ISOFileName"
  ${AndIf} $Removal != "YES"
- ${StrContains} $WILD "*" "$ISOFileName" ; Check for Wildcard and force Browse if * exists.
+ ${சரம்கொண்டுள்ளது} $WILD "*" "$ISOFileName" ; Check for Wildcard and force Browse if * exists.
  ${AndIf} $WILD != "*"  
   StrCpy $TheISO "$EXEDIR\$ISOFileName"
   StrCpy $ISOFile "$TheISO"  
@@ -928,7 +928,7 @@ Function DrivesList
  ${If} $9 != "$7" 
  ${AndIf} $Capacity != ""
  SendMessage $DestDriveTxt ${CB_ADDSTRING} 0 "STR:$9 (Disk $DiskNum) $VolName $Capacity $FSType" ;$8
-   ${StrContains} $BOOT "TEMPYUMI" "$VolName" ; does the string contain the TEMPYUMI Label? - This label is only set during initial 2nd partition creation.
+   ${சரம்கொண்டுள்ளது} $BOOT "TEMPYUMI" "$VolName" ; does the string contain the TEMPYUMI Label? - This label is only set during initial 2nd partition creation.
    ${If} $BOOT == "TEMPYUMI" ; if so do something
    StrCpy $BOOT_LETTER "$9" -1 ; copy the Drive Letter for later use in locating and writing to the BOOT partition
    StrCpy $BOOT_DISK "$DiskNum" ; copy the Disk Number for later use in locating the right BOOT partition
@@ -949,9 +949,9 @@ Var /Global DiskYum
  StrCpy $7 $WINDIR 3
  ${If} $9 != "$7" 
  ${AndIf} $Capacity != ""
-   ${StrContains} $YUMIDR "YUMI" "$VolName" ; does the string contain the YUMI Label?
+   ${சரம்கொண்டுள்ளது} $YUMIDR "YUMI" "$VolName" ; does the string contain the YUMI Label?
    ${If} $YUMIDR == "YUMI" ; if so add string
-   ${StrContains} $DiskYum "$INST_DISK" "$DiskNum" ; does the string contain the right Disk Number?
+   ${சரம்கொண்டுள்ளது} $DiskYum "$INST_DISK" "$DiskNum" ; does the string contain the right Disk Number?
    ${AndIf} $DiskYum == "$INST_DISK" ; if so add string
     SendMessage $DestDriveTxt ${CB_ADDSTRING} 0 "STR:$9 (Disk $DiskNum) $VolName $Capacity $FSType" ;$8
 	; MessageBox MB_ICONSTOP|MB_OK "$9 - (Disk $DiskNum) - $VolName - $Capacity - $FSType ||||$BOOT - (Disk $BOOT_DISK)||||"
@@ -994,14 +994,14 @@ FunctionEnd
 Function FormatYES ; If Format is checked, do something
   SetShellVarContext all
   InitPluginsDir
-  File /oname=$PLUGINSDIR\diskpartwipe1.txt "tools\diskpartwipe1.txt"  
-  File /oname=$PLUGINSDIR\diskpartwipe2.txt "tools\diskpartwipe2.txt" 
-  File /oname=$PLUGINSDIR\unassign.txt "tools\unassign.txt"     
+  File /oname=$PLUGINSDIR\diskpartwipe1.txt "இருமங்கள்\நி\diskpartwipe1.txt"  
+  File /oname=$PLUGINSDIR\diskpartwipe2.txt "இருமங்கள்\நி\diskpartwipe2.txt" 
+  File /oname=$PLUGINSDIR\unassign.txt "இருமங்கள்\நி\unassign.txt"     
   
-  !insertmacro ReplaceInFile "DISKNUM" "$DiskNum" "all" "all" "$PLUGINSDIR\diskpartwipe1.txt"  
-  !insertmacro ReplaceInFile "DSK" "$DestDisk" "all" "all" "$PLUGINSDIR\diskpartwipe2.txt" 
-  !insertmacro ReplaceInFile "DISKNUM" "$DiskNum" "all" "all" "$PLUGINSDIR\diskpartwipe2.txt"   
-  !insertmacro ReplaceInFile "DISKNUM" "$DiskNum" "all" "all" "$PLUGINSDIR\unassign.txt"  
+  !insertmacro கோப்பில்மாற்று "DISKNUM" "$DiskNum" "all" "all" "$PLUGINSDIR\diskpartwipe1.txt"  
+  !insertmacro கோப்பில்மாற்று "DSK" "$DestDisk" "all" "all" "$PLUGINSDIR\diskpartwipe2.txt" 
+  !insertmacro கோப்பில்மாற்று "DISKNUM" "$DiskNum" "all" "all" "$PLUGINSDIR\diskpartwipe2.txt"   
+  !insertmacro கோப்பில்மாற்று "DISKNUM" "$DiskNum" "all" "all" "$PLUGINSDIR\unassign.txt"  
 
  ${If} $FormatMe == "YES"
  ; MessageBox MB_ICONSTOP|MB_OK "Prepare and format (Disk $DiskNum) is checked."
@@ -1224,13 +1224,13 @@ Pop $NameThatISO
  
 ;checkpoint:
  ${If} $FormatMe == "YES" 
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: To prevent any loss of data, you must backup your data from all partitions tied to (Disk $DiskNum) before proceeding!$\r$\n$\r$\n${NAME} is Ready to perform the following actions:$\r$\n$\r$\n1. Wipe and prepare (Disk $DiskNum) with multiple partitions. All exisiting Data will be Irrecoverably Deleted!$\r$\n$\r$\n2. Create an MBR on (Disk $DiskNum) - Existing MBR will be Overwritten!$\r$\n$\r$\n3. Create a YUMI Label on ($DestDisk) - existing Label will be Overwritten!$\r$\n$\r$\n4. Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you positive (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Go Back!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: To prevent any loss of data, you must backup your data from all partitions tied to (Disk $DiskNum) before proceeding!$\r$\n$\r$\n${பெயர்} is Ready to perform the following actions:$\r$\n$\r$\n1. Wipe and prepare (Disk $DiskNum) with multiple partitions. All exisiting Data will be Irrecoverably Deleted!$\r$\n$\r$\n2. Create an MBR on (Disk $DiskNum) - Existing MBR will be Overwritten!$\r$\n$\r$\n3. Create a YUMI Label on ($DestDisk) - existing Label will be Overwritten!$\r$\n$\r$\n4. Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you positive (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Go Back!" IDYES proceed
   Quit
  ${ElseIf} $FormatMe != "YES" 
  ;${AndIfNot} ${FileExists} $BootDir\multiboot\menu\syslinux.cfg
  ${AndIf} $Removal != "YES"
  ${AndIf} $RepeatInstall != "YES"
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} is Ready to perform the following actions:$\r$\n$\r$\nInstall ($DistroName) on (Disk $DiskNum) $DestDisk$\r$\n$\r$\nAre you absolutely positive (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nClick YES to perform these actions on (Disk $DiskNum) or NO to Exit!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "${பெயர்} is Ready to perform the following actions:$\r$\n$\r$\nInstall ($DistroName) on (Disk $DiskNum) $DestDisk$\r$\n$\r$\nAre you absolutely positive (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nClick YES to perform these actions on (Disk $DiskNum) or NO to Exit!" IDYES proceed
   Quit
  ${EndIf}
 
@@ -1321,13 +1321,13 @@ StrCpy $R9 0 ; we start on page 0
  done:
  SetShellVarContext all
  InitPluginsDir   
-  File /oname=$PLUGINSDIR\YUMI-EXFAT "tools\YUMI-EXFAT"
-  ;File /oname=$PLUGINSDIR\7za.exe "tools\7za.exe"
-  ;File /oname=$PLUGINSDIR\7za.dll "tools\7za.dll"   
-  ;File /oname=$PLUGINSDIR\7zxa.dll "tools\7zxa.dll"  
+  File /oname=$PLUGINSDIR\YUMI-EXFAT "இருமங்கள்\நி\YUMI-EXFAT"
+  ;File /oname=$PLUGINSDIR\7za.exe "இருமங்கள்\நி\7za.exe"
+  ;File /oname=$PLUGINSDIR\7za.dll "இருமங்கள்\நி\7za.dll"   
+  ;File /oname=$PLUGINSDIR\7zxa.dll "இருமங்கள்\நி\7zxa.dll"  
   File /oname=$PLUGINSDIR\உரிமை.உரை "..\அகர\பகவன்\உரிமை.உரை"    
-  File /oname=$PLUGINSDIR\EFIGRUBX64.7z "EFIGRUB\EFIGRUBX64.7z"  
-  File /oname=$PLUGINSDIR\GRUBINST.7z "EFIGRUB\GRUBINST.7z" 
+  File /oname=$PLUGINSDIR\EFIGRUBX64.7z "ஐ-நி.கோ.ஒ.அ\EFIGRUB\EFIGRUBX64.7z"  
+  File /oname=$PLUGINSDIR\GRUBINST.7z "ஐ-நி.கோ.ஒ.அ\EFIGRUB\GRUBINST.7z" 
 FunctionEnd
 
 Function onNotify_CasperSlider

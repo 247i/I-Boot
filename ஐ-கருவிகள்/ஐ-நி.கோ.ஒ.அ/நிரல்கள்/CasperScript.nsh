@@ -1,32 +1,14 @@
-/*
- * This file is part of YUMI
- *
- * YUMI is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * any later version.
- *
- * YUMI is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with YUMI.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-; ------------ Casper Script --------------
-
+﻿; ------------ Casper Script --------------
 Function CasperScript
 ${If} $Casper != "0"
 ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
  Call GetCaspTools
  
     ${If} $DistroName == "Ubuntu"
-		 ${StrContains} $0 "buntu-19" "$JustISO"   
-		 ${StrContains} $1 "buntu-18" "$JustISO"
-		 ${StrContains} $2 "buntu-17" "$JustISO" 
-		 ${StrContains} $3 "buntu-16" "$JustISO" 		
+		 ${சரம்கொண்டுள்ளது} $0 "buntu-19" "$JustISO"   
+		 ${சரம்கொண்டுள்ளது} $1 "buntu-18" "$JustISO"
+		 ${சரம்கொண்டுள்ளது} $2 "buntu-17" "$JustISO" 
+		 ${சரம்கொண்டுள்ளது} $3 "buntu-16" "$JustISO" 		
 		 
 		 ${If} $0 != "buntu-19" 
 		 ${AndIf} $1 != "buntu-18"  
@@ -38,10 +20,10 @@ ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
 		 ${EndIf}
 		 
     ${ElseIf} $DistroName == "Linux Mint"
-		 ${StrContains} $0 "mint-19" "$JustISO"   
-		 ${StrContains} $1 "mint-18" "$JustISO"
-		 ${StrContains} $2 "mint-17" "$JustISO" 
-		 ${StrContains} $3 "mint-16" "$JustISO" 		
+		 ${சரம்கொண்டுள்ளது} $0 "mint-19" "$JustISO"   
+		 ${சரம்கொண்டுள்ளது} $1 "mint-18" "$JustISO"
+		 ${சரம்கொண்டுள்ளது} $2 "mint-17" "$JustISO" 
+		 ${சரம்கொண்டுள்ளது} $3 "mint-16" "$JustISO" 		
 		 
 		 ${If} $0 != "mint-19" 
 		 ${AndIf} $1 != "mint-18"  
@@ -62,7 +44,7 @@ ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
  Sleep 1000
  DetailPrint "Sleeping for 1 second..."
  ExpandEnvStrings $COMSPEC "%COMSPEC%"
- ExecShell "" '"$COMSPEC"' '/C if 1==1 "$PLUGINSDIR\dd.exe" if=/dev/zero of="$BootDir\multiboot\$DistroPath\$JustISOName\$CasperName" bs=1M count=$Casper --progress 2>$PLUGINSDIR\ddlog.txt' SW_HIDE
+ ExecShell "" '"$COMSPEC"' '/C if 1==1 "$PLUGINSDIR\தரவுவரையறை.exe" if=/dev/zero of="$BootDir\multiboot\$DistroPath\$JustISOName\$CasperName" bs=1M count=$Casper --progress 2>$PLUGINSDIR\ddlog.txt' SW_HIDE
  Banner::show /set 76 "Creating a $CasperName file."
  Banner::getWindow
  Pop $1  
@@ -73,9 +55,9 @@ ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
  DetailPrint "Now Formatting $CasperName" 
  DetailPrint "Formatting the $CasperName file: The progress bar will not move until finished. Please be patient..." 
  
- Sleep 3000 ; Give the dd.exe time to exit.
+ Sleep 3000 ; Give the தரவுவரையறை.exe time to exit.
  DetailPrint "Sleeping for 3 seconds..."
- nsExec::ExecToLog '"$PLUGINSDIR\mke2fs.exe" -L $CasperName "$BootDir\multiboot\$DistroPath\$JustISOName\$CasperName"'
+ nsExec::ExecToLog '"$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe" -L $CasperName "$BootDir\multiboot\$DistroPath\$JustISOName\$CasperName"'
 ${EndIf}
 FunctionEnd
 
@@ -86,6 +68,6 @@ FunctionEnd
 Function GetCaspTools
 SetShellVarContext all
 InitPluginsDir
-File /oname=$PLUGINSDIR\dd.exe "tools\dd.exe"
-File /oname=$PLUGINSDIR\mke2fs.exe "tools\mke2fs.exe"
+File /oname=$PLUGINSDIR\தரவுவரையறை.exe "இருமங்கள்\தரவுவரையறை.exe"
+File /oname=$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe "இருமங்கள்\நீட்2கோமுவடிவஉரு.exe"
 FunctionEnd
