@@ -1,9 +1,9 @@
 ﻿Unicode True ; தமிழ் எழுத்து அதரவு 
 ;!execute 'இருமங்கள்\அகர.bat' ; zip if required.
 ;!execute '"$%WINDIR%\notepad.exe" /P "${NSISDIR}\COPYING"' ; Enable this to debug previous line. 
-!define பெயர் "ஐ-கருவி(மரபு)"
+!define பெயர் "ஐ-மரபு"
 !define VERSION "2.0.7.10"
-!define MUI_ICON "அகர\ஐ-காண்\வண்ணத்துப்பூச்சி.ico"
+!define MUI_ICON "..\அகர\ஐ-காண்\வண்ணத்துப்பூச்சி.ico"
 
 ; MoreInfo Plugin - Adds Version Tab fields to Properties.
 VIProductVersion "${VERSION}"
@@ -14,7 +14,7 @@ VIAddVersionKey FileDescription "ஐ-கருவி"
 VIAddVersionKey License "இலவசம்"
 
 Name "${பெயர்} ${VERSION}"
-OutFile "${பெயர்}-${VERSION}.exe"
+OutFile "..\${பெயர்}-${VERSION}.exe"
 RequestExecutionLevel admin ;highest
 SetCompressor LZMA
 CRCCheck On
@@ -127,12 +127,12 @@ Var WipeIt
 Var WipeMe
 ;Var DisMounted
 
-!include ஐ-கருவி(மரபு)\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்
+!include ஐ-மரபு\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்
 
 ; Interface settings
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_HEADERIMAGE
-!define MUI_HEADERIMAGE_BITMAP "அகர\அணிகலன்\யாதும் ஊரே-தலைப்பு.bmp" 
+!define MUI_HEADERIMAGE_BITMAP "..\அகர\அணிகலன்\யாதும் ஊரே-தலைப்பு.bmp" 
 !define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
 !define MUI_HEADERIMAGE_RIGHT
 
@@ -141,7 +141,7 @@ Var WipeMe
 !define MUI_LICENSEPAGE_TEXT_TOP $(License_Text_Top)
 !define MUI_LICENSEPAGE_TEXT_BOTTOM $(License_Text_Bottom)
 !define MUI_PAGE_CUSTOMFUNCTION_PRE License_PreFunction
-!insertmacro MUI_PAGE_LICENSE "அகர\பகவன்\உரிமை.உரை"
+!insertmacro MUI_PAGE_LICENSE "..\அகர\பகவன்\உரிமை.உரை"
 
 ; Distro Selection Page
 Page custom SelectionsPage
@@ -160,7 +160,7 @@ Page custom SelectionsPage
 !define MUI_FINISHPAGE_TEXT $(Finish_Text)
 !define MUI_FINISHPAGE_LINK $(Finish_Link)
 !define MUI_FINISHPAGE_LINK_LOCATION "https://TamilNeram.github.io"
-!define MUI_WELCOMEFINISHPAGE_BITMAP "அகர\அணிகலன்\சரி.bmp"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "..\அகர\அணிகலன்\சரி.bmp"
 !define MUI_PAGE_CUSTOMFUNCTION_PRE Finish_PreFunction
 !insertmacro MUI_PAGE_FINISH
 
@@ -191,11 +191,11 @@ LangString Finish_Title ${LANG_TAMIL} "${பெயர்} பயன்படு�
 LangString Finish_Text ${LANG_TAMIL} "உங்கள் தேர்வுகள் மின்வெட்டொளியில் $InUnStalled .$\r$\n$\r$\nமேலும் விநியோகங்களை $InUnStall இந்த கருவியை மீண்டும் இயக்கவும்.$\r$\n$\r$\nஐ-கருவி நீங்கள் ஏற்கனவே $InUnStalled தேர்வுகளை கண்காணிக்கும்."
 LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் பார்க்க"
 
-!include ஐ-கருவி(மரபு)\நிரல்கள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
-!include ஐ-கருவி(மரபு)\நிரல்கள்\கோப்புபெயர்கள்.நிரல் ; Macro for FileNames
-!include ஐ-கருவி(மரபு)\நிரல்கள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
-!include ஐ-கருவி(மரபு)\நிரல்கள்\தட்டுஉருவாகும்உரை.நிரல் ; For creation of Persistent Casper-rw files
-!include ஐ-கருவி(மரபு)\நிரல்கள்\கோப்பில்மாற்று.நிரல்
+!include ஐ-மரபு\நிரல்கள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
+!include ஐ-மரபு\நிரல்கள்\கோப்புபெயர்கள்.நிரல் ; Macro for FileNames
+!include ஐ-மரபு\நிரல்கள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
+!include ஐ-மரபு\நிரல்கள்\புதையல்உரை.நிரல் ; For creation of Persistent Casper-rw files
+!include துணை\கோப்பில்மாற்று.நிரல்
 
 Function License_PreFunction
   StrCpy $R8 1 ;This is the 1st page
@@ -680,7 +680,7 @@ Function GrabNameOnly
     Exch $0 ; output string
 FunctionEnd
 
-!include ஐ-கருவி(மரபு)\நிரல்கள்\தொடரில்உள்ள.நிரல் ; Let's check if a * wildcard exists
+!include துணை\சரம்கொண்டுள்ளது.நிரல் ; Let's check if a * wildcard exists
 ; On Selection of Linux Distro
 Function OnSelectDistro
   Pop $Distro
@@ -727,7 +727,7 @@ Function OnSelectDistro
 ; Autodetect ISO's in same folder and select if they exist  
  ${If} ${FileExists} "$EXEDIR\$ISOFileName"
  ${AndIf} $Removal != "Yes"
- ${StrContains} $WILD "*" "$ISOFileName" ; Check for Wildcard and force Browse if * exists.
+ ${சரம்கொண்டுள்ளது} $WILD "*" "$ISOFileName" ; Check for Wildcard and force Browse if * exists.
  ${AndIf} $WILD != "*"  
   StrCpy $TheISO "$EXEDIR\$ISOFileName"
   StrCpy $ISOFile "$TheISO"  
@@ -1025,14 +1025,14 @@ FunctionEnd
   
 Function FormatYes ; If Format is checked, do something
 
-  File /oname=$PLUGINSDIR\diskpartformat.txt "ஐ-கருவி(மரபு)\உரைகள்\diskpartformat.txt"     
-  File /oname=$PLUGINSDIR\diskpartwipe1.txt "ஐ-கருவி(மரபு)\உரைகள்\diskpartwipe1.txt"  
-  File /oname=$PLUGINSDIR\diskpartwipe2.txt "ஐ-கருவி(மரபு)\உரைகள்\diskpartwipe2.txt"    
+  File /oname=$PLUGINSDIR\diskpartformat.txt "ஐ-மரபு\உரைகள்\diskpartformat.txt"     
+  File /oname=$PLUGINSDIR\diskpartwipe1.txt "ஐ-மரபு\உரைகள்\diskpartwipe1.txt"  
+  File /oname=$PLUGINSDIR\diskpartwipe2.txt "ஐ-மரபு\உரைகள்\diskpartwipe2.txt"    
   
-  !insertmacro ReplaceInFile "DISKNUM" "$DiskNum" "all" "all" "$PLUGINSDIR\diskpartwipe1.txt"  
-  !insertmacro ReplaceInFile "DSK" "$DestDisk" "all" "all" "$PLUGINSDIR\diskpartwipe2.txt" 
-  !insertmacro ReplaceInFile "DISKNUM" "$DiskNum" "all" "all" "$PLUGINSDIR\diskpartwipe2.txt"   
-  !insertmacro ReplaceInFile "DSK" "$DestDisk" "all" "all" "$PLUGINSDIR\diskpartformat.txt" 
+  !insertmacro கோப்பில்மாற்று "DISKNUM" "$DiskNum" "all" "all" "$PLUGINSDIR\diskpartwipe1.txt"  
+  !insertmacro கோப்பில்மாற்று "DSK" "$DestDisk" "all" "all" "$PLUGINSDIR\diskpartwipe2.txt" 
+  !insertmacro கோப்பில்மாற்று "DISKNUM" "$DiskNum" "all" "all" "$PLUGINSDIR\diskpartwipe2.txt"   
+  !insertmacro கோப்பில்மாற்று "DSK" "$DestDisk" "all" "all" "$PLUGINSDIR\diskpartformat.txt" 
 
 ; For NTFS Format ---  
   ${If} $FormatMe == "Yes"
@@ -1280,8 +1280,8 @@ Done:
 FunctionEnd
 
 ; Custom Distros Installer - Uninstaller Include
-!include "ஐ-கருவி(மரபு)\நிரல்கள்\விநியோகநிறுவல்.நிரல்" ; ### ADD NEW DISTRO ##
-!include "ஐ-கருவி(மரபு)\நிரல்கள்\விநியோகநீக்கம்.நிரல்" ; ### REM DISTRO ###
+!include "ஐ-மரபு\நிரல்கள்\விநியோகநிறுவல்.நிரல்" ; ### ADD NEW DISTRO ##
+!include "ஐ-மரபு\நிரல்கள்\விநியோகநீக்கம்.நிரல்" ; ### REM DISTRO ###
 
 Function DoSyslinux ; Install கணிலினக்சு on USB
   ${IfNot} ${FileExists} "$BootDir\multiboot\libcom32.c32" 
@@ -1296,10 +1296,10 @@ Function DoSyslinux ; Install கணிலினக்சு on USB
   CreateDirectory $BootDir\multiboot\menu ; recursively create the directory structure if it doesn't exist
   CreateDirectory $BootDir\multiboot\ISOS ; create ISOS folder  
   DetailPrint $(ExecuteSyslinux)
-  ;ExecWait '$PLUGINSDIR\syslinux.exe -maf -d /multiboot $BootDir' $R8
+  ;ExecWait '$PLUGINSDIR\கணிலினக்சு.exe -maf -d /multiboot $BootDir' $R8
   ;DetailPrint "கணிலினக்சு Errors $R8"
-  nsExec::Exec '"$PLUGINSDIR\syslinux.exe" -maf -d /multiboot $BootDir'
-  ;nsExec::Exec '"$PLUGINSDIR\syslinux.exe" -maf -d /multiboot $BootDir $BootDir\multiboot\syslinux.bin'
+  nsExec::Exec '"$PLUGINSDIR\கணிலினக்சு.exe" -maf -d /multiboot $BootDir'
+  ;nsExec::Exec '"$PLUGINSDIR\கணிலினக்சு.exe" -maf -d /multiboot $BootDir $BootDir\multiboot\syslinux.bin'
   Pop $R8
   DetailPrint "Syslinux Errors $R8"
   
@@ -1336,7 +1336,7 @@ Function DoSyslinux ; Install கணிலினக்சு on USB
   CopyFiles "$PLUGINSDIR\chain.c32" "$BootDir\multiboot\chain.c32"
   CopyFiles "$PLUGINSDIR\libcom32.c32" "$BootDir\multiboot\libcom32.c32"  
   CopyFiles "$PLUGINSDIR\libutil.c32" "$BootDir\multiboot\libutil.c32"      
-  CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\multiboot\memdisk"
+  CopyFiles "$PLUGINSDIR\நினைவட்டு" "$BootDir\multiboot\memdisk"
   
   Call AddDir    
 																								 
@@ -1354,7 +1354,7 @@ Function DoSyslinux ; Install கணிலினக்சு on USB
   CopyFiles "$PLUGINSDIR\chain.c32" "$BootDir\multiboot\chain.c32"
   CopyFiles "$PLUGINSDIR\libcom32.c32" "$BootDir\multiboot\libcom32.c32"  
   CopyFiles "$PLUGINSDIR\libutil.c32" "$BootDir\multiboot\libutil.c32"   
-  CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\multiboot\memdisk"
+  CopyFiles "$PLUGINSDIR\நினைவட்டு" "$BootDir\multiboot\memdisk"
  ${EndIf}    
 
 ; Check to ensure menu.c32 exists... now required for I V2
@@ -1364,8 +1364,8 @@ Function DoSyslinux ; Install கணிலினக்சு on USB
   ${EndIf}	  
 FunctionEnd
 
-Function AddDir ; changes to check if user had a version prior to 0.0.0.3. Newer I includes grub.exe 
- ${IfNotThen} ${FileExists} "$BootDir\multiboot\grub.exe" 'CopyFiles "$PLUGINSDIR\grub.exe" "$BootDir\multiboot\grub.exe"' 
+Function AddDir ; changes to check if user had a version prior to 0.0.0.3. Newer I includes மாஒது.exe 
+ ${IfNotThen} ${FileExists} "$BootDir\multiboot\மாஒது.exe" 'CopyFiles "$PLUGINSDIR\மாஒது.exe" "$BootDir\multiboot\மாஒது.exe"' 
 FunctionEnd
 
 ; ---- Let's Do This Stuff ----
@@ -1490,23 +1490,23 @@ Function Config2Write
  ${ElseIf} $Config2Use == "pe.cfg"
   ${WriteToSysFile} "label Windows PE$\r$\nmenu label Windows PE ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/pe.cfg" $R0   
  ${ElseIf} $Config2Use == "pe.lst"
-  ${WriteToSysFile} "label Windows PE$\r$\nmenu label Windows PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/pe.lst" $R0   
+  ${WriteToSysFile} "label Windows PE$\r$\nmenu label Windows PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/pe.lst" $R0   
  ${ElseIf} $Config2Use == "hirens.lst"
-  ${WriteToSysFile} "label Hiren's Boot CD PE$\r$\nmenu label Hiren's Boot CD PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/hirens.lst" $R0    
+  ${WriteToSysFile} "label Hiren's Boot CD PE$\r$\nmenu label Hiren's Boot CD PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/hirens.lst" $R0    
  ${ElseIf} $Config2Use == "unlisted.cfg"
   ${WriteToSysFile} "label Unlisted ISOs (via SYSLINUX)$\r$\nmenu label  Unlisted ISOs (via SYSLINUX) ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/unlisted.cfg" $R0  
  ${ElseIf} $Config2Use == "menu.lst"
-  ${WriteToSysFile} "label Unlisted ISOs (via GRUB)$\r$\nmenu label Unlisted ISOs (via GRUB) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/menu.lst" $R0 
+  ${WriteToSysFile} "label Unlisted ISOs (via GRUB)$\r$\nmenu label Unlisted ISOs (via GRUB) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/menu.lst" $R0 
  ${ElseIf} $Config2Use == "vhd.lst"
-  ${WriteToSysFile} "label Unlisted ISOs (via Virtual Hard Disk)$\r$\nmenu label Unlisted ISOs (via Virtual Hard Disk) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/vhd.lst" $R0 
+  ${WriteToSysFile} "label Unlisted ISOs (via Virtual Hard Disk)$\r$\nmenu label Unlisted ISOs (via Virtual Hard Disk) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/vhd.lst" $R0 
  ${ElseIf} $Config2Use == "grubpart4.lst"
-  ${WriteToSysFile} "label Unlisted ISOs (via GRUB Partition 4)$\r$\nmenu label Unlisted ISOs (via GRUB Partition 4) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/grubpart4.lst" $R0
+  ${WriteToSysFile} "label Unlisted ISOs (via GRUB Partition 4)$\r$\nmenu label Unlisted ISOs (via GRUB Partition 4) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/grubpart4.lst" $R0
  ${ElseIf} $Config2Use == "grubram.lst"
-  ${WriteToSysFile} "label Unlisted ISOs (via GRUB from RAM)$\r$\nmenu label Unlisted ISOs (via GRUB from RAM) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/grubram.lst" $R0   
+  ${WriteToSysFile} "label Unlisted ISOs (via GRUB from RAM)$\r$\nmenu label Unlisted ISOs (via GRUB from RAM) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/grubram.lst" $R0   
  ${ElseIf} $Config2Use == "win.lst" 
-  ${WriteToSysFile} "label Windows Installers$\r$\nmenu label Windows Installers ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/win.lst" $R0  
+  ${WriteToSysFile} "label Windows Installers$\r$\nmenu label Windows Installers ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/win.lst" $R0  
  ${ElseIf} $Config2Use == "win2go.lst"
-  ${WriteToSysFile} "label Windows to Go$\r$\nmenu label Windows to Go ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/win2go.lst" $R0     
+  ${WriteToSysFile} "label Windows to Go$\r$\nmenu label Windows to Go ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/win2go.lst" $R0     
  ${EndIf} 
 FunctionEnd
 
@@ -1565,52 +1565,52 @@ StrCpy $R9 0 ; we start on page 0
  done:
  SetShellVarContext all
  InitPluginsDir
-  File /oname=$PLUGINSDIR\dskvol.txt "ஐ-கருவி(மரபு)\உரைகள்\dskvol.txt" 
-  File /oname=$PLUGINSDIR\diskpart.txt "ஐ-கருவி(மரபு)\உரைகள்\diskpart.txt" 
-  File /oname=$PLUGINSDIR\w2gdiskpart.txt "ஐ-கருவி(மரபு)\உரைகள்\w2gdiskpart.txt"   
-  File /oname=$PLUGINSDIR\dd-diskpart.txt "ஐ-கருவி(மரபு)\உரைகள்\dd-diskpart.txt" 
-  File /oname=$PLUGINSDIR\diskpartdetach.txt "ஐ-கருவி(மரபு)\உரைகள்\diskpartdetach.txt"  
-  File /oname=$PLUGINSDIR\autounattend.xml "ஐ-கருவி(மரபு)\உரைகள்\autounattend.xml"   
-  File /oname=$PLUGINSDIR\syslinux.exe "துணை\இருமங்கள்\syslinux.exe"  
-  File /oname=$PLUGINSDIR\syslinux.cfg "ஐ-கருவி(மரபு)\பட்டியல்\syslinux.cfg"
-  File /oname=$PLUGINSDIR\legacy-i "ஐ-கருவி(மரபு)\பட்டியல்\legacy-i"  
-  File /oname=$PLUGINSDIR\menu.lst "ஐ-கருவி(மரபு)\பட்டியல்\menu.lst"  
-  File /oname=$PLUGINSDIR\vhd.lst "ஐ-கருவி(மரபு)\பட்டியல்\vhd.lst" 
-  File /oname=$PLUGINSDIR\grubpart4.lst "ஐ-கருவி(மரபு)\பட்டியல்\grubpart4.lst"  
-  File /oname=$PLUGINSDIR\grubram.lst "ஐ-கருவி(மரபு)\பட்டியல்\grubram.lst"    
-  File /oname=$PLUGINSDIR\win.lst "ஐ-கருவி(மரபு)\பட்டியல்\win.lst"  
-  File /oname=$PLUGINSDIR\win2go.lst "ஐ-கருவி(மரபு)\பட்டியல்\win2go.lst"  
-  File /oname=$PLUGINSDIR\grub.exe "துணை\இருமங்கள்\grub.exe"  
-  File /oname=$PLUGINSDIR\info "ஐ-கருவி(மரபு)\பட்டியல்\info"   
-  File /oname=$PLUGINSDIR\antivirus.cfg "ஐ-கருவி(மரபு)\பட்டியல்\antivirus.cfg" 
-  File /oname=$PLUGINSDIR\system.cfg "ஐ-கருவி(மரபு)\பட்டியல்\system.cfg" 
-  File /oname=$PLUGINSDIR\netbook.cfg "ஐ-கருவி(மரபு)\பட்டியல்\netbook.cfg"
-  File /oname=$PLUGINSDIR\anon.cfg "ஐ-கருவி(மரபு)\பட்டியல்\anon.cfg"
-  File /oname=$PLUGINSDIR\linux.cfg "ஐ-கருவி(மரபு)\பட்டியல்\linux.cfg" 
-  File /oname=$PLUGINSDIR\unlisted.cfg "ஐ-கருவி(மரபு)\பட்டியல்\unlisted.cfg"
-  File /oname=$PLUGINSDIR\other.cfg "ஐ-கருவி(மரபு)\பட்டியல்\other.cfg"   
-  File /oname=$PLUGINSDIR\pe.cfg "ஐ-கருவி(மரபு)\பட்டியல்\pe.cfg"    
-  File /oname=$PLUGINSDIR\pe.lst "ஐ-கருவி(மரபு)\பட்டியல்\pe.lst"  
-  File /oname=$PLUGINSDIR\liveusb "துணை\இருமங்கள்\liveusb"
-  File /oname=$PLUGINSDIR\7zG.exe "துணை\இருமங்கள்\7zG.exe"
-  File /oname=$PLUGINSDIR\7z.dll "துணை\இருமங்கள்\7z.dll"  
-  File /oname=$PLUGINSDIR\ஐ.png "துணை\இருமங்கள்\ஐ.png"
-  File /oname=$PLUGINSDIR\உரிமை.உரை "ஐ-கருவி(மரபு)\உரைகள்\உரிமை.உரை" 
-  File /oname=$PLUGINSDIR\vesamenu.c32 "துணை\இருமங்கள்\vesamenu.c32" 
-  File /oname=$PLUGINSDIR\menu.c32 "துணை\இருமங்கள்\menu.c32"    
-  File /oname=$PLUGINSDIR\memdisk "துணை\இருமங்கள்\memdisk" 
-  File /oname=$PLUGINSDIR\chain.c32 "துணை\இருமங்கள்\chain.c32" 
-  File /oname=$PLUGINSDIR\libcom32.c32 "துணை\இருமங்கள்\libcom32.c32"  
-  File /oname=$PLUGINSDIR\libutil.c32 "துணை\இருமங்கள்\libutil.c32"   
-  File /oname=$PLUGINSDIR\linux.c32 "துணை\இருமங்கள்\linux.c32"  
-  File /oname=$PLUGINSDIR\wimboot "துணை\இருமங்கள்\wimboot"   
-  File /oname=$PLUGINSDIR\ifcpu64.c32 "துணை\இருமங்கள்\ifcpu64.c32" 
-  File /oname=$PLUGINSDIR\remount.cmd "ஐ-கருவி(மரபு)\உரைகள்\remount.cmd"  
-  File /oname=$PLUGINSDIR\boot.cmd "ஐ-கருவி(மரபு)\உரைகள்\boot.cmd"    
-  File /oname=$PLUGINSDIR\vhdremount.cmd "ஐ-கருவி(மரபு)\உரைகள்\vhdremount.cmd"    
-  File /oname=$PLUGINSDIR\ei.cfg "ஐ-கருவி(மரபு)\பட்டியல்\ei.cfg"
-  File /oname=$PLUGINSDIR\தரவுவரையறை.exe "துணை\இருமங்கள்\தரவுவரையறை.exe"
-  File /oname=$PLUGINSDIR\fat32format.exe "துணை\இருமங்கள்\fat32format.exe"    
+  File /oname=$PLUGINSDIR\dskvol.txt "ஐ-மரபு\உரைகள்\dskvol.txt" 
+  File /oname=$PLUGINSDIR\diskpart.txt "ஐ-மரபு\உரைகள்\diskpart.txt" 
+  File /oname=$PLUGINSDIR\w2gdiskpart.txt "ஐ-மரபு\உரைகள்\w2gdiskpart.txt"   
+  File /oname=$PLUGINSDIR\dd-diskpart.txt "ஐ-மரபு\உரைகள்\dd-diskpart.txt" 
+  File /oname=$PLUGINSDIR\diskpartdetach.txt "ஐ-மரபு\உரைகள்\diskpartdetach.txt"  
+  File /oname=$PLUGINSDIR\autounattend.xml "ஐ-மரபு\உரைகள்\autounattend.xml"   
+  File /oname=$PLUGINSDIR\கணிலினக்சு.exe "இருமங்கள்\கணிலினக்சு6.04.32.exe"  
+  File /oname=$PLUGINSDIR\syslinux.cfg "ஐ-மரபு\பட்டியல்\syslinux.cfg"
+  File /oname=$PLUGINSDIR\legacy-i "ஐ-மரபு\பட்டியல்\legacy-i"  
+  File /oname=$PLUGINSDIR\menu.lst "ஐ-மரபு\பட்டியல்\menu.lst"  
+  File /oname=$PLUGINSDIR\vhd.lst "ஐ-மரபு\பட்டியல்\vhd.lst" 
+  File /oname=$PLUGINSDIR\grubpart4.lst "ஐ-மரபு\பட்டியல்\grubpart4.lst"  
+  File /oname=$PLUGINSDIR\grubram.lst "ஐ-மரபு\பட்டியல்\grubram.lst"    
+  File /oname=$PLUGINSDIR\win.lst "ஐ-மரபு\பட்டியல்\win.lst"  
+  File /oname=$PLUGINSDIR\win2go.lst "ஐ-மரபு\பட்டியல்\win2go.lst"  
+  File /oname=$PLUGINSDIR\மாஒது.exe "இருமங்கள்\மாஒது.exe"  
+  File /oname=$PLUGINSDIR\info "ஐ-மரபு\பட்டியல்\info"   
+  File /oname=$PLUGINSDIR\antivirus.cfg "ஐ-மரபு\பட்டியல்\antivirus.cfg" 
+  File /oname=$PLUGINSDIR\system.cfg "ஐ-மரபு\பட்டியல்\system.cfg" 
+  File /oname=$PLUGINSDIR\netbook.cfg "ஐ-மரபு\பட்டியல்\netbook.cfg"
+  File /oname=$PLUGINSDIR\anon.cfg "ஐ-மரபு\பட்டியல்\anon.cfg"
+  File /oname=$PLUGINSDIR\linux.cfg "ஐ-மரபு\பட்டியல்\linux.cfg" 
+  File /oname=$PLUGINSDIR\unlisted.cfg "ஐ-மரபு\பட்டியல்\unlisted.cfg"
+  File /oname=$PLUGINSDIR\other.cfg "ஐ-மரபு\பட்டியல்\other.cfg"   
+  File /oname=$PLUGINSDIR\pe.cfg "ஐ-மரபு\பட்டியல்\pe.cfg"    
+  File /oname=$PLUGINSDIR\pe.lst "ஐ-மரபு\பட்டியல்\pe.lst"  
+  File /oname=$PLUGINSDIR\liveusb "இருமங்கள்\வாழ்உதொபே"
+  File /oname=$PLUGINSDIR\7zG.exe "இருமங்கள்\7zG.exe"
+  File /oname=$PLUGINSDIR\7z.dll "இருமங்கள்\7z.dll"  
+  File /oname=$PLUGINSDIR\ஐ.png "..\அகர\அணிகலன்\ஐ.png"
+  File /oname=$PLUGINSDIR\உரிமை.உரை "ஐ-மரபு\உரைகள்\உரிமை.உரை" 
+  File /oname=$PLUGINSDIR\vesamenu.c32 "இருமங்கள்\vesamenu.c32" 
+  File /oname=$PLUGINSDIR\menu.c32 "இருமங்கள்\menu.c32"    
+  File /oname=$PLUGINSDIR\நினைவட்டு "இருமங்கள்\நினைவட்டு" 
+  File /oname=$PLUGINSDIR\chain.c32 "இருமங்கள்\chain.c32" 
+  File /oname=$PLUGINSDIR\libcom32.c32 "இருமங்கள்\libcom32.c32"  
+  File /oname=$PLUGINSDIR\libutil.c32 "இருமங்கள்\libutil.c32"   
+  File /oname=$PLUGINSDIR\linux.c32 "இருமங்கள்\linux.c32"  
+  File /oname=$PLUGINSDIR\wimboot "இருமங்கள்\wimboot"   
+  File /oname=$PLUGINSDIR\ifcpu64.c32 "இருமங்கள்\ifcpu64.c32" 
+  File /oname=$PLUGINSDIR\remount.cmd "ஐ-மரபு\உரைகள்\remount.cmd"  
+  File /oname=$PLUGINSDIR\boot.cmd "ஐ-மரபு\உரைகள்\boot.cmd"    
+  File /oname=$PLUGINSDIR\vhdremount.cmd "ஐ-மரபு\உரைகள்\vhdremount.cmd"    
+  File /oname=$PLUGINSDIR\ei.cfg "ஐ-மரபு\பட்டியல்\ei.cfg"
+  File /oname=$PLUGINSDIR\தரவுவரையறை.exe "இருமங்கள்\தரவுவரையறை.exe"
+  File /oname=$PLUGINSDIR\கோஒஅ32வடிவம்.exe "இருமங்கள்\கோஒஅ32வடிவம்.exe"    
   SetOutPath "$PLUGINSDIR"  
   File /r "wimlib" 
   SetOutPath ""  

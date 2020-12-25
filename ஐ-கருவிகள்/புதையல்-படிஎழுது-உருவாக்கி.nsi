@@ -362,7 +362,7 @@ Function .onInit
 StrCpy $CasperName "casper-rw" ; default to newer persistence label
 SetShellVarContext all
 InitPluginsDir
-  File /oname=$PLUGINSDIR\தரவுவரையறை.exe "..\இருமங்கள்\தரவுவரையறை.exe"
-  File /oname=$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe "..\இருமங்கள்\நீட்2கோமுவடிவஉரு.exe"
+  File /oname=$PLUGINSDIR\தரவுவரையறை.exe "இருமங்கள்\தரவுவரையறை.exe"
+  File /oname=$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe "இருமங்கள்\நீட்2கோமுவடிவஉரு.exe"
   File /oname=$PLUGINSDIR\உரிமை.உரை "..\அகர\பகவன்\உரிமை.உரை"
 FunctionEnd 

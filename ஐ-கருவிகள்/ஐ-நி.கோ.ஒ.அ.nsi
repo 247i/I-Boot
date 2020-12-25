@@ -1,9 +1,9 @@
 ﻿Unicode True ; தமிழ் எழுத்து அதரவு 
 ;!execute 'இருமங்கள்\அகர.bat' ; zip if required.
 ;!execute '"$%WINDIR%\notepad.exe" /P "${NSISDIR}\COPYING"' ; Enable this to debug previous line. 
-!define பெயர் "ஐ-கருவி(நிகோமு)"
+!define பெயர் "ஐ-நி.கோ.ஒ.அ"
 !define VERSION "0.0.3.3"
-!define MUI_ICON "அகர\ஐ-காண்\வண்ணத்துப்பூச்சி.ico"
+!define MUI_ICON "..\அகர\ஐ-காண்\வண்ணத்துப்பூச்சி.ico"
 
 ; MoreInfo Plugin - Adds Version Tab fields to Properties. Plugin created by onad http://nsis.sourceforge.net/MoreInfo_plug-in
 VIProductVersion "${VERSION}"
@@ -13,14 +13,14 @@ VIAddVersionKey FileVersion "${VERSION}"
 VIAddVersionKey FileDescription "YUMI - Your Universal MultiBoot Integrator"
 VIAddVersionKey License "GPL Version 2"
 
-Name "${NAME} ${VERSION}"
-OutFile "${FILENAME}-${VERSION}.exe"
+Name "${பெயர்} ${VERSION}"
+OutFile "${பெயர்}-${VERSION}.exe"
 RequestExecutionLevel admin ;highest
 SetCompressor /SOLID lzma
 CRCCheck On
 XPStyle on
 ShowInstDetails show
-BrandingText "${NAME} ${VERSION}"
+BrandingText "${பெயர்} ${VERSION}"
 CompletedText "All Finished, Process is Complete!"
 InstallButtonText "Create"
 Unicode True
@@ -120,14 +120,14 @@ Var BOOT_DISK
 Var BOOT_LETTER
 Var INST_DISK
 Var YUMIDR
-
-!include துணைநிரல்கள்\ReplaceInFile.nsh
-!include துணைநிரல்கள்\DiskVoodoo.nsh 
+!include துணை\ஒருங்குறிஉரை.நிரல்
+!include துணை\கோப்பில்மாற்று.நிரல்
+!include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\DiskVoodoo.nsh 
 
 ; Interface settings
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_HEADERIMAGE
-!define MUI_HEADERIMAGE_BITMAP "அகர\அணிகலன்\யாதும் ஊரே-தலைப்பு.bmp" 
+!define MUI_HEADERIMAGE_BITMAP "..\அகர\அணிகலன்\யாதும் ஊரே-தலைப்பு.bmp" 
 !define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
 !define MUI_HEADERIMAGE_RIGHT
 
@@ -136,7 +136,7 @@ Var YUMIDR
 !define MUI_LICENSEPAGE_TEXT_TOP $(License_Text_Top)
 !define MUI_LICENSEPAGE_TEXT_BOTTOM $(License_Text_Bottom)
 !define MUI_PAGE_CUSTOMFUNCTION_PRE License_PreFunction
-!insertmacro MUI_PAGE_LICENSE "YUMI-Copying.txt"
+!insertmacro MUI_PAGE_LICENSE "..\அகர\பகவன்\உரிமை.உரை"
 
 ; Distro Selection Page
 Page custom SelectionsPage
@@ -155,7 +155,7 @@ Page custom SelectionsPage
 !define MUI_FINISHPAGE_TEXT $(Finish_Text)
 !define MUI_FINISHPAGE_LINK $(Finish_Link)
 !define MUI_FINISHPAGE_LINK_LOCATION "https://www.pendrivelinux.com/boot-multiple-iso-from-usb-multiboot-usb/"
-!define MUI_WELCOMEFINISHPAGE_BITMAP "அகர\அணிகலன்\சரி.bmp"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "..\அகர\அணிகலன்\சரி.bmp"
 !define MUI_PAGE_CUSTOMFUNCTION_PRE Finish_PreFunction
 !insertmacro MUI_PAGE_FINISH
 
@@ -186,11 +186,11 @@ LangString Finish_Title ${LANG_ENGLISH} "Thanks for using ${NAME}"
 LangString Finish_Text ${LANG_ENGLISH} "Your Selections have been $InUnStalled on your USB drive.$\r$\n$\r$\nFeel Free to run this tool again to $InUnStall more Distros.$\r$\n$\r$\nYUMI will keep track of selections you have already $InUnStalled."
 LangString Finish_Link ${LANG_ENGLISH} "Visit the YUMI Home Page"
 
-!include துணைநிரல்கள்\FileManipulation.nsh ; Text File Manipulation
-!include துணைநிரல்கள்\FileNames.nsh ; Macro for FileNames
-!include துணைநிரல்கள்\DistroList.nsh ; List of Distributions
-!include துணைநிரல்கள்\StrContains.nsh ; Let's check if a * wildcard exists
-!include துணைநிரல்கள்\CasperScript.nsh ; For creation of Persistent Casper-rw files
+!include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\FileManipulation.nsh ; Text File Manipulation
+!include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\FileNames.nsh ; Macro for FileNames
+!include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\DistroList.nsh ; List of Distributions
+!include துணை\தொடரில்உள்ள.நிரல் ; Let's check if a * wildcard exists
+!include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\CasperScript.nsh ; For creation of Persistent Casper-rw files
 
 Function License_PreFunction
   StrCpy $R8 1 ;This is the 1st page
@@ -654,7 +654,7 @@ Function GrabNameOnly
     Exch $0 ; output string
 FunctionEnd
 
-; !include துணைநிரல்கள்\StrContains.nsh ; Let's check if a * wildcard exists
+; !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\StrContains.nsh ; Let's check if a * wildcard exists
  
 ; On Selection of Linux Distro
 Function OnSelectDistro
@@ -1157,8 +1157,8 @@ Function HaveSpace ; Check space required
 FunctionEnd
 
 ; Custom Distros Installer - Uninstaller Include
-!include "துணைநிரல்கள்\InstallDistro.nsh" ; ##################################### ADD NEW DISTRO ########################################
-!include "துணைநிரல்கள்\RemoveDistro.nsh" ; ##################################### ADD NEW DISTRO ########################################
+!include "ஐ-நி.கோ.ஒ.அ\நிரல்கள்\InstallDistro.nsh" ; ##################################### ADD NEW DISTRO ########################################
+!include "ஐ-நி.கோ.ஒ.அ\நிரல்கள்\RemoveDistro.nsh" ; ##################################### ADD NEW DISTRO ########################################
 
 Function DoMBR ; Install MBR and Boot files on Fat Boot Partition
   
@@ -1168,8 +1168,7 @@ Function DoMBR ; Install MBR and Boot files on Fat Boot Partition
     DetailPrint "A Previous YUMI EXFAT Installation was detected."
   ${Else}  
   ; CreateDirectory $BOOT_LETTER\multiboot\menu ; recursively create the directory structure if it doesn't exist 
-    CopyFiles "$PLUGINSDIR\YUMI-Copying.txt" "$BOOT_LETTER\YUMI-Copying.txt"  
-    CopyFiles "$PLUGINSDIR\license.txt" "$BOOT_LETTER\license.txt" 
+    CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BOOT_LETTER\உரிமை.உரை" 
   ; Copy GRUB2 EFI files 
   DetailPrint "Proceeding to extract GRUB2 EFI and BIOS files..."
   SetOutPath $PLUGINSDIR
@@ -1326,8 +1325,7 @@ StrCpy $R9 0 ; we start on page 0
   ;File /oname=$PLUGINSDIR\7za.exe "tools\7za.exe"
   ;File /oname=$PLUGINSDIR\7za.dll "tools\7za.dll"   
   ;File /oname=$PLUGINSDIR\7zxa.dll "tools\7zxa.dll"  
-  File /oname=$PLUGINSDIR\YUMI-Copying.txt "YUMI-Copying.txt" 
-  File /oname=$PLUGINSDIR\license.txt "license.txt"    
+  File /oname=$PLUGINSDIR\உரிமை.உரை "..\அகர\பகவன்\உரிமை.உரை"    
   File /oname=$PLUGINSDIR\EFIGRUBX64.7z "EFIGRUB\EFIGRUBX64.7z"  
   File /oname=$PLUGINSDIR\GRUBINST.7z "EFIGRUB\GRUBINST.7z" 
 FunctionEnd

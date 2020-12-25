@@ -120,8 +120,8 @@ Var PERCENT
 Var FSType
 Var DiskNum
 
-!include துணைநிரல்கள்\ஒருங்குறிஉரை.நிரல்
-!include துணைநிரல்கள்\கோப்பில்மாற்று.நிரல்
+!include துணை\ஒருங்குறிஉரை.நிரல்
+!include துணை\கோப்பில்மாற்று.நிரல்
 !include துணைநிரல்கள்\துவக்கதட்டுஉரை.நிரல்
 
 
@@ -595,7 +595,7 @@ Function பெயரைமட்டும்பெறு
     Exch $0 ; output string
 FunctionEnd
 
-!include துணைநிரல்கள்\தொடரில்உள்ள.நிரல் ; Let's check if a * wildcard exists
+!include துணை\தொடரில்உள்ள.நிரல் ; Let's check if a * wildcard exists
 ; On Selection of Linux Distro
 Function விநியோகதேர்வில்
   Pop $Distro
