@@ -1,8 +1,9 @@
 அகர\அணிகலன்
-	-Contains Linux (plymouth) custom boot screen files
-	-Contains Background images of various aspect ratios. 
-	-Contains images used in firefox theme and I-tool. 
+	-லினக்சு (ஓடிக்கொள்வாய்) தனிப்பயன் துவக்க திரை கோப்புகளைக் கொண்டுள்ளது
+	-பல்வேறு அம்ச விகிதங்களின் பின்னணி படங்கள் உள்ளன. 
+	-பயர்பாக்ஸ் தீம் மற்றும் ஐ-கருவியில் பயன்படுத்தப்படும் படங்களை கொண்டுள்ளது. 
 அகர\ஐ-காண்
-	-Contains Icons files
+	-சின்னங்கள் கோப்புகளைக் கொண்டுள்ளது
 அகர\முதல
-	-Contains Various tamil fonts for all OSes.
+	-அனைத்து OS களுக்கும் பல்வேறு தமிழ் எழுத்துருக்களைக் கொண்டுள்ளது.
+	

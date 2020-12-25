@@ -1,0 +1,9 @@
+set timeout=0
+set default=0
+
+if [ -d "(hd0,msdos1)/multiboot" ] ; then 
+	menuentry "MultiBoot Menu" --class=dir {
+		delvars
+		grubfm "(hd0,msdos1)/multiboot"
+	}
+fi

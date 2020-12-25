@@ -1,0 +1,37 @@
+﻿#Https://Tamilneram.github.IO
+insmod png
+insmod part_msdos
+insmod fat
+insmod ntfs
+insmod ext2
+set root --label TA --hint hd0,msdos1
+set timeout=0
+set TIMEOUT_STYLE=hidden
+if loadfont /அகர/முதல/எழுத்தெல்லாம்.ஆதி ; then
+	set gfxmode=1280×720
+	insmod efi_gop
+	insmod efi_uga
+	insmod vbe
+	insmod vga
+	insmod gfxterm
+	terminal_output gfxterm
+fi
+if background_image /அகர/அணிகலன்/ஐ56-2.png ; then
+	set color_normal=white/black
+	set color_highlight=blue/black
+	set menu_color_highlight=blue/black
+	set menu_color_normal=white/black
+else
+	set menu_color_normal=white/black
+	set menu_color_highlight=blue/black
+fi
+set default=3
+menuentry "௰" {halt}
+menuentry "ஃ" {reboot}
+menuentry "⮜⮘"{configfile /அகர/பகவன்/முதற்றே.உலகு}
+menuentry "⮞⮚மசமச" {
+set gfxpayload=keep
+linux /SLUG  
+echo "Https://Tamilneram.github.IO..."
+initrd /SLUG
+}

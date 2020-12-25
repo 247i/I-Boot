@@ -1,1 +1,0 @@
-lua "${grubfm_file}";

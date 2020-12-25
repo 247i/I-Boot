@@ -1,0 +1,6 @@
+select disk DISKNUM
+select partition 2
+remove
+rescan
+list volume
+exit
