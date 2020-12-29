@@ -125,7 +125,7 @@ FunctionEnd
 
 Function பொருள்எழுதுங்கள்
  ; இந்த செயல்பாடு அழைக்கப்படுவதற்கு முன்பு "$BDir\!\$JustISOName\ஐ\" அடைவை உருவாக்குகிறது (122 வது வரியைப் பார்க்கவும்)  ; பின்வரும் அடைவு கோப்பை நகலெடுக்க, ஐ அடைவை உருவாக்கவும்.
- CopyFiles "$PLUGINSDIR\$Config2Use" "$BDir\!\$JustISOName\ஐ\$Config2Use" ; விநியோகத்திற்கான $Config2Use கோப்பை $JustISOName\ஐ கோப்புறையில் நகலெடுக்கவும் (எனவே உள்ளீட்டை எங்கு அகற்றுவது என்பது தெரியும்) 
+ CopyFiles "$PLUGINSDIR\$DistroPath" "$BDir\!\$JustISOName\ஐ\$DistroPath" ; விநியோகத்திற்கான $DistroPath கோப்பை $JustISOName\ஐ கோப்புறையில் நகலெடுக்கவும் (எனவே உள்ளீட்டை எங்கு அகற்றுவது என்பது தெரியும்) 
  DetailPrint "$DistroName ($JustISOName)மற்றும் அதன் பட்டியல் நுழைவு சேர்க்கப்பட்டது!"
  	
 FunctionEnd
@@ -138,7 +138,7 @@ FunctionEnd
 
 ; விநியோகம் ஏற்கனவே நிறுவப்பட்டிருந்தால், உள்ளீட்டை நீக்கு, எனவே நாங்கள் குழப்பம் செய்ய மாட்டோம்.
  ${If} ${FileExists} "$BDir\!\$JustISOName\*.*"
- ${பட்டிஉள்ளீட்டைநீக்கு} "$BDir\அகர\பகவன்\$Config2Use" "#[ $DistroName" "#] $DistroName" ; கட்டமைப்பு கோப்பிலிருந்து உள்ளீட்டை அகற்று... I.E. லினக்சு.உலகு, system.cfg, etc
+ ${பட்டிஉள்ளீட்டைநீக்கு} "$BDir\அகர\பகவன்\$DistroPath" "#[ $DistroName" "#] $DistroName" ; கட்டமைப்பு கோப்பிலிருந்து உள்ளீட்டை அகற்று... I.E. லினக்சு.உலகு, system.cfg, etc
  ${EndIf}
  
 ; Write $JustISOName to நிறுவப்பட்டது.உரை 

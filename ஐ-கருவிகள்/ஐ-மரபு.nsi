@@ -81,7 +81,7 @@ Var Auth
 Var DownLink
 Var LocalSelection
 Var Letters
-Var Config2Use
+Var DistroPath
 Var SomeFileExt
 ;Var AllDriveOption
 ;Var DisplayAll
@@ -191,8 +191,9 @@ LangString Finish_Title ${LANG_TAMIL} "${பெயர்} பயன்படு�
 LangString Finish_Text ${LANG_TAMIL} "உங்கள் தேர்வுகள் மின்வெட்டொளியில் $InUnStalled .$\r$\n$\r$\nமேலும் விநியோகங்களை $InUnStall இந்த கருவியை மீண்டும் இயக்கவும்.$\r$\n$\r$\nஐ-கருவி நீங்கள் ஏற்கனவே $InUnStalled தேர்வுகளை கண்காணிக்கும்."
 LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் பார்க்க"
 
+!include துணை\தவமுன்னேற்றம்.நிரல் ; புதிய நிரல்
 !include ஐ-மரபு\நிரல்கள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
-!include ஐ-மரபு\நிரல்கள்\கோப்புபெயர்கள்.நிரல் ; Macro for FileNames
+!include துணை\உதநிகோப்புபெயர்அமை.நிரல் ; Macro for FileNames
 !include ஐ-மரபு\நிரல்கள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
 !include ஐ-மரபு\நிரல்கள்\புதையல்உரை.நிரல் ; For creation of Persistent Casper-rw files
 !include துணை\கோப்பில்மாற்று.நிரல்
@@ -698,7 +699,7 @@ Function OnSelectDistro
   StrCpy $ISOFileName "$DistroName" 
   StrCpy $ISOTest "$DistroName"  
   ${Else} 
-  Call SetISOFileName
+  Call உதநிகோப்புபெயர்அமை
   StrCpy $ISOFileName "$ISOFileName" 
   StrCpy $SomeFileExt "$ISOFileName" "" -3 ; Grabs the last 3 characters of the file name... zip or iso?
   StrCpy $FileFormat "$SomeFileExt" ; Set file type to look for zip, tar, iso etc...
@@ -779,7 +780,7 @@ Function ISOBrowse
  ${If} $ShowingAll == "Yes"
   StrCpy $ISOFileName "*.iso" 
  ${ElseIf} $ShowingAll != "Yes"
-  Call SetISOFileName
+  Call உதநிகோப்புபெயர்அமை
  ${EndIf}
  
  nsDialogs::SelectFileDialog open "" $(IsoFile)
@@ -855,7 +856,7 @@ Function InstallorRemove ; Populate DistroName based on Install/Removal option
     ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskவைக்க ஒரு விநியோகம்" 
 	${EndIf}
   SendMessage $Distro ${CB_RESETCONTENT} 0 0
-  Call SetISOFileName
+  Call உதநிகோப்புபெயர்அமை
   ${EndIf}
 FunctionEnd  
 
@@ -908,7 +909,7 @@ Function Uninstall
    ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskவைக்க ஒரு விநியோகம்" 
      SendMessage $Distro ${CB_RESETCONTENT} 0 0  ; Clear all distro entries because a new option may have been chosen ; Enable for DropBox
      StrCpy $Checker "Yes"         
-     Call SetISOFileName
+     Call உதநிகோப்புபெயர்அமை
   ${EndIf}  
 FunctionEnd
 
@@ -924,7 +925,7 @@ Function OnSelectDrive
   
   StrCpy $9 $JustDrive
   Call GetFSType
-  Call PhysDrive
+  Call இயற்பியக்கி
   ${NSD_SetText} $LabelDrivePage "படி 1: $DestDisk (தட்டு $DiskNum) தேர்ந்தெடுத்துள்ளீர்கள்"   
   ;MessageBox MB_ICONSTOP|MB_OK " $9 $FSType" 
   
@@ -995,7 +996,7 @@ FunctionEnd
 
 Function DrivesList
  StrCpy $JustDrive $9
- Call PhysDrive
+ Call இயற்பியக்கி
  Call GetDiskVolumeName
  Call DiskSpace
  Call GetFSType
@@ -1422,8 +1423,8 @@ proceed:
  Call LocalISODetected
  
 ; Copy the config file if it doesn't exist and create the entry in syslinux.cfg 
- ${IfNot} ${FileExists} "$BootDir\multiboot\menu\$Config2Use" 
- CopyFiles "$PLUGINSDIR\$Config2Use" "$BootDir\multiboot\menu\$Config2Use"
+ ${IfNot} ${FileExists} "$BootDir\multiboot\menu\$DistroPath" 
+ CopyFiles "$PLUGINSDIR\$DistroPath" "$BootDir\multiboot\menu\$DistroPath"
  Call Config2Write
  ${EndIf} 
  
@@ -1439,73 +1440,73 @@ SectionEnd
 
 Function ConfigRemove ; Find and Set Removal Configuration file
   ${If} ${FileExists} "$BootDir\multiboot\$DistroName\I\linux.cfg"
-  StrCpy $Config2Use "linux.cfg"
+  StrCpy $DistroPath "linux.cfg"
   ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\anon.cfg"
-  StrCpy $Config2Use "anon.cfg"  
+  StrCpy $DistroPath "anon.cfg"  
   ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\system.cfg"
-  StrCpy $Config2Use "system.cfg"
+  StrCpy $DistroPath "system.cfg"
   ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\antivirus.cfg"
-  StrCpy $Config2Use "antivirus.cfg"
+  StrCpy $DistroPath "antivirus.cfg"
   ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\netbook.cfg"
-  StrCpy $Config2Use "netbook.cfg"
+  StrCpy $DistroPath "netbook.cfg"
   ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\other.cfg"
-  StrCpy $Config2Use "other.cfg"
+  StrCpy $DistroPath "other.cfg"
   ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\pe.cfg"
-  StrCpy $Config2Use "pe.cfg"
+  StrCpy $DistroPath "pe.cfg"
   ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\unlisted.cfg"
-  StrCpy $Config2Use "unlisted.cfg"  
+  StrCpy $DistroPath "unlisted.cfg"  
   ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\menu.lst"
-  StrCpy $Config2Use "menu.lst"
+  StrCpy $DistroPath "menu.lst"
   ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\vhd.lst"
-  StrCpy $Config2Use "vhd.lst"
+  StrCpy $DistroPath "vhd.lst"
   ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\grubpart4.lst"
-  StrCpy $Config2Use "grubpart4.lst"
+  StrCpy $DistroPath "grubpart4.lst"
   ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\grubram.lst"
-  StrCpy $Config2Use "grubram.lst"
+  StrCpy $DistroPath "grubram.lst"
   ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\win.lst"
-  StrCpy $Config2Use "win.lst"  
+  StrCpy $DistroPath "win.lst"  
   ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\win2go.lst"
-  StrCpy $Config2Use "win2go.lst"   
+  StrCpy $DistroPath "win2go.lst"   
   ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\pe.lst"
-  StrCpy $Config2Use "pe.lst"  
+  StrCpy $DistroPath "pe.lst"  
   ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\hirens.lst"
-  StrCpy $Config2Use "hirens.lst"    
+  StrCpy $DistroPath "hirens.lst"    
   ${EndIf}
-  ; MessageBox MB_OK "$Config2Use"
+  ; MessageBox MB_OK "$DistroPath"
 FunctionEnd
 
 Function Config2Write
- ${If} $Config2Use == "linux.cfg"
+ ${If} $DistroPath == "linux.cfg"
   ${WriteToSysFile} "label Linux Distributions$\r$\nmenu label ஐ ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/linux.cfg" $R0 
- ${ElseIf} $Config2Use == "anon.cfg"
+ ${ElseIf} $DistroPath == "anon.cfg"
   ${WriteToSysFile} "label Anon $\r$\nmenu label அ ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/anon.cfg" $R0  
- ${ElseIf} $Config2Use == "system.cfg"
+ ${ElseIf} $DistroPath == "system.cfg"
   ${WriteToSysFile} "label System Tools$\r$\nmenu label System Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/system.cfg" $R0
- ${ElseIf} $Config2Use == "antivirus.cfg"
+ ${ElseIf} $DistroPath == "antivirus.cfg"
   ${WriteToSysFile} "label Antivirus Tools$\r$\nmenu label Antivirus Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/antivirus.cfg" $R0 
- ${ElseIf} $Config2Use == "netbook.cfg"
+ ${ElseIf} $DistroPath == "netbook.cfg"
   ${WriteToSysFile} "label Netbook Distributions$\r$\nmenu label Netbook Distributions ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/netbook.cfg" $R0 
- ${ElseIf} $Config2Use == "other.cfg"
+ ${ElseIf} $DistroPath == "other.cfg"
   ${WriteToSysFile} "label Other OS and Tools$\r$\nmenu label Other OS and Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/other.cfg" $R0 
- ${ElseIf} $Config2Use == "pe.cfg"
+ ${ElseIf} $DistroPath == "pe.cfg"
   ${WriteToSysFile} "label Windows PE$\r$\nmenu label Windows PE ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/pe.cfg" $R0   
- ${ElseIf} $Config2Use == "pe.lst"
+ ${ElseIf} $DistroPath == "pe.lst"
   ${WriteToSysFile} "label Windows PE$\r$\nmenu label Windows PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/pe.lst" $R0   
- ${ElseIf} $Config2Use == "hirens.lst"
+ ${ElseIf} $DistroPath == "hirens.lst"
   ${WriteToSysFile} "label Hiren's Boot CD PE$\r$\nmenu label Hiren's Boot CD PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/hirens.lst" $R0    
- ${ElseIf} $Config2Use == "unlisted.cfg"
+ ${ElseIf} $DistroPath == "unlisted.cfg"
   ${WriteToSysFile} "label Unlisted ISOs (via SYSLINUX)$\r$\nmenu label  Unlisted ISOs (via SYSLINUX) ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/unlisted.cfg" $R0  
- ${ElseIf} $Config2Use == "menu.lst"
+ ${ElseIf} $DistroPath == "menu.lst"
   ${WriteToSysFile} "label Unlisted ISOs (via GRUB)$\r$\nmenu label Unlisted ISOs (via GRUB) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/menu.lst" $R0 
- ${ElseIf} $Config2Use == "vhd.lst"
+ ${ElseIf} $DistroPath == "vhd.lst"
   ${WriteToSysFile} "label Unlisted ISOs (via Virtual Hard Disk)$\r$\nmenu label Unlisted ISOs (via Virtual Hard Disk) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/vhd.lst" $R0 
- ${ElseIf} $Config2Use == "grubpart4.lst"
+ ${ElseIf} $DistroPath == "grubpart4.lst"
   ${WriteToSysFile} "label Unlisted ISOs (via GRUB Partition 4)$\r$\nmenu label Unlisted ISOs (via GRUB Partition 4) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/grubpart4.lst" $R0
- ${ElseIf} $Config2Use == "grubram.lst"
+ ${ElseIf} $DistroPath == "grubram.lst"
   ${WriteToSysFile} "label Unlisted ISOs (via GRUB from RAM)$\r$\nmenu label Unlisted ISOs (via GRUB from RAM) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/grubram.lst" $R0   
- ${ElseIf} $Config2Use == "win.lst" 
+ ${ElseIf} $DistroPath == "win.lst" 
   ${WriteToSysFile} "label Windows Installers$\r$\nmenu label Windows Installers ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/win.lst" $R0  
- ${ElseIf} $Config2Use == "win2go.lst"
+ ${ElseIf} $DistroPath == "win2go.lst"
   ${WriteToSysFile} "label Windows to Go$\r$\nmenu label Windows to Go ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/win2go.lst" $R0     
  ${EndIf} 
 FunctionEnd
@@ -1526,7 +1527,7 @@ StrCpy $Removal "" ; Reset
 StrCpy $Persistence "NULL" ; Reset
 StrCpy $NameThatISO "" ; Reset NameThatISO ISO Name
 StrCpy $ConfigFile "" ; Clear ConfigFile 
-StrCpy $Config2Use "" ; Clear Config File to create and write to
+StrCpy $DistroPath "" ; Clear Config File to create and write to
 StrCpy $DistroName "" ; Clear Distro Name
 StrCpy $ISOFileName "" ; Clear ISO Selection
 StrCpy $FileFormat "" ; Clear File Format

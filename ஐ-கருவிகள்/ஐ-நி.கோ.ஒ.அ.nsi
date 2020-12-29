@@ -112,13 +112,13 @@ Var BOOT
 Var BOOT_DISK
 Var BOOT_LETTER
 Var INST_DISK
-Var YUMIDR
+Var IDR
 
 
 
 !include துணை\ஒருங்குறிஉரை.நிரல்
 !include துணை\கோப்பில்மாற்று.நிரல்
-!include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்.nsh 
+!include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்
 
 ; இடைமுக அமைப்புகள்
 !define MUI_FINISHPAGE_NOAUTOCLOSE
@@ -178,11 +178,12 @@ LangString Finish_Title ${LANG_TAMIL} "${பெயர்} பயன்படு�
 LangString Finish_Text ${LANG_TAMIL} "உங்கள் தேர்வுகள் மின்வெட்டொளியில் $InUnStalled .$\r$\n$\r$\nமேலும் விநியோகங்களை $InUnStall இந்த கருவியை மீண்டும் இயக்கவும்.$\r$\n$\r$\nஐ-கருவி நீங்கள் ஏற்கனவே $InUnStalled தேர்வுகளை கண்காணிக்கும்."
 LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் பார்க்க"
 
-!include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\FileManipulation.nsh ; Text File Manipulation
-!include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\FileNames.nsh ; Macro for FileNames
-!include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\DistroList.nsh ; List of Distributions
+!include துணை\தவமுன்னேற்றம்.நிரல் ; நிலைத்தன்மை கோப்பை உருவாக்குதல் முன்னேற்றம்
+!include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
+!include துணை\உதநிகோப்புபெயர்அமை.நிரல் ; Macro for FileNames
+!include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
 !include துணை\சரம்கொண்டுள்ளது.நிரல் ; Let's check if a * wildcard exists
-!include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\CasperScript.nsh ; For creation of Persistent Casper-rw files
+!include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\புதையல்உரை.நிரல் ; For creation of Persistent Casper-rw files
 
 Function உரிமம்_முன்செயல்பாடு
   StrCpy $R8 1 ;This is the 1st page
@@ -197,24 +198,23 @@ Function தேர்வுகள்பக்கம்
  ${If} $RepeatInstall == "YES"   
  ${NSD_SetText} $DestDriveTxt "$DestDrive"
 
-; To Install or Uninstall? That is the question!  
-  ${NSD_CreateCheckBox} 60% 0 44% 15 "View or Remove Installed Distros?"
+; To Install or நிறுவல்நீக்கு? That is the question!  
+  ${NSD_CreateCheckBox} 60% 0 44% 15 "நிறுவப்பட்டது?"
   Pop $Uninstaller
-  ${NSD_OnClick} $Uninstaller Uninstall  
-
+  ${NSD_OnClick} $Uninstaller நிறுவல்நீக்கு  
  ; Distro Selection Starts
   ${NSD_CreateLabel} 0 50 50% 15 $(Distro_Text) 
   Pop $LinuxDistroSelection   
 
   ${NSD_CreateDroplist} 0 70 55% 95 "" ; was  ${NSD_CreateListBox} ; Enable For DropBox
   Pop $Distro
-  ${NSD_OnChange} $Distro OnSelectDistro
+  ${NSD_OnChange} $Distro விநியோகதேர்வில்
   ${NSD_CB_SelectString} $Distro $DistroName ; Was ${NSD_LB_SelectString} $Distro $DistroName  ; Enable For DropBox 
   
 ; Force Show All ISO Option
   ${NSD_CreateCheckBox} 80% 100 20% 15 "Show All ISOs?"
   Pop $ForceShowAll
-  ${NSD_OnClick} $ForceShowAll ShowAllISOs   
+  ${NSD_OnClick} $ForceShowAll அனைத்துஉதநிகாட்டு   
 
 ; ISO Download Option
   ${NSD_CreateCheckBox} 60% 60 40% 15 "Download the ISO (Optional)."
@@ -247,7 +247,7 @@ Function தேர்வுகள்பக்கம்
 
   SendMessage $CasperSlider ${TBM_SETRANGEMIN} 1 0 ; Min Range Value 0
   SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Max Range Value $RemainingSpace
-  ${NSD_OnNotify} $CasperSlider onNotify_CasperSlider    
+  ${NSD_OnNotify} $CasperSlider புதையல்நிலைமாற்றிஅறிவிப்பதில்    
 
 ; Drive Pre-Selection  
   ${NSD_CreateLabel} 0 0 58% 15 "" ; was 58%
@@ -261,9 +261,9 @@ Function தேர்வுகள்பக்கம்
   ${NSD_CB_SelectString} $DestDriveTxt "$DestDrive"
   StrCpy $9 $DestDrive 3
   StrCpy $JustDrive $9
-  Call PhysDrive
-  Call GetDiskVolumeName
-  Call DiskSpace
+  Call இயற்பியக்கி
+  Call வட்டுதொகுதிபெயர்பெறு
+  Call வட்டிடம்
   Call கோமுவகைபெறு
   StrCpy $JustDrive $DestDrive 3
   StrCpy $BDir $DestDrive 2 ;was -1 
@@ -271,9 +271,9 @@ Function தேர்வுகள்பக்கம்
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
   StrCpy $Checker "YES"  
   Call InstallorRemove
-  Call SetSpace
-  Call CheckSpace
-  Call FormatIt 
+  Call இடத்தைஅமை
+  Call இடத்தைசரிபார்
+  Call இதைவடிவமை 
   Call EnableNext 
   ${NSD_OnChange} $DestDriveTxt OnSelectDrive 
  ; MessageBox MB_ICONSTOP|MB_OK "$9 is on (Disk $DiskNum) or (Disk $INST_DISK) and $VolName with $Capacity and a $FSType filesystem" 
@@ -311,10 +311,10 @@ Function தேர்வுகள்பக்கம்
   
  ${Else}
   
-; To Install or Uninstall? That is the question!  
+; To Install or நிறுவல்நீக்கு? That is the question!  
   ${NSD_CreateCheckBox} 60% 0 44% 15 "View or Remove Installed Distros?"
   Pop $Uninstaller
-  ${NSD_OnClick} $Uninstaller Uninstall  
+  ${NSD_OnClick} $Uninstaller நிறுவல்நீக்கு  
   
 ; Drive Selection Starts  
   ${NSD_CreateLabel} 0 0 58% 15 ""    
@@ -335,7 +335,7 @@ Function தேர்வுகள்பக்கம்
 ; Format Drive Option
   ${NSD_CreateCheckBox} 60% 23 100% 15 "Prepare and format (Drive $DiskNum)"
   Pop $Format
-  ${NSD_OnClick} $Format FormatIt 
+  ${NSD_OnClick} $Format இதைவடிவமை 
 
 ; EFI IOS
 ;  ${NSD_CreateCheckBox} 60% 43 100% 15 "Install EFI Bootable ISOs"
@@ -348,13 +348,13 @@ Function தேர்வுகள்பக்கம்
 
   ${NSD_CreateDropList} 0 70 55% 95 "" ; was ${NSD_CreateListBox} ; Enable for Dropbox
   Pop $Distro
-  ${NSD_OnChange} $Distro OnSelectDistro
+  ${NSD_OnChange} $Distro விநியோகதேர்வில்
   ${NSD_CB_SelectString} $Distro $DistroName ; Was ${NSD_LB_SelectString} $Distro $DistroName  ; Enable For DropBox
   
 ; Force Show All ISO Option
   ${NSD_CreateCheckBox} 80% 100 20% 15 "Show All ISOs?"
   Pop $ForceShowAll
-  ${NSD_OnClick} $ForceShowAll ShowAllISOs    
+  ${NSD_OnClick} $ForceShowAll அனைத்துஉதநிகாட்டு    
 
 ; ISO Download Option
   ${NSD_CreateCheckBox} 60% 60 40% 15 "Download the ISO (Optional)."
@@ -387,7 +387,7 @@ Function தேர்வுகள்பக்கம்
 
   SendMessage $CasperSlider ${TBM_SETRANGEMIN} 1 0 ; Min Range Value 0
   SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Max Range Value $RemainingSpace
-  ${NSD_OnNotify} $CasperSlider onNotify_CasperSlider    
+  ${NSD_OnNotify} $CasperSlider புதையல்நிலைமாற்றிஅறிவிப்பதில்    
   
 ;; Add Help Link
 ;  ${NSD_CreateLink} 0 215 65% 15 "Click HERE to visit the ஐ page for additional info!"
@@ -448,7 +448,7 @@ FunctionEnd
 
 Function முடித்தல்_முன்செயல்பாடு
   StrCpy $R8 4
-  Call NoQuit
+  Call வெளியேறாதே
 FunctionEnd
 
 Function ListAllDrives ; Set to Display All Drives
@@ -628,7 +628,7 @@ FunctionEnd
 ; !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\சரம்கொண்டுள்ளது.nsh ; Let's check if a * wildcard exists
  
 ; On Selection of Linux Distro
-Function OnSelectDistro
+Function விநியோகதேர்வில்
   Pop $Distro
   
   ${If} $Removal == "YES"
@@ -644,7 +644,7 @@ Function OnSelectDistro
   StrCpy $ISOFileName "$DistroName" 
   StrCpy $ISOTest "$DistroName"  
   ${Else} 
-  Call SetISOFileName
+  Call உதநிகோப்புபெயர்அமை
   StrCpy $ISOFileName "$ISOFileName" 
   StrCpy $SomeFileExt "$ISOFileName" "" -3 ; Grabs the last 3 characters of the file name... zip or iso?
   StrCpy $FileFormat "$SomeFileExt" ; Set file type to look for zip, tar, iso etc...
@@ -673,7 +673,7 @@ Function OnSelectDistro
   StrCpy $ISOFile "$TheISO"  
   ${GetFileName} "$TheISO" $JustISO
   ${GetBaseName} "$JustISO" $JustISOName
- ${StrRep} '$JustISOName' '$JustISOName' ' ' '-'  
+ ${சரம்மாற்று} '$JustISOName' '$JustISOName' ' ' '-'  
   ${GetParent} "$TheISO" $JustISOPath  
   EnableWindow $DownloadISO 0
   ${NSD_SetText} $DownloadISO "We Found and Selected the $SomeFileExt."    
@@ -718,7 +718,7 @@ Function ISOBrowse
  ${If} $ShowingAll == "YES"
   StrCpy $ISOFileName "*.iso" 
  ${ElseIf} $ShowingAll != "YES"
-  Call SetISOFileName
+  Call உதநிகோப்புபெயர்அமை
  ${EndIf}
  
  nsDialogs::SelectFileDialog open "" $(IsoFile)
@@ -730,23 +730,23 @@ Function ISOBrowse
  StrCpy $ISOTest "$TheISO" ; Populate ISOTest so we can enable Next 
  StrCpy $ISOFile "$TheISO" 
  ${GetFileName} "$TheISO" $JustISO
-  ${StrRep} '$JustISO' '$JustISO' ' ' '-'
+  ${சரம்மாற்று} '$JustISO' '$JustISO' ' ' '-'
  ${GetBaseName} "$JustISO" $JustISOName
- ${StrRep} '$JustISOName' '$JustISOName' ' ' '-'
+ ${சரம்மாற்று} '$JustISOName' '$JustISOName' ' ' '-'
  ${GetParent} "$TheISO" $JustISOPath
  StrCpy $LocalSelection "YES"
-  Call SetISOSize
-  Call SetSpace
-  Call CheckSpace
-  Call HaveSpacePre
+  Call உதநிஅளவைஅமை
+  Call இடத்தைஅமை
+  Call இடத்தைசரிபார்
+  Call இடமிருக்குமுன்
  ${If} $JustISOName == "" 
  StrCpy $JustISOName "NULL" ; Set to NULL until something is selected
  ${EndIf}
  
- ${If} ${FileExists} "$BDir\multiboot\$JustISOName\*.*"
+ ${If} ${FileExists} "$BDir\!\$JustISOName\*.*"
  ${AndIf} $JustISOName != ""
  ${AndIf} $FormatMe != "YES"
- ${AndIf} ${FileExists} "$BDir\multiboot\menu\ஐ-EXFAT"
+ ${AndIf} ${FileExists} "$BDir\!\menu\ஐ-EXFAT"
   MessageBox MB_OK "$JustISOName is already on $DestDisk$\r$\nPlease Remove it first!"
  ${Else}
  ${EndIf}
@@ -767,12 +767,12 @@ Function InstallorRemove ; Populate DistroName based on Install/Removal option
   Call அகற்றும்பட்டியல்
   ${Else}
    ${NSD_SetText} $LinuxDistroSelection "Step 2: Select a Distribution to put on $DestDisk" 
-  Call SetISOFileName
+  Call உதநிகோப்புபெயர்அமை
   ${EndIf}
 FunctionEnd  
 
 ; On Selection of Uninstaller Option
-Function Uninstall
+Function நிறுவல்நீக்கு
   ${NSD_GetState} $Uninstaller $Removal
   ${If} $Removal == ${BST_CHECKED}
   ShowWindow $Format 0
@@ -817,7 +817,7 @@ Function Uninstall
     ${NSD_SetText} $LinuxDistroSelection "Step 2: Select a Distribution to put on $DestDisk" 
      SendMessage $Distro ${CB_RESETCONTENT} 0 0  ; Clear all distro entries because a new option may have been chosen ; Enable for DropBox
      StrCpy $Checker "YES"         
-     Call SetISOFileName
+     Call உதநிகோப்புபெயர்அமை
   ${EndIf}  
 FunctionEnd
 
@@ -830,12 +830,12 @@ Function OnSelectDrive
   StrCpy $BDir $DestDrive 2 ;was -1 
   StrCpy $DestDisk $DestDrive 2 ;was -1
 
-  Call PhysDrive
+  Call இயற்பியக்கி
   StrCpy $INST_DISK "$DiskNum" ; save Install Disk Number in case we need it again later
   Call கோமுவகைபெறு
 
 ; Check if drive is already setup for ஐ-EXFAT
- ${IfNot} ${FileExists} "$BDir\multiboot\ஐ-EXFAT"
+ ${IfNot} ${FileExists} "$BDir\!\ஐ-EXFAT"
   ${If} $RepeatInstall != "YES"
    MessageBox MB_YESNO|MB_ICONQUESTION "$BDir has not been prepared for this version of ஐ UEFI.$\r$\n$\r$\nDo you want ஐ to Prepare and format (Disk $INST_DISK)?" IDYES checkit
    StrCpy $FormatMe ""
@@ -855,15 +855,15 @@ Function OnSelectDrive
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
   StrCpy $Checker "YES" 
   Call InstallorRemove
-  Call SetSpace
-  Call CheckSpace
-  Call FormatIt  
+  Call இடத்தைஅமை
+  Call இடத்தைசரிபார்
+  Call இதைவடிவமை  
   Call EnableNext
  
   ${NSD_SetText} $LabelDrivePage "Step 1: You Selected $DestDisk (Disk $DiskNum) as your USB Device"   
 FunctionEnd
 
-Function GetDiskVolumeName
+Function வட்டுதொகுதிபெயர்பெறு
 ;Pop $1 ; get parameter
 System::Alloc 1024 ; Allocate string body
 Pop $0 ; Get the allocated string's address
@@ -879,7 +879,7 @@ ${Else}
 ${EndIf}
 FunctionEnd 
 
-Function DiskSpace
+Function வட்டிடம்
 ${DriveSpace} "$9" "/D=T /S=G" $1 ; used to find total space of each drive
 ${If} $1 > "0"
  StrCpy $Capacity "$1GB"
@@ -890,17 +890,17 @@ FunctionEnd
 
 Function DrivesList
  StrCpy $JustDrive $9
- Call PhysDrive
- Call GetDiskVolumeName
- Call DiskSpace
+ Call இயற்பியக்கி
+ Call வட்டுதொகுதிபெயர்பெறு
+ Call வட்டிடம்
  Call கோமுவகைபெறு
 ;Prevent System Drive from being selected
  StrCpy $7 $WINDIR 3
  ${If} $9 != "$7" 
  ${AndIf} $Capacity != ""
  SendMessage $DestDriveTxt ${CB_ADDSTRING} 0 "STR:$9 (Disk $DiskNum) $VolName $Capacity $FSType" ;$8
-   ${சரம்கொண்டுள்ளது} $BOOT "TEMPYUMI" "$VolName" ; does the string contain the TEMPYUMI Label? - This label is only set during initial 2nd partition creation.
-   ${If} $BOOT == "TEMPYUMI" ; if so do something
+   ${சரம்கொண்டுள்ளது} $BOOT "TEMPஐ" "$VolName" ; does the string contain the TEMPஐ Label? - This label is only set during initial 2nd partition creation.
+   ${If} $BOOT == "TEMPஐ" ; if so do something
    StrCpy $BOOT_LETTER "$9" -1 ; copy the Drive Letter for later use in locating and writing to the BOOT partition
    StrCpy $BOOT_DISK "$DiskNum" ; copy the Disk Number for later use in locating the right BOOT partition
    ;MessageBox MB_ICONSTOP|MB_OK "$9 - (Disk $DiskNum) - $VolName |$BOOT|"
@@ -912,16 +912,16 @@ FunctionEnd
 Function DrivesListRep
 Var /Global DiskYum
  StrCpy $JustDrive $9
- Call PhysDrive
- Call GetDiskVolumeName
- Call DiskSpace
+ Call இயற்பியக்கி
+ Call வட்டுதொகுதிபெயர்பெறு
+ Call வட்டிடம்
  Call கோமுவகைபெறு
 ;Prevent System Drive from being selected
  StrCpy $7 $WINDIR 3
  ${If} $9 != "$7" 
  ${AndIf} $Capacity != ""
-   ${சரம்கொண்டுள்ளது} $YUMIDR "ஐ" "$VolName" ; does the string contain the ஐ Label?
-   ${If} $YUMIDR == "ஐ" ; if so add string
+   ${சரம்கொண்டுள்ளது} $IDR "ஐ" "$VolName" ; does the string contain the ஐ Label?
+   ${If} $IDR == "ஐ" ; if so add string
    ${சரம்கொண்டுள்ளது} $DiskYum "$INST_DISK" "$DiskNum" ; does the string contain the right Disk Number?
    ${AndIf} $DiskYum == "$INST_DISK" ; if so add string
     SendMessage $DestDriveTxt ${CB_ADDSTRING} 0 "STR:$9 (Disk $DiskNum) $VolName $Capacity $FSType" ;$8
@@ -935,14 +935,14 @@ FunctionEnd
 
 Function DrivesListBoot
  StrCpy $JustDrive $9
- Call PhysDrive
- Call GetDiskVolumeName
- Call DiskSpace
+ Call இயற்பியக்கி
+ Call வட்டுதொகுதிபெயர்பெறு
+ Call வட்டிடம்
  Call கோமுவகைபெறு
 ;Prevent System Drive from being selected
  StrCpy $7 $WINDIR 3
  ${If} $9 != "$7" 
-   ${If} "$VolName" == "TEMPYUMI" ; does $VolName contain the TEMPYUMI Label? - This label is only set during initial 2nd partition creation.
+   ${If} "$VolName" == "TEMPஐ" ; does $VolName contain the TEMPஐ Label? - This label is only set during initial 2nd partition creation.
    ${AndIf} $DiskNum == "$INST_DISK" ; if so add string
     ;StrCpy $BOOT_LETTER_FULL "$9" #The letter and :/   
     StrCpy $BOOT_LETTER "$9" 2 #Just the letter and :
@@ -962,7 +962,7 @@ Function DrivesListBoot
 FunctionEnd
 
 
-Function FormatYES ; If Format is checked, do something
+Function ஆம்வடிவமை ; If Format is checked, do something
   SetShellVarContext all
   InitPluginsDir
   File /oname=$PLUGINSDIR\diskpartwipe1.txt "இருமங்கள்\நி\diskpartwipe1.txt"  
@@ -982,7 +982,7 @@ Function FormatYES ; If Format is checked, do something
 	Sleep 1000
 	nsExec::ExecToLog '"DiskPart" /S $PLUGINSDIR\diskpartwipe2.txt'
 	
-	; call and use a new DrivesListBoot function... only show drives with the TEMPYUMI label that match disk
+	; call and use a new DrivesListBoot function... only show drives with the TEMPஐ label that match disk
    ${GetDrives} "FDD+HDD" DrivesListBoot ; probe for the BOOT disk number and letter... since we just wiped and recreated partitions on the disk.
 	;MessageBox MB_ICONSTOP|MB_OK "BOOT --> $BOOT_LETTER (Disk $BOOT_DISK) | ஐ --> $DestDisk (Disk $INST_DISK)" ; checkpoint
 	
@@ -995,7 +995,7 @@ Function FormatYES ; If Format is checked, do something
   ;${EndIf} 
 FunctionEnd
 
-Function FormatIt ; Set Format Option
+Function இதைவடிவமை ; Set Format Option
   ${NSD_GetState} $Format $FormatMe
   ${If} $FormatMe == ${BST_CHECKED}
   ${NSD_Check} $Format
@@ -1010,32 +1010,32 @@ Function FormatIt ; Set Format Option
   StrCpy $FormatMe "NO"
   ${NSD_SetText} $Format "Prepare and Format (Disk $DiskNum)?"  
     SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new format option may have been chosen ; Enable for DropBox
-	${If} ${FileExists} "$BDir\multiboot\ஐ-EXFAT"
+	${If} ${FileExists} "$BDir\!\ஐ-EXFAT"
      ShowWindow $Uninstaller 1 ; Re-enable Uninstaller option.
 	${EndIf}
 	StrCpy $Checker "YES" 
-	Call SetSpace
+	Call இடத்தைஅமை
   ${EndIf}  
     Call InstallorRemove
 FunctionEnd
 
-Function ShowAllISOs ; Set Show All ISOs Option
+Function அனைத்துஉதநிகாட்டு ; Set Show All ISOs Option
   ${NSD_GetState} $ForceShowAll $ShowingAll
   ${If} $ShowingAll == ${BST_CHECKED}
   ${NSD_Check} $ForceShowAll
   StrCpy $ShowingAll "YES"
-  ${NSD_SetText} $ForceShowAll "Show All ISOs!"
+  ${NSD_SetText} $ForceShowAll "உதநிகள்!"
     SendMessage $ISOSelection ${CB_RESETCONTENT} 0 0 
  
   ${ElseIf} $ShowingAll == ${BST_UNCHECKED}
   ${NSD_Uncheck} $ForceShowAll
-  ${NSD_SetText} $ForceShowAll "Show All ISOs?"  
+  ${NSD_SetText} $ForceShowAll "உதநிகள்?"  
     SendMessage $ISOSelection ${CB_RESETCONTENT} 0 0 
   ${EndIf}  
 FunctionEnd
 
-Function CheckSpace ; Check total available space so we can set block size
-  Call TotalSpace
+Function இடத்தைசரிபார் ; Check total available space so we can set block size
+  Call மொத்தஇடம்
   ${If} $1 <= 511
   StrCpy $BlockSize 1
   ${ElseIf} $1 >= 512
@@ -1053,12 +1053,12 @@ Function CheckSpace ; Check total available space so we can set block size
  ; MessageBox MB_ICONSTOP|MB_OK "$0 Drive is $1 MB in size, blocksize = $BlockSize KB."  
 FunctionEnd
 
-Function TotalSpace
+Function மொத்தஇடம்
 ${DriveSpace} "$JustDrive" "/D=T /S=M" $1 ; used to find total space of select disk
  StrCpy $Capacity "$1"
 FunctionEnd
 
-Function FreeDiskSpace
+Function மீதமுள்ளவட்டுஇடம்
 ${If} $FormatMe == "YES"
 ${DriveSpace} "$JustDrive" "/D=T /S=M" $1
 ${Else}
@@ -1066,24 +1066,10 @@ ${DriveSpace} "$JustDrive" "/D=F /S=M" $1
 ${EndIf}
 FunctionEnd
 
-/* Function SetSpace ; Set space available for persistence
-  ;StrCpy $0 '$0'
-  Call FreeDiskSpace
-  IntOp $MaxPersist 4090 + $CasperSize ; Space required for distro and 4GB max persistent file
- ${If} $1 > $MaxPersist ; Check if more space is available than we need for distro + 4GB persistent file
-  StrCpy $RemainingSpace 4090 ; Set maximum possible value to 4090 MB (any larger wont work on fat32 Filesystem)
- ${Else}
-  StrCpy $RemainingSpace "$1"
-  IntOp $RemainingSpace $RemainingSpace - $SizeOfCasper ; Remaining space minus distro size
- ${EndIf}
-  IntOp $RemainingSpace $RemainingSpace - 1 ; Subtract 1MB so that we don't error for not having enough space
-  SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Re-Setting Max Value
-FunctionEnd */
-
-Function SetSpace ; Set space available for persistence
+Function இடத்தைஅமை ; Set space available for persistence
  ${If} $FSType != "NTFS"
  ${AndIf} $FSType != "exFAT"
-  Call FreeDiskSpace
+  Call மீதமுள்ளவட்டுஇடம்
   StrCpy $MaxPersist 4090 ; Space required for a 4GB max persistent file
    ${If} $1 > $MaxPersist ; Check if more space is available than we need for 4GB persistent file
    StrCpy $RemainingSpace 4090 ; Set maximum possible value to 4090 MB (any larger wont work on fat32 Filesystem)
@@ -1091,22 +1077,21 @@ Function SetSpace ; Set space available for persistence
    StrCpy $RemainingSpace "$1"
    ${EndIf}
  ${Else}  
-  Call FreeDiskSpace
+  Call மீதமுள்ளவட்டுஇடம்
   StrCpy $MaxPersist 10240 ; Space required for 10GB max persistent file
    ${If} $1 > $MaxPersist ; Check if more space is available than we need for a 20GB persistent file
    StrCpy $RemainingSpace 10240 ; Set maximum possible value to 10240 MB (10GB)
    ${Else}
    StrCpy $RemainingSpace "$1"
    ${EndIf}
-
  ${EndIf} 
    IntOp $RemainingSpace $RemainingSpace - 1 ; Subtract 1MB so that we don't error for not having enough space
    SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Re-Setting Max Value 
 FunctionEnd
 
-Function HaveSpacePre ; Check space required
+Function இடமிருக்குமுன் ; Check space required
   Call CasperSize
-  Call FreeDiskSpace
+  Call மீதமுள்ளவட்டுஇடம்
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...
   IntCmp $3 1 okay ; ... and compare it
@@ -1114,9 +1099,9 @@ Function HaveSpacePre ; Check space required
   okay: ; Proceed to execute...
 FunctionEnd
 
-Function HaveSpace ; Check space required
+Function இடமிருக்கு ; Check space required
   Call CasperSize
-  Call FreeDiskSpace
+  Call மீதமுள்ளவட்டுஇடம்
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...
   IntCmp $3 1 okay ; ... and compare it
@@ -1128,8 +1113,8 @@ Function HaveSpace ; Check space required
 FunctionEnd
 
 ; Custom Distros Installer - Uninstaller Include
-!include "ஐ-நி.கோ.ஒ.அ\நிரல்கள்\InstallDistro.nsh" ; ## ADD NEW DISTRO ##
-!include "ஐ-நி.கோ.ஒ.அ\நிரல்கள்\RemoveDistro.nsh" ; ## ADD NEW DISTRO ##
+!include "ஐ-நி.கோ.ஒ.அ\நிரல்கள்\விநியோகநிறுவல்.நிரல்" ; ## ADD NEW DISTRO ##
+!include "ஐ-நி.கோ.ஒ.அ\நிரல்கள்\விநியோகநீக்கம்.நிரல்" ; ## ADD NEW DISTRO ##
 
 Function DoMBR ; Install MBR and Boot files on Fat Boot Partition
   
@@ -1138,7 +1123,7 @@ Function DoMBR ; Install MBR and Boot files on Fat Boot Partition
     ${AndIf} ${FileExists} $BOOT_LETTER\ஐ-EXFAT 
     DetailPrint "A Previous ஐ EXFAT Installation was detected."
   ${Else}  
-  ; CreateDirectory $BOOT_LETTER\multiboot\menu ; recursively create the directory structure if it doesn't exist 
+  ; CreateDirectory $BOOT_LETTER\!\menu ; recursively create the directory structure if it doesn't exist 
     CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BOOT_LETTER\உரிமை.உரை" 
   ; Copy GRUB2 EFI files 
   DetailPrint "Proceeding to extract GRUB2 EFI and BIOS files..."
@@ -1174,13 +1159,13 @@ Pop $NameThatISO
  ${EndIf}
  
 ; Check if drive is already setup for ஐ-EXFAT or if format and prep checked.
- ${IfNot} ${FileExists} "$BDir\multiboot\ஐ-EXFAT"
+ ${IfNot} ${FileExists} "$BDir\!\ஐ-EXFAT"
   ${If} $RepeatInstall != "YES"
    ${AndIf} $FormatMe != "YES"
     MessageBox MB_ICONSTOP|MB_OK "$BDir has not been prepared for this version of ஐ UEFI.$\r$\n$\r$\nGo back and tick the box to Prepare and format (Disk $INST_DISK)"
     StrCmp $R8 3 0 ;Compare $R8 variable with current page #
     StrCpy $R9 -1 ; Goes back to selections page
-    Call RelGotoPage ; change pages
+    Call உறவுபக்கத்திற்குச்செல் ; change pages
 	Abort
   ${Endif}
  ${Endif}
@@ -1198,7 +1183,7 @@ Pop $NameThatISO
   MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: To prevent any loss of data, you must backup your data from all partitions tied to (Disk $DiskNum) before proceeding!$\r$\n$\r$\n${பெயர்} is Ready to perform the following actions:$\r$\n$\r$\n1. Wipe and prepare (Disk $DiskNum) with multiple partitions. All exisiting Data will be Irrecoverably Deleted!$\r$\n$\r$\n2. Create an MBR on (Disk $DiskNum) - Existing MBR will be Overwritten!$\r$\n$\r$\n3. Create a ஐ Label on ($DestDisk) - existing Label will be Overwritten!$\r$\n$\r$\n4. Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you positive (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Go Back!" IDYES proceed
   Quit
  ${ElseIf} $FormatMe != "YES" 
- ;${AndIfNot} ${FileExists} $BDir\multiboot\menu\syslinux.cfg
+ ;${AndIfNot} ${FileExists} $BDir\!\menu\syslinux.cfg
  ${AndIf} $Removal != "YES"
  ${AndIf} $RepeatInstall != "YES"
   MessageBox MB_YESNO|MB_ICONEXCLAMATION "${பெயர்} is Ready to perform the following actions:$\r$\n$\r$\nInstall ($DistroName) on (Disk $DiskNum) $DestDisk$\r$\n$\r$\nAre you absolutely positive (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nClick YES to perform these actions on (Disk $DiskNum) or NO to Exit!" IDYES proceed
@@ -1207,20 +1192,20 @@ Pop $NameThatISO
 
 proceed: 
  ${IfThen} $Removal == "YES" ${|} Goto removeonly ${|}
-  Call HaveSpace ; Got enough Space? Lets Check!
-  Call FormatYES ; Format the Drive?
+  Call இடமிருக்கு ; Got enough Space? Lets Check!
+  Call ஆம்வடிவமை ; Format the Drive?
  
   ;Goto theend ; Temporary test stop here.
   Call LocalISODetected
 
-; If YUMI_EXFAT doesn't exist make it so
- ${IfNot} ${FileExists} "$BDir\multiboot\ஐ-EXFAT"
-  CopyFiles "$PLUGINSDIR\ஐ-EXFAT" "$BDir\multiboot\ஐ-EXFAT"
+; If ஐ_EXFAT doesn't exist make it so
+ ${IfNot} ${FileExists} "$BDir\!\ஐ-EXFAT"
+  CopyFiles "$PLUGINSDIR\ஐ-EXFAT" "$BDir\!\ஐ-EXFAT"
  ${EndIf}
 
 ; If path doesn't exist create the directory
- ${IfNot} ${FileExists} "$BDir\multiboot\$DistroPath\*.*"
-  CreateDirectory "$BDir\multiboot\$DistroPath"
+ ${IfNot} ${FileExists} "$BDir\!\$DistroPath\*.*"
+  CreateDirectory "$BDir\!\$DistroPath"
  ${EndIf} 
  
 removeonly:
@@ -1234,11 +1219,11 @@ removeonly:
 ;theend:
 SectionEnd
 
-Function NoQuit
+Function வெளியேறாதே
 MessageBox MB_YESNO "Would you like to add more ISOs/Distros Now on $DestDisk?" IDYES noskip
     StrCmp $R8 3 0 End ;Compare $R8 variable with current page #
     StrCpy $R9 1 ; Goes to finish page
-    Call RelGotoPage
+    Call உறவுபக்கத்திற்குச்செல்
     Abort
 noskip:
 StrCpy $ShowAll "$ShowAll" ; Retain Display All Drives
@@ -1266,12 +1251,12 @@ StrCpy $ShowingAll ""
 StrCpy $FormatMe "" ; Reset Format Option
     StrCmp $R8 4 0 End ;Compare $R8 variable with current page #
     StrCpy $R9 -3 ; Goes back to selections page
-    Call RelGotoPage ; change pages
+    Call உறவுபக்கத்திற்குச்செல் ; change pages
     Abort
 End:
 FunctionEnd
 
-Function RelGotoPage
+Function உறவுபக்கத்திற்குச்செல்
   IntCmp $R9 0 0 Move Move
     StrCmp $R9 "X" 0 Move
       StrCpy $R9 "120"
@@ -1301,13 +1286,13 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\GRUBINST.7z "ஐ-நி.கோ.ஒ.அ\EFIGRUB\GRUBINST.7z" 
 FunctionEnd
 
-Function onNotify_CasperSlider
+Function புதையல்நிலைமாற்றிஅறிவிப்பதில்
  Pop $Casper
  SendMessage $CasperSlider ${TBM_GETPOS} 0 0 $Casper ; Get Trackbar position
  ${NSD_SetText} $SlideSpot "$Casper MB"
 FunctionEnd
 
-Function SetISOSize ; Get size of ISO
+Function உதநிஅளவைஅமை ; Get size of ISO
  System::Call 'kernel32::CreateFile(t "$TheISO", i 0x80000000, i 1, i 0, i 3, i 0, i 0) i .r0'
  System::Call "kernel32::GetFileSizeEx(i r0, *l .r1) i .r2"
  System::Alloc $1

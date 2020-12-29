@@ -6,15 +6,15 @@ Function கோப்பில்எழுது ; modified to populate *.cfg fi
  Exch $1 ;text to write
 
 ;wrapper before write. Assumption UTF-8 file. 
-${FileRecode} "$BDir\அகர\பகவன்\$Config2Use" "ToUTF16LE"
+${FileRecode} "$BDir\அகர\பகவன்\$DistroPath" "ToUTF16LE"
 ;Convert file from UTF-8 to UTF16LE
- FileOpen $R0 '$BDir\அகர\பகவன்\$Config2Use' a 
+ FileOpen $R0 '$BDir\அகர\பகவன்\$DistroPath' a 
  FileSeek $R0 0 END
 ;FileWrite $R0 '$\r$\n$1' ; புதிய வரி மற்றும் தரவைச் சேர்க்கவும்
  FileWriteUTF16LE $R0 '$\r$\n$1' ; புதிய வரி மற்றும் தரவைச் சேர்க்கவும்
  FileClose $R0
 ; Convert file back to UTF-8
-${FileRecode} "$BDir\அகர\பகவன்\$Config2Use" "ToUTF8"
+${FileRecode} "$BDir\அகர\பகவன்\$DistroPath" "ToUTF8"
 ; Convert file UTF16LE to UTF-8
  
  Pop $1
@@ -25,7 +25,7 @@ FunctionEnd
  Push "${String}"
  Push "${File}"
  Call கோப்பில்எழுது
- ${LineFind} "$BDir\அகர\பகவன்\$Config2Use" "$BDir\அகர\பகவன்\$Config2Use" "1:-1" "வெற்றுவரியைநீக்கு" ; Remove any left over empty lines
+ ${LineFind} "$BDir\அகர\பகவன்\$DistroPath" "$BDir\அகர\பகவன்\$DistroPath" "1:-1" "வெற்றுவரியைநீக்கு" ; Remove any left over empty lines
 !macroend  
 !define கோப்பில்எழுது "!insertmacro கோப்பில்எழுது"
 
@@ -132,7 +132,7 @@ Function அகற்றும்பட்டியல் ; Lists the distros in
  FileClose $0
 
  ${Else}
-     ;Call ஐஎஸ்ஓகோப்புபெயர்அமை
+     ;Call உதநிகோப்புபெயர்அமை
  ${EndIf}
 FunctionEnd
 
@@ -165,7 +165,7 @@ FunctionEnd
   Pop "${ResultVar}"
 !macroend
  
-Function சரம்மாற்று 
+Function சரம்மாற்று
 /*After this point:
   ------------------------------------------
   $R0 = RepString (input)
@@ -249,65 +249,4 @@ Function சரம்மாற்று
   Pop $R2
   Pop $R1
   Exch $R0
-FunctionEnd
-; Persistent File Creation Progress
-Function தவமுன்னேற்றம்
- ${Do}
- Sleep 1
- ReadEnvStr $COMSPEC COMSPEC
- nsExec::Exec '"$COMSPEC" /C "copy" $PLUGINSDIR\ddlog.txt $PLUGINSDIR\ddlog2.txt'
- Push "$PLUGINSDIR\ddlog2.txt"
- Call வரிஎண்ணிக்கை
- Pop $R0
- 
- Push $R0 ;line number to read from
- Push "$PLUGINSDIR\ddlog2.txt" ;text file to read
- Call கோப்புவரியைப்படி
- Pop $0 ;output string (read from file.txt)
- StrCpy $PERCENT "$0"
- GetDlgItem $2 $1 1030
- SendMessage $2 ${WM_SETTEXT} 0 "STR:$PERCENT"  
- ${LoopUntil} $R0 >= "$Casper"
-FunctionEnd
-
-Function வரிஎண்ணிக்கை
-Exch $R0
-Push $R1
-Push $R2
- FileOpen $R0 $R0 r
-loop:
- ClearErrors
- FileRead $R0 $R1
- IfErrors +3
- IntOp $R2 $R2 + 1
-Goto loop
- FileClose $R0
- StrCpy $R0 $R2
-Pop $R2
-Pop $R1
-Exch $R0
-FunctionEnd
-
-Function கோப்புவரியைப்படி 
-Exch $0 ;கோப்பு
-Exch
-Exch $1 ;வரிஎண்
-Push $2
-Push $3
- 
- FileOpen $2 $0 r
- StrCpy $3 0
- 
-Loop:
- IntOp $3 $3 + 1
-  ClearErrors
-  FileRead $2 $0
-  IfErrors +2
-  StrCmp $3 $1 0 loop
-  FileClose $2
- 
-Pop $3
-Pop $2
-Pop $1
-Exch $0
 FunctionEnd

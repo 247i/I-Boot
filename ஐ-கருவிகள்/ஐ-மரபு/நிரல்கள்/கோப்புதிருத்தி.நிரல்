@@ -71,7 +71,7 @@ Function WriteToFile ; modified to populate *.cfg file with the distro user inst
  Exch $R0 ;file to write to
  Exch
  Exch $1 ;text to write
- FileOpen $R0 '$BootDir\multiboot\menu\$Config2Use' a 
+ FileOpen $R0 '$BootDir\multiboot\menu\$DistroPath' a 
  FileSeek $R0 0 END
  FileWrite $R0 '$\r$\n$1' ; புதிய வரி மற்றும் தரவைச் சேர்க்கவும்
  FileClose $R0
@@ -83,7 +83,7 @@ FunctionEnd
  Push "${String}"
  Push "${File}"
  Call WriteToFile
- ${LineFind} "$BootDir\multiboot\menu\$Config2Use" "$BootDir\multiboot\menu\$Config2Use" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
+ ${LineFind} "$BootDir\multiboot\menu\$DistroPath" "$BootDir\multiboot\menu\$DistroPath" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
 !macroend  
 !define WriteToFile "!insertmacro WriteToFile"
 
@@ -297,65 +297,4 @@ Function StrRep ;http://nsis.sourceforge.net/mediawiki/index.php?title=StrRep&di
   Pop $R2
   Pop $R1
   Exch $R0
-FunctionEnd
-; Persistent File Creation Progress
-Function ddProgress
- ${Do}
- Sleep 1
- ReadEnvStr $COMSPEC COMSPEC
- nsExec::Exec '"$COMSPEC" /C "copy" $PLUGINSDIR\ddlog.txt $PLUGINSDIR\ddlog2.txt'
- Push "$PLUGINSDIR\ddlog2.txt"
- Call LineCount
- Pop $R0
- 
- Push $R0 ;line number to read from
- Push "$PLUGINSDIR\ddlog2.txt" ;text file to read
- Call ReadFileLine
- Pop $0 ;output string (read from file.txt)
- StrCpy $PERCENT "$0"
- GetDlgItem $2 $1 1030
- SendMessage $2 ${WM_SETTEXT} 0 "STR:$PERCENT"  
- ${LoopUntil} $R0 >= "$Casper"
-FunctionEnd
-
-Function LineCount ; http://nsis.sourceforge.net/Get_number_of_lines_in_text_file
-Exch $R0
-Push $R1
-Push $R2
- FileOpen $R0 $R0 r
-loop:
- ClearErrors
- FileRead $R0 $R1
- IfErrors +3
- IntOp $R2 $R2 + 1
-Goto loop
- FileClose $R0
- StrCpy $R0 $R2
-Pop $R2
-Pop $R1
-Exch $R0
-FunctionEnd
-
-Function ReadFileLine ; http://nsis.sourceforge.net/Read_from_text_file_line_number
-Exch $0 ;file
-Exch
-Exch $1 ;line number
-Push $2
-Push $3
- 
- FileOpen $2 $0 r
- StrCpy $3 0
- 
-Loop:
- IntOp $3 $3 + 1
-  ClearErrors
-  FileRead $2 $0
-  IfErrors +2
-  StrCmp $3 $1 0 loop
-  FileClose $2
- 
-Pop $3
-Pop $2
-Pop $1
-Exch $0
 FunctionEnd

@@ -1,0 +1,13 @@
+﻿; ------------ Uninstall Distros Macro -------------- 
+
+!macro Uninstall_Distros  
+   ;MessageBox MB_OK "$DistroName"
+ ${If} $DistroName != ""  
+   ${AndIf} ${FileExists} "$BDir\!\$DistroName\*.*"  ; $DistroName includes $DistroPath\$JustISOName
+    RMDir /R "$BDir\!\$DistroName"
+    ;Delete "$BDir\!\$DistroName.iso" 
+    ${LineFind} "$BDir\!\நிறுவப்பட்டது.உரை" "$BDir\!\நிறுவப்பட்டது.உரை" "1:-1" "DeleteInstall" ; Remove the Installed entry
+    ${LineFind} "$BDir\!\நிறுவப்பட்டது.உரை" "$BDir\!\நிறுவப்பட்டது.உரை" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
+    DetailPrint "$DistroName was Removed!"
+ ${EndIf} 
+!macroend

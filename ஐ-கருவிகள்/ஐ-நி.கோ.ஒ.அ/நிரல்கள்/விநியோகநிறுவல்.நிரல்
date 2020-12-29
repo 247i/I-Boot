@@ -1,0 +1,31 @@
+﻿; ------------ Install Distros Macro -------------- 
+
+!macro Install_Distros 
+
+; If distro is already installed, delete it, so we don't make a mess.
+ ${If} ${FileExists} "$BDir\!\$DistroPath\$JustISO"
+  Delete "$BDir\!\$DistroPath\$JustISO" 
+ ${EndIf}
+
+; Create the Path (container for Distro and persistence if available).
+ ${IfNot} ${FileExists} "$BDir\!\$DistroPath\*.*"
+  CreateDirectory "$BDir\!\$DistroPath" ; Create the Directory so we can copy the file to it.
+ ${EndIf}
+ 
+; Copy the ISO to the Container
+ ${If} $DistroName != "" 
+  DetailPrint "Copying $JustISO to $BDir\!\$DistroPath\"
+  CopyFiles $ISOFile "$BDir\!\$DistroPath\$JustISOName\$JustISO" ; Copy the ISO to Directory
+ ${EndIf}
+ 
+; Write the Path to நிறுவப்பட்டது.உரை
+ ${நிறுவப்பட்டபட்டியல்} "$DistroPath\$JustISOName" $R0 ; Write the ISO path name to the Installed List "நிறுவப்பட்டது.உரை" file (so we can keep track of installs for removal)
+ ${LineFind} "$BDir\!\நிறுவப்பட்டது.உரை" "$BDir\!\நிறுவப்பட்டது.உரை" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines 
+ 
+ ; Enable and Create Casper if necessary
+ ${If} $Persistence == "casper" ; Casper
+ ${AndIf} $Casper != "0" ; Casper Slider (Size) was not Null
+   Call CasperScript  
+ ${EndIf}
+
+!macroend

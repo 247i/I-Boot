@@ -1,18 +1,18 @@
 ﻿Unicode	True ; தமிழ் எழுத்து அதரவு 
-!define NAME "புதையல்-படிஎழுது-உருவாக்கி"
+!define பெயர் "புதையல்-படிஎழுது-உருவாக்கி"
 !define DISTRO "persistent file"
 !define PTYPE "$CasperName"
-!define VERSION "0.5"
+!define பதிப்பு "0.5"
 !define MUI_ICON "..\அகர\ஐ-காண்\யானை.ico"
 RequestExecutionLevel highest
-Name "${NAME} ${VERSION}"
-OutFile "..\${NAME}-${VERSION}.exe"
+Name "${பெயர்} ${பதிப்பு}"
+OutFile "..\${பெயர்}-${பதிப்பு}.exe"
 
 SetCompressor LZMA
 CRCCheck On
 XPStyle on
 ShowInstDetails show
-BrandingText "PDL Casper-RW Creator https://www.pendrivelinux.com"
+BrandingText "    ⮜⮘  https://TamilNeram.github.io/${பெயர்}   ⮞⮚"
 CompletedText "$CasperName persistent file creation done, Process is Complete!"
 InstallButtonText Create
 
@@ -58,7 +58,7 @@ Var VolName
 Var Capacity 
 Var JustDrive
 Var Letters
-Var BootDir
+Var BDir
 Var DestDisk
 
 ; USB Drive and Casper Slider Selections Page
@@ -71,20 +71,20 @@ Page custom SelectionsPage
 !define MUI_TEXT_FINISH_SUBTITLE $(Install_Finish_Sucess)
 !insertmacro MUI_PAGE_INSTFILES
 
-; Language files
-!insertmacro MUI_LANGUAGE "English" ;first language is the default language
-LangString License_Subtitle ${LANG_ENGLISH} "Please review the license terms before running ${NAME}."
-LangString License_Top ${LANG_ENGLISH} "The software within this program falls under the following License."
-LangString License_Bottom ${LANG_ENGLISH} "You must accept the terms of this License agreement to run PDL Casper-RW Creator. If you agree, Click I Agree to Continue."
-LangString DrivePage_Title ${LANG_ENGLISH} "Choose your USB drive"
-LangString DrivePage_Title2 ${LANG_ENGLISH} "Choose the USB drive in which to install a ${DISTRO}."
-LangString DrivePage_Text ${LANG_ENGLISH} "This simple tool can be used to create a ${DISTRO} on your select USB drive, enabling you to save and restore changes on Live Ubuntu based Distributions and Remixes."
-LangString CasperName_Input ${LANG_ENGLISH} "Step 2: Select Your Persistence File Name"
-LangString DrivePage_Input ${LANG_ENGLISH} "Step 1: Select Your USB Flash Drive"
-LangString Casper_Text ${LANG_ENGLISH} "Step 3: Drag the Slider to Set a File Size to use for storing changes."
-LangString Install_Title ${LANG_ENGLISH} "Installing a ${PTYPE} ${DISTRO}"
-LangString Install_SubTitle ${LANG_ENGLISH} "Please wait while ${NAME} creates and installs a ${PTYPE} ${DISTRO} on $DestDrive"
-LangString Install_Finish_Sucess ${LANG_ENGLISH} "${NAME} sucessfully created and installed a ${PTYPE} ${DISTRO} on $DestDrive"
+; தமிழ் மொழி உரைகள்
+!insertmacro MUI_LANGUAGE "Tamil" ; தமிழே முதல் மொழி
+LangString License_Subtitle ${LANG_TAMIL} "${பெயர்} தொடர்வதற்கு முன் உரிம விதிமுறைகளை மதிப்பாய்வு செய்யவும் ."
+LangString License_Top ${LANG_TAMIL} "இந்த நிரலில் உள்ள மென்பொருள் பின்வரும் உரிமங்களின் கீழ் வருகிறது."
+LangString License_Bottom ${LANG_TAMIL} "இந்த ${பெயர்} பயன்பாட்டை இயக்க இந்த உரிம ஒப்பந்தத்தின் விதிமுறைகளை நீங்கள் ஏற்க வேண்டும். நீங்கள் ஒப்புக்கொண்டால், ஒப்புதல் என்பதைக் சொடுக்கு."
+LangString DrivePage_Title ${LANG_TAMIL} "மின்வெட்டொளி இயக்கதைத் தேர்ந்தெடுக்கவும்"
+LangString DrivePage_Title2 ${LANG_TAMIL} "மின்வெட்டொளி இயக்கதைத் தேர்ந்தெடுக்கவும் in which to install a ${DISTRO}."
+LangString DrivePage_Text ${LANG_TAMIL} "This simple tool can be used to create a ${DISTRO} on your select USB drive, enabling you to save and restore changes on Live Ubuntu based Distributions and Remixes."
+LangString CasperName_Input ${LANG_TAMIL} "படி 2: Select Your Persistence File பெயர்"
+LangString DrivePage_Input ${LANG_TAMIL} "படி 1: மின்வெட்டொளி இயக்கதைத் தேர்ந்தெடுக்கவும்"
+LangString Casper_Text ${LANG_TAMIL} "படி 3: Drag the Slider to Set a File Size to use for storing changes."
+LangString Install_Title ${LANG_TAMIL} "Installing a ${PTYPE} ${DISTRO}"
+LangString Install_SubTitle ${LANG_TAMIL} "Please wait while ${பெயர்} creates and installs a ${PTYPE} ${DISTRO} on $DestDrive"
+LangString Install_Finish_Sucess ${LANG_TAMIL} "${பெயர்} sucessfully created and installed a ${PTYPE} ${DISTRO} on $DestDrive"
 
 Function SelectionsPage
   !insertmacro MUI_HEADER_TEXT $(DrivePage_Title) $(DrivePage_Title2)
@@ -199,7 +199,7 @@ Function OnSelectDrive
   ${NSD_GetText} $DestDriveTxt $Letters
   StrCpy $DestDrive "$Letters"
   StrCpy $JustDrive $DestDrive 3  
-  StrCpy $BootDir $DestDrive 2 ;was -1 
+  StrCpy $BDir $DestDrive 2 ;was -1 
   StrCpy $DestDisk $DestDrive 2 ;was -1 
   ; MessageBox MB_ICONSTOP|MB_OK "$JustDrive - $DestDrive"  
   GetDlgItem $6 $HWNDPARENT 1 ; Get "Next" control handle
@@ -247,92 +247,18 @@ Function FreeDiskSpace
 ${DriveSpace} "$JustDrive" "/D=F /S=M" $1
 FunctionEnd
 
-/* Function CasperScript
-${If} $Casper != "0"
-DetailPrint "Now Creating a Casper RW File" 
-DetailPrint "Creating the Persistent File: The progress bar will not move until finished. Please be patient..." 
-
-  ExecWait '"$PLUGINSDIR\தரவுவரையறை.exe" if=/dev/zero of=$DestDrive\casper-rw bs=1M count=$Casper --progress'
-  ;nsExec::ExecToStack '"$PLUGINSDIR\தரவுவரையறை.exe" if=/dev/zero of=$DestDrive\casper-rw bs=1M count=$Casper --progress'
-  nsExec::ExecToLog '"$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe" -L casper-rw $DestDrive\casper-rw'	
-${EndIf}
-  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$DestDrive\உரிமை.உரை" ; move Readme
-FunctionEnd */
-
-
-; Persistent File Creation Progress
-Function ddProgress
- ${Do}
- Sleep 1
- ReadEnvStr $COMSPEC COMSPEC
- nsExec::Exec '"$COMSPEC" /C "copy" $PLUGINSDIR\ddlog.txt $PLUGINSDIR\ddlog2.txt'
- Push "$PLUGINSDIR\ddlog2.txt"
- Call LineCount
- Pop $R0
- 
- Push $R0 ;line number to read from
- Push "$PLUGINSDIR\ddlog2.txt" ;text file to read
- Call ReadFileLine
- Pop $0 ;output string (read from file.txt)
- StrCpy $PERCENT "$0"
- GetDlgItem $2 $1 1030
- SendMessage $2 ${WM_SETTEXT} 0 "STR:$PERCENT"  
- ${LoopUntil} $R0 >= "$Casper"
-FunctionEnd
-
-Function LineCount ; http://nsis.sourceforge.net/Get_number_of_lines_in_text_file
-Exch $R0
-Push $R1
-Push $R2
- FileOpen $R0 $R0 r
-loop:
- ClearErrors
- FileRead $R0 $R1
- IfErrors +3
- IntOp $R2 $R2 + 1
-Goto loop
- FileClose $R0
- StrCpy $R0 $R2
-Pop $R2
-Pop $R1
-Exch $R0
-FunctionEnd
-
-Function ReadFileLine ; http://nsis.sourceforge.net/Read_from_text_file_line_number
-Exch $0 ;file
-Exch
-Exch $1 ;line number
-Push $2
-Push $3
- 
- FileOpen $2 $0 r
- StrCpy $3 0
- 
-Loop:
- IntOp $3 $3 + 1
-  ClearErrors
-  FileRead $2 $0
-  IfErrors +2
-  StrCmp $3 $1 0 loop
-  FileClose $2
- 
-Pop $3
-Pop $2
-Pop $1
-Exch $0
-FunctionEnd
-
+!include துணை\தவமுன்னேற்றம்.நிரல் ; 
 Function CasperScript
 ${If} $Casper != "0"
  Sleep 1000
  DetailPrint "Sleeping for 1 second..."
  ExpandEnvStrings $COMSPEC "%COMSPEC%"
- ExecShell "" '"$COMSPEC"' '/C if 1==1 "$PLUGINSDIR\தரவுவரையறை.exe" if=/dev/zero of=$BootDir\$CasperName bs=1M count=$Casper --progress 2>$PLUGINSDIR\ddlog.txt' SW_HIDE
+ ExecShell "" '"$COMSPEC"' '/C if 1==1 "$PLUGINSDIR\தரவுவரையறை.exe" if=/dev/zero of=$BDir\$CasperName bs=1M count=$Casper --progress 2>$PLUGINSDIR\ddlog.txt' SW_HIDE
  Banner::show /set 76 "Creating a $CasperName file."
  Banner::getWindow
  Pop $1  
  DetailPrint "Creating a $CasperName file. Progress will not move until finished..."
- Call ddProgress
+ Call தவமுன்னேற்றம்
  Banner::destroy
  
  DetailPrint "Now Formatting $CasperName" 
@@ -340,9 +266,9 @@ ${If} $Casper != "0"
  
  Sleep 3000 ; Give the dd.exe time to exit.
  DetailPrint "Sleeping for 3 seconds..."
- nsExec::ExecToLog '"$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe" -L $CasperName $BootDir\$CasperName'
+ nsExec::ExecToLog '"$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe" -L $CasperName $BDir\$CasperName'
 ${EndIf}
-  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\உரிமை.உரை" ; நகர்த்து 
+  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BDir\உரிமை.உரை" ; நகர்த்து 
 FunctionEnd
 
 

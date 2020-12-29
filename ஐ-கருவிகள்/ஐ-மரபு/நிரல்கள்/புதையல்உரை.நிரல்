@@ -18,7 +18,7 @@ ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
  Banner::getWindow
  Pop $1  
  DetailPrint "நிலைத்தன்மை கோப்பை உருவாக்குதல்: முடிவடையும் வரை முன்னேற்றப் பட்டி நகராது..."
- Call ddProgress
+ Call தவமுன்னேற்றம்
  Banner::destroy
   ${If} $DistroName == "Raspberry Pi Desktop"
    nsExec::ExecToLog '"$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe" -L persistence $BootDir\multiboot\$JustISOName\$CasperName'

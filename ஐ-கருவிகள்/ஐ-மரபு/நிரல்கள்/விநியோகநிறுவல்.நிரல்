@@ -99,14 +99,14 @@ FunctionEnd
   
 Function WriteStuff
  ; Now done before this function is called (see line 122) CreateDirectory "$BootDir\multiboot\$JustISOName\YUMI\" ; Create the YUMI Directory.. so we can copy the following config file to it.
- CopyFiles "$PLUGINSDIR\$Config2Use" "$BootDir\multiboot\$JustISOName\YUMI\$Config2Use" ; Copy the $Config2Use file to $JustISOName\YUMI folder for the distro (so we know where to remove entry) 
+ CopyFiles "$PLUGINSDIR\$DistroPath" "$BootDir\multiboot\$JustISOName\YUMI\$DistroPath" ; Copy the $DistroPath file to $JustISOName\YUMI folder for the distro (so we know where to remove entry) 
  DetailPrint "$DistroName ($JustISOName) and its menu entry were added!"
  
 ; Failure to find ConfigFile and was not added as a GRUB Boot ISO, so Remove and Delete   
   ${If} $ConfigFile == "NULL" ; Isolinux/Syslinux config file doesn't exist!
-	  ${AndIf} $Config2Use != "menu.lst" ; menu.lst = GRUB, so we shouldn't expect to find a syslinux config file!
+	  ${AndIf} $DistroPath != "menu.lst" ; menu.lst = GRUB, so we shouldn't expect to find a syslinux config file!
 		MessageBox MB_OK "YUMI couldn't find a configuration file.$\r$\n'$JustISO' not supported, please report the exact steps taken to arrive at this message!$\r$\nYUMI will now remove this entry."   
-		${DeleteMenuEntry} "$BootDir\multiboot\menu\$Config2Use" "#[ $JustISOName" "#] $JustISOName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
+		${DeleteMenuEntry} "$BootDir\multiboot\menu\$DistroPath" "#[ $JustISOName" "#] $JustISOName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
 		StrCpy $DistroName "$JustISOName" ; So we can remove the following நிறுவப்பட்டது.உரை entry
 		${LineFind} "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "1:-1" "DeleteInstall" ; Remove the நிறுவப்பட்டது.உரை entry
 		${LineFind} "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "$BootDir\multiboot\நிறுவப்பட்டது.உரை" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines from நிறுவப்பட்டது.உரை
@@ -123,7 +123,7 @@ FunctionEnd
 
 ; If distro is already installed, delete the entry, so we don't make a mess.
  ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\*.*"
-	 ${DeleteMenuEntry} "$BootDir\multiboot\menu\$Config2Use" "#[ $DistroName" "#] $DistroName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
+	 ${DeleteMenuEntry} "$BootDir\multiboot\menu\$DistroPath" "#[ $DistroName" "#] $DistroName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
  ${EndIf}
  
 ; Write $JustISOName to நிறுவப்பட்டது.உரை 
