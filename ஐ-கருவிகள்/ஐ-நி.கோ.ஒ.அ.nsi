@@ -224,7 +224,7 @@ Function தேர்வுகள்பக்கம்
 ; Clickable Link to Distribution Homepage  
   ${NSD_CreateLink} 60% 80 40% 15 "Visit the $OfficialName HomePage"
   Pop $DistroLink
-  ${NSD_OnClick} $DistroLink onClickLinuxSite    
+  ${NSD_OnClick} $DistroLink லினக்சுதளசொடுக்த்தில்    
 
 ; ISO Selection Starts  
   ${NSD_CreateLabel} 0 100 100% 15 $(IsoPage_Text)
@@ -282,17 +282,17 @@ Function தேர்வுகள்பக்கம்
 ; Add Home Link
   ${NSD_CreateLink} 0 215 16% 15 "Home Page"
   Pop $Link
-  ${NSD_OnClick} $LINK onClickMyLink    
+  ${NSD_OnClick} $LINK என்தளசொடுக்த்தில்    
   
 ; Add Help Link
   ${NSD_CreateLink} 16% 215 9% 15 "FAQ"
   Pop $Link1
-  ${NSD_OnClick} $LINK1 onClickMyLinkFAQ 
+  ${NSD_OnClick} $LINK1 அகேகேதளசொடுக்த்தில் 
   
 ; Add Giveback Link
   ${NSD_CreateLink} 25% 215 30% 15 "Recommended Flash Drives"
   Pop $Link2
-  ${NSD_OnClick} $LINK2 onClickMyLinkUSB   
+  ${NSD_OnClick} $LINK2 என்உதொபேதளசொடுக்த்தில்   
  
 ; Disable Next Button until a selection is made for all 
   GetDlgItem $6 $HWNDPARENT 1
@@ -364,7 +364,7 @@ Function தேர்வுகள்பக்கம்
 ; Clickable Link to Distribution Homepage  
   ${NSD_CreateLink} 60% 80 40% 15 "Visit the $OfficialName HomePage"
   Pop $DistroLink
-  ${NSD_OnClick} $DistroLink onClickLinuxSite    
+  ${NSD_OnClick} $DistroLink லினக்சுதளசொடுக்த்தில்    
 
 ; ISO Selection Starts  
   ${NSD_CreateLabel} 0 100 100% 15 $(IsoPage_Text)
@@ -392,22 +392,22 @@ Function தேர்வுகள்பக்கம்
 ;; Add Help Link
 ;  ${NSD_CreateLink} 0 215 65% 15 "Click HERE to visit the ஐ page for additional info!"
 ;  Pop $Link
-;  ${NSD_OnClick} $LINK onClickMyLink  
+;  ${NSD_OnClick} $LINK என்தளசொடுக்த்தில்  
 
 ; Add Home Link
   ${NSD_CreateLink} 0 215 16% 15 "Home Page"
   Pop $Link
-  ${NSD_OnClick} $LINK onClickMyLink    
+  ${NSD_OnClick} $LINK என்தளசொடுக்த்தில்    
   
 ; Add Help Link
   ${NSD_CreateLink} 16% 215 9% 15 "FAQ"
   Pop $Link1
-  ${NSD_OnClick} $LINK1 onClickMyLinkFAQ 
+  ${NSD_OnClick} $LINK1 அகேகேதளசொடுக்த்தில் 
   
 ; Add Giveback Link
   ${NSD_CreateLink} 25% 215 30% 15 "Recommended Flash Drives"
   Pop $Link2
-  ${NSD_OnClick} $LINK2 onClickMyLinkUSB 
+  ${NSD_OnClick} $LINK2 என்உதொபேதளசொடுக்த்தில் 
 
 ;; Add a custom donate button
 ;   ${NSD_CreateBitmap} 80% 125 20% 50 "PayPal Donation"
@@ -453,46 +453,25 @@ FunctionEnd
 
 Function ListAllDrives ; Set to Display All Drives
   SendMessage $DestDriveTxt ${CB_RESETCONTENT} 0 0 
- ; ${NSD_GetState} $AllDriveOption $DisplayAll
- ; ${If} $DisplayAll == ${BST_CHECKED}
- ; ${NSD_Check} $AllDriveOption
- ; ${NSD_SetText} $AllDriveOption "Showing All!" 
- ;  StrCpy $ShowAll "YES"
    ${GetDrives} "FDD+HDD" DrivesList ; All Drives Listed  
-;  ${ElseIf} $DisplayAll == ${BST_UNCHECKED}
-;  ${NSD_Uncheck} $AllDriveOption
-;  ${NSD_SetText} $AllDriveOption "Show All Drives?"  
-;   ${GetDrives} "FDD" DrivesList ; FDD+HDD reduced to FDD for removable media only
-;   StrCpy $ShowAll "NO"
-;  ${EndIf}
 FunctionEnd
 
-/* Function onClickMyLink
+Function என்தளசொடுக்த்தில்
   Pop $Links ; pop something to prevent corruption
-  ExecShell "open" "https://www.pendrivelinux.com/yumi-multiboot-usb-creator/"
+  ExecShell "open" "https://TamilNeram.github.io"
 FunctionEnd
 
-Function onClickLinuxSite
-  Pop $OfficialSite 
-  ExecShell "open" "$Homepage"
-FunctionEnd */
-
-Function onClickMyLink
-  Pop $Links ; pop something to prevent corruption
-  ExecShell "open" "https://www.pendrivelinux.com/yumi-multiboot-usb-creator/"
-FunctionEnd
-
-Function onClickMyLinkFAQ
+Function அகேகேதளசொடுக்த்தில்
   Pop $Links1 ; pop something to prevent corruption
-  ExecShell "open" "https://www.pendrivelinux.com/yumi-multiboot-usb-creator/#FAQ"
+  ExecShell "open" "https://TamilNeram.github.io"
 FunctionEnd
 
-Function onClickMyLinkUSB
+Function என்உதொபேதளசொடுக்த்தில்
   Pop $Links2 ; pop something to prevent corruption
-  ExecShell "open" "https://www.pendrivelinux.com/recommended-usb-flash-drives/"
+  ExecShell "open" "https://TamilNeram.github.io"
 FunctionEnd
 
-Function onClickLinuxSite
+Function லினக்சுதளசொடுக்த்தில்
   Pop $OfficialSite 
   ExecShell "open" "$Homepage"
 FunctionEnd
@@ -1149,8 +1128,8 @@ Function HaveSpace ; Check space required
 FunctionEnd
 
 ; Custom Distros Installer - Uninstaller Include
-!include "ஐ-நி.கோ.ஒ.அ\நிரல்கள்\InstallDistro.nsh" ; ##################################### ADD NEW DISTRO ########################################
-!include "ஐ-நி.கோ.ஒ.அ\நிரல்கள்\RemoveDistro.nsh" ; ##################################### ADD NEW DISTRO ########################################
+!include "ஐ-நி.கோ.ஒ.அ\நிரல்கள்\InstallDistro.nsh" ; ## ADD NEW DISTRO ##
+!include "ஐ-நி.கோ.ஒ.அ\நிரல்கள்\RemoveDistro.nsh" ; ## ADD NEW DISTRO ##
 
 Function DoMBR ; Install MBR and Boot files on Fat Boot Partition
   
