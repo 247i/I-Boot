@@ -1,4 +1,4 @@
-; ------------ Uninstall Distros Macro -------------- 
+﻿; ------------ Uninstall Distros Macro -------------- 
 
 !macro Uninstall_Distros  
    ;MessageBox MB_OK "$DistroName"

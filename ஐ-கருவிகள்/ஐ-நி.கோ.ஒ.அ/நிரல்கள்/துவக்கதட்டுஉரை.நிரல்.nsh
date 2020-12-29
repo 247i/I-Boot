@@ -1,4 +1,4 @@
-; ------------- DriveStuff -------------
+﻿; ------------- DriveStuff -------------
 
  Function PhysDrive
  StrCpy $1 "$JustDrive"

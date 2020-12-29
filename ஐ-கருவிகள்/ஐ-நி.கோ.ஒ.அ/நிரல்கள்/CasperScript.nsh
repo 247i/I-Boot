@@ -41,7 +41,7 @@ ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
  Sleep 1000
  DetailPrint "Sleeping for 1 second..."
  ExpandEnvStrings $COMSPEC "%COMSPEC%"
- ExecShell "" '"$COMSPEC"' '/C if 1==1 "$PLUGINSDIR\தரவுவரையறை.exe" if=/dev/zero of="$BootDir\multiboot\$DistroPath\$JustISOName\$CasperName" bs=1M count=$Casper --progress 2>$PLUGINSDIR\ddlog.txt' SW_HIDE
+ ExecShell "" '"$COMSPEC"' '/C if 1==1 "$PLUGINSDIR\தரவுவரையறை.exe" if=/dev/zero of="$BDir\multiboot\$DistroPath\$JustISOName\$CasperName" bs=1M count=$Casper --progress 2>$PLUGINSDIR\ddlog.txt' SW_HIDE
  Banner::show /set 76 "Creating a $CasperName file."
  Banner::getWindow
  Pop $1  
@@ -54,7 +54,7 @@ ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
  
  Sleep 3000 ; Give the தரவுவரையறை.exe time to exit.
  DetailPrint "Sleeping for 3 seconds..."
- nsExec::ExecToLog '"$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe" -L $CasperName "$BootDir\multiboot\$DistroPath\$JustISOName\$CasperName"'
+ nsExec::ExecToLog '"$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe" -L $CasperName "$BDir\multiboot\$DistroPath\$JustISOName\$CasperName"'
 ${EndIf}
 FunctionEnd
 
