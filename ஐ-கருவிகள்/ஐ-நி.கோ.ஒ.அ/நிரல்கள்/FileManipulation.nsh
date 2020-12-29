@@ -1,21 +1,4 @@
-/*
- * This file is part of YUMI
- *
- * YUMI is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * any later version.
- *
- * YUMI is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with YUMI.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-; -------- Configuration and Text File Manipulation Stuff! --------
+﻿; -------- Configuration and Text File Manipulation Stuff! --------
 
 !include "TextFunc.nsh" ; TextFunc.nsh required for the following DeleteInstall function
 Function DeleteInstall  ; Deletes Select Entry from Installed.txt          
@@ -36,17 +19,17 @@ Function DeleteEmptyLine ; Deletes empty lines
 	Push $0
 FunctionEnd
 
-Function InstalledList ; Creates a list of installed distros in the multiboot folder on the USB drive (So we can uninstall the distros later)
- ${IfNot} ${FileExists} "$BootDir\multiboot\$JustISOName\*.*" ; If the installation directory exists user must be reinstalling the same distro, so we won't add a removal entry. 
+Function நிறுவப்பட்டபட்டியல் ; Creates a list of installed distros in the multiboot folder on the USB drive (So we can uninstall the distros later)
+ ${IfNot} ${FileExists} "$BDir\multiboot\$JustISOName\*.*" ; If the installation directory exists user must be reinstalling the same distro, so we won't add a removal entry. 
    Exch $R0 ;file to write to
    Exch
    Exch $1 ;text to write
-   ${If} ${FileExists} "$BootDir\multiboot\Installed.txt" 
-    FileOpen $R0 '$BootDir\multiboot\Installed.txt' a 
+   ${If} ${FileExists} "$BDir\multiboot\Installed.txt" 
+    FileOpen $R0 '$BDir\multiboot\Installed.txt' a 
     FileSeek $R0 0 END
 	FileWrite $R0 '$\r$\n$1' ; add subsequent entry on a new line
    ${Else}
-    FileOpen $R0 '$BootDir\multiboot\Installed.txt' a 
+    FileOpen $R0 '$BDir\multiboot\Installed.txt' a 
     FileSeek $R0 0 END
     FileWrite $R0 '$1'  ; add first entry without a new line
    ${EndIf}
@@ -56,14 +39,14 @@ Function InstalledList ; Creates a list of installed distros in the multiboot fo
  ${EndIf}
 FunctionEnd
 
-!macro InstalledList String File
+!macro நிறுவப்பட்டபட்டியல் String File
   Push "${String}"
   Push "${File}"
-  Call InstalledList
+  Call நிறுவப்பட்டபட்டியல்
 !macroend  
-!define InstalledList "!insertmacro InstalledList"
+!define நிறுவப்பட்டபட்டியல் "!insertmacro நிறுவப்பட்டபட்டியல்"
 
-Function Trim ; Remove leading and trailing whitespace from string - orgiginal function by Iceman_K  http://nsis.sourceforge.net/Remove_leading_and_trailing_whitespaces_from_a_string edited for use with YUMI
+Function ஒழுங்கமை ; ஐ உடன் பயன்படுத்த திருத்தப்பட்ட முன்னணி மற்றும் பின்னால் உள்ள இடைவெளியை அகற்று
 	Exch $R1 ; Original string
 	Push $R2
 Loop:
@@ -90,23 +73,23 @@ Done:
 	Pop $R2
 	Exch $R1
 FunctionEnd
-!macro Trim TrimmedString OriginalString
+!macro ஒழுங்கமை TrimmedString OriginalString
   Push "${OriginalString}"
-  Call Trim
+  Call ஒழுங்கமை
   Pop "${TrimmedString}"
 !macroend
-!define Trim "!insertmacro Trim" 
+!define ஒழுங்கமை "!insertmacro ஒழுங்கமை" 
 
-Function RemovalList ; Lists the distros installed on the select drive.
+Function அகற்றும்பட்டியல் ; Lists the distros installed on the select drive.
  ${NSD_SetText} $LinuxDistroSelection "Step 2: Select a Distro from the list to remove"  
- ${If} ${FileExists} "$BootDir\multiboot\Installed.txt" ; Are there distributions on the select drive? 
+ ${If} ${FileExists} "$BDir\multiboot\Installed.txt" ; Are there distributions on the select drive? 
  ClearErrors
- FileOpen $0 $BootDir\multiboot\Installed.txt r
+ FileOpen $0 $BDir\multiboot\Installed.txt r
   loop:
    FileRead $0 $1
     IfErrors done
     StrCpy $DistroName $1
-	${Trim} "$DistroName" "$DistroName" ; Remove spaces, newlines, and carriage return
+	${ஒழுங்கமை} "$DistroName" "$DistroName" ; Remove spaces, newlines, and carriage return
     ${NSD_CB_AddString} $Distro "$DistroName" ; Add DistroName to the listbox of removable distros ; was ${NSD_LB_AddString} $Distro "$DistroName" ; Enable for DropBox
    Goto loop
   done:  
@@ -213,20 +196,19 @@ Function StrRep ;http://nsis.sourceforge.net/mediawiki/index.php?title=StrRep&di
   Pop $R1
   Exch $R0
 FunctionEnd
-
 ; Persistent File Creation Progress
-Function ddProgress
+Function தவமுன்னேற்றம்
  ${Do}
  Sleep 1
  ReadEnvStr $COMSPEC COMSPEC
  nsExec::Exec '"$COMSPEC" /C "copy" $PLUGINSDIR\ddlog.txt $PLUGINSDIR\ddlog2.txt'
  Push "$PLUGINSDIR\ddlog2.txt"
- Call LineCount
+ Call வரிஎண்ணிக்கை
  Pop $R0
  
  Push $R0 ;line number to read from
  Push "$PLUGINSDIR\ddlog2.txt" ;text file to read
- Call ReadFileLine
+ Call கோப்புவரியைப்படி
  Pop $0 ;output string (read from file.txt)
  StrCpy $PERCENT "$0"
  GetDlgItem $2 $1 1030
@@ -234,7 +216,7 @@ Function ddProgress
  ${LoopUntil} $R0 >= "$Casper"
 FunctionEnd
 
-Function LineCount ; http://nsis.sourceforge.net/Get_number_of_lines_in_text_file
+Function வரிஎண்ணிக்கை
 Exch $R0
 Push $R1
 Push $R2
@@ -252,10 +234,10 @@ Pop $R1
 Exch $R0
 FunctionEnd
 
-Function ReadFileLine ; http://nsis.sourceforge.net/Read_from_text_file_line_number
-Exch $0 ;file
+Function கோப்புவரியைப்படி 
+Exch $0 ;கோப்பு
 Exch
-Exch $1 ;line number
+Exch $1 ;வரிஎண்
 Push $2
 Push $3
  

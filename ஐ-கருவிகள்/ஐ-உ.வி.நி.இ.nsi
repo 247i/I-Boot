@@ -1,5 +1,5 @@
 ﻿Unicode True ; தமிழ் எழுத்து அதரவு 
-;!execute 'ஐ-உ.வி.நி.இ\இருமங்கள்அகர.bat' ; zip if required.
+;!execute 'ஐ-உ.வி.நி.இ\இருமங்கள்\அகர.bat' ; zip if required.
 ;!execute '"$%WINDIR%\notepad.exe" /P "${NSISDIR}\COPYING"' ; Enable this to debug previous line. 
 !define பெயர் "ஐ-உ.வி.நி.இ"
 !define பதிப்பு "0.0.3.2"
@@ -69,8 +69,6 @@ Var GrubCopyPath
 Var Initrd
 Var Vmlinuz
 Var ISONameDotLess
-; Var SearchDir
-; Var SearchFile
 Var DestDisk
 Var DownloadISO
 Var DownloadMe
@@ -86,8 +84,6 @@ Var LocalSelection
 Var Letters
 Var Config2Use
 Var SomeFileExt
-;Var AllDriveOption
-;Var DisplayAll
 Var DistroLink
 Var Homepage
 Var OfficialSite
@@ -124,22 +120,21 @@ Var DiskNum
 !include துணை\கோப்பில்மாற்று.நிரல்
 !include ஐ-உ.வி.நி.இ\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்
 
-
-; Interface settings
+; இடைமுக அமைப்புகள்
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_BITMAP "..\அகர\அணிகலன்\யாதும் ஊரே-தலைப்பு.bmp" 
 !define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
 !define MUI_HEADERIMAGE_RIGHT
-; License Agreement Page
+; உரிம ஒப்பந்த ஒப்பந்தம் பக்கம்
 !define MUI_TEXT_LICENSE_SUBTITLE $(License_Subtitle)
 !define MUI_LICENSEPAGE_TEXT_TOP $(License_Text_Top)
 !define MUI_LICENSEPAGE_TEXT_BOTTOM $(License_Text_Bottom)
 !define MUI_PAGE_CUSTOMFUNCTION_PRE உரிமம்_முன்செயல்பாடு
 !insertmacro MUI_PAGE_LICENSE "..\அகர\பகவன்\உரிமை.உரை"
-; Distro Selection Page
+; விநியோக தேர்வு பக்கம்
 Page custom தேர்வுகள்பக்கம்
-; Install Files Page
+; கோப்புகளை நிறுவுக பக்கம்
 !define MUI_INSTFILESPAGE_COLORS "00FF00 000000" ;Green and Black
 !define MUI_INSTFILESPAGE_FINISHHEADER_TEXT $(Finish_Install)
 !define MUI_TEXT_INSTALLING_TITLE $(Install_Title)
@@ -147,7 +142,7 @@ Page custom தேர்வுகள்பக்கம்
 !define MUI_TEXT_FINISH_SUBTITLE $(Install_Finish_Sucess)
 !define MUI_PAGE_CUSTOMFUNCTION_PRE நிறுவும்கோப்புகள்_முன்செயல்பாடு
 !insertmacro MUI_PAGE_INSTFILES
-; Finish page
+; முடிவு பக்கம்
 !define MUI_FINISHPAGE_TITLE $(Finish_Title)
 !define MUI_FINISHPAGE_TEXT $(Finish_Text)
 !define MUI_FINISHPAGE_LINK $(Finish_Link)

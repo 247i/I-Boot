@@ -19,9 +19,11 @@
 இயற்பியக்கி PhysDrive
 உதநிஉலாவு ISOBrowse
 உதொபே USB
+உரிமம்_முன்செயல்பாடு License_PreFunction
 உருவாக்கு Create
 உறவுபக்கத்திற்குச்செல் RelGotoPage
 உதநி(உலகதரநிறுவனம்) ISO(InternationalStandardOrganisation)
+உதநிகோப்புபெயர்அமை SetISOFileNames
 உலகளாவியதொடர்பேருந்து UniversalSerialBus
 உள்உதநிகண்டறியப்பட்டது LocalISODetected
 என்உதொபேதளசொடுக்த்தில் onClickMyLinkUSB
@@ -56,6 +58,8 @@
 நிறுவும்கோப்புகள்_முன்செயல்பாடு InstFiles_PreFunction
 நினைவட்டு memdisk
 நீட்2கோமுவடிவஉரு (நீட்டிக்கபட்ட கோப்பு முறைமை வடிவம் உருவாக்கு) mke2fs (make extended 2 file system)
+பதிப்பு VERSION
+பதிப்புரிமை Copyright
 பதிவிறக்கஇணைப்புகள் DownloadLinks
 புதைகருவிகளைப்பெறு GetCaspTools
 புதையல்அளவு CasperSize
@@ -73,6 +77,7 @@
 முதன்மைதுவக்கபதிவு Master Boot record 
 முதுபஅடை MBRID (முதன்மைதுவக்கபதிவெண்)
 முதுபஅடைவுக்குஎழுது Write2mbrid 
+முன்செயல்பாடு PreFunction
 மொத்தஇடம் TotalSpace
 லினக்சுஉட்கரு_கண்டுபிடி -Find VMlinuz
 லினக்சுதளசொடுக்த்தில் onClickLinuxSite

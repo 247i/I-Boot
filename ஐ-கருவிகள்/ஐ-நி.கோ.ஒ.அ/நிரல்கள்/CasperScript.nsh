@@ -3,13 +3,11 @@ Function CasperScript
 ${If} $Casper != "0"
 ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
  Call GetCaspTools
- 
     ${If} $DistroName == "Ubuntu"
 		 ${சரம்கொண்டுள்ளது} $0 "buntu-19" "$JustISO"   
 		 ${சரம்கொண்டுள்ளது} $1 "buntu-18" "$JustISO"
 		 ${சரம்கொண்டுள்ளது} $2 "buntu-17" "$JustISO" 
-		 ${சரம்கொண்டுள்ளது} $3 "buntu-16" "$JustISO" 		
-		 
+		 ${சரம்கொண்டுள்ளது} $3 "buntu-16" "$JustISO" 
 		 ${If} $0 != "buntu-19" 
 		 ${AndIf} $1 != "buntu-18"  
 		 ${AndIf} $2 != "buntu-17"  
@@ -18,7 +16,6 @@ ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
          ${Else}
 		  StrCpy $CasperName "casper-rw" 
 		 ${EndIf}
-		 
     ${ElseIf} $DistroName == "Linux Mint"
 		 ${சரம்கொண்டுள்ளது} $0 "mint-19" "$JustISO"   
 		 ${சரம்கொண்டுள்ளது} $1 "mint-18" "$JustISO"
@@ -49,7 +46,7 @@ ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
  Banner::getWindow
  Pop $1  
  DetailPrint "Creating a $CasperName file. Progress will not move until finished..."
- Call ddProgress
+ Call தவமுன்னேற்றம்
  Banner::destroy
  
  DetailPrint "Now Formatting $CasperName" 

@@ -270,7 +270,7 @@ Function தவமுன்னேற்றம்
  ${LoopUntil} $R0 >= "$Casper"
 FunctionEnd
 
-Function வரிஎண்ணிக்கை ;
+Function வரிஎண்ணிக்கை
 Exch $R0
 Push $R1
 Push $R2
@@ -289,9 +289,9 @@ Exch $R0
 FunctionEnd
 
 Function கோப்புவரியைப்படி 
-Exch $0 ;file
+Exch $0 ;கோப்பு
 Exch
-Exch $1 ;line number
+Exch $1 ;வரிஎண்
 Push $2
 Push $3
  

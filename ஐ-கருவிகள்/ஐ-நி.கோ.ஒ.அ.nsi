@@ -1,36 +1,33 @@
 ﻿Unicode True ; தமிழ் எழுத்து அதரவு 
-;!execute 'இருமங்கள்\அகர.bat' ; zip if required.
+;!execute 'ஐ-நி.கோ.ஒ.அ\இருமங்கள்\அகர.bat' ; zip if required.
 ;!execute '"$%WINDIR%\notepad.exe" /P "${NSISDIR}\COPYING"' ; Enable this to debug previous line. 
 !define பெயர் "ஐ-நி.கோ.ஒ.அ"
-!define VERSION "0.0.3.3"
+!define பதிப்பு "0.0.3.3"
 !define MUI_ICON "..\அகர\ஐ-காண்\வண்ணத்துப்பூச்சி.ico"
 
-; MoreInfo Plugin - Adds Version Tab fields to Properties. Plugin created by onad http://nsis.sourceforge.net/MoreInfo_plug-in
-VIProductVersion "${VERSION}"
-VIAddVersionKey CompanyName "pendrivelinux.com"
-VIAddVersionKey LegalCopyright "Copyright ©2020 Pendrivelinux.com"
-VIAddVersionKey FileVersion "${VERSION}"
-VIAddVersionKey FileDescription "YUMI - Your Universal MultiBoot Integrator"
-VIAddVersionKey License "GPL Version 2"
+VIProductVersion "${பதிப்பு}"
+VIAddVersionKey CompanyName "ஐ"
+VIAddVersionKey LegalCopyright "உரிமை ©2021 ஐ"
+VIAddVersionKey FileVersion "${பதிப்பு}"
+VIAddVersionKey FileDescription "ஐ-உ.வி.நி.இ"
+VIAddVersionKey License "இலவசம்"
 
-Name "${பெயர்} ${VERSION}"
-OutFile "..\${பெயர்}-${VERSION}.exe"
+Name "${பெயர்} ${பதிப்பு}"
+OutFile "..\${பெயர்}-${பதிப்பு}.exe"
 RequestExecutionLevel admin ;highest
 SetCompressor /SOLID lzma
 CRCCheck On
 XPStyle on
 ShowInstDetails show
-BrandingText "${பெயர்} ${VERSION}"
-CompletedText "All Finished, Process is Complete!"
-InstallButtonText "Create"
-Unicode True
+BrandingText "${பெயர்} ${பதிப்பு}"
+CompletedText "அனைத்தும் முடிந்தது!"
+InstallButtonText "உருவாக்கு"
 
 !include WordFunc.nsh
 !include nsDialogs.nsh
 !include MUI2.nsh
 !include FileFunc.nsh
 !include LogicLib.nsh
-;!include TextFunc.nsh
 !AddPluginDir "plugins"
 
 ; Variables
@@ -51,7 +48,7 @@ Var ISOFileName
 Var DestDriveTxt
 Var JustDrive
 Var DestDrive
-Var BootDir
+Var BDir
 Var LinuxDistroSelection
 Var LabelISOSelection
 Var ISOFileTxt
@@ -98,7 +95,6 @@ Var RepeatInstall
 Var ShowAll
 Var ForceShowAll
 Var ShowingAll
-
 Var SizeOfCasper 
 Var Casper
 Var CasperSlider
@@ -107,84 +103,80 @@ Var SlideSpot
 Var RemainingSpace
 Var MaxPersist
 Var Persistence
-
 Var CasperName
 Var COMSPEC
 Var PERCENT
-
 Var FSType
 Var DiskNum
-
 Var BOOT
 Var BOOT_DISK
 Var BOOT_LETTER
 Var INST_DISK
 Var YUMIDR
+
+
+
 !include துணை\ஒருங்குறிஉரை.நிரல்
 !include துணை\கோப்பில்மாற்று.நிரல்
-!include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\DiskVoodoo.nsh 
+!include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்.nsh 
 
-; Interface settings
+; இடைமுக அமைப்புகள்
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_BITMAP "..\அகர\அணிகலன்\யாதும் ஊரே-தலைப்பு.bmp" 
 !define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
 !define MUI_HEADERIMAGE_RIGHT
-
-; License Agreement Page
+; உரிம ஒப்பந்த ஒப்பந்தம் பக்கம்
 !define MUI_TEXT_LICENSE_SUBTITLE $(License_Subtitle)
 !define MUI_LICENSEPAGE_TEXT_TOP $(License_Text_Top)
 !define MUI_LICENSEPAGE_TEXT_BOTTOM $(License_Text_Bottom)
-!define MUI_PAGE_CUSTOMFUNCTION_PRE License_PreFunction
+!define MUI_PAGE_CUSTOMFUNCTION_PRE உரிமம்_முன்செயல்பாடு
 !insertmacro MUI_PAGE_LICENSE "..\அகர\பகவன்\உரிமை.உரை"
-
-; Distro Selection Page
-Page custom SelectionsPage
-
-; Install Files Page
+; விநியோக தேர்வு பக்கம்
+Page custom தேர்வுகள்பக்கம்
+; கோப்புகளை நிறுவுக பக்கம்
 !define MUI_INSTFILESPAGE_COLORS "00FF00 000000" ;Green and Black
 !define MUI_INSTFILESPAGE_FINISHHEADER_TEXT $(Finish_Install)
 !define MUI_TEXT_INSTALLING_TITLE $(Install_Title)
 !define MUI_TEXT_INSTALLING_SUBTITLE $(Install_SubTitle)
 !define MUI_TEXT_FINISH_SUBTITLE $(Install_Finish_Sucess)
-!define MUI_PAGE_CUSTOMFUNCTION_PRE InstFiles_PreFunction
+!define MUI_PAGE_CUSTOMFUNCTION_PRE நிறுவும்கோப்புகள்_முன்செயல்பாடு
 !insertmacro MUI_PAGE_INSTFILES
-
-; Finish page
+; முடிவு பக்கம்
 !define MUI_FINISHPAGE_TITLE $(Finish_Title)
 !define MUI_FINISHPAGE_TEXT $(Finish_Text)
 !define MUI_FINISHPAGE_LINK $(Finish_Link)
-!define MUI_FINISHPAGE_LINK_LOCATION "https://www.pendrivelinux.com/boot-multiple-iso-from-usb-multiboot-usb/"
+!define MUI_FINISHPAGE_LINK_LOCATION "https://TamilNeram.github.io"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "..\அகர\அணிகலன்\சரி.bmp"
-!define MUI_PAGE_CUSTOMFUNCTION_PRE Finish_PreFunction
+!define MUI_PAGE_CUSTOMFUNCTION_PRE முடித்தல்_முன்செயல்பாடு
 !insertmacro MUI_PAGE_FINISH
 
-; English Language files
-!insertmacro MUI_LANGUAGE "English" ; first language is the default language
-LangString License_Subtitle ${LANG_ENGLISH} "Please review the license terms before proceeding"
-LangString License_Text_Top ${LANG_ENGLISH} "The software within this program falls under the following Licenses."
-LangString License_Text_Bottom ${LANG_ENGLISH} "You must accept the terms of this License agreement to run this ${பெயர்}. If you agree, Click I Agree to Continue."
-LangString SelectDist_Title ${LANG_ENGLISH} "Drive Selection and Distro Options Page"
-LangString SelectDist_Subtitle ${LANG_ENGLISH} "Choose your Flash Drive, and a Distro, ISO/ZIP file.$\r$\nAdditional Distributions can be added each time this tool is run."
-LangString DrivePage_Text ${LANG_ENGLISH} "Step 1: Select your USB device."
-LangString Distro_Text ${LANG_ENGLISH} "Step 2: Select a Distribution from the list to put on your USB."
-LangString IsoPage_Text ${LANG_ENGLISH} "Step 3: Select the $FileFormat (Name must be the same as above)."
-LangString IsoPage_Title ${LANG_ENGLISH} "Select Your $FileFormat"
-LangString Casper_Text ${LANG_ENGLISH} "Step 4: Set a Persistent file size for storing changes (Optional)."
-LangString IsoFile ${LANG_ENGLISH} "$FileFormat file|$ISOFileName" ;$ISOFileName variable previously *.iso
-LangString Extract ${LANG_ENGLISH} "Extracting the $FileFormat: The progress bar will not move until finished. Please be patient..."
-LangString CreateSysConfig ${LANG_ENGLISH} "Creating configuration files for $DestDisk"
-LangString ExecuteSyslinux ${LANG_ENGLISH} "Executing syslinux on $BootDir"
-LangString SkipSyslinux ${LANG_ENGLISH} "Good Syslinux Exists..."
-LangString WarningSyslinux ${LANG_ENGLISH} "An error ($R8) occurred while executing syslinux.$\r$\nYour USB drive won't be bootable..."
-LangString WarningSyslinuxOLD ${LANG_ENGLISH} "This YUMI revision uses a newer Syslinux version that is not compatible with earlier revisions.$\r$\nPlease ensure your USB drive doesn't contain earlier revision installs."
-LangString Install_Title ${LANG_ENGLISH} "$InUnStalling $InUnName"
-LangString Install_SubTitle ${LANG_ENGLISH} "Please wait while we $InUnStall $InUnName $OnFrom $JustDrive"
-LangString Install_Finish_Sucess ${LANG_ENGLISH} "${பெயர்} $InUnStalled $InUnName $OnFrom $JustDrive"
-LangString Finish_Install ${LANG_ENGLISH} "Process Complete."
-LangString Finish_Title ${LANG_ENGLISH} "Thanks for using ${பெயர்}"
-LangString Finish_Text ${LANG_ENGLISH} "Your Selections have been $InUnStalled on your USB drive.$\r$\n$\r$\nFeel Free to run this tool again to $InUnStall more Distros.$\r$\n$\r$\nYUMI will keep track of selections you have already $InUnStalled."
-LangString Finish_Link ${LANG_ENGLISH} "Visit the YUMI Home Page"
+; தமிழ் மொழி உரைகள்
+!insertmacro MUI_LANGUAGE "Tamil" ; தமிழே முதல் மொழி
+LangString License_Subtitle ${LANG_TAMIL} "தொடர்வதற்கு முன் உரிம விதிமுறைகளை மதிப்பாய்வு செய்யவும்"
+LangString License_Text_Top ${LANG_TAMIL} "இந்த நிரலில் உள்ள மென்பொருள் பின்வரும் உரிமங்களின் கீழ் வருகிறது."
+LangString License_Text_Bottom ${LANG_TAMIL} "இந்த ${பெயர்} பயன்பாட்டை இயக்க இந்த உரிம ஒப்பந்தத்தின் விதிமுறைகளை நீங்கள் ஏற்க வேண்டும். நீங்கள் ஒப்புக்கொண்டால், தொடர நான் ஒப்புக்கொள்கிறேன் என்பதைக் சொடுக்கு."
+LangString SelectDist_Title ${LANG_TAMIL} "இயக்கி தேர்வு மற்றும் விநியோக விருப்பங்கள் பக்கம்"
+LangString SelectDist_Subtitle ${LANG_TAMIL} "மின்வெட்டொளி இயக்கி தேர்வுசெய்க, மற்றும் ஒரு விநியோகம், ஐஎஸ்ஓ/ஜிப் கோப்பு.$\r$\nஇந்த கருவி இயங்கும் ஒவ்வொரு முறையும் கூடுதல் விநியோகங்களைச் சேர்க்கலாம்."
+LangString DrivePage_Text ${LANG_TAMIL} "படி 1:மின்வெட்டொளி இயக்கதைத் தேர்ந்தெடுக்கவும்"
+LangString Distro_Text ${LANG_TAMIL} "படி 2: மின்வெட்டொளியில் வைக்க பட்டியலிலிருந்து ஒரு விநியோகத்தைத் தேர்ந்தெடுக்கவும்."
+LangString IsoPage_Text ${LANG_TAMIL} "படி 3: $FileFormat தேர்ந்தெடுக்கவும் (பெயர் மேலே உள்ளதைப் போலவே இருக்க வேண்டும்)."
+LangString IsoPage_Title ${LANG_TAMIL} "$FileFormat தேர்ந்தெடுக்கவும்"
+LangString Casper_Text ${LANG_TAMIL} "படி 4: மாற்றங்களைச் சேமிக்க ஒரு நிலையான கோப்பு அளவை அமைக்கவும்."
+LangString IsoFile ${LANG_TAMIL} "$FileFormat கோப்பு|$ISOFileName" 
+LangString Extract ${LANG_TAMIL} "$FileFormat பிரித்தெடுத்தல்: முடியும் வரை முன்னேற்றம் பட்டி நகராது. தயவுசெய்து பொருமையாயிறு..."
+LangString CreateSysConfig ${LANG_TAMIL} "$DestDisk இயக்ககத்திற்கான உள்ளமைவு கோப்புகளை உருவாக்குதல்"
+LangString ExecuteSyslinux ${LANG_TAMIL} "கணிலினக்சை $BDir மீது இயக்குகிறது"
+LangString SkipSyslinux ${LANG_TAMIL} "நல்ல கணிலினக்சு உள்ளது..."
+LangString WarningSyslinux ${LANG_TAMIL} "கணிலினக்சை இயக்கும் போது பிழை($R8) ஏற்பட்டது.$\r$\nமின்வெட்டொளி இயக்கி துவக்கப்படாது...$\r$\n$\r$\n$FSType கோப்பு முறைமை கண்டறியப்பட்டது. உங்கள் இயக்கி Fat32 அல்லது NTFS ஆக வடிவமைக்கப்பட வேண்டும்."
+LangString WarningSyslinuxOLD ${LANG_TAMIL} "இந்த ஐ-கருவி திருத்தம் முந்தைய திருத்தங்களுடன் பொருந்தாத புதிய கணிலினக்சு பதிப்பைப் பயன்படுத்துகிறது.$\r$\nஉங்கள் யூ.எஸ்.பி டிரைவில் முந்தைய திருத்த நிறுவல்கள் இல்லை என்பதை உறுதிப்படுத்தவும்."
+LangString Install_Title ${LANG_TAMIL} "$InUnName $InUnStalling"
+LangString Install_SubTitle ${LANG_TAMIL} "நாங்கள்   $JustDrive $OnFrom $InUnName $InUnStall போது காத்திருக்கவும்"
+LangString Install_Finish_Sucess ${LANG_TAMIL} "${பெயர்} $InUnStalled $InUnName $OnFrom $JustDrive"
+LangString Finish_Install ${LANG_TAMIL} "செயல்முறை முடிந்தது."
+LangString Finish_Title ${LANG_TAMIL} "${பெயர்} பயன்படுத்தியதற்கு நன்றி"
+LangString Finish_Text ${LANG_TAMIL} "உங்கள் தேர்வுகள் மின்வெட்டொளியில் $InUnStalled .$\r$\n$\r$\nமேலும் விநியோகங்களை $InUnStall இந்த கருவியை மீண்டும் இயக்கவும்.$\r$\n$\r$\nஐ-கருவி நீங்கள் ஏற்கனவே $InUnStalled தேர்வுகளை கண்காணிக்கும்."
+LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் பார்க்க"
 
 !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\FileManipulation.nsh ; Text File Manipulation
 !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\FileNames.nsh ; Macro for FileNames
@@ -192,11 +184,11 @@ LangString Finish_Link ${LANG_ENGLISH} "Visit the YUMI Home Page"
 !include துணை\சரம்கொண்டுள்ளது.நிரல் ; Let's check if a * wildcard exists
 !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\CasperScript.nsh ; For creation of Persistent Casper-rw files
 
-Function License_PreFunction
+Function உரிமம்_முன்செயல்பாடு
   StrCpy $R8 1 ;This is the 1st page
 FunctionEnd
 
-Function SelectionsPage
+Function தேர்வுகள்பக்கம்
   StrCpy $R8 2
  !insertmacro MUI_HEADER_TEXT $(SelectDist_Title) $(SelectDist_Subtitle) 
   nsDialogs::Create 1018
@@ -260,7 +252,7 @@ Function SelectionsPage
 ; Drive Pre-Selection  
   ${NSD_CreateLabel} 0 0 58% 15 "" ; was 58%
   Pop $LabelDrivePage 
-  ${NSD_SetText} $LabelDrivePage "Step 1: YUMI Summoned $DestDisk as your USB Device"  
+  ${NSD_SetText} $LabelDrivePage "Step 1: ஐ Summoned $DestDisk as your USB Device"  
 ; Droplist for Drive Selection  
   ${NSD_CreateDropList} 0 20 55% 15 "" ; was 0 20 15% 15 ; then was 28%
   Pop $DestDriveTxt
@@ -274,7 +266,7 @@ Function SelectionsPage
   Call DiskSpace
   Call GetFSType
   StrCpy $JustDrive $DestDrive 3
-  StrCpy $BootDir $DestDrive 2 ;was -1 
+  StrCpy $BDir $DestDrive 2 ;was -1 
   StrCpy $DestDisk $DestDrive 2 ;was -1
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
   StrCpy $Checker "YES"  
@@ -398,7 +390,7 @@ Function SelectionsPage
   ${NSD_OnNotify} $CasperSlider onNotify_CasperSlider    
   
 ;; Add Help Link
-;  ${NSD_CreateLink} 0 215 65% 15 "Click HERE to visit the YUMI page for additional info!"
+;  ${NSD_CreateLink} 0 215 65% 15 "Click HERE to visit the ஐ page for additional info!"
 ;  Pop $Link
 ;  ${NSD_OnClick} $LINK onClickMyLink  
 
@@ -450,11 +442,11 @@ Function SelectionsPage
  ${EndIf}
 FunctionEnd
 
-Function InstFiles_PreFunction
+Function நிறுவும்கோப்புகள்_முன்செயல்பாடு
   StrCpy $R8 3
 FunctionEnd
 
-Function Finish_PreFunction
+Function முடித்தல்_முன்செயல்பாடு
   StrCpy $R8 4
   Call NoQuit
 FunctionEnd
@@ -586,7 +578,7 @@ Function EnableNext ; Enable Install Button
 ; If using Casper Persistence...  
   ${If} $Persistence == "casper" ; If can use Casper Persistence... 
   ${AndIf} $TheISO != ""
-  ${AndIf} $BootDir != "" 
+  ${AndIf} $BDir != "" 
   ShowWindow $CasperSelection 1
   ShowWindow $CasperSlider 1
   ShowWindow $SlideSpot 1
@@ -772,15 +764,15 @@ Function ISOBrowse
  StrCpy $JustISOName "NULL" ; Set to NULL until something is selected
  ${EndIf}
  
- ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\*.*"
+ ${If} ${FileExists} "$BDir\multiboot\$JustISOName\*.*"
  ${AndIf} $JustISOName != ""
  ${AndIf} $FormatMe != "YES"
- ${AndIf} ${FileExists} "$BootDir\multiboot\menu\YUMI-EXFAT"
+ ${AndIf} ${FileExists} "$BDir\multiboot\menu\ஐ-EXFAT"
   MessageBox MB_OK "$JustISOName is already on $DestDisk$\r$\nPlease Remove it first!"
  ${Else}
  ${EndIf}
  Call EnableNext
- ; Uncomment for Testing --> MessageBox MB_ICONQUESTION|MB_OK 'Removal: "$Removal"  ISOFileName: "$ISOFileName" ISOFile "$ISOFile" BootDir: "$BootDir" DestDisk: "$DestDisk" DestDrive: "$DestDrive" ISOTest: "$ISOTest"'
+ ; Uncomment for Testing --> MessageBox MB_ICONQUESTION|MB_OK 'Removal: "$Removal"  ISOFileName: "$ISOFileName" ISOFile "$ISOFile" BootDir: "$BDir" DestDisk: "$DestDisk" DestDrive: "$DestDrive" ISOTest: "$ISOTest"'
  FunctionEnd
 
 Function ClearAll
@@ -793,7 +785,7 @@ FunctionEnd
 
 Function InstallorRemove ; Populate DistroName based on Install/Removal option
   ${If} $Removal == "YES" 
-  Call RemovalList
+  Call அகற்றும்பட்டியல்
   ${Else}
    ${NSD_SetText} $LinuxDistroSelection "Step 2: Select a Distribution to put on $DestDisk" 
   Call SetISOFileName
@@ -827,7 +819,7 @@ Function Uninstall
    ${NSD_SetText} $LinuxDistroSelection "Step 2: Select a Distribution to remove from $DestDisk"  
     SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new option may have been chosen ; Enable for DropBox
      StrCpy $Checker "YES"   
-	 Call RemovalList
+	 Call அகற்றும்பட்டியல்
 
   ${ElseIf} $Removal == ${BST_UNCHECKED}
    ShowWindow $Format 1  
@@ -856,17 +848,17 @@ Function OnSelectDrive
   ${NSD_GetText} $DestDriveTxt $Letters
   StrCpy $DestDrive "$Letters"
   StrCpy $JustDrive $DestDrive 3  
-  StrCpy $BootDir $DestDrive 2 ;was -1 
+  StrCpy $BDir $DestDrive 2 ;was -1 
   StrCpy $DestDisk $DestDrive 2 ;was -1
 
   Call PhysDrive
   StrCpy $INST_DISK "$DiskNum" ; save Install Disk Number in case we need it again later
   Call GetFSType
 
-; Check if drive is already setup for YUMI-EXFAT
- ${IfNot} ${FileExists} "$BootDir\multiboot\YUMI-EXFAT"
+; Check if drive is already setup for ஐ-EXFAT
+ ${IfNot} ${FileExists} "$BDir\multiboot\ஐ-EXFAT"
   ${If} $RepeatInstall != "YES"
-   MessageBox MB_YESNO|MB_ICONQUESTION "$BootDir has not been prepared for this version of YUMI UEFI.$\r$\n$\r$\nDo you want YUMI to Prepare and format (Disk $INST_DISK)?" IDYES checkit
+   MessageBox MB_YESNO|MB_ICONQUESTION "$BDir has not been prepared for this version of ஐ UEFI.$\r$\n$\r$\nDo you want ஐ to Prepare and format (Disk $INST_DISK)?" IDYES checkit
    StrCpy $FormatMe ""
    ${NSD_SetState} $FormatMe ${BST_UNCHECKED}
    ${NSD_Uncheck} $Format
@@ -949,8 +941,8 @@ Var /Global DiskYum
  StrCpy $7 $WINDIR 3
  ${If} $9 != "$7" 
  ${AndIf} $Capacity != ""
-   ${சரம்கொண்டுள்ளது} $YUMIDR "YUMI" "$VolName" ; does the string contain the YUMI Label?
-   ${If} $YUMIDR == "YUMI" ; if so add string
+   ${சரம்கொண்டுள்ளது} $YUMIDR "ஐ" "$VolName" ; does the string contain the ஐ Label?
+   ${If} $YUMIDR == "ஐ" ; if so add string
    ${சரம்கொண்டுள்ளது} $DiskYum "$INST_DISK" "$DiskNum" ; does the string contain the right Disk Number?
    ${AndIf} $DiskYum == "$INST_DISK" ; if so add string
     SendMessage $DestDriveTxt ${CB_ADDSTRING} 0 "STR:$9 (Disk $DiskNum) $VolName $Capacity $FSType" ;$8
@@ -1013,7 +1005,7 @@ Function FormatYES ; If Format is checked, do something
 	
 	; call and use a new DrivesListBoot function... only show drives with the TEMPYUMI label that match disk
    ${GetDrives} "FDD+HDD" DrivesListBoot ; probe for the BOOT disk number and letter... since we just wiped and recreated partitions on the disk.
-	;MessageBox MB_ICONSTOP|MB_OK "BOOT --> $BOOT_LETTER (Disk $BOOT_DISK) | YUMI --> $DestDisk (Disk $INST_DISK)" ; checkpoint
+	;MessageBox MB_ICONSTOP|MB_OK "BOOT --> $BOOT_LETTER (Disk $BOOT_DISK) | ஐ --> $DestDisk (Disk $INST_DISK)" ; checkpoint
 	
  ${Endif}	 
   ;${If} $FormatMe == "YES"
@@ -1039,7 +1031,7 @@ Function FormatIt ; Set Format Option
   StrCpy $FormatMe "NO"
   ${NSD_SetText} $Format "Prepare and Format (Disk $DiskNum)?"  
     SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new format option may have been chosen ; Enable for DropBox
-	${If} ${FileExists} "$BootDir\multiboot\YUMI-EXFAT"
+	${If} ${FileExists} "$BDir\multiboot\ஐ-EXFAT"
      ShowWindow $Uninstaller 1 ; Re-enable Uninstaller option.
 	${EndIf}
 	StrCpy $Checker "YES" 
@@ -1149,7 +1141,7 @@ Function HaveSpace ; Check space required
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...
   IntCmp $3 1 okay ; ... and compare it
-  MessageBox MB_ICONSTOP|MB_OK "Not enough free space remains. Quitting YUMI!"
+  MessageBox MB_ICONSTOP|MB_OK "Not enough free space remains. Quitting ஐ!"
   quit ; Close the program if the disk space was too small...
   okay: ; Proceed to execute...
   ;MessageBox MB_OK "ISO + Persistence will use $SizeOfCasper MB of the $1 MB Free disk space on $JustDrive Drive."  
@@ -1164,8 +1156,8 @@ Function DoMBR ; Install MBR and Boot files on Fat Boot Partition
   
 ; Make sure EFI\Boot directory and files exist.  
   ${If} ${FileExists} $BOOT_LETTER\EFI\BOOT\BOOTX64.EFI 
-    ${AndIf} ${FileExists} $BOOT_LETTER\YUMI-EXFAT 
-    DetailPrint "A Previous YUMI EXFAT Installation was detected."
+    ${AndIf} ${FileExists} $BOOT_LETTER\ஐ-EXFAT 
+    DetailPrint "A Previous ஐ EXFAT Installation was detected."
   ${Else}  
   ; CreateDirectory $BOOT_LETTER\multiboot\menu ; recursively create the directory structure if it doesn't exist 
     CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BOOT_LETTER\உரிமை.உரை" 
@@ -1181,7 +1173,7 @@ Function DoMBR ; Install MBR and Boot files on Fat Boot Partition
     
     ;ExecWait '"$PLUGINSDIR\7za.exe" x "$PLUGINSDIR\EFIGRUBX64.7z" -o"$BOOT_LETTER" -y' 
     ;ExecWait '"$PLUGINSDIR\7za.exe" x "$PLUGINSDIR\GRUBINST.7z" -o"$PLUGINSDIR" -y' 
-    ;MessageBox MB_ICONEXCLAMATION|MB_OK "YUMI will now install a Grub2 MBR on (Disk $INST_DISK) - $BOOT_LETTER!"
+    ;MessageBox MB_ICONEXCLAMATION|MB_OK "ஐ will now install a Grub2 MBR on (Disk $INST_DISK) - $BOOT_LETTER!"
     DetailPrint "Installing a Master Boot Record and adding i386-pc modules..."
     DetailPrint "Writing MBR. Please wait, this may take several seconds..."
     nsExec::ExecToLog '"$PLUGINSDIR\grub-install.exe" --force --no-floppy --target=i386-pc --boot-directory="$BOOT_LETTER\boot" //./PHYSICALDRIVE"$INST_DISK"' 
@@ -1197,16 +1189,16 @@ Call GrabNameOnly
 Pop $NameThatISO
 
 ; Make sure drive doesn't contain Windows... (secondary check - the droplist shouldn't be displaying Windows System drives).
- ${If} ${FileExists} "$BootDir\windows\system32" ; additional safeguard to help protect from mishap. 
+ ${If} ${FileExists} "$BDir\windows\system32" ; additional safeguard to help protect from mishap. 
   MessageBox MB_ICONSTOP|MB_OK "ABORTING! ($DestDisk) contains a WINDOWS/SYSTEM32 Directory."
   Quit
  ${EndIf}
  
-; Check if drive is already setup for YUMI-EXFAT or if format and prep checked.
- ${IfNot} ${FileExists} "$BootDir\multiboot\YUMI-EXFAT"
+; Check if drive is already setup for ஐ-EXFAT or if format and prep checked.
+ ${IfNot} ${FileExists} "$BDir\multiboot\ஐ-EXFAT"
   ${If} $RepeatInstall != "YES"
    ${AndIf} $FormatMe != "YES"
-    MessageBox MB_ICONSTOP|MB_OK "$BootDir has not been prepared for this version of YUMI UEFI.$\r$\n$\r$\nGo back and tick the box to Prepare and format (Disk $INST_DISK)"
+    MessageBox MB_ICONSTOP|MB_OK "$BDir has not been prepared for this version of ஐ UEFI.$\r$\n$\r$\nGo back and tick the box to Prepare and format (Disk $INST_DISK)"
     StrCmp $R8 3 0 ;Compare $R8 variable with current page #
     StrCpy $R9 -1 ; Goes back to selections page
     Call RelGotoPage ; change pages
@@ -1218,16 +1210,16 @@ Pop $NameThatISO
  ;${If} $FSType == "exFAT"
  ;${OrIf} $FSType == "NTFS"
  ;${AndIf} $FormatMe != "YES" 
- ;MessageBox MB_ICONSTOP|MB_OK "Syslinux won't work on $FSType formatted devices. YUMI will now Exit!" 
+ ;MessageBox MB_ICONSTOP|MB_OK "Syslinux won't work on $FSType formatted devices. ஐ will now Exit!" 
  ;Quit
  ;${EndIf}  
  
 ;checkpoint:
  ${If} $FormatMe == "YES" 
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: To prevent any loss of data, you must backup your data from all partitions tied to (Disk $DiskNum) before proceeding!$\r$\n$\r$\n${பெயர்} is Ready to perform the following actions:$\r$\n$\r$\n1. Wipe and prepare (Disk $DiskNum) with multiple partitions. All exisiting Data will be Irrecoverably Deleted!$\r$\n$\r$\n2. Create an MBR on (Disk $DiskNum) - Existing MBR will be Overwritten!$\r$\n$\r$\n3. Create a YUMI Label on ($DestDisk) - existing Label will be Overwritten!$\r$\n$\r$\n4. Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you positive (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Go Back!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: To prevent any loss of data, you must backup your data from all partitions tied to (Disk $DiskNum) before proceeding!$\r$\n$\r$\n${பெயர்} is Ready to perform the following actions:$\r$\n$\r$\n1. Wipe and prepare (Disk $DiskNum) with multiple partitions. All exisiting Data will be Irrecoverably Deleted!$\r$\n$\r$\n2. Create an MBR on (Disk $DiskNum) - Existing MBR will be Overwritten!$\r$\n$\r$\n3. Create a ஐ Label on ($DestDisk) - existing Label will be Overwritten!$\r$\n$\r$\n4. Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you positive (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Go Back!" IDYES proceed
   Quit
  ${ElseIf} $FormatMe != "YES" 
- ;${AndIfNot} ${FileExists} $BootDir\multiboot\menu\syslinux.cfg
+ ;${AndIfNot} ${FileExists} $BDir\multiboot\menu\syslinux.cfg
  ${AndIf} $Removal != "YES"
  ${AndIf} $RepeatInstall != "YES"
   MessageBox MB_YESNO|MB_ICONEXCLAMATION "${பெயர்} is Ready to perform the following actions:$\r$\n$\r$\nInstall ($DistroName) on (Disk $DiskNum) $DestDisk$\r$\n$\r$\nAre you absolutely positive (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows diskmgmt.msc to make sure!$\r$\n$\r$\nClick YES to perform these actions on (Disk $DiskNum) or NO to Exit!" IDYES proceed
@@ -1243,13 +1235,13 @@ proceed:
   Call LocalISODetected
 
 ; If YUMI_EXFAT doesn't exist make it so
- ${IfNot} ${FileExists} "$BootDir\multiboot\YUMI-EXFAT"
-  CopyFiles "$PLUGINSDIR\YUMI-EXFAT" "$BootDir\multiboot\YUMI-EXFAT"
+ ${IfNot} ${FileExists} "$BDir\multiboot\ஐ-EXFAT"
+  CopyFiles "$PLUGINSDIR\ஐ-EXFAT" "$BDir\multiboot\ஐ-EXFAT"
  ${EndIf}
 
 ; If path doesn't exist create the directory
- ${IfNot} ${FileExists} "$BootDir\multiboot\$DistroPath\*.*"
-  CreateDirectory "$BootDir\multiboot\$DistroPath"
+ ${IfNot} ${FileExists} "$BDir\multiboot\$DistroPath\*.*"
+  CreateDirectory "$BDir\multiboot\$DistroPath"
  ${EndIf} 
  
 removeonly:
@@ -1321,7 +1313,7 @@ StrCpy $R9 0 ; we start on page 0
  done:
  SetShellVarContext all
  InitPluginsDir   
-  File /oname=$PLUGINSDIR\YUMI-EXFAT "இருமங்கள்\நி\YUMI-EXFAT"
+  File /oname=$PLUGINSDIR\ஐ-EXFAT "இருமங்கள்\நி\ஐ-EXFAT"
   ;File /oname=$PLUGINSDIR\7za.exe "இருமங்கள்\நி\7za.exe"
   ;File /oname=$PLUGINSDIR\7za.dll "இருமங்கள்\நி\7za.dll"   
   ;File /oname=$PLUGINSDIR\7zxa.dll "இருமங்கள்\நி\7zxa.dll"  
