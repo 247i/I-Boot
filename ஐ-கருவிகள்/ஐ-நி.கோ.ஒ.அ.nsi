@@ -264,7 +264,7 @@ Function தேர்வுகள்பக்கம்
   Call PhysDrive
   Call GetDiskVolumeName
   Call DiskSpace
-  Call GetFSType
+  Call கோமுவகைபெறு
   StrCpy $JustDrive $DestDrive 3
   StrCpy $BDir $DestDrive 2 ;was -1 
   StrCpy $DestDisk $DestDrive 2 ;was -1
@@ -832,7 +832,7 @@ Function OnSelectDrive
 
   Call PhysDrive
   StrCpy $INST_DISK "$DiskNum" ; save Install Disk Number in case we need it again later
-  Call GetFSType
+  Call கோமுவகைபெறு
 
 ; Check if drive is already setup for ஐ-EXFAT
  ${IfNot} ${FileExists} "$BDir\multiboot\ஐ-EXFAT"
@@ -893,7 +893,7 @@ Function DrivesList
  Call PhysDrive
  Call GetDiskVolumeName
  Call DiskSpace
- Call GetFSType
+ Call கோமுவகைபெறு
 ;Prevent System Drive from being selected
  StrCpy $7 $WINDIR 3
  ${If} $9 != "$7" 
@@ -915,7 +915,7 @@ Var /Global DiskYum
  Call PhysDrive
  Call GetDiskVolumeName
  Call DiskSpace
- Call GetFSType
+ Call கோமுவகைபெறு
 ;Prevent System Drive from being selected
  StrCpy $7 $WINDIR 3
  ${If} $9 != "$7" 
@@ -938,7 +938,7 @@ Function DrivesListBoot
  Call PhysDrive
  Call GetDiskVolumeName
  Call DiskSpace
- Call GetFSType
+ Call கோமுவகைபெறு
 ;Prevent System Drive from being selected
  StrCpy $7 $WINDIR 3
  ${If} $9 != "$7" 
@@ -1185,7 +1185,7 @@ Pop $NameThatISO
   ${Endif}
  ${Endif}
  
- Call GetFSType
+ Call கோமுவகைபெறு
  ;${If} $FSType == "exFAT"
  ;${OrIf} $FSType == "NTFS"
  ;${AndIf} $FormatMe != "YES" 
@@ -1318,7 +1318,7 @@ Function SetISOSize ; Get size of ISO
  System::Call 'kernel32::CloseHandle(i r0)'
 FunctionEnd
 
-Function GetFSType
+Function கோமுவகைபெறு
 System::Call 'Kernel32::GetVolumeInformation(t "$JustDrive",t,i ${NSIS_MAX_STRLEN},*i,*i,*i,t .r1" ,i ${NSIS_MAX_STRLEN}) i.r0'
  StrCpy $FSType "$1"
 FunctionEnd
