@@ -1,5 +1,5 @@
 ﻿; ------------ விநியோக பட்டியல் -------------- 
-Function உதநிகோப்புபெயர்அமை ;விநியோகத்தின் பெயர், ஐஎஸ்ஒ கோப்பு பெயர், பதிவிறக்கும் இணைப்பு , இறுதி இலக்கு கோப்பின் பெயர், கோப்பின் அளவு, கட்டமைப்பு கோப்பு எழுத, பட்டியல் நுழைவுக்கான கோப்பு, முகப்புப்பக்கம், அதிகாரப்பூர்வ பெயர் 
+Function உதநிகோப்புபெயர்அமை ; விநியோகத்தின் பெயர், உதநி கோப்பு பெயர், பதிவிறக்கும் இணைப்பு, இறுதி இலக்கு கோப்பின் பெயர், கோப்பின் அளவு, விநியோகத்தின் பாதை, பட்டியல் நுழைவுக்கான கோப்பு, முகப்புப்பக்கம், அதிகாரப்பூர்வ பெயர் 
  !insertmacro உதநிகோப்புபெயர்அமை "--- உபுண்டு 32/64 இருமம் ---" "" "" "" "" "" ""
  !insertmacro உதநிகோப்புபெயர்அமை "Ubuntu" "ubuntu*desktop*.iso" "https://www.ubuntu.com/download/desktop" "casper" "Linux-ISOs" "https://www.ubuntu.com/desktop" "Ubuntu"
  !insertmacro உதநிகோப்புபெயர்அமை "Edubuntu" "edubuntu*.iso" "https://edubuntu.org/download" "casper" "Linux-ISOs" "https://edubuntu.org" "Edubuntu" 
@@ -36,6 +36,7 @@ Function உதநிகோப்புபெயர்அமை ;விநிய
  !insertmacro உதநிகோப்புபெயர்அமை "--- இணையபுத்தகம் விநியோகம் 32/64 இருமம்---" "" "" "" "" "" ""
  !insertmacro உதநிகோப்புபெயர்அமை "EasyPeasy (NetBook Distro)" "EasyPeasy*.iso" "https://sourceforge.net/projects/ubuntu-eee/files/EasyPeasy/EasyPeasy-1.6.iso/download" "NULL" "Netbook-ISOs" "https://sourceforge.net/projects/ubuntu-eee/" "EasyPeasy"
  !insertmacro உதநிகோப்புபெயர்அமை "xPUD (Netbook Distro)" "openwebos*.iso" "https://ftp.ubuntu-tw.org/mirror/download.xpud.org/xpud-0.9.2.iso" "NULL" "Netbook-ISOs" "http://www.xpud.org" "xPud"
+
  !insertmacro உதநிகோப்புபெயர்அமை "--- மற்ற விநியோகம் 32/64 இருமம் ---" "" "" "" "" "" ""
  !insertmacro உதநிகோப்புபெயர்அமை "Academix" "academix*.iso" "https://sourceforge.net/projects/academix/files/latest/download" "NULL" "Linux-ISOs" "https://academixproject.com/" "Academix"  
  !insertmacro உதநிகோப்புபெயர்அமை "AntiX" "antiX*.iso" "https://sourceforge.net/projects/antix-linux/files/latest/download" "NULL" "Linux-ISOs" "http://sourceforge.net/projects/antix-linux/" "AntiX"   

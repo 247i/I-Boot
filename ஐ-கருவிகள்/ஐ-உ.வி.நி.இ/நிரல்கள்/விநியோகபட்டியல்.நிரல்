@@ -1,13 +1,13 @@
 ﻿; ------------ விநியோக பட்டியல் -------------- 
-Function உதநிகோப்புபெயர்அமை ;விநியோகத்தின் பெயர், ஐஎஸ்ஒ கோப்பு பெயர், பதிவிறக்கும் இணைப்பு , இறுதி இலக்கு கோப்பின் பெயர், கோப்பின் அளவு, கட்டமைப்பு கோப்பு எழுத, பட்டியல் நுழைவுக்கான கோப்பு, முகப்புப்பக்கம், அதிகாரப்பூர்வ பெயர் 
+Function உதநிகோப்புபெயர்அமை ; விநியோகத்தின் பெயர், உதநி கோப்பு பெயர், பதிவிறக்கும் இணைப்பு, இறுதி இலக்கு கோப்பின் பெயர், கோப்பின் அளவு, விநியோகத்தின் பாதை, பட்டியல் நுழைவுக்கான கோப்பு, முகப்புப்பக்கம், அதிகாரப்பூர்வ பெயர் 
  !insertmacro உதநிகோப்புபெயர்அமை "--- உபுண்டு 32/64 இருமம் ---" "" "" "" "" "" ""
  !insertmacro உதநிகோப்புபெயர்அமை "Ubuntu" "ubuntu*desktop*.iso" "https://www.ubuntu.com/download/desktop" "casper" "லினக்சு.உலகு" "https://www.ubuntu.com/desktop" "Ubuntu"
  !insertmacro உதநிகோப்புபெயர்அமை "Edubuntu" "edubuntu*.iso" "https://edubuntu.org/download" "casper" "லினக்சு.உலகு" "https://edubuntu.org" "Edubuntu" 
- !insertmacro உதநிகோப்புபெயர்அமை "Kubuntu" "kubuntu*desktop*.iso" "https://kubuntu.org/getkubuntu/" "casper" "லினக்சு.உலகு" "https://www.kubuntu.org" "Kubuntu"
+ !insertmacro உதநிகோப்புபெயர்அமை "Kubuntu" "kubuntu*desktop*.iso" "https://kubuntu.org/getkubuntu/" "casper" "லினக்சு.உலகு" "https://kubuntu.org" "Kubuntu"
  !insertmacro உதநிகோப்புபெயர்அமை "Lubuntu" "lubuntu*desktop*.iso" "https://lubuntu.net/downloads/" "casper" "லினக்சு.உலகு" "https://lubuntu.net" "Lubuntu" 
- !insertmacro உதநிகோப்புபெயர்அமை "Xubuntu" "xubuntu*desktop*.iso" "http://cdimage.ubuntu.com/xubuntu/releases/18.04/release/" "casper" "லினக்சு.உலகு" "https://xubuntu.org" "Xubuntu"
+ !insertmacro உதநிகோப்புபெயர்அமை "Xubuntu" "xubuntu*desktop*.iso" "https://xubuntu.org/download" "casper" "லினக்சு.உலகு" "https://xubuntu.org" "Xubuntu"
  !insertmacro உதநிகோப்புபெயர்அமை "Ubuntu Budgie" "ubuntu-budgie*desktop*.iso" "https://ubuntubudgie.org/downloads" "casper" "லினக்சு.உலகு" "https://ubuntubudgie.org/" "Ubuntu Budgie" 
- !insertmacro உதநிகோப்புபெயர்அமை "Ubuntu Gnome" "ubuntu-gnome*desktop*.iso" "https://wiki.ubuntu.com/UbuntuGNOME/GetUbuntuGNOME/LTS#Standard_PC" "casper" "லினக்சு.உலகு" "https://www.ubuntugnome.org" "Ubuntu Gnome"
+ !insertmacro உதநிகோப்புபெயர்அமை "Ubuntu Gnome" "ubuntu-gnome*desktop*.iso" "https://cdimage.ubuntu.com/ubuntu-gnome/releases/xenial/release/" "casper" "லினக்சு.உலகு" "https://www.ubuntugnome.org" "Ubuntu Gnome"
  !insertmacro உதநிகோப்புபெயர்அமை "Ubuntu Server" "ubuntu*server*.iso" "https://www.ubuntu.com/download/server" "NULL" "லினக்சு.உலகு" "https://www.ubuntu.com/server" "Ubuntu Server"
  !insertmacro உதநிகோப்புபெயர்அமை "Ubuntu Studio" "ubuntustudio*.iso" "http://cdimage.ubuntu.com/ubuntustudio/releases/18.04/release/" "casper" "லினக்சு.உலகு" "https://ubuntustudio.org" "Ubuntu Studio" 
  !insertmacro உதநிகோப்புபெயர்அமை "Emmabuntus" "emmabuntus*.iso" "https://sourceforge.net/projects/emmabuntus/files/latest/download" "NULL" "லினக்சு.உலகு" "https://sourceforge.net/projects/emmabuntus/" "Emmabuntus" 
