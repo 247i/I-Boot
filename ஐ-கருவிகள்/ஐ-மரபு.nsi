@@ -680,7 +680,7 @@ Function GrabNameOnly
     Pop $1
     Exch $0 ; output string
 FunctionEnd
-
+!include துணை\சரம்மாற்று.நிரல் ;
 !include துணை\சரம்கொண்டுள்ளது.நிரல் ; Let's check if a * wildcard exists
 ; On Selection of Linux Distro
 Function OnSelectDistro
