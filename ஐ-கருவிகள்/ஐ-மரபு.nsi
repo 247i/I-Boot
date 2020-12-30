@@ -2,7 +2,7 @@
 ;!execute 'இருமங்கள்\அகர.bat' ; zip if required.
 ;!execute '"$%WINDIR%\notepad.exe" /P "${NSISDIR}\COPYING"' ; Enable this to debug previous line. 
 !define பெயர் "ஐ-மரபு"
-!define VERSION "2.0.7.10"
+!define VERSION "2.0.8.2"
 !define MUI_ICON "..\அகர\ஐ-காண்\வண்ணத்துப்பூச்சி.ico"
 
 ; MoreInfo Plugin - Adds Version Tab fields to Properties.
@@ -16,7 +16,7 @@ VIAddVersionKey License "இலவசம்"
 Name "${பெயர்} ${VERSION}"
 OutFile "..\${பெயர்}-${VERSION}.exe"
 RequestExecutionLevel admin ;highest
-SetCompressor LZMA
+SetCompressor /SOLID lzma
 CRCCheck On
 XPStyle on
 ShowInstDetails show
@@ -33,7 +33,7 @@ InstallButtonText "உருவாக்கு"
 !AddPluginDir "plugins"
 
 ; Variables
-Var HDDUSB
+;Var HDDUSB
 Var Capacity
 Var VolName
 Var Checker
@@ -83,8 +83,8 @@ Var LocalSelection
 Var Letters
 Var DistroPath
 Var SomeFileExt
-;Var AllDriveOption
-;Var DisplayAll
+Var AllDriveOption
+Var DisplayAll
 Var DistroLink
 Var Homepage
 Var OfficialSite
@@ -99,7 +99,7 @@ Var InUnStalled
 Var OnFrom
 Var SUSEDIR
 Var RepeatInstall
-;Var ShowAll
+Var ShowAll
 Var ForceShowAll
 Var ShowingAll
 
@@ -168,7 +168,7 @@ LangString License_Subtitle ${LANG_TAMIL} "தொடர்வதற்கு ம
 LangString License_Text_Top ${LANG_TAMIL} "இந்த நிரலில் உள்ள மென்பொருள் பின்வரும் உரிமங்களின் கீழ் வருகிறது."
 LangString License_Text_Bottom ${LANG_TAMIL} "இந்த ${பெயர்} பயன்பாட்டை இயக்க இந்த உரிம ஒப்பந்தத்தின் விதிமுறைகளை நீங்கள் ஏற்க வேண்டும். நீங்கள் ஒப்புக்கொண்டால், தொடர நான் ஒப்புக்கொள்கிறேன் என்பதைக் சொடுக்கு."
 LangString SelectDist_Title ${LANG_TAMIL} "இயக்கி தேர்வு மற்றும் விநியோக விருப்பங்கள் பக்கம்"
-LangString SelectDist_Subtitle ${LANG_TAMIL} "மின்வெட்டொளி இயக்கி தேர்வுசெய்க, மற்றும் ஒரு விநியோகம், ஐஎஸ்ஓ/ஜிப் கோப்பு.$\r$\nஇந்த கருவி இயங்கும் ஒவ்வொரு முறையும் கூடுதல் விநியோகங்களைச் சேர்க்கலாம்."
+LangString SelectDist_Subtitle ${LANG_TAMIL} "மின்வெட்டொளி இயக்கி தேர்வுசெய்க, மற்றும் ஒரு விநியோகம், உதநி/ஜிப் கோப்பு.$\r$\nஇந்த கருவி இயங்கும் ஒவ்வொரு முறையும் கூடுதல் விநியோகங்களைச் சேர்க்கலாம்."
 LangString DrivePage_Text ${LANG_TAMIL} "படி 1:மின்வெட்டொளி இயக்கதைத் தேர்ந்தெடுக்கவும்"
 LangString Distro_Text ${LANG_TAMIL} "படி 2: மின்வெட்டொளியில் வைக்க பட்டியலிலிருந்து ஒரு விநியோகத்தைத் தேர்ந்தெடுக்கவும்."
 LangString IsoPage_Text ${LANG_TAMIL} "படி 3: $FileFormat தேர்ந்தெடுக்கவும் (பெயர் மேலே உள்ளதைப் போலவே இருக்க வேண்டும்)."
@@ -234,13 +234,13 @@ Function SelectionsPage
   ${NSD_OnChange} $Distro OnSelectDistro
   ${NSD_CB_SelectString} $Distro $DistroName ; Was ${NSD_LB_SelectString} $Distro $DistroName  ; Enable For DropBox 
   
-; அனைத்து ஐஎஸ்ஓ விருப்பத்தையும் கட்டாயப்படுத்து
+; அனைத்து உதநி விருப்பத்தையும் கட்டாயப்படுத்து
   ${NSD_CreateCheckBox} 80% 100 20% 9u "ஐஎஸ்ஓகள்?"
   Pop $ForceShowAll
   ${NSD_OnClick} $ForceShowAll ShowAllISOs   
 
 ; ISO Download Option
-  ${NSD_CreateCheckBox} 60% 60 40% 15 "ஐஎஸ்ஓ பதிவிறக்கம்."
+  ${NSD_CreateCheckBox} 60% 60 40% 15 "உதநி பதிவிறக்கம்."
   Pop $DownloadISO
   ${NSD_OnClick} $DownloadISO DownloadIt  
   
@@ -261,12 +261,6 @@ Function SelectionsPage
 ; Casper-RW Selection Starts
   ${NSD_CreateLabel} 0 150 75% 15 ""
   Pop $CasperSelection  
-  
-; CasperSlider - TrackBar
-  ;!define TBM_SETPOS 0x0405
-  ;!define TBM_GETPOS 0x0400
-  ;!define TBM_SETRANGEMIN 0x0407
-  ;!define TBM_SETRANGEMAX 0x0408
 
   ${NSD_CreateLabel} 52% 178 25% 25 ""
   Pop $SlideSpot  
@@ -282,31 +276,33 @@ Function SelectionsPage
   Pop $LabelDrivePage 
   ${NSD_SetText} $LabelDrivePage "படி 1: மின்வெட்டொளி இயக்கமாக $DestDisk வரவழைக்கப்பட்டது"  
 ; Droplist for Drive Selection  
-  ${NSD_CreateDropList} 0 20 55% 15 "" ; was 0 20 28% 15
+  ${NSD_CreateDropList} 0 20 42% 15 "" ;
   Pop $DestDriveTxt 
+  ${If} $ShowAll == "YES"
   ${GetDrives} "FDD+HDD" DrivesList ; All Drives Listed
-  
+  ${ElseIf} $ShowAll == "NO"
+  ${GetDrives} "FDD" DrivesList ; FDD+HDD reduced to FDD for removable media only
+  ${EndIf}
   ${NSD_CB_SelectString} $DestDriveTxt "$DestDrive"
+  ${NSD_GetText} $DestDriveTxt $Letters
   StrCpy $JustDrive $DestDrive 3
-  StrCpy $BootDir $DestDrive 2 ;was -1 
-  StrCpy $DestDisk $DestDrive 2 ;was -1
+  StrCpy $BootDir $DestDrive 2  
+  StrCpy $DestDisk $DestDrive 2
+  StrCpy $9 $JustDrive
+  Call GetFSType
+  Call இயற்பியக்கி
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; was ${NSD_LB_Clear} $Distro "" ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
   StrCpy $Checker "Yes"  
   Call InstallorRemove
+  Call SetSpace
   Call CheckSpace
   Call FormatIt 
   Call EnableNext 
   ${NSD_OnChange} $DestDriveTxt OnSelectDrive 
-  
-; Format Drive Option
-;;  ${NSD_CreateCheckBox} 60% 23 100% 15 "NTFS Format $DestDisk"
-;;  Pop $Format
-;;  ${NSD_OnClick} $Format FormatIt  
-
-; Format Fat32 Option
-;;  ${NSD_CreateCheckBox} 60% 40 100% 15 "Fat32 Format $DestDisk"
-;;  Pop $FormatFat
-;;  ${NSD_OnClick} $FormatFat FormatIt    
+; All Drives Option
+  ${NSD_CreateCheckBox} 43% 23 16% 15 "Refresh?"
+  Pop $AllDriveOption
+  ${NSD_OnClick} $AllDriveOption ListAllDrives
   
 ; Add Home Link
   ${NSD_CreateLink} 0 215 16% 15 "முகப்பு பக்கம்"
@@ -335,6 +331,10 @@ Function SelectionsPage
   ShowWindow $ISOSelection 0
   EnableWindow $DownloadISO 0
   ShowWindow $DistroLink 0
+  ShowWindow $ForceShowAll 0
+  ShowWindow $CasperSelection 0 
+  ShowWindow $CasperSlider 0 
+  ShowWindow $SlideSpot 0   
   StrCpy $JustISOName "NULL" ; Set to NULL until something is selected
   nsDialogs::Show  
   
@@ -356,11 +356,14 @@ Function SelectionsPage
   ${NSD_SetText} $LabelDrivePage "படி 1: மின்வெட்டொளி இயக்கக எழுத்து."    
   
 ; Droplist for Drive Selection
-  ${NSD_CreateDropList} 0 20 55% 15 "" ; was 0 20 28% 15
+  ${NSD_CreateDropList} 0 20 42% 15 "" ; was 0 20 55% 15
   Pop $DestDriveTxt
   Call ListAllDrives
   ${NSD_OnChange} $DestDriveTxt OnSelectDrive
-  
+; All Drives Option
+  ${NSD_CreateCheckBox} 43% 23 16% 15 "Refresh?"
+  Pop $AllDriveOption
+  ${NSD_OnClick} $AllDriveOption ListAllDrives
 ; Format Drive Option
   ${NSD_CreateCheckBox} 60% 23 100% 15 "NTFS வடிவமை $DestDisk"
   Pop $Format
@@ -386,7 +389,7 @@ Function SelectionsPage
   ${NSD_OnClick} $ForceShowAll ShowAllISOs    
 
 ; ISO Download Option
-  ${NSD_CreateCheckBox} 60% 60 40% 15 "ஐஎஸ்ஓ பதிவிறக்கம்."
+  ${NSD_CreateCheckBox} 60% 60 40% 15 "உதநி பதிவிறக்கம்."
   Pop $DownloadISO
   ${NSD_OnClick} $DownloadISO DownloadIt  
   
@@ -406,14 +409,7 @@ Function SelectionsPage
 
 ; Casper-RW Selection Starts
   ${NSD_CreateLabel} 0 150 75% 15 "" ;$(Casper_Text)
-  Pop $CasperSelection  
-  
-; CasperSlider - TrackBar
-  ; !define TBM_SETPOS 0x0405
-  ; !define TBM_GETPOS 0x0400
-  ; !define TBM_SETRANGEMIN 0x0407
-  ; !define TBM_SETRANGEMAX 0x0408
-
+  Pop $CasperSelection
   ${NSD_CreateLabel} 52% 178 25% 25 ""
   Pop $SlideSpot  
 
@@ -421,7 +417,7 @@ Function SelectionsPage
   Pop $CasperSlider
 
   SendMessage $CasperSlider ${TBM_SETRANGEMIN} 1 0 ; Min Range Value 0
-  SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Max Range Value $RemainingSpace
+  SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Max Range Value
   ${NSD_OnNotify} $CasperSlider onNotify_CasperSlider
 
 ; Add Home Link
@@ -438,16 +434,6 @@ Function SelectionsPage
   ${NSD_CreateLink} 25% 215 30% 15 "பரிந்துரை"
   Pop $Link2
   ${NSD_OnClick} $LINK2 onClickMyLinkUSB
-
-;; Add a custom donate button
-;   ${NSD_CreateBitmap} 80% 125 20% 50 "PayPal Donation"
-;   Var /Global Donate
-;   Var /Global DonateHandle  
-;   Pop $Donate
-;   ${NSD_SetImage} $Donate $PLUGINSDIR\paypal.bmp $DonateHandle 
-;  GetFunctionAddress $DonateHandle OnClickDonate
-;  nsDialogs::OnClick $Donate $DonateHandle  
-  
 ; Disable Next Button until a selection is made for all 
   GetDlgItem $6 $HWNDPARENT 1
   EnableWindow $6 0 
@@ -485,18 +471,18 @@ FunctionEnd
 
 Function ListAllDrives ; Set to Display All Drives
   SendMessage $DestDriveTxt ${CB_RESETCONTENT} 0 0 
-; ${NSD_GetState} $AllDriveOption $DisplayAll
-; ${If} $DisplayAll == ${BST_CHECKED}
-; ${NSD_Check} $AllDriveOption
-; ${NSD_SetText} $AllDriveOption "Showing All!" 
-;  StrCpy $ShowAll "YES"
+  ${NSD_GetState} $AllDriveOption $DisplayAll
+  ${If} $DisplayAll == ${BST_CHECKED}
+  ${NSD_Check} $AllDriveOption
+  ${NSD_SetText} $AllDriveOption "Refreshed"
+  StrCpy $ShowAll "YES"
   ${GetDrives} "FDD+HDD" DrivesList ; All Drives Listed  
-;  ${ElseIf} $DisplayAll == ${BST_UNCHECKED}
-;  ${NSD_Uncheck} $AllDriveOption
-;  ${NSD_SetText} $AllDriveOption "Show All Drives?"  
-;  ${GetDrives} "FDD" DrivesList ; FDD+HDD reduced to FDD for removable media only
-;  StrCpy $ShowAll "NO"
-;  ${EndIf}
+  ${ElseIf} $DisplayAll == ${BST_UNCHECKED}
+  ${NSD_Uncheck} $AllDriveOption
+  ${NSD_SetText} $AllDriveOption "Refresh?"  
+  ${GetDrives} "FDD+HDD" DrivesList ; FDD+HDD reduced to FDD for removable media only
+   StrCpy $ShowAll "NO"
+  ${EndIf}
 FunctionEnd
 
 Function onClickMyLink
@@ -534,7 +520,7 @@ FunctionEnd
 Function EnableNext ; Enable Install Button
   ;${If} $Blocksize >= 4 
   ${If} $Removal != "Yes"
-  ${AndIf} $HDDUSB != "HDD"
+  ;${AndIf} $HDDUSB != "HDD"
     ${If} $FormatMe == "YES" 
     ShowWindow $Format 1 
     ${EndIf}
@@ -923,7 +909,7 @@ Function OnSelectDrive
   StrCpy $JustDrive $DestDrive 3  
   StrCpy $BootDir $DestDrive 2 ;was -1 
   StrCpy $DestDisk $DestDrive 2 ;was -1
-  StrCpy $HDDUSB $Letters "" -3 
+  ;StrCpy $HDDUSB $Letters "" -3 
   
   StrCpy $9 $JustDrive
   Call GetFSType
@@ -1006,7 +992,7 @@ Function DrivesList
 ;Prevent System Drive from being selected
  StrCpy $7 $WINDIR 3
  ${If} $9 != "$7" 
- SendMessage $DestDriveTxt ${CB_ADDSTRING} 0 "STR:$9 (Disk $DiskNum) $VolName $Capacity $FSType" $8
+ SendMessage $DestDriveTxt ${CB_ADDSTRING} 0 "STR:$9 (Disk $DiskNum) $VolName $Capacity $FSType" ;$8
  ;SendMessage $DestDriveTxt ${CB_ADDSTRING} 0 "STR:$9 $VolName $Capacity $2 $8" 
  ${EndIf}
  Push 1 ; must push something - see GetDrives documentation
@@ -1190,16 +1176,20 @@ Function SetSpace ; Set space available for persistence
   StrCpy $RemainingSpace "$1"
   IntOp $RemainingSpace $RemainingSpace - $SizeOfCasper ; Remaining space minus distro size
   ${EndIf}
-  IntOp $RemainingSpace $RemainingSpace - 1 ; Subtract 1MB so that we don't error for not having enough space
-  SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Re-Setting Max Value
-  
+
  ${Else}  
   Call FreeDiskSpace
+  IntOp $MaxPersist 20450 + $CasperSize ; Space required for distro and 20GB max persistent file
+   ${If} $1 > $MaxPersist ; Check if more space is available than we need for distro + 4GB persistent file
+   StrCpy $RemainingSpace 20450 ; Set maximum possible value to 20450 MB
+   ${Else}
   StrCpy $RemainingSpace "$1"
   IntOp $RemainingSpace $RemainingSpace - $SizeOfCasper ; Remaining space minus distro size
-  IntOp $RemainingSpace $RemainingSpace - 1 ; Subtract 1MB so that we don't error for not having enough space
-  SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Re-Setting Max Value 
+  ${EndIf}
+
  ${EndIf} 
+   IntOp $RemainingSpace $RemainingSpace - 1 ; Subtract 1MB so that we don't error for not having enough space
+   SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Re-Setting Max Value 
 FunctionEnd
 
 Function HaveSpacePre ; Check space required
@@ -1210,7 +1200,7 @@ Function HaveSpacePre ; Check space required
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...
   IntCmp $3 1 okay ; ... and compare it
-  MessageBox MB_ICONSTOP|MB_OK "Oops: There is not enough disk space! $1 MB Free, $SizeOfCasper MB Needed on $JustDrive Drive."
+  MessageBox MB_ICONSTOP|MB_OK "Oops: There is not enough disk space! $1 MB Free, $SizeOfCasper MB Needed on $JustDrive Drive. Do you need to format it?"
   okay: ; Proceed to execute...
  ${EndIf}
 FunctionEnd
@@ -1419,8 +1409,8 @@ Pop $NameThatISO
 
 proceed: 
  ${IfThen} $Removal == "Yes" ${|} Goto removeonly ${|}
- Call HaveSpace ; Got enough Space? Lets Check!
  Call FormatYes ; Format the Drive?
+ Call HaveSpace ; Got enough Space? Lets Check!
  Call DoSyslinux ; Run Syslinux on the Drive to make it bootable
  Call LocalISODetected
  
