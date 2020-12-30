@@ -82,40 +82,6 @@ FunctionEnd
 !macroend  
 !define நிறுவப்பட்டபட்டியல் "!insertmacro நிறுவப்பட்டபட்டியல்"
 
-Function ஒழுங்கமை ; ஐ உடன் பயன்படுத்த திருத்தப்பட்ட முன்னணி மற்றும் பின்னால் உள்ள இடைவெளியை அகற்று
-	Exch $R1 ; Original string
-	Push $R2
-Loop:
-	StrCpy $R2 "$R1" 1
-	StrCmp "$R2" " " TrimLeft
-	StrCmp "$R2" "$\r" TrimLeft
-	StrCmp "$R2" "$\n" TrimLeft
-	StrCmp "$R2" "$\t" TrimLeft
-	GoTo Loop2
-TrimLeft:	
-	StrCpy $R1 "$R1" "" 1
-	Goto Loop
-Loop2:
-	StrCpy $R2 "$R1" 1 -1
-	StrCmp "$R2" " " TrimRight
-	StrCmp "$R2" "$\r" TrimRight
-	StrCmp "$R2" "$\n" TrimRight
-	StrCmp "$R2" "$\t" TrimRight
-	GoTo Done
-TrimRight:	
-	StrCpy $R1 "$R1" -1
-	Goto Loop2
-Done:
-	Pop $R2
-	Exch $R1
-FunctionEnd
-!macro ஒழுங்கமை TrimmedString OriginalString
-  Push "${OriginalString}"
-  Call ஒழுங்கமை
-  Pop "${TrimmedString}"
-!macroend
-!define ஒழுங்கமை "!insertmacro ஒழுங்கமை" 
-
 Function அகற்றும்பட்டியல் ; Lists the distros installed on the select drive.
  ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskஇலிருந்து அகற்ற தேர்வு"  
  ${If} ${FileExists} "$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை" ; Are there distributions on the select drive? 
