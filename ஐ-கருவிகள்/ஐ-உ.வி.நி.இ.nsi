@@ -592,6 +592,7 @@ Function பெயரைமட்டும்பெறு
 FunctionEnd
 
 !include துணை\சரம்கொண்டுள்ளது.நிரல் ; Let's check if a * wildcard exists
+!include துணை\பொதுபயன்.நிரல் ; பொதுவாக பயன்படுத்தும் நிரல்களின் தொகுப்பு
 ; On Selection of Linux Distro
 Function விநியோகதேர்வில்
   Pop $Distro
