@@ -235,7 +235,7 @@ Function SelectionsPage
   ${NSD_CB_SelectString} $Distro $DistroName ; Was ${NSD_LB_SelectString} $Distro $DistroName  ; Enable For DropBox 
   
 ; அனைத்து உதநி விருப்பத்தையும் கட்டாயப்படுத்து
-  ${NSD_CreateCheckBox} 80% 100 20% 9u "ஐஎஸ்ஓகள்?"
+  ${NSD_CreateCheckBox} 80% 100 20% 9u "உதநிகள்?"
   Pop $ForceShowAll
   ${NSD_OnClick} $ForceShowAll ShowAllISOs   
 
@@ -268,7 +268,7 @@ Function SelectionsPage
   nsDialogs::CreateControl "msctls_trackbar32" "0x50010000|0x00000018" "" 0 174 50% 25 ""
   Pop $CasperSlider
   SendMessage $CasperSlider ${TBM_SETRANGEMIN} 1 0 ; Min Range Value 0
-  SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Max Range Value $RemainingSpace
+  SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Max Range Value
   ${NSD_OnNotify} $CasperSlider onNotify_CasperSlider    
 
 ; Drive Pre-Selection  
@@ -384,7 +384,7 @@ Function SelectionsPage
   ${NSD_CB_SelectString} $Distro $DistroName ; Was ${NSD_LB_SelectString} $Distro $DistroName  ; Enable For DropBox
   
 ; Force Show All ISO Option
-  ${NSD_CreateCheckBox} 80% 100 20% 9u "அனைத்து ஐஎஸ்ஓக்களையும் காண்பிக்கவா?"
+  ${NSD_CreateCheckBox} 80% 100 20% 9u "அனைத்து உதநிக்களையும் காண்பிக்கவா?"
   Pop $ForceShowAll
   ${NSD_OnClick} $ForceShowAll ShowAllISOs    
 
@@ -627,7 +627,7 @@ MessageBox MB_YESNO|MB_ICONQUESTION "பதிவிறக்க இணைப்
   EnableWindow $DownloadISO 1
   Goto end
   DownloadIt:
-  ${NSD_SetText} $LabelISOSelection "படி 3: பதிவிறக்கம் முடிந்ததும், உலாவி ஐஎஸ்ஓவைத் தேர்ந்தெடுக்கவும்."  
+  ${NSD_SetText} $LabelISOSelection "படி 3: பதிவிறக்கம் முடிந்ததும், உலாவி உதநிவைத் தேர்ந்தெடுக்கவும்."  
   EnableWindow $DownloadISO 0
   ExecShell "open" "$DownLink"    
   end:
@@ -800,11 +800,11 @@ Function ISOBrowse
  ${NSD_SetText} $LabelISOSelection "Step 3: Select your $ISOFileName"
  ${EndIf} 
  
- ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\*.*"
+ ${If} ${FileExists} "$BootDir\!\$JustISOName\*.*"
  ${AndIf} $JustISOName != ""
  ${AndIf} $FormatMe != "Yes"
  ${AndIf} $FormatMeFat != "Yes"
- MessageBox MB_OK "$JustISOName is already on $DestDisk$\r$\nPlease Remove it first!$\r$\n$\r$\nNOTE: If you have already removed it using I,$\r$\nmanually delete the $BootDir\multiboot\$JustISOName\ folder."
+ MessageBox MB_OK "$JustISOName is already on $DestDisk$\r$\nPlease Remove it first!$\r$\n$\r$\nNOTE: If you have already removed it using I,$\r$\nmanually delete the $BootDir\!\$JustISOName\ folder."
  ${Else}
  ${EndIf}
  Call EnableNext
@@ -937,7 +937,6 @@ Function OnSelectDrive
   Call CheckSpace
   Call FormatIt  
   Call EnableNext
-																								  
 
   ${If} $FSType == "exFAT"
   MessageBox MB_ICONSTOP|MB_OK "எச்சரிக்கை! கணிலினக்சு exFAT வடிவமைக்கப்பட்ட சாதனங்களில் இயங்காது. $DestDiskஐ Fat32 அல்லது என்.டி.எஃப்.எஸ் ஆக வடிவமைக்கவும்.."
@@ -1119,12 +1118,12 @@ Function ShowAllISOs ; Set Show All ISOs Option
   ${If} $ShowingAll == ${BST_CHECKED}
   ${NSD_Check} $ForceShowAll
   StrCpy $ShowingAll "Yes"
-  ${NSD_SetText} $ForceShowAll "அனைத்து ஐஎஸ்ஓக்களையும் காண்பி!"
+  ${NSD_SetText} $ForceShowAll "அனைத்து உதநிக்களையும் காண்பி!"
     SendMessage $ISOSelection ${CB_RESETCONTENT} 0 0 
  
   ${ElseIf} $ShowingAll == ${BST_UNCHECKED}
   ${NSD_Uncheck} $ForceShowAll
-  ${NSD_SetText} $ForceShowAll "அனைத்து ஐஎஸ்ஓக்களையும் காண்பிக்கவா?"  
+  ${NSD_SetText} $ForceShowAll "அனைத்து உதநிக்களையும் காண்பிக்கவா?"  
     SendMessage $ISOSelection ${CB_RESETCONTENT} 0 0 
   ${EndIf}  
 FunctionEnd
@@ -1277,22 +1276,22 @@ FunctionEnd
 !include "ஐ-மரபு\நிரல்கள்\விநியோகநீக்கம்.நிரல்" ; ### REM DISTRO ###
 
 Function DoSyslinux ; Install கணிலினக்சு on USB
-  ${IfNot} ${FileExists} "$BootDir\multiboot\libcom32.c32" 
-  ${AndIf} ${FileExists} "$BootDir\multiboot\ldlinux.sys"   
+  ${IfNot} ${FileExists} "$BootDir\!\libcom32.c32" 
+  ${AndIf} ${FileExists} "$BootDir\!\ldlinux.sys"   
   MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinuxOLD)
   Quit
   ${EndIf}
   
-  IfFileExists "$BootDir\multiboot\libcom32.c32" SkipSyslinux CreateSyslinux ; checking for newer கணிலினக்சு
+  IfFileExists "$BootDir\!\libcom32.c32" SkipSyslinux CreateSyslinux ; checking for newer கணிலினக்சு
 																																  
   CreateSyslinux:
-  CreateDirectory $BootDir\multiboot\menu ; recursively create the directory structure if it doesn't exist
-  CreateDirectory $BootDir\multiboot\ISOS ; create ISOS folder  
+  CreateDirectory $BootDir\!\menu ; recursively create the directory structure if it doesn't exist
+  CreateDirectory $BootDir\!\ISOS ; create ISOS folder  
   DetailPrint $(ExecuteSyslinux)
-  ;ExecWait '$PLUGINSDIR\கணிலினக்சு.exe -maf -d /multiboot $BootDir' $R8
+  ;ExecWait '$PLUGINSDIR\கணிலினக்சு.exe -maf -d /! $BootDir' $R8
   ;DetailPrint "கணிலினக்சு Errors $R8"
-  nsExec::Exec '"$PLUGINSDIR\கணிலினக்சு.exe" -maf -d /multiboot $BootDir'
-  ;nsExec::Exec '"$PLUGINSDIR\கணிலினக்சு.exe" -maf -d /multiboot $BootDir $BootDir\multiboot\syslinux.bin'
+  nsExec::Exec '"$PLUGINSDIR\syslinux.exe" -maf -d /! $BootDir'
+  ;nsExec::Exec '"$PLUGINSDIR\கணிலினக்சு.exe" -maf -d /! $BootDir $BootDir\!\syslinux.bin'
   Pop $R8
   DetailPrint "Syslinux Errors $R8"
   
@@ -1305,31 +1304,31 @@ Function DoSyslinux ; Install கணிலினக்சு on USB
   SkipSyslinux: 
   DetailPrint $(SkipSyslinux)
   
-   ${IfNot} ${FileExists} $BootDir\multiboot\linux.c32 ; need linux.c32 to launch wimboot from syslinux.  
+   ${IfNot} ${FileExists} $BootDir\!\linux.c32 ; need linux.c32 to launch wimboot from syslinux.  
     DetailPrint "Adding wimboot and linux.c32."   
-    CopyFiles "$PLUGINSDIR\wimboot" "$BootDir\multiboot\wimboot"
-    CopyFiles "$PLUGINSDIR\linux.c32" "$BootDir\multiboot\linux.c32"  
+    CopyFiles "$PLUGINSDIR\wimboot" "$BootDir\!\wimboot"
+    CopyFiles "$PLUGINSDIR\linux.c32" "$BootDir\!\linux.c32"  
    ${EndIf}     
 
-   ${IfNot} ${FileExists} $BootDir\multiboot\legacy-i ; legacy-i test file.  
+   ${IfNot} ${FileExists} $BootDir\!\legacy-i ; legacy-i test file.  
     DetailPrint "Adding legacy-i test file."   
-    CopyFiles "$PLUGINSDIR\legacy-i" "$BootDir\multiboot\legacy-i"  
+    CopyFiles "$PLUGINSDIR\legacy-i" "$BootDir\!\legacy-i"  
    ${EndIf}
   
-  ${If} ${FileExists} $BootDir\multiboot\syslinux.cfg    
+  ${If} ${FileExists} $BootDir\!\syslinux.cfg    
    DetailPrint "முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது."
    Call AddDir
   ${Else}
 ; Create and Copy files to your destination
-  DetailPrint "Adding required files to the $BootDir\multiboot directory..." 
-  CopyFiles "$PLUGINSDIR\syslinux.cfg" "$BootDir\multiboot\syslinux.cfg"
-  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\multiboot\உரிமை.உரை"
-  CopyFiles "$PLUGINSDIR\vesamenu.c32" "$BootDir\multiboot\vesamenu.c32"
-  CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\multiboot\menu.c32"  
-  CopyFiles "$PLUGINSDIR\chain.c32" "$BootDir\multiboot\chain.c32"
-  CopyFiles "$PLUGINSDIR\libcom32.c32" "$BootDir\multiboot\libcom32.c32"  
-  CopyFiles "$PLUGINSDIR\libutil.c32" "$BootDir\multiboot\libutil.c32"      
-  CopyFiles "$PLUGINSDIR\நினைவட்டு" "$BootDir\multiboot\memdisk"
+  DetailPrint "Adding required files to the $BootDir\! directory..." 
+  CopyFiles "$PLUGINSDIR\syslinux.cfg" "$BootDir\!\syslinux.cfg"
+  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\!\உரிமை.உரை"
+  CopyFiles "$PLUGINSDIR\vesamenu.c32" "$BootDir\!\vesamenu.c32"
+  CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\!\menu.c32"  
+  CopyFiles "$PLUGINSDIR\chain.c32" "$BootDir\!\chain.c32"
+  CopyFiles "$PLUGINSDIR\libcom32.c32" "$BootDir\!\libcom32.c32"  
+  CopyFiles "$PLUGINSDIR\libutil.c32" "$BootDir\!\libutil.c32"      
+  CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\!\memdisk"
   
   Call AddDir    
 																								 
@@ -1339,26 +1338,26 @@ Function DoSyslinux ; Install கணிலினக்சு on USB
 																							   
 																									 
   
-  ${IfNot} ${FileExists} $BootDir\multiboot\libutil.c32 ; Old Syslinux files need to be replaced
-  DetailPrint "Adding required files to the $BootDir\multiboot directory..." 
-  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\multiboot\உரிமை.உரை"   
-  CopyFiles "$PLUGINSDIR\vesamenu.c32" "$BootDir\multiboot\vesamenu.c32"
-  CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\multiboot\menu.c32"  
-  CopyFiles "$PLUGINSDIR\chain.c32" "$BootDir\multiboot\chain.c32"
-  CopyFiles "$PLUGINSDIR\libcom32.c32" "$BootDir\multiboot\libcom32.c32"  
-  CopyFiles "$PLUGINSDIR\libutil.c32" "$BootDir\multiboot\libutil.c32"   
-  CopyFiles "$PLUGINSDIR\நினைவட்டு" "$BootDir\multiboot\memdisk"
+  ${IfNot} ${FileExists} $BootDir\!\libutil.c32 ; Old Syslinux files need to be replaced
+  DetailPrint "Adding required files to the $BootDir\! directory..." 
+  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\!\உரிமை.உரை"   
+  CopyFiles "$PLUGINSDIR\vesamenu.c32" "$BootDir\!\vesamenu.c32"
+  CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\!\menu.c32"  
+  CopyFiles "$PLUGINSDIR\chain.c32" "$BootDir\!\chain.c32"
+  CopyFiles "$PLUGINSDIR\libcom32.c32" "$BootDir\!\libcom32.c32"  
+  CopyFiles "$PLUGINSDIR\libutil.c32" "$BootDir\!\libutil.c32"   
+  CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\!\memdisk"
  ${EndIf}    
 
 ; Check to ensure menu.c32 exists... now required for I V2
-  ${IfNot} ${FileExists} $BootDir\multiboot\menu.c32
+  ${IfNot} ${FileExists} $BootDir\!\menu.c32
    DetailPrint "Adding menu.c32. Required for I V2"
-   CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\multiboot\menu.c32" 
+   CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\!\menu.c32" 
   ${EndIf}	  
 FunctionEnd
 
-Function AddDir ; changes to check if user had a version prior to 0.0.0.3. Newer I includes மாஒது.exe 
- ${IfNotThen} ${FileExists} "$BootDir\multiboot\மாஒது.exe" 'CopyFiles "$PLUGINSDIR\மாஒது.exe" "$BootDir\multiboot\மாஒது.exe"' 
+Function AddDir ; changes to check if user had a version prior to 0.0.0.3. Newer I includes grub.exe 
+ ${IfNotThen} ${FileExists} "$BootDir\!\grub.exe" 'CopyFiles "$PLUGINSDIR\grub.exe" "$BootDir\!\grub.exe"' 
 FunctionEnd
 
 ; ---- Let's Do This Stuff ----
@@ -1375,10 +1374,6 @@ Pop $NameThatISO
  ${EndIf}
 
 ; Wipe and Format ---
-						 
-							   
-																													   
-	   
  ${If} $FormatMe == "Yes" 
   ${AndIf} $WipeMe == "Yes" 
   MessageBox MB_YESNO|MB_ICONEXCLAMATION "எச்சரிக்கை: தொடர்வதற்கு முன் ($DestDisk)உடன் இணைக்கப்பட்ட அனைத்து பகிர்வுகளிலிருந்தும் உங்கள் தரவை காப்புப் பிரதி எடுக்கவும்! இணைக்கப்பட்ட இயக்கி எழுத்துக்கள், பகிர்வுகள் மற்றும் தொகுதிகள் உட்பட (வட்டு $DiskNum) உள்ள அனைத்து தரவும் மறைக்கப்பட்டிருந்தாலும் அழிக்கப்படும்.$\r$\n$\r$\n${பெயர்} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1.) துடை (வட்டு $DiskNum) - தரவு மீளமுடியாமல் நீக்கப்படும்!$\r$\n$\r$\n2.) Recreate Drive Letter ($DestDisk) with a single NTFS partition.$\r$\n$\r$\n3.) ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n4.) ($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\n(வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
@@ -1402,7 +1397,7 @@ Pop $NameThatISO
 ; Don't Wipe or Format ---
  ${ElseIf} $FormatMe != "Yes" 
   ${AndIf} $FormatMeFat != "Yes"
- ${AndIfNot} ${FileExists} $BootDir\multiboot\syslinux.cfg
+ ${AndIfNot} ${FileExists} $BootDir\!\syslinux.cfg
  MessageBox MB_YESNO|MB_ICONEXCLAMATION "${பெயர்} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1. ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n2. ($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n3. Install ($DistroName) on ($DestDisk)$\r$\n$\r$\n($DestDisk)(வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
   Quit
  ${EndIf}
@@ -1415,8 +1410,8 @@ proceed:
  Call LocalISODetected
  
 ; Copy the config file if it doesn't exist and create the entry in syslinux.cfg 
- ${IfNot} ${FileExists} "$BootDir\multiboot\menu\$DistroPath" 
- CopyFiles "$PLUGINSDIR\$DistroPath" "$BootDir\multiboot\menu\$DistroPath"
+ ${IfNot} ${FileExists} "$BootDir\!\menu\$DistroPath" 
+ CopyFiles "$PLUGINSDIR\$DistroPath" "$BootDir\!\menu\$DistroPath"
  Call Config2Write
  ${EndIf} 
  
@@ -1431,37 +1426,37 @@ removeonly:
 SectionEnd
 
 Function ConfigRemove ; Find and Set Removal Configuration file
-  ${If} ${FileExists} "$BootDir\multiboot\$DistroName\I\linux.cfg"
+  ${If} ${FileExists} "$BootDir\!\$DistroName\I\linux.cfg"
   StrCpy $DistroPath "linux.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\anon.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\anon.cfg"
   StrCpy $DistroPath "anon.cfg"  
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\system.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\system.cfg"
   StrCpy $DistroPath "system.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\antivirus.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\antivirus.cfg"
   StrCpy $DistroPath "antivirus.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\netbook.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\netbook.cfg"
   StrCpy $DistroPath "netbook.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\other.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\other.cfg"
   StrCpy $DistroPath "other.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\pe.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\pe.cfg"
   StrCpy $DistroPath "pe.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\unlisted.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\unlisted.cfg"
   StrCpy $DistroPath "unlisted.cfg"  
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\menu.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\menu.lst"
   StrCpy $DistroPath "menu.lst"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\vhd.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\vhd.lst"
   StrCpy $DistroPath "vhd.lst"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\grubpart4.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\grubpart4.lst"
   StrCpy $DistroPath "grubpart4.lst"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\grubram.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\grubram.lst"
   StrCpy $DistroPath "grubram.lst"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\win.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\win.lst"
   StrCpy $DistroPath "win.lst"  
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\win2go.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\win2go.lst"
   StrCpy $DistroPath "win2go.lst"   
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\pe.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\pe.lst"
   StrCpy $DistroPath "pe.lst"  
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\I\hirens.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\hirens.lst"
   StrCpy $DistroPath "hirens.lst"    
   ${EndIf}
   ; MessageBox MB_OK "$DistroPath"
@@ -1469,42 +1464,42 @@ FunctionEnd
 
 Function Config2Write
  ${If} $DistroPath == "linux.cfg"
-  ${WriteToSysFile} "label Linux Distributions$\r$\nmenu label ஐ ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/linux.cfg" $R0 
+  ${WriteToSysFile} "label Linux Distributions$\r$\nmenu label ஐ ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/linux.cfg" $R0 
  ${ElseIf} $DistroPath == "anon.cfg"
-  ${WriteToSysFile} "label Anon $\r$\nmenu label அ ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/anon.cfg" $R0  
+  ${WriteToSysFile} "label Anon $\r$\nmenu label அ ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/anon.cfg" $R0  
  ${ElseIf} $DistroPath == "system.cfg"
-  ${WriteToSysFile} "label System Tools$\r$\nmenu label System Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/system.cfg" $R0
+  ${WriteToSysFile} "label System Tools$\r$\nmenu label System Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/system.cfg" $R0
  ${ElseIf} $DistroPath == "antivirus.cfg"
-  ${WriteToSysFile} "label Antivirus Tools$\r$\nmenu label Antivirus Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/antivirus.cfg" $R0 
+  ${WriteToSysFile} "label Antivirus Tools$\r$\nmenu label Antivirus Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/antivirus.cfg" $R0 
  ${ElseIf} $DistroPath == "netbook.cfg"
-  ${WriteToSysFile} "label Netbook Distributions$\r$\nmenu label Netbook Distributions ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/netbook.cfg" $R0 
+  ${WriteToSysFile} "label Netbook Distributions$\r$\nmenu label Netbook Distributions ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/netbook.cfg" $R0 
  ${ElseIf} $DistroPath == "other.cfg"
-  ${WriteToSysFile} "label Other OS and Tools$\r$\nmenu label Other OS and Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/other.cfg" $R0 
+  ${WriteToSysFile} "label Other OS and Tools$\r$\nmenu label Other OS and Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/other.cfg" $R0 
  ${ElseIf} $DistroPath == "pe.cfg"
-  ${WriteToSysFile} "label Windows PE$\r$\nmenu label Windows PE ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/pe.cfg" $R0   
+  ${WriteToSysFile} "label Windows PE$\r$\nmenu label Windows PE ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/pe.cfg" $R0   
  ${ElseIf} $DistroPath == "pe.lst"
-  ${WriteToSysFile} "label Windows PE$\r$\nmenu label Windows PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/pe.lst" $R0   
+  ${WriteToSysFile} "label Windows PE$\r$\nmenu label Windows PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/pe.lst" $R0   
  ${ElseIf} $DistroPath == "hirens.lst"
-  ${WriteToSysFile} "label Hiren's Boot CD PE$\r$\nmenu label Hiren's Boot CD PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/hirens.lst" $R0    
+  ${WriteToSysFile} "label Hiren's Boot CD PE$\r$\nmenu label Hiren's Boot CD PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/hirens.lst" $R0    
  ${ElseIf} $DistroPath == "unlisted.cfg"
-  ${WriteToSysFile} "label Unlisted ISOs (via SYSLINUX)$\r$\nmenu label  Unlisted ISOs (via SYSLINUX) ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/unlisted.cfg" $R0  
+  ${WriteToSysFile} "label Unlisted ISOs (via SYSLINUX)$\r$\nmenu label  Unlisted ISOs (via SYSLINUX) ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/unlisted.cfg" $R0  
  ${ElseIf} $DistroPath == "menu.lst"
-  ${WriteToSysFile} "label Unlisted ISOs (via GRUB)$\r$\nmenu label Unlisted ISOs (via GRUB) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/menu.lst" $R0 
+  ${WriteToSysFile} "label Unlisted ISOs (via GRUB)$\r$\nmenu label Unlisted ISOs (via GRUB) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/menu.lst" $R0 
  ${ElseIf} $DistroPath == "vhd.lst"
-  ${WriteToSysFile} "label Unlisted ISOs (via Virtual Hard Disk)$\r$\nmenu label Unlisted ISOs (via Virtual Hard Disk) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/vhd.lst" $R0 
+  ${WriteToSysFile} "label Unlisted ISOs (via Virtual Hard Disk)$\r$\nmenu label Unlisted ISOs (via Virtual Hard Disk) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/vhd.lst" $R0 
  ${ElseIf} $DistroPath == "grubpart4.lst"
-  ${WriteToSysFile} "label Unlisted ISOs (via GRUB Partition 4)$\r$\nmenu label Unlisted ISOs (via GRUB Partition 4) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/grubpart4.lst" $R0
+  ${WriteToSysFile} "label Unlisted ISOs (via GRUB Partition 4)$\r$\nmenu label Unlisted ISOs (via GRUB Partition 4) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/grubpart4.lst" $R0
  ${ElseIf} $DistroPath == "grubram.lst"
-  ${WriteToSysFile} "label Unlisted ISOs (via GRUB from RAM)$\r$\nmenu label Unlisted ISOs (via GRUB from RAM) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/grubram.lst" $R0   
+  ${WriteToSysFile} "label Unlisted ISOs (via GRUB from RAM)$\r$\nmenu label Unlisted ISOs (via GRUB from RAM) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/grubram.lst" $R0   
  ${ElseIf} $DistroPath == "win.lst" 
-  ${WriteToSysFile} "label Windows Installers$\r$\nmenu label Windows Installers ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/win.lst" $R0  
+  ${WriteToSysFile} "label Windows Installers$\r$\nmenu label Windows Installers ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/win.lst" $R0  
  ${ElseIf} $DistroPath == "win2go.lst"
-  ${WriteToSysFile} "label Windows to Go$\r$\nmenu label Windows to Go ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/மாஒது.exe$\r$\nAPPEND --config-file=/multiboot/menu/win2go.lst" $R0     
+  ${WriteToSysFile} "label Windows to Go$\r$\nmenu label Windows to Go ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/win2go.lst" $R0     
  ${EndIf} 
 FunctionEnd
 
 Function NoQuit
-MessageBox MB_YESNO "$DestDisk இயக்ககத்தில் இப்போது மேலும் ஐஎஸ்ஓக்கள் / விநியோகங்களை சேர்க்க விரும்புகிறீர்களா?" IDYES noskip
+MessageBox MB_YESNO "$DestDisk இயக்ககத்தில் இப்போது மேலும் உதநிக்கள் / விநியோகங்களை சேர்க்க விரும்புகிறீர்களா?" IDYES noskip
     StrCmp $R8 3 0 End ;Compare $R8 variable with current page #
     StrCpy $R9 1 ; Goes to finish page
     Call RelGotoPage
@@ -1564,7 +1559,7 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\dd-diskpart.txt "ஐ-மரபு\உரைகள்\dd-diskpart.txt" 
   File /oname=$PLUGINSDIR\diskpartdetach.txt "ஐ-மரபு\உரைகள்\diskpartdetach.txt"  
   File /oname=$PLUGINSDIR\autounattend.xml "ஐ-மரபு\உரைகள்\autounattend.xml"   
-  File /oname=$PLUGINSDIR\கணிலினக்சு.exe "இருமங்கள்\கணிலினக்சு6.04.32.exe"  
+  File /oname=$PLUGINSDIR\syslinux.exe "இருமங்கள்\கணிலினக்சு6.04.32.exe"  
   File /oname=$PLUGINSDIR\syslinux.cfg "ஐ-மரபு\பட்டியல்\syslinux.cfg"
   File /oname=$PLUGINSDIR\legacy-i "ஐ-மரபு\பட்டியல்\legacy-i"  
   File /oname=$PLUGINSDIR\menu.lst "ஐ-மரபு\பட்டியல்\menu.lst"  
@@ -1573,7 +1568,7 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\grubram.lst "ஐ-மரபு\பட்டியல்\grubram.lst"    
   File /oname=$PLUGINSDIR\win.lst "ஐ-மரபு\பட்டியல்\win.lst"  
   File /oname=$PLUGINSDIR\win2go.lst "ஐ-மரபு\பட்டியல்\win2go.lst"  
-  File /oname=$PLUGINSDIR\மாஒது.exe "இருமங்கள்\மாஒது.exe"  
+  File /oname=$PLUGINSDIR\grub.exe "இருமங்கள்\மாஒது.exe"  
   File /oname=$PLUGINSDIR\info "ஐ-மரபு\பட்டியல்\info"   
   File /oname=$PLUGINSDIR\antivirus.cfg "ஐ-மரபு\பட்டியல்\antivirus.cfg" 
   File /oname=$PLUGINSDIR\system.cfg "ஐ-மரபு\பட்டியல்\system.cfg" 
@@ -1588,10 +1583,10 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\7zG.exe "இருமங்கள்\7zG.exe"
   File /oname=$PLUGINSDIR\7z.dll "இருமங்கள்\7z.dll"  
   File /oname=$PLUGINSDIR\ஐ.png "..\அகர\அணிகலன்\ஐ.png"
-  File /oname=$PLUGINSDIR\உரிமை.உரை "ஐ-மரபு\உரைகள்\உரிமை.உரை" 
+  File /oname=$PLUGINSDIR\உரிமை.உரை "..\அகர\பகவன்\உரிமை.உரை" 
   File /oname=$PLUGINSDIR\vesamenu.c32 "இருமங்கள்\vesamenu.c32" 
   File /oname=$PLUGINSDIR\menu.c32 "இருமங்கள்\menu.c32"    
-  File /oname=$PLUGINSDIR\நினைவட்டு "இருமங்கள்\நினைவட்டு" 
+  File /oname=$PLUGINSDIR\memdisk "இருமங்கள்\நினைவட்டு" 
   File /oname=$PLUGINSDIR\chain.c32 "இருமங்கள்\chain.c32" 
   File /oname=$PLUGINSDIR\libcom32.c32 "இருமங்கள்\libcom32.c32"  
   File /oname=$PLUGINSDIR\libutil.c32 "இருமங்கள்\libutil.c32"   
@@ -1602,8 +1597,8 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\boot.cmd "ஐ-மரபு\உரைகள்\boot.cmd"    
   File /oname=$PLUGINSDIR\vhdremount.cmd "ஐ-மரபு\உரைகள்\vhdremount.cmd"    
   File /oname=$PLUGINSDIR\ei.cfg "ஐ-மரபு\பட்டியல்\ei.cfg"
-  File /oname=$PLUGINSDIR\தரவுவரையறை.exe "இருமங்கள்\தரவுவரையறை.exe"
-  File /oname=$PLUGINSDIR\கோஒஅ32வடிவம்.exe "இருமங்கள்\கோஒஅ32வடிவம்.exe"    
+  File /oname=$PLUGINSDIR\dd.exe "இருமங்கள்\தரவுவரையறை.exe"
+  File /oname=$PLUGINSDIR\fat32format.exe "இருமங்கள்\கோஒஅ32வடிவம்.exe"    
   SetOutPath "$PLUGINSDIR"  
   File /r "wimlib" 
   SetOutPath ""  

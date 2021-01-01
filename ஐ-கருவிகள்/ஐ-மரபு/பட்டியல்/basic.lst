@@ -4,13 +4,13 @@ timeout=0
 #start IPATH
 
 title Boot IPATH
-set ISO=/multiboot/IPATH/SLUG
+set ISO=/!/IPATH/SLUG
 find --set-root %ISO%
 
 parttype (hd0,3) | set check=
 set check=%check:~-5,4%
 if "%check%"=="0x00" partnew (hd0,3) 0 0 0
-if NOT "%check%"=="0x00" echo WARNING: Fourth partition table entry is not empty, please delete it if you wish to use this method && pause --wait=5 && configfile /multiboot/IPATH/basic.lst
+if NOT "%check%"=="0x00" echo WARNING: Fourth partition table entry is not empty, please delete it if you wish to use this method && pause --wait=5 && configfile /!/IPATH/basic.lst
 partnew (hd0,3) 0x00 %ISO%
 
 map  %ISO% (0xff)

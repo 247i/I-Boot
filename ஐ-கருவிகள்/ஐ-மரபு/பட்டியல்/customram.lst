@@ -11,8 +11,8 @@ chainloader (hd0)+1
 rootnoverify (hd0)
 
 title Boot SLUG
-find --set-root --ignore-floppies --ignore-cd /multiboot/IPATH/SLUG
-map --heads=0 --sectors-per-track=0 --mem /multiboot/IPATH/SLUG (hd32)
+find --set-root --ignore-floppies --ignore-cd /!/IPATH/SLUG
+map --heads=0 --sectors-per-track=0 --mem /!/IPATH/SLUG (hd32)
 map --hook
 root (hd32)
 chainloader (hd32)

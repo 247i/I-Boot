@@ -13,7 +13,7 @@ ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
  SetShellVarContext all
  InitPluginsDir
  ExpandEnvStrings $COMSPEC "%COMSPEC%"
- ExecShell "" '"$COMSPEC"' '/C if 1==1 "$PLUGINSDIR\தரவுவரையறை.exe" if=/dev/zero of=$BootDir\multiboot\$JustISOName\$CasperName bs=1M count=$Casper --progress 2>$PLUGINSDIR\ddlog.txt' SW_HIDE
+ ExecShell "" '"$COMSPEC"' '/C if 1==1 "$PLUGINSDIR\dd.exe" if=/dev/zero of=$BootDir\!\$JustISOName\$CasperName bs=1M count=$Casper --progress 2>$PLUGINSDIR\ddlog.txt' SW_HIDE
  Banner::show /set 76 "Creating a Persistent File."
  Banner::getWindow
  Pop $1  
@@ -21,11 +21,11 @@ ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
  Call தவமுன்னேற்றம்
  Banner::destroy
   ${If} $DistroName == "Raspberry Pi Desktop"
-   nsExec::ExecToLog '"$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe" -L persistence $BootDir\multiboot\$JustISOName\$CasperName'
+   nsExec::ExecToLog '"$PLUGINSDIR\mke2fs.exe" -L persistence $BootDir\!\$JustISOName\$CasperName'
   ${Else}
-   nsExec::ExecToLog '"$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe" -L $CasperName $BootDir\multiboot\$JustISOName\$CasperName'
+   nsExec::ExecToLog '"$PLUGINSDIR\mke2fs.exe" -L $CasperName $BootDir\!\$JustISOName\$CasperName'
   ${EndIf} 
- ;CopyFiles $PLUGINSDIR\$CasperName "$BootDir\multiboot\$JustISOName\$CasperName" ; Copy casper-rw to USB
+ ;CopyFiles $PLUGINSDIR\$CasperName "$BootDir\!\$JustISOName\$CasperName" ; Copy casper-rw to USB
  ;Delete "$PLUGINSDIR\$CasperName"
 ${EndIf}
 FunctionEnd
@@ -37,8 +37,8 @@ FunctionEnd
 Function GetCaspTools
 SetShellVarContext all
 InitPluginsDir
-File /oname=$PLUGINSDIR\தரவுவரையறை.exe "இருமங்கள்\தரவுவரையறை.exe"
-File /oname=$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe "இருமங்கள்\நீட்2கோமுவடிவஉரு.exe"
+File /oname=$PLUGINSDIR\dd.exe "இருமங்கள்\தரவுவரையறை.exe"
+File /oname=$PLUGINSDIR\mke2fs.exe "இருமங்கள்\நீட்2கோமுவடிவஉரு.exe"
 DetailPrint "இப்போது ஒரு நிலைத்தன்மை அல்லது எழுதக்கூடிய கோப்பை உருவாக்குதல்" 
 DetailPrint "நிலைத்தன்மை கோப்பை உருவாக்குதல்: முடிவடையும் வரை முன்னேற்றப் பட்டி நகராது. தயவுசெய்து பொருமையாயிறு..." 
 FunctionEnd

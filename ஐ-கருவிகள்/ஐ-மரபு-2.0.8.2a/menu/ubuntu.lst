@@ -1,0 +1,39 @@
+# This Menu created with YUMI https://www.pendrivelinux.com/yumi-multiboot-usb-creator/
+default 0
+timeout 30
+color NORMAL HIGHLIGHT HELPTEXT HEADING
+foreground=FFFFFF
+background=000000
+
+title Boot DLUG
+set ISO=/multiboot/DLUG/SLUG
+set CASPER=/multiboot/DLUG/writable
+find --set-root %ISO%
+
+parttype (hd0,2) | set check=
+set check=%check:~-5,4%
+if %check%==0x00 partnew (hd0,2) 0 0 0
+if not %check%==0x00 echo WARNING: third partition table entry is not empty, please delete it if you wish to use this method && pause --wait=5 && configfile /multiboot/DLUG/ubuntu.lst
+partnew (hd0,2) 0x00 %ISO%
+
+map %ISO% (0xff)
+#CLUG
+map --hook
+root (0xff)
+kernel /casper/VLUG noprompt boot=casper floppy.allowed_drive_mask=0 ignore_uuid --
+initrd /casper/ILUG
+
+title Boot DLUG non-persistent
+set ISO=/multiboot/DLUG/SLUG
+find --set-root %ISO%
+
+parttype (hd0,2) | set check=
+set check=%check:~-5,4%
+if %check%==0x00 partnew (hd0,2) 0 0 0
+if not %check%==0x00 echo WARNING: third partition table entry is not empty, please delete it if you wish to use this method && pause --wait=5 && configfile /multiboot/DLUG/ubuntu.lst
+partnew (hd0,2) 0x00 %ISO%
+
+map %ISO% (0xff)
+map --hook
+root (0xff)
+chainloader (0xff)

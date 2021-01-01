@@ -15,7 +15,7 @@ VIAddVersionKey License "இலவசம்"
 Name "${பெயர்} ${பதிப்பு}"
 OutFile "..\${பெயர்}-${பதிப்பு}.exe"
 RequestExecutionLevel admin ;highest
-SetCompressor LZMA
+SetCompressor /SOLID lzma
 CRCCheck On
 XPStyle on
 ShowInstDetails show
@@ -84,6 +84,8 @@ Var LocalSelection
 Var Letters
 Var DistroPath
 Var SomeFileExt
+Var AllDriveOption
+Var DisplayAll
 Var DistroLink
 Var Homepage
 Var OfficialSite
@@ -255,10 +257,14 @@ Function தேர்வுகள்பக்கம்
   Pop $LabelDrivePage 
   ${NSD_SetText} $LabelDrivePage "படி 1: மின்வெட்டொளி இயக்கமாக $DestDisk வரவழைக்கப்பட்டது"  
 ; Droplist for Drive Selection  
-  ${NSD_CreateDropList} 0 20 55% 15 "" ; was 0 20 15% 15 ; then was 28%
+  ${NSD_CreateDropList} 0 20 40% 15 "" ; was 0 20 15% 15 ; then was 28%
   Pop $DestDriveTxt 
    
-  ${GetDrives} "FDD+HDD" இயக்கிபட்டியல் ; All Drives Listed
+   ${If} $ShowAll == "YES"
+   ${GetDrives} "FDD+HDD" இயக்கிபட்டியல் ; All Drives Listed
+   ${ElseIf} $ShowAll == "NO"
+   ${GetDrives} "FDD" இயக்கிபட்டியல் ; FDD+HDD reduced to FDD for removable media only
+   ${EndIf}          
   
   ${NSD_CB_SelectString} $DestDriveTxt "$DestDrive"
   StrCpy $JustDrive $DestDrive 3
@@ -279,12 +285,12 @@ Function தேர்வுகள்பக்கம்
   ${NSD_OnClick} $LINK என்தளசொடுக்த்தில்    
 
 ; Add Help Link
-  ${NSD_CreateLink} 16% 215 9% 15 "கேள்வி"
+  ${NSD_CreateLink} 16% 215 9% 15 "கேள்வி" ;16% 215 9% 15
   Pop $Link1
   ${NSD_OnClick} $LINK1 அகேகேதளசொடுக்த்தில் 
   
 ; Add Giveback Link
-  ${NSD_CreateLink} 25% 215 30% 15 "பரிந்துரை"
+  ${NSD_CreateLink} 25% 215 30% 15 "பரிந்துரை" ;25% 215 30% 15 
   Pop $Link2
   ${NSD_OnClick} $LINK2 என்உதொபேதளசொடுக்த்தில்   
  
@@ -316,15 +322,15 @@ Function தேர்வுகள்பக்கம்
   ${NSD_SetText} $LabelDrivePage "படி 1: மின்வெட்டொளி இயக்கக எழுத்து."    
   
 ; Droplist for Drive Selection
-  ${NSD_CreateDropList} 0 20 55% 15 "" ; was 0 20 15% 15
+  ${NSD_CreateDropList} 0 20 40% 15 "" ; was 0 20 15% 15
   Pop $DestDriveTxt
   Call இயக்கிகளைபட்டியலிடு
   ${NSD_OnChange} $DestDriveTxt இயக்கிதேர்வில்
  
 ; All Drives Option
-;  ${NSD_CreateCheckBox} 36% 23 22% 15 "Show All Drives" ; was 17% 23 41% 15
-;  Pop $AllDriveOption
-;  ${NSD_OnClick} $AllDriveOption இயக்கிகளைபட்டியலிடு 
+  ${NSD_CreateCheckBox} 41% 23 17% 15 "Show All" ; was 17% 23 41% 15
+  Pop $AllDriveOption
+  ${NSD_OnClick} $AllDriveOption இயக்கிகளைபட்டியலிடு 
   
 ; Format Drive Option
   ${NSD_CreateCheckBox} 60% 23 100% 15 "துடைத்து Fat32 வடிவமை $DestDisk"
@@ -426,7 +432,18 @@ FunctionEnd
 
 Function இயக்கிகளைபட்டியலிடு ; Set to Display All Drives
   SendMessage $DestDriveTxt ${CB_RESETCONTENT} 0 0 
+  ${NSD_GetState} $AllDriveOption $DisplayAll
+  ${If} $DisplayAll == ${BST_CHECKED}
+  ${NSD_Check} $AllDriveOption
+  ${NSD_SetText} $AllDriveOption "All Shown" 
+   StrCpy $ShowAll "YES"
    ${GetDrives} "FDD+HDD" இயக்கிபட்டியல் ; All Drives Listed  
+  ${ElseIf} $DisplayAll == ${BST_UNCHECKED}
+  ${NSD_Uncheck} $AllDriveOption
+  ${NSD_SetText} $AllDriveOption "அனைத்தும் காட்டு"  
+   ${GetDrives} "FDD" இயக்கிபட்டியல் ; FDD+HDD reduced to FDD for removable media only
+   StrCpy $ShowAll "NO"
+  ${EndIf}
 FunctionEnd
 
 Function என்தளசொடுக்த்தில்
@@ -462,8 +479,8 @@ Function இதைபதிவிறக்கு ; பதிவிறக்க �
 FunctionEnd
 
 Function அடுத்துஇயக்கு ; Enable Install Button
-  ${If} $Blocksize >= 4 
-  ${AndIf} $Removal != "Yes"
+  #${If} $Blocksize >= 4 
+  ${If} $Removal != "Yes"
   ShowWindow $Format 1 
   ${Else}
   ShowWindow $Format 0
@@ -800,6 +817,10 @@ Function இயக்கிதேர்வில்
   ${If} $FSType == "exFAT"
    ${OrIf} $FSType == "NTFS"
    MessageBox MB_ICONSTOP|MB_OK "$FSType வடிவமைக்கப்பட்ட சாதனங்களில் கணிலினக்சு செயல்படாது. $JustDriveஐ Fat32 ஆக வடிவமைக்க நீங்கள் தேர்வு செய்யலாம்."
+  ${EndIf}
+
+  ${If} ${FileExists} "$BDir\!\legacy-i"
+  MessageBox MB_ICONSTOP|MB_OK "($DestDisk) contains a YUMI Legacy installation. You'll have to reformat to use UEFI YUMI."
   ${EndIf}   
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
   StrCpy $Checker "Yes" 
@@ -849,7 +870,7 @@ Function இயக்கிபட்டியல்
  ${EndIf}
  Push 1 ; must push something - see GetDrives documentation
 FunctionEnd
- 
+
 Function ஆம்வடிவமை ; If Format is checked, do something
   SetShellVarContext all
   InitPluginsDir
@@ -936,7 +957,7 @@ Function இடத்தைஅமை ; Set space available for persistence
   ;StrCpy $0 '$0'
   Call மீதமுள்ளவட்டுஇடம்
   IntOp $MaxPersist 4090 + $CasperSize ; Space required for distro and 4GB max persistent file
-  ${If} $1 > $MaxPersist ; Check if more space is available than we need for distro + 4GB persistent file
+ ${If} $1 > $MaxPersist ; Check if more space is available than we need for distro + 4GB persistent file
   StrCpy $RemainingSpace 4090 ; Set maximum possible value to 4090 MB (any larger wont work on fat32 Filesystem)
  ${Else}
   StrCpy $RemainingSpace "$1"
@@ -947,17 +968,20 @@ Function இடத்தைஅமை ; Set space available for persistence
 FunctionEnd
 
 Function இடமிருக்குமுன் ; Check space required
+ ${If} $FormatMe != "Yes" 
   Call புதையல்அளவு
   Call மீதமுள்ளவட்டுஇடம்
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...
   IntCmp $3 1 okay ; ... and compare it
   MessageBox MB_ICONSTOP|MB_OK "அச்சச்சோ: போதுமான வட்டு இடம் இல்லை!  $JustDriveஇயக்ககத்தில் $1 எம்பி உள்ளது, $SizeOfCasper எம்பி தேவை."
+ ${EndIf}		 
   okay: ; Proceed to execute...
 		 
 FunctionEnd
 
 Function இடமிருக்கு ; Check space required
+ ${If} $FormatMe != "Yes"
   Call புதையல்அளவு
   Call மீதமுள்ளவட்டுஇடம்
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
@@ -967,6 +991,7 @@ Function இடமிருக்கு ; Check space required
   quit ; போதுமான காலி இடம் இல்லை. ஐ-கருவி நிறுத்தம்...
   okay: ; Proceed to execute...
 
+ ${EndIf}
 FunctionEnd
 
 !macro பட்டிஉள்ளீட்டைநீக்கு file start stop
@@ -997,22 +1022,17 @@ ${FileRecode} $3 "ToUTF16LE"
   FileOpen $R1 $R2 w
   FileOpen $R0 $3 r
   ClearErrors
- ;FileRead $R0 $R3
   FileReadUTF16LE $R0 $R3
   IfErrors Done
   StrCmp $R3 $2 +3
- ;FileWrite $R1 $R3
   FileWriteUTF16LE $R1 $R3
   Goto -5
   ClearErrors
- ;FileRead $R0 $R3
   FileReadUTF16LE $R0 $R3
   IfErrors Done
   StrCmp $R3 $1 +4 -3 
- ;FileRead $R0 $R3
   FileReadUTF16LE $R0 $R3
   IfErrors Done
- ;FileWrite $R1 $R3
   FileWriteUTF16LE $R1 $R3
   ClearErrors
   Goto -4
@@ -1047,7 +1067,7 @@ Function கணிலினக்சுசெய் ; Install Syslinux on USB
   Quit
   ${EndIf}
 
-  IfFileExists "$BDir\!\ldlinux.sys" SkipSyslinux CreateSyslinux ; checking for syslinux
+  IfFileExists "$BDir\!\%\ldlinux.sys" SkipSyslinux CreateSyslinux ; checking for syslinux
 CreateSyslinux:
   CreateDirectory $BDir\!\% ; recursively create the directory structure if it doesn't exist
   ;CreateDirectory $BDir\!\ISOS ; create ISOS folder  
@@ -1102,18 +1122,6 @@ Pop $NameThatISO
  Quit
  ${EndIf}
  
-																			  
-												   
-							   
-							  
-																																										
-															
-												
-								   
-	  
-		  
-		 
- 
  Call கோமுவகைபெறு
  ${If} $FSType == "exFAT"
   ${OrIf} $FSType == "NTFS"
@@ -1157,24 +1165,24 @@ removeonly:
 SectionEnd
 
 Function கட்டமைப்புநீக்க ; Find and Set Removal Configuration file
-  ${If} ${FileExists} "$BDir\!\$DistroName\I\லினக்சு.உலகு"
+  ${If} ${FileExists} "$BDir\!\$DistroName\ஐ\லினக்சு.உலகு"
   StrCpy $DistroPath "லினக்சு.உலகு"
-  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\I\உலாவி.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\ஐ\உலாவி.உலகு"
   StrCpy $DistroPath "உலாவி.உலகு"  
-  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\I\கருவிகள்.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\ஐ\கருவிகள்.உலகு"
   StrCpy $DistroPath "கருவிகள்.உலகு"
-  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\I\நோய்தடுப்பு.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\ஐ\நோய்தடுப்பு.உலகு"
   StrCpy $DistroPath "நோய்தடுப்பு.உலகு"
-  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\I\இணையபுத்தகம்.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\ஐ\இணையபுத்தகம்.உலகு"
   StrCpy $DistroPath "இணையபுத்தகம்.உலகு"
-  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\I\மற்ற.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\ஐ\மற்ற.உலகு"
   StrCpy $DistroPath "மற்ற.உலகு"
-  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\I\பட்டியலிடாத.உலகு"
+  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\ஐ\பட்டியலிடாத.உலகு"
   StrCpy $DistroPath "பட்டியலிடாத.உலகு"  
-;  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\I\menu.lst"
+;  ${ElseIf} ${FileExists} "$BDir\!\$DistroName\ஐ\menu.lst"
 ;  StrCpy $DistroPath "menu.lst"
   ${EndIf}
- MessageBox MB_OK "$DistroPath"
+  ;MessageBox MB_OK "$DistroPath"
 FunctionEnd
 
 Function கட்டமைப்புஎழுது
@@ -1263,8 +1271,6 @@ StrCpy $R9 0 ; உரிமை உரை தவிர், பக்கம் 0�
   File /oname=$PLUGINSDIR\உரிமை.உரை "..\அகர\பகவன்\உரிமை.உரை" 
   File /oname=$PLUGINSDIR\நினைவட்டு "இருமங்கள்\நினைவட்டு"
   File /oname=$PLUGINSDIR\அகர.zip "இருமங்கள்\அகர.zip"   
-; File /oname=$PLUGINSDIR\மற்ற.உலகு "ஐ-உ.வி.நி.இ\உரைகள்\மற்ற.உலகு"   
-; File /oname=$PLUGINSDIR\mbrid "இருமங்கள்\முதுபஅடை"  
 FunctionEnd
 
 Function புதையல்நிலைமாற்றிஅறிவிப்பதில்

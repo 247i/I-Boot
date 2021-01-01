@@ -3,7 +3,7 @@ cls
 Set Distroname=ISONAMESLUG
 REM echo %~d0
 Set DRIVE=%~d0
-echo > vdisk.txt Select vdisk file="%DRIVE%\multiboot\%Distroname%\%Distroname%.vhd"
+echo > vdisk.txt Select vdisk file="%DRIVE%\!\%Distroname%\%Distroname%.vhd"
 echo >> vdisk.txt attach vdisk
 echo >> vdisk.txt exit
 diskpart /s vdisk.txt

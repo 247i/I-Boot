@@ -7,7 +7,7 @@
  <RunSynchronous>
   <RunSynchronousCommand wcm:action="add">
    <Order>1</Order> 
-   <Path>cmd /q /c "FOR %i IN (C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\multiboot\ISONAMESLUG\vhdremount.cmd  cmd /k %i:\multiboot\ISONAMESLUG\vhdremount.cmd"</Path> 
+   <Path>cmd /q /c "FOR %i IN (C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\!\ISONAMESLUG\vhdremount.cmd  cmd /k %i:\!\ISONAMESLUG\vhdremount.cmd"</Path> 
    <Description>Launch Remount</Description> 
   </RunSynchronousCommand>
  </RunSynchronous>
@@ -24,7 +24,7 @@
  <RunSynchronous>
   <RunSynchronousCommand wcm:action="add">
    <Order>1</Order> 
-   <Path>cmd /q /c "FOR %i IN (C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\multiboot\ISONAMESLUG\vhdremount.cmd  cmd /k %i:\multiboot\ISONAMESLUG\vhdremount.cmd"</Path> 
+   <Path>cmd /q /c "FOR %i IN (C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\!\ISONAMESLUG\vhdremount.cmd  cmd /k %i:\!\ISONAMESLUG\vhdremount.cmd"</Path> 
    <Description>Launch Remount</Description> 
   </RunSynchronousCommand>
  </RunSynchronous>
