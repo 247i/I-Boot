@@ -1,4 +1,4 @@
-#Https://Tamilneram.github.IO
+﻿#Https://Tamilneram.github.io
 default 1
 timeout 8
 color NORMAL HIGHLIGHT HELPTEXT HEADING
@@ -8,7 +8,7 @@ background=000000
 title --- Unlisted ISOs (via GRUB Partition 4) ---
 root
 
-title <<Back
+title ⮜⮘
 root (hd0,0)
 chainloader (hd0)+1
 rootnoverify (hd0)

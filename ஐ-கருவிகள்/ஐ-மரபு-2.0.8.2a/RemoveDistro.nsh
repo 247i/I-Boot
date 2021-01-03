@@ -20,19 +20,19 @@
 !macro Uninstall_Distros  
 ; New Methods catch-all
  ${If} $DistroName != ""  
-  ${DeleteMenuEntry} "$BootDir\multiboot\menu\$Config2Use" "#start $DistroName" "#end $DistroName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
-  ${LineFind} "$BootDir\multiboot\Installed.txt" "$BootDir\multiboot\Installed.txt" "1:-1" "DeleteInstall" ; Remove the Installed entry
-  ${LineFind} "$BootDir\multiboot\Installed.txt" "$BootDir\multiboot\Installed.txt" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
-  ${LineFind} "$BootDir\multiboot\menu\$Config2Use" "$BootDir\multiboot\menu\$Config2Use" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
-  Delete "$BootDir\multiboot\$DistroName\*.*" 
+  ${DeleteMenuEntry} "$BootDir\!\menu\$Config2Use" "#start $DistroName" "#end $DistroName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
+  ${LineFind} "$BootDir\!\Installed.txt" "$BootDir\!\Installed.txt" "1:-1" "DeleteInstall" ; Remove the Installed entry
+  ${LineFind} "$BootDir\!\Installed.txt" "$BootDir\!\Installed.txt" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
+  ${LineFind} "$BootDir\!\menu\$Config2Use" "$BootDir\!\menu\$Config2Use" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
+  Delete "$BootDir\!\$DistroName\*.*" 
   
   ReadEnvStr $R0 COMSPEC
-  nsExec::Exec '"$R0" /C rmdir /Q /S "$BootDir\multiboot\$DistroName"' 
+  nsExec::Exec '"$R0" /C rmdir /Q /S "$BootDir\!\$DistroName"' 
   
-  RMDir /R "$BootDir\multiboot\$DistroName"   ; make another pass using NSIS built in RMDir
+  RMDir /R "$BootDir\!\$DistroName"   ; make another pass using NSIS built in RMDir
   
-   ${AndIf} ${FileExists} "$BootDir\multiboot\ISOS\$DistroName.iso"   
-   Delete "$BootDir\multiboot\ISOS\$DistroName.iso" 
+   ${AndIf} ${FileExists} "$BootDir\!\ISOS\$DistroName.iso"   
+   Delete "$BootDir\!\ISOS\$DistroName.iso" 
  ${EndIf}
  DetailPrint "$DistroName and its menu entry were Removed!" 
 !macroend

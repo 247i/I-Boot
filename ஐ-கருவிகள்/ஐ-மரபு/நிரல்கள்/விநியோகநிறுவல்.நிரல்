@@ -1,5 +1,4 @@
 ﻿; ------------ Install Distros Macro -------------- 
-
 ; !include கோப்பில்மாற்று.nsh
 Function FindConfig ; Set config path and file
   ${If} ${FileExists} "$BootDir\!\$JustISOName\liberte\boot\syslinux\syslinux.cfg" ; Liberte
@@ -775,15 +774,7 @@ FunctionEnd
 		 ${ElseIf} $DistroName == "Try Unlisted ISO (GRUB from RAM)" 
 		 CopyFiles $ISOFile "$BootDir\!\ISOS\$JustISO"
 		 ${WriteToFile} "#[ $JustISOName$\r$\n#Modify the following memory based entry if it does not boot$\r$\ntitle Boot $JustISO from Memory$\r$\nfind --set-root --ignore-floppies --ignore-cd /!/ISOS/$JustISO$\r$\nmap --heads=0 --sectors-per-track=0 --mem /!/ISOS/$JustISO (hd32)$\r$\nmap --hook$\r$\nroot (hd32)$\r$\nchainloader (hd32)$\r$\n#] $JustISOName" $R0
-		 
-		; Ultimate Boot CD (Diagnostics Tools)
-		; ${ElseIf} $DistroName == "Ultimate Boot CD (Diagnostics Tools)"  
-		; CopyFiles $ISOFile "$BootDir\!\ISOS\$JustISO"
-		; ${WriteToFile} "#[ $JustISOName$\r$\nlabel Ultimate Boot CD ($JustISOName)$\r$\nmenu label Ultimate Boot CD ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/ubcd.lst$\r$\n#] $JustISOName" $R0   
-		; File /oname=$PLUGINSDIR\ubcd.lst "ஐ-மரபு\பட்டியல்\ubcd.lst"  
-		; CopyFiles "$PLUGINSDIR\ubcd.lst" "$BootDir\!\menu\ubcd.lst" 
-		; !insertmacro கோப்பில்மாற்று "SLUG" "$JustISO" "all" "all" "$BootDir\!\menu\ubcd.lst"  
-		 
+
 		 ${ElseIf} $DistroName == "Puppy Arcade"  
 		 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\!\$JustISOName\" -y'  
 		 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/$JustISOName/arcade.lst$\r$\n#] $JustISOName" $R0   

@@ -88,7 +88,7 @@ Function WriteToFile ; <- WriteToFile Function originally written by Afrow UK ht
  Exch $R0 ;file to write to
  Exch
  Exch $1 ;text to write
- FileOpen $R0 '$BootDir\multiboot\menu\$Config2Use' a 
+ FileOpen $R0 '$BootDir\!\menu\$Config2Use' a 
  FileSeek $R0 0 END
  FileWrite $R0 '$\r$\n$1$\r$\n'
  FileClose $R0
@@ -99,7 +99,7 @@ FunctionEnd
  Push "${String}"
  Push "${File}"
  Call WriteToFile
- ${LineFind} "$BootDir\multiboot\menu\$Config2Use" "$BootDir\multiboot\menu\$Config2Use" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
+ ${LineFind} "$BootDir\!\menu\$Config2Use" "$BootDir\!\menu\$Config2Use" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
 !macroend  
 !define WriteToFile "!insertmacro WriteToFile"
 
@@ -107,7 +107,7 @@ Function WriteToSysFile ; Write entry to syslinux.cfg
  Exch $R0 ;file to write to
  Exch
  Exch $1 ;text to write
- FileOpen $R0 '$BootDir\multiboot\syslinux.cfg' a 
+ FileOpen $R0 '$BootDir\!\syslinux.cfg' a 
  FileSeek $R0 0 END
  FileWrite $R0 '$\r$\n$1$\r$\n'
  FileClose $R0
@@ -121,17 +121,17 @@ FunctionEnd
 !macroend  
 !define WriteToSysFile "!insertmacro WriteToSysFile"
 
-Function InstalledList ; Creates a list of installed distros in the multiboot folder on the USB drive (So we can uninstall the distros later)
- ${IfNot} ${FileExists} "$BootDir\multiboot\$JustISOName\*.*" ; If the installation directory exists user must be reinstalling the same distro, so we won't add a removal entry. 
+Function InstalledList ; Creates a list of installed distros in the ! folder on the USB drive (So we can uninstall the distros later)
+ ${IfNot} ${FileExists} "$BootDir\!\$JustISOName\*.*" ; If the installation directory exists user must be reinstalling the same distro, so we won't add a removal entry. 
    Exch $R0 ;file to write to
    Exch
    Exch $1 ;text to write
-   ${If} ${FileExists} "$BootDir\multiboot\Installed.txt" 
-    FileOpen $R0 '$BootDir\multiboot\Installed.txt' a 
+   ${If} ${FileExists} "$BootDir\!\Installed.txt" 
+    FileOpen $R0 '$BootDir\!\Installed.txt' a 
     FileSeek $R0 0 END
 	FileWrite $R0 '$\r$\n$1' ; add subsequent entry on a new line
    ${Else}
-    FileOpen $R0 '$BootDir\multiboot\Installed.txt' a 
+    FileOpen $R0 '$BootDir\!\Installed.txt' a 
     FileSeek $R0 0 END
     FileWrite $R0 '$1'  ; add first entry without a new line
    ${EndIf}
@@ -183,9 +183,9 @@ FunctionEnd
 
 Function RemovalList ; Lists the distros installed on the select drive.
  ${NSD_SetText} $LinuxDistroSelection "Step 2: Select a Distribution to remove from $DestDisk"  
- ${If} ${FileExists} "$BootDir\multiboot\Installed.txt" ; Are there distributions on the select drive? 
+ ${If} ${FileExists} "$BootDir\!\Installed.txt" ; Are there distributions on the select drive? 
  ClearErrors
- FileOpen $0 $BootDir\multiboot\Installed.txt r
+ FileOpen $0 $BootDir\!\Installed.txt r
   loop:
    FileRead $0 $1
     IfErrors done

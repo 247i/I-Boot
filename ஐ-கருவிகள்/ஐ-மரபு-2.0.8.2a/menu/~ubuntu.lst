@@ -1,4 +1,4 @@
-# This Menu created with YUMI https://www.pendrivelinux.com/yumi-multiboot-usb-creator/
+# This Menu created with YUMI https://www.pendrivelinux.com/yumi-!-usb-creator/
 default 0
 timeout 30
 color NORMAL HIGHLIGHT HELPTEXT HEADING
@@ -6,8 +6,8 @@ foreground=FFFFFF
 background=000000
 
 title Boot DLUG
-set ISO=/multiboot/DLUG/SLUG
-set CASPER=/multiboot/DLUG/writable
+set ISO=/!/DLUG/SLUG
+set CASPER=/!/DLUG/writable
 find --set-root %ISO%
 map %ISO% (0xff)
 #CLUG
@@ -17,8 +17,8 @@ kernel /casper/VLUG file=/cdrom/preseed/SLEED noprompt boot=casper cdrom-detect/
 initrd /casper/ILUG
 
 title Boot DLUG acpi=off non-persistent
-set ISO=/multiboot/DLUG/SLUG
-set CASPER=/multiboot/DLUG/writable
+set ISO=/!/DLUG/SLUG
+set CASPER=/!/DLUG/writable
 find --set-root %ISO%
 map %ISO% (0xff)
 #CLUG

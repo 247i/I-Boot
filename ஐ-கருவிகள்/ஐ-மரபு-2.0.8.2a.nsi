@@ -1,20 +1,19 @@
 ﻿Unicode True ; தமிழ் எழுத்து அதரவு 
-;!execute '"$%WINDIR%\notepad.exe" /P "${NSISDIR}\COPYING"' ; Enable this to debug previous line. 
-!define NAME "YUMI"
-!define FILENAME "YUMI"
-!define VERSION "2.0.8.2"
-!define MUI_ICON "images\usbicon.ico" ; "${NSISDIR}\Contrib\Graphics\Icons\nsis1-install.ico"
+!define NAME "ஐ-மரபு"
+!define FILENAME "ஐ-மரபு"
+!define VERSION "2.0.8.2a"
+!define MUI_ICON "..\அகர\ஐ-காண்\வண்ணத்துப்பூச்சி.ico" 
 
-; MoreInfo Plugin - Adds Version Tab fields to Properties. Plugin created by onad http://nsis.sourceforge.net/MoreInfo_plug-in
+; MoreInfo Plugin - Adds Version Tab fields to Properties.
 VIProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "pendrivelinux.com"
 VIAddVersionKey LegalCopyright "Copyright ©2020 Pendrivelinux.com"
 VIAddVersionKey FileVersion "${VERSION}"
-VIAddVersionKey FileDescription "YUMI"
+VIAddVersionKey FileDescription "ஐ-மரபு"
 VIAddVersionKey License "GPL Version 2"
 
 Name "${NAME} ${VERSION}"
-OutFile "${FILENAME}-${VERSION}.exe"
+OutFile "..\${FILENAME}-${VERSION}.exe"
 RequestExecutionLevel admin ;highest
 SetCompressor /SOLID lzma
 CRCCheck On
@@ -130,7 +129,7 @@ Var WipeMe
 ; Interface settings
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_HEADERIMAGE
-!define MUI_HEADERIMAGE_BITMAP "images\usb-logo-nsis.bmp" 
+!define MUI_HEADERIMAGE_BITMAP "..\அகர\அணிகலன்\யாதும் ஊரே-தலைப்பு.bmp" 
 !define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
 !define MUI_HEADERIMAGE_RIGHT
 
@@ -139,7 +138,7 @@ Var WipeMe
 !define MUI_LICENSEPAGE_TEXT_TOP $(License_Text_Top)
 !define MUI_LICENSEPAGE_TEXT_BOTTOM $(License_Text_Bottom)
 !define MUI_PAGE_CUSTOMFUNCTION_PRE License_PreFunction
-!insertmacro MUI_PAGE_LICENSE "YUMI-Copying.txt"
+!insertmacro MUI_PAGE_LICENSE "..\அகர\பகவன்\உரிமை.உரை"
 
 ; Distro Selection Page
 Page custom SelectionsPage
@@ -157,8 +156,8 @@ Page custom SelectionsPage
 !define MUI_FINISHPAGE_TITLE $(Finish_Title)
 !define MUI_FINISHPAGE_TEXT $(Finish_Text)
 !define MUI_FINISHPAGE_LINK $(Finish_Link)
-!define MUI_FINISHPAGE_LINK_LOCATION "https://www.pendrivelinux.com/yumi-multiboot-usb-creator/"
-!define MUI_WELCOMEFINISHPAGE_BITMAP "images\finish.bmp"
+!define MUI_FINISHPAGE_LINK_LOCATION "https://TamilNeram.github.io"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "..\அகர\அணிகலன்\சரி.bmp"
 !define MUI_PAGE_CUSTOMFUNCTION_PRE Finish_PreFunction
 !insertmacro MUI_PAGE_FINISH
 
@@ -189,17 +188,15 @@ LangString Finish_Title ${LANG_ENGLISH} "Thanks for using ${NAME}"
 LangString Finish_Text ${LANG_ENGLISH} "Your Selections have been $InUnStalled on your USB drive.$\r$\n$\r$\nFeel Free to run this tool again to $InUnStall more Distros.$\r$\n$\r$\nYUMI will keep track of selections you have already $InUnStalled."
 LangString Finish_Link ${LANG_ENGLISH} "Visit the YUMI Home Page"
 
-!include FileManipulation.nsh ; Text File Manipulation
-!include DiskVoodoo.nsh
-																		  
-																				 
-																	  
-																																	  
-!include FileNames.nsh ; Macro for FileNames
-!include DistroList.nsh ; List of Distributions
-!include StrContains.nsh
-!include "CasperScript.nsh" ; For creation of Persistent Casper-rw files
-!include ReplaceInFile.nsh
+!include ஐ-மரபு-2.0.8.2a\FileManipulation.nsh ; Text File Manipulation
+!include ஐ-மரபு-2.0.8.2a\DiskVoodoo.nsh
+!include ஐ-மரபு-2.0.8.2a\FileNames.nsh ; Macro for FileNames
+!include ஐ-மரபு-2.0.8.2a\DistroList.nsh ; List of Distributions
+!include ஐ-மரபு-2.0.8.2a\StrContains.nsh
+!include ஐ-மரபு-2.0.8.2a\CasperScript.nsh ; For creation of Persistent Casper-rw files
+!include ஐ-மரபு-2.0.8.2a\ReplaceInFile.nsh
+
+
 
 
 Function License_PreFunction
@@ -487,12 +484,12 @@ FunctionEnd
 
 Function onClickMyLink
   Pop $Links ; pop something to prevent corruption
-  ExecShell "open" "https://www.pendrivelinux.com/yumi-multiboot-usb-creator/"
+  ExecShell "open" "https://www.pendrivelinux.com/yumi-!-usb-creator/"
 FunctionEnd
 
 Function onClickMyLinkFAQ
   Pop $Links1 ; pop something to prevent corruption
-  ExecShell "open" "https://www.pendrivelinux.com/yumi-multiboot-usb-creator/#FAQ"
+  ExecShell "open" "https://www.pendrivelinux.com/yumi-!-usb-creator/#FAQ"
 FunctionEnd
 
 Function onClickMyLinkUSB
@@ -800,11 +797,11 @@ Function ISOBrowse
  ${NSD_SetText} $LabelISOSelection "Step 3: Select your $ISOFileName"
  ${EndIf} 
  
- ${If} ${FileExists} "$BootDir\multiboot\$JustISOName\*.*"
+ ${If} ${FileExists} "$BootDir\!\$JustISOName\*.*"
  ${AndIf} $JustISOName != ""
  ${AndIf} $FormatMe != "Yes"
  ${AndIf} $FormatMeFat != "Yes"
- MessageBox MB_OK "$JustISOName is already on $DestDisk$\r$\nPlease Remove it first!$\r$\n$\r$\nNOTE: If you have already removed it using YUMI,$\r$\nmanually delete the $BootDir\multiboot\$JustISOName\ folder."
+ MessageBox MB_OK "$JustISOName is already on $DestDisk$\r$\nPlease Remove it first!$\r$\n$\r$\nNOTE: If you have already removed it using YUMI,$\r$\nmanually delete the $BootDir\!\$JustISOName\ folder."
  ${Else}
  ${EndIf}
  Call EnableNext
@@ -927,9 +924,7 @@ Function OnSelectDrive
    StrCpy $WipeMe "No"
   ${NSD_SetText} $Wipe "Wipe Entire (Disk $DiskNum)"  
   ; ShowWindow $Uninstaller 1 ; Re-enable Uninstaller option.
-  ${EndIf}      
-  
-  
+  ${EndIf}
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
   StrCpy $Checker "Yes" 
   Call InstallorRemove
@@ -1013,9 +1008,9 @@ FunctionEnd
   
 Function FormatYes ; If Format is checked, do something
 
-  File /oname=$PLUGINSDIR\diskpartformat.txt "diskpartformat.txt"     
-  File /oname=$PLUGINSDIR\diskpartwipe1.txt "diskpartwipe1.txt"  
-  File /oname=$PLUGINSDIR\diskpartwipe2.txt "diskpartwipe2.txt"    
+  File /oname=$PLUGINSDIR\diskpartformat.txt "ஐ-மரபு\உரைகள்\diskpartformat.txt"     
+  File /oname=$PLUGINSDIR\diskpartwipe1.txt "ஐ-மரபு\உரைகள்\diskpartwipe1.txt"  
+  File /oname=$PLUGINSDIR\diskpartwipe2.txt "ஐ-மரபு\உரைகள்\diskpartwipe2.txt"    
   
   !insertmacro ReplaceInFile "DISKNUM" "$DiskNum" "all" "all" "$PLUGINSDIR\diskpartwipe1.txt"  
   !insertmacro ReplaceInFile "DSK" "$DestDisk" "all" "all" "$PLUGINSDIR\diskpartwipe2.txt" 
@@ -1272,98 +1267,80 @@ Done:
 FunctionEnd
 
 ; Custom Distros Installer - Uninstaller Include
-!include "InstallDistro.nsh" ; ##################################### ADD NEW DISTRO ########################################
-!include "RemoveDistro.nsh" ; ##################################### REM DISTRO ########################################
+!include "ஐ-மரபு-2.0.8.2a\InstallDistro.nsh" ; ##################################### ADD NEW DISTRO ########################################
+!include "ஐ-மரபு-2.0.8.2a\RemoveDistro.nsh" ; ##################################### REM DISTRO ########################################
 
 Function DoSyslinux ; Install Syslinux on USB
-  ${IfNot} ${FileExists} "$BootDir\multiboot\libcom32.c32" 
-  ${AndIf} ${FileExists} "$BootDir\multiboot\ldlinux.sys"   
+  ${IfNot} ${FileExists} "$BootDir\!\libcom32.c32" 
+  ${AndIf} ${FileExists} "$BootDir\!\ldlinux.sys"   
   MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinuxOLD)
   Quit
   ${EndIf}
   
-  IfFileExists "$BootDir\multiboot\libcom32.c32" SkipSyslinux CreateSyslinux ; checking for newer syslinux
-								  
+  IfFileExists "$BootDir\!\libcom32.c32" SkipSyslinux CreateSyslinux ; checking for newer syslinux
+
   CreateSyslinux:
-  CreateDirectory $BootDir\multiboot\menu ; recursively create the directory structure if it doesn't exist
-  CreateDirectory $BootDir\multiboot\ISOS ; create ISOS folder  
+  CreateDirectory $BootDir\!\menu ; recursively create the directory structure if it doesn't exist
+  CreateDirectory $BootDir\!\ISOS ; create ISOS folder  
   DetailPrint $(ExecuteSyslinux)
-  ;ExecWait '$PLUGINSDIR\syslinux.exe -maf -d /multiboot $BootDir' $R8
-  ;DetailPrint "Syslinux Errors $R8"
-  nsExec::Exec '"$PLUGINSDIR\syslinux.exe" -maf -d /multiboot $BootDir'
-  ;nsExec::Exec '"$PLUGINSDIR\syslinux.exe" -maf -d /multiboot $BootDir $BootDir\multiboot\syslinux.bin'
+  nsExec::Exec '"$PLUGINSDIR\syslinux.exe" -maf -d /! $BootDir'
   Pop $R8
   DetailPrint "Syslinux Errors $R8"
-  
+
   ${If} $R8 != 0
   MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinux)
   ${EndIf} 
-  DetailPrint "Creating Label MULTIBOOT on $DestDisk"
-  nsExec::ExecToLog '"cmd" /c "LABEL $DestDiskMULTIBOOT"'
-  
+  DetailPrint "Creating Label TA on $DestDisk"
+  nsExec::ExecToLog '"cmd" /c "LABEL $DestDiskTA"'
   SkipSyslinux: 
   DetailPrint $(SkipSyslinux)
-  
-   ${IfNot} ${FileExists} $BootDir\multiboot\linux.c32 ; need linux.c32 to launch wimboot from syslinux.  
+   ${IfNot} ${FileExists} $BootDir\!\linux.c32 ; need linux.c32 to launch wimboot from syslinux.  
     DetailPrint "Adding wimboot and linux.c32."   
-    CopyFiles "$PLUGINSDIR\wimboot" "$BootDir\multiboot\wimboot"
-    CopyFiles "$PLUGINSDIR\linux.c32" "$BootDir\multiboot\linux.c32"  
+    CopyFiles "$PLUGINSDIR\wimboot" "$BootDir\!\wimboot"
+    CopyFiles "$PLUGINSDIR\linux.c32" "$BootDir\!\linux.c32"  
    ${EndIf}     
-
-   ${IfNot} ${FileExists} $BootDir\multiboot\legacy-yumi ; legacy-yumi test file.  
-    DetailPrint "Adding legacy-yumi test file."   
-    CopyFiles "$PLUGINSDIR\legacy-yumi" "$BootDir\multiboot\legacy-yumi"  
+   ${IfNot} ${FileExists} $BootDir\!\legacy-i ; legacy-i test file.  
+    DetailPrint "Adding legacy-i test file."   
+    CopyFiles "$PLUGINSDIR\legacy-i" "$BootDir\!\legacy-i"  
    ${EndIf}
-  
-  ${If} ${FileExists} $BootDir\multiboot\syslinux.cfg    
-   DetailPrint "A Previous MultiBoot Installation was detected... proceeding to add your new selections."
+  ${If} ${FileExists} $BootDir\!\syslinux.cfg    
+   DetailPrint "A Previous ! Installation was detected... proceeding to add your new selections."
    Call AddDir
   ${Else}
 ; Create and Copy files to your destination
-  DetailPrint "Adding required files to the $BootDir\multiboot directory..." 
-  CopyFiles "$PLUGINSDIR\syslinux.cfg" "$BootDir\multiboot\syslinux.cfg"
-  CopyFiles "$PLUGINSDIR\yumi.png" "$BootDir\multiboot\yumi.png"
-  CopyFiles "$PLUGINSDIR\YUMI-Copying.txt" "$BootDir\multiboot\YUMI-Copying.txt" 
-  CopyFiles "$PLUGINSDIR\YUMI-Readme.txt" "$BootDir\multiboot\YUMI-Readme.txt" 
-  CopyFiles "$PLUGINSDIR\license.txt" "$BootDir\multiboot\license.txt"   
-  CopyFiles "$PLUGINSDIR\vesamenu.c32" "$BootDir\multiboot\vesamenu.c32"
-  CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\multiboot\menu.c32"  
-  CopyFiles "$PLUGINSDIR\chain.c32" "$BootDir\multiboot\chain.c32"
-  CopyFiles "$PLUGINSDIR\libcom32.c32" "$BootDir\multiboot\libcom32.c32"  
-  CopyFiles "$PLUGINSDIR\libutil.c32" "$BootDir\multiboot\libutil.c32"      
-  CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\multiboot\memdisk"
-  
+  DetailPrint "Adding required files to the $BootDir\! directory..." 
+  CopyFiles "$PLUGINSDIR\syslinux.cfg" "$BootDir\!\syslinux.cfg"
+  CopyFiles "$PLUGINSDIR\yumi.png" "$BootDir\!\yumi.png"
+  CopyFiles "$PLUGINSDIR\license.txt" "$BootDir\!\license.txt"   
+  CopyFiles "$PLUGINSDIR\vesamenu.c32" "$BootDir\!\vesamenu.c32"
+  CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\!\menu.c32"  
+  CopyFiles "$PLUGINSDIR\chain.c32" "$BootDir\!\chain.c32"
+  CopyFiles "$PLUGINSDIR\libcom32.c32" "$BootDir\!\libcom32.c32"  
+  CopyFiles "$PLUGINSDIR\libutil.c32" "$BootDir\!\libutil.c32"      
+  CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\!\memdisk"
   Call AddDir    
-						 
-  ${EndIf}  
-
-								  
-						  
-						  
-  
-  ${IfNot} ${FileExists} $BootDir\multiboot\libutil.c32 ; Old Syslinux files need to be replaced
-  DetailPrint "Adding required files to the $BootDir\multiboot directory..." 
-  CopyFiles "$PLUGINSDIR\yumi.png" "$BootDir\multiboot\yumi.png"
-  CopyFiles "$PLUGINSDIR\YUMI-Copying.txt" "$BootDir\multiboot\YUMI-Copying.txt" 
-  CopyFiles "$PLUGINSDIR\YUMI-Readme.txt" "$BootDir\multiboot\YUMI-Readme.txt" 
-  CopyFiles "$PLUGINSDIR\license.txt" "$BootDir\multiboot\license.txt"   
-  CopyFiles "$PLUGINSDIR\vesamenu.c32" "$BootDir\multiboot\vesamenu.c32"
-  CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\multiboot\menu.c32"  
-  CopyFiles "$PLUGINSDIR\chain.c32" "$BootDir\multiboot\chain.c32"
-  CopyFiles "$PLUGINSDIR\libcom32.c32" "$BootDir\multiboot\libcom32.c32"  
-  CopyFiles "$PLUGINSDIR\libutil.c32" "$BootDir\multiboot\libutil.c32"   
-  CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\multiboot\memdisk"
+  ${EndIf}
+  ${IfNot} ${FileExists} $BootDir\!\libutil.c32 ; Old Syslinux files need to be replaced
+  DetailPrint "Adding required files to the $BootDir\! directory..." 
+  CopyFiles "$PLUGINSDIR\yumi.png" "$BootDir\!\yumi.png"
+  CopyFiles "$PLUGINSDIR\license.txt" "$BootDir\!\license.txt"   
+  CopyFiles "$PLUGINSDIR\vesamenu.c32" "$BootDir\!\vesamenu.c32"
+  CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\!\menu.c32"  
+  CopyFiles "$PLUGINSDIR\chain.c32" "$BootDir\!\chain.c32"
+  CopyFiles "$PLUGINSDIR\libcom32.c32" "$BootDir\!\libcom32.c32"  
+  CopyFiles "$PLUGINSDIR\libutil.c32" "$BootDir\!\libutil.c32"   
+  CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\!\memdisk"
  ${EndIf}    
 
 ; Check to ensure menu.c32 exists... now required for YUMI V2
-  ${IfNot} ${FileExists} $BootDir\multiboot\menu.c32
+  ${IfNot} ${FileExists} $BootDir\!\menu.c32
    DetailPrint "Adding menu.c32. Required for YUMI V2"
-   CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\multiboot\menu.c32" 
+   CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\!\menu.c32" 
   ${EndIf}	  
 FunctionEnd
 
 Function AddDir ; changes to check if user had a version prior to 0.0.0.3. Newer YUMI includes grub.exe 
- ${IfNotThen} ${FileExists} "$BootDir\multiboot\grub.exe" 'CopyFiles "$PLUGINSDIR\grub.exe" "$BootDir\multiboot\grub.exe"' 
+ ${IfNotThen} ${FileExists} "$BootDir\!\grub.exe" 'CopyFiles "$PLUGINSDIR\grub.exe" "$BootDir\!\grub.exe"' 
 FunctionEnd
 
 ; ---- Let's Do This Stuff ----
@@ -1380,32 +1357,31 @@ Pop $NameThatISO
  ${EndIf}
 
 ; Wipe and Format ---
-	
  ${If} $FormatMe == "Yes" 
   ${AndIf} $WipeMe == "Yes" 
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: Backup any data you want to keep before proceeding! All Data on (Disk $DiskNum) including any attached drive letters, partitions and volumes, even if hidden, will be wiped.$\r$\n$\r$\n${NAME} is ready to perform the following actions:$\r$\n$\r$\n1.) Wipe (Disk $DiskNum) - Data will be Irrecoverably Deleted!$\r$\n$\r$\n2.) Recreate Drive Letter ($DestDisk) with a single NTFS partition.$\r$\n$\r$\n3.) Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n4.) Create MULTIBOOT Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive (Disk $DiskNum) is the correct Disk?$\r$\nDouble Check with Windows diskmgmt to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Abort!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: Backup any data you want to keep before proceeding! All Data on (Disk $DiskNum) including any attached drive letters, partitions and volumes, even if hidden, will be wiped.$\r$\n$\r$\n${NAME} is ready to perform the following actions:$\r$\n$\r$\n1.) Wipe (Disk $DiskNum) - Data will be Irrecoverably Deleted!$\r$\n$\r$\n2.) Recreate Drive Letter ($DestDisk) with a single NTFS partition.$\r$\n$\r$\n3.) Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n4.) Create ! Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive (Disk $DiskNum) is the correct Disk?$\r$\nDouble Check with Windows diskmgmt to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Abort!" IDYES proceed
   Quit
  ${ElseIf} $FormatMeFat == "Yes" 
   ${AndIf} $WipeMe == "Yes" 
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: Backup any data you want to keep before proceeding! All Data on (Disk $DiskNum) including any attached drive letters, partitions and volumes, even if hidden, will be wiped.$\r$\n$\r$\n${NAME} is ready to perform the following actions:$\r$\n$\r$\n1.) Wipe (Disk $DiskNum) - Data will be Irrecoverably Deleted!$\r$\n$\r$\n2.) Recreate Drive Letter ($DestDisk) with a single Fat32 partition.$\r$\n$\r$\n3.) Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n4.) Create MULTIBOOT Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive (Disk $DiskNum) is the correct USB Device?$\r$\nDouble Check with Windows diskmgmt to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Abort!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: Backup any data you want to keep before proceeding! All Data on (Disk $DiskNum) including any attached drive letters, partitions and volumes, even if hidden, will be wiped.$\r$\n$\r$\n${NAME} is ready to perform the following actions:$\r$\n$\r$\n1.) Wipe (Disk $DiskNum) - Data will be Irrecoverably Deleted!$\r$\n$\r$\n2.) Recreate Drive Letter ($DestDisk) with a single Fat32 partition.$\r$\n$\r$\n3.) Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n4.) Create ! Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive (Disk $DiskNum) is the correct USB Device?$\r$\nDouble Check with Windows diskmgmt to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Abort!" IDYES proceed
   Quit
   
 ; Format Only ---
  ${ElseIf} $FormatMe == "Yes" 
   ${AndIf} $WipeMe == "No" 
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: Backup any data you want to keep before proceeding! All Data on Drive Letter ($DestDisk) will be deleted.$\r$\n$\r$\n${NAME} is ready to perform the following actions:$\r$\n$\r$\n1.) Lock and Dismount Drive Letter ($DestDisk).$\r$\n$\r$\n2.) NTFS Format ($DestDisk) - Data on ($DestDisk) will be Irrecoverably Deleted!$\r$\n$\r$\n3.) Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n4.) Create MULTIBOOT Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive ($DestDisk) on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows and diskmgmt to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Abort!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: Backup any data you want to keep before proceeding! All Data on Drive Letter ($DestDisk) will be deleted.$\r$\n$\r$\n${NAME} is ready to perform the following actions:$\r$\n$\r$\n1.) Lock and Dismount Drive Letter ($DestDisk).$\r$\n$\r$\n2.) NTFS Format ($DestDisk) - Data on ($DestDisk) will be Irrecoverably Deleted!$\r$\n$\r$\n3.) Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n4.) Create ! Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive ($DestDisk) on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows and diskmgmt to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Abort!" IDYES proceed
   Quit
  ${ElseIf} $FormatMeFat == "Yes" 
   ${AndIf} $WipeMe == "No" 
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: Backup any data you want to keep before proceeding! All Data on Drive Letter ($DestDisk) will be deleted.$\r$\n$\r$\n${NAME} is ready to perform the following actions:$\r$\n$\r$\n1.) Lock and Dismount Drive Letter ($DestDisk).$\r$\n$\r$\n2.) Fat32 Format ($DestDisk) - Data on ($DestDisk) will be Irrecoverably Deleted!$\r$\n$\r$\n3.) Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n4.) Create MULTIBOOT Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive ($DestDisk) on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows and diskmgmt to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Abort!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "WARNING: Backup any data you want to keep before proceeding! All Data on Drive Letter ($DestDisk) will be deleted.$\r$\n$\r$\n${NAME} is ready to perform the following actions:$\r$\n$\r$\n1.) Lock and Dismount Drive Letter ($DestDisk).$\r$\n$\r$\n2.) Fat32 Format ($DestDisk) - Data on ($DestDisk) will be Irrecoverably Deleted!$\r$\n$\r$\n3.) Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n4.) Create ! Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive ($DestDisk) on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows and diskmgmt to make sure!$\r$\n$\r$\nClick YES to perform these actions or NO to Abort!" IDYES proceed
 
-  Quit  
+ Quit  
   
 ; Don't Wipe or Format ---
  ${ElseIf} $FormatMe != "Yes" 
   ${AndIf} $FormatMeFat != "Yes"
-  ${AndIfNot} ${FileExists} $BootDir\multiboot\syslinux.cfg
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} is Ready to perform the following actions:$\r$\n$\r$\n1. Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n2. Create MULTIBOOT Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n3. Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive Drive Letter ($DestDisk) on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows to make sure!$\r$\n$\r$\nClick YES to perform these actions on ($DestDisk) or NO to Go Back!" IDYES proceed
+  ${AndIfNot} ${FileExists} $BootDir\!\syslinux.cfg
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} is Ready to perform the following actions:$\r$\n$\r$\n1. Create a Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n2. Create ! Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n3. Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive Drive Letter ($DestDisk) on (Disk $DiskNum) is your USB Device?$\r$\nDouble Check with Windows to make sure!$\r$\n$\r$\nClick YES to perform these actions on ($DestDisk) or NO to Go Back!" IDYES proceed
   Quit
  ${EndIf}
 
@@ -1417,8 +1393,8 @@ proceed:
  Call LocalISODetected
  
 ; Copy the config file if it doesn't exist and create the entry in syslinux.cfg 
- ${IfNot} ${FileExists} "$BootDir\multiboot\menu\$Config2Use" 
- CopyFiles "$PLUGINSDIR\$Config2Use" "$BootDir\multiboot\menu\$Config2Use"
+ ${IfNot} ${FileExists} "$BootDir\!\menu\$Config2Use" 
+ CopyFiles "$PLUGINSDIR\$Config2Use" "$BootDir\!\menu\$Config2Use"
  Call Config2Write
  ${EndIf} 
  
@@ -1433,37 +1409,37 @@ removeonly:
 SectionEnd
 
 Function ConfigRemove ; Find and Set Removal Configuration file
-  ${If} ${FileExists} "$BootDir\multiboot\$DistroName\YUMI\linux.cfg"
+  ${If} ${FileExists} "$BootDir\!\$DistroName\YUMI\linux.cfg"
   StrCpy $Config2Use "linux.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\YUMI\anon.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\YUMI\anon.cfg"
   StrCpy $Config2Use "anon.cfg"  
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\YUMI\system.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\YUMI\system.cfg"
   StrCpy $Config2Use "system.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\YUMI\antivirus.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\YUMI\antivirus.cfg"
   StrCpy $Config2Use "antivirus.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\YUMI\netbook.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\YUMI\netbook.cfg"
   StrCpy $Config2Use "netbook.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\YUMI\other.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\YUMI\other.cfg"
   StrCpy $Config2Use "other.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\YUMI\pe.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\YUMI\pe.cfg"
   StrCpy $Config2Use "pe.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\YUMI\unlisted.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\YUMI\unlisted.cfg"
   StrCpy $Config2Use "unlisted.cfg"  
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\YUMI\menu.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\YUMI\menu.lst"
   StrCpy $Config2Use "menu.lst"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\YUMI\vhd.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\YUMI\vhd.lst"
   StrCpy $Config2Use "vhd.lst"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\YUMI\grubpart4.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\YUMI\grubpart4.lst"
   StrCpy $Config2Use "grubpart4.lst"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\YUMI\grubram.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\YUMI\grubram.lst"
   StrCpy $Config2Use "grubram.lst"
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\YUMI\win.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\YUMI\win.lst"
   StrCpy $Config2Use "win.lst"  
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\YUMI\win2go.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\YUMI\win2go.lst"
   StrCpy $Config2Use "win2go.lst"   
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\YUMI\pe.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\YUMI\pe.lst"
   StrCpy $Config2Use "pe.lst"  
-  ${ElseIf} ${FileExists} "$BootDir\multiboot\$DistroName\YUMI\hirens.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\YUMI\hirens.lst"
   StrCpy $Config2Use "hirens.lst"    
   ${EndIf}
   ; MessageBox MB_OK "$Config2Use"
@@ -1471,37 +1447,37 @@ FunctionEnd
 
 Function Config2Write
  ${If} $Config2Use == "linux.cfg"
-  ${WriteToSysFile} "label Linux Distributions$\r$\nmenu label Linux Distributions ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/linux.cfg" $R0 
+  ${WriteToSysFile} "label Linux Distributions$\r$\nmenu label Linux Distributions ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/linux.cfg" $R0 
  ${ElseIf} $Config2Use == "anon.cfg"
-  ${WriteToSysFile} "label System Tools$\r$\nmenu label Anonymous Browsers ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/anon.cfg" $R0  
+  ${WriteToSysFile} "label Anon $\r$\nmenu label Anonymous Browsers ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/anon.cfg" $R0  
  ${ElseIf} $Config2Use == "system.cfg"
-  ${WriteToSysFile} "label System Tools$\r$\nmenu label System Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/system.cfg" $R0
+  ${WriteToSysFile} "label System Tools$\r$\nmenu label System Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/system.cfg" $R0
  ${ElseIf} $Config2Use == "antivirus.cfg"
-  ${WriteToSysFile} "label Antivirus Tools$\r$\nmenu label Antivirus Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/antivirus.cfg" $R0 
+  ${WriteToSysFile} "label Antivirus Tools$\r$\nmenu label Antivirus Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/antivirus.cfg" $R0 
  ${ElseIf} $Config2Use == "netbook.cfg"
-  ${WriteToSysFile} "label Netbook Distributions$\r$\nmenu label Netbook Distributions ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/netbook.cfg" $R0 
+  ${WriteToSysFile} "label Netbook Distributions$\r$\nmenu label Netbook Distributions ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/netbook.cfg" $R0 
  ${ElseIf} $Config2Use == "other.cfg"
-  ${WriteToSysFile} "label Other OS and Tools$\r$\nmenu label Other OS and Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/other.cfg" $R0 
+  ${WriteToSysFile} "label Other OS and Tools$\r$\nmenu label Other OS and Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/other.cfg" $R0 
  ${ElseIf} $Config2Use == "pe.cfg"
-  ${WriteToSysFile} "label Windows PE$\r$\nmenu label Windows PE ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/pe.cfg" $R0   
+  ${WriteToSysFile} "label Windows PE$\r$\nmenu label Windows PE ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/pe.cfg" $R0   
  ${ElseIf} $Config2Use == "pe.lst"
-  ${WriteToSysFile} "label Windows PE$\r$\nmenu label Windows PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/pe.lst" $R0   
+  ${WriteToSysFile} "label Windows PE$\r$\nmenu label Windows PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/pe.lst" $R0   
  ${ElseIf} $Config2Use == "hirens.lst"
-  ${WriteToSysFile} "label Hiren's Boot CD PE$\r$\nmenu label Hiren's Boot CD PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/hirens.lst" $R0    
+  ${WriteToSysFile} "label Hiren's Boot CD PE$\r$\nmenu label Hiren's Boot CD PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/hirens.lst" $R0    
  ${ElseIf} $Config2Use == "unlisted.cfg"
-  ${WriteToSysFile} "label Unlisted ISOs (via SYSLINUX)$\r$\nmenu label  Unlisted ISOs (via SYSLINUX) ->$\r$\nMENU INDENT 1$\r$\nCONFIG /multiboot/menu/unlisted.cfg" $R0  
+  ${WriteToSysFile} "label Unlisted ISOs (via SYSLINUX)$\r$\nmenu label  Unlisted ISOs (via SYSLINUX) ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/unlisted.cfg" $R0  
  ${ElseIf} $Config2Use == "menu.lst"
-  ${WriteToSysFile} "label Unlisted ISOs (via GRUB)$\r$\nmenu label Unlisted ISOs (via GRUB) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/menu.lst" $R0 
+  ${WriteToSysFile} "label Unlisted ISOs (via GRUB)$\r$\nmenu label Unlisted ISOs (via GRUB) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/menu.lst" $R0 
  ${ElseIf} $Config2Use == "vhd.lst"
-  ${WriteToSysFile} "label Unlisted ISOs (via Virtual Hard Disk)$\r$\nmenu label Unlisted ISOs (via Virtual Hard Disk) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/vhd.lst" $R0 
+  ${WriteToSysFile} "label Unlisted ISOs (via Virtual Hard Disk)$\r$\nmenu label Unlisted ISOs (via Virtual Hard Disk) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/vhd.lst" $R0 
  ${ElseIf} $Config2Use == "grubpart4.lst"
-  ${WriteToSysFile} "label Unlisted ISOs (via GRUB Partition 4)$\r$\nmenu label Unlisted ISOs (via GRUB Partition 4) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/grubpart4.lst" $R0
+  ${WriteToSysFile} "label Unlisted ISOs (via GRUB Partition 4)$\r$\nmenu label Unlisted ISOs (via GRUB Partition 4) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/grubpart4.lst" $R0
  ${ElseIf} $Config2Use == "grubram.lst"
-  ${WriteToSysFile} "label Unlisted ISOs (via GRUB from RAM)$\r$\nmenu label Unlisted ISOs (via GRUB from RAM) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/grubram.lst" $R0   
+  ${WriteToSysFile} "label Unlisted ISOs (via GRUB from RAM)$\r$\nmenu label Unlisted ISOs (via GRUB from RAM) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/grubram.lst" $R0   
  ${ElseIf} $Config2Use == "win.lst" 
-  ${WriteToSysFile} "label Windows Installers$\r$\nmenu label Windows Installers ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/win.lst" $R0  
+  ${WriteToSysFile} "label Windows Installers$\r$\nmenu label Windows Installers ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/win.lst" $R0  
  ${ElseIf} $Config2Use == "win2go.lst"
-  ${WriteToSysFile} "label Windows to Go$\r$\nmenu label Windows to Go ->$\r$\nMENU INDENT 1$\r$\nKERNEL /multiboot/grub.exe$\r$\nAPPEND --config-file=/multiboot/menu/win2go.lst" $R0     
+  ${WriteToSysFile} "label Windows to Go$\r$\nmenu label Windows to Go ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/win2go.lst" $R0     
  ${EndIf} 
 FunctionEnd
 
@@ -1560,54 +1536,52 @@ StrCpy $R9 0 ; we start on page 0
  done:
  SetShellVarContext all
  InitPluginsDir
-  File /oname=$PLUGINSDIR\dskvol.txt "dskvol.txt" 
-  File /oname=$PLUGINSDIR\diskpart.txt "diskpart.txt" 
-  File /oname=$PLUGINSDIR\w2gdiskpart.txt "w2gdiskpart.txt"   
-  File /oname=$PLUGINSDIR\dd-diskpart.txt "dd-diskpart.txt" 
-  File /oname=$PLUGINSDIR\diskpartdetach.txt "diskpartdetach.txt"  
-  File /oname=$PLUGINSDIR\autounattend.xml "autounattend.xml"   
-  File /oname=$PLUGINSDIR\syslinux.exe "syslinux.exe"  
-  File /oname=$PLUGINSDIR\syslinux.cfg "syslinux.cfg"
-  File /oname=$PLUGINSDIR\legacy-yumi "menu\legacy-yumi"  
-  File /oname=$PLUGINSDIR\menu.lst "menu\menu.lst"  
-  File /oname=$PLUGINSDIR\vhd.lst "menu\vhd.lst" 
-  File /oname=$PLUGINSDIR\grubpart4.lst "menu\grubpart4.lst"  
-  File /oname=$PLUGINSDIR\grubram.lst "menu\grubram.lst"    
-  File /oname=$PLUGINSDIR\win.lst "menu\win.lst"  
-  File /oname=$PLUGINSDIR\win2go.lst "menu\win2go.lst"  
-  File /oname=$PLUGINSDIR\grub.exe "grub.exe"  
-  File /oname=$PLUGINSDIR\info "menu\info"   
-  File /oname=$PLUGINSDIR\antivirus.cfg "menu\antivirus.cfg" 
-  File /oname=$PLUGINSDIR\system.cfg "menu\system.cfg" 
-  File /oname=$PLUGINSDIR\netbook.cfg "menu\netbook.cfg"
-  File /oname=$PLUGINSDIR\linux.cfg "menu\linux.cfg" 
-  File /oname=$PLUGINSDIR\anon.cfg "menu\anon.cfg"  
-  File /oname=$PLUGINSDIR\other.cfg "menu\other.cfg"   
-  File /oname=$PLUGINSDIR\pe.cfg "menu\pe.cfg"    
-  File /oname=$PLUGINSDIR\pe.lst "menu\pe.lst"  
-  File /oname=$PLUGINSDIR\unlisted.cfg "menu\unlisted.cfg"   
-  File /oname=$PLUGINSDIR\liveusb "liveusb"   
-  File /oname=$PLUGINSDIR\7zG.exe "..\இருமங்கள்\7zG.exe"
-  File /oname=$PLUGINSDIR\7z.dll "7z.dll"  
-  File /oname=$PLUGINSDIR\yumi.png "images\yumi.png"
-  File /oname=$PLUGINSDIR\YUMI-Copying.txt "YUMI-Copying.txt" 
-  File /oname=$PLUGINSDIR\YUMI-Readme.txt "YUMI-Readme.txt" 
-  File /oname=$PLUGINSDIR\license.txt "license.txt"   
-  File /oname=$PLUGINSDIR\vesamenu.c32 "vesamenu.c32" 
-  File /oname=$PLUGINSDIR\menu.c32 "menu.c32"    
-  File /oname=$PLUGINSDIR\memdisk "memdisk" 
-  File /oname=$PLUGINSDIR\chain.c32 "chain.c32" 
-  File /oname=$PLUGINSDIR\libcom32.c32 "libcom32.c32"  
-  File /oname=$PLUGINSDIR\libutil.c32 "libutil.c32"   
-  File /oname=$PLUGINSDIR\linux.c32 "linux.c32"  
-  File /oname=$PLUGINSDIR\wimboot "wimboot"   
-  File /oname=$PLUGINSDIR\ifcpu64.c32 "ifcpu64.c32" 
-  File /oname=$PLUGINSDIR\remount.cmd "remount.cmd"  
-  File /oname=$PLUGINSDIR\boot.cmd "boot.cmd"    
-  File /oname=$PLUGINSDIR\vhdremount.cmd "vhdremount.cmd"    
-  File /oname=$PLUGINSDIR\ei.cfg "ei.cfg"
-  File /oname=$PLUGINSDIR\dd.exe "..\இருமங்கள்\தரவுவரையறை.exe"
-  File /oname=$PLUGINSDIR\fat32format.exe "fat32format.exe"    
+  File /oname=$PLUGINSDIR\dskvol.txt "ஐ-மரபு\உரைகள்\dskvol.txt" 
+  File /oname=$PLUGINSDIR\diskpart.txt "ஐ-மரபு\உரைகள்\diskpart.txt" 
+  File /oname=$PLUGINSDIR\w2gdiskpart.txt "ஐ-மரபு\உரைகள்\w2gdiskpart.txt"   
+  File /oname=$PLUGINSDIR\dd-diskpart.txt "ஐ-மரபு\உரைகள்\dd-diskpart.txt" 
+  File /oname=$PLUGINSDIR\diskpartdetach.txt "ஐ-மரபு\உரைகள்\diskpartdetach.txt"  
+  File /oname=$PLUGINSDIR\autounattend.xml "ஐ-மரபு\உரைகள்\autounattend.xml"   
+  File /oname=$PLUGINSDIR\syslinux.exe "இருமங்கள்\கணிலினக்சு6.04.32.exe"  
+  File /oname=$PLUGINSDIR\syslinux.cfg "ஐ-மரபு\பட்டியல்\syslinux.cfg"
+  File /oname=$PLUGINSDIR\legacy-i "ஐ-மரபு\பட்டியல்\legacy-i"  
+  File /oname=$PLUGINSDIR\menu.lst "ஐ-மரபு\பட்டியல்\menu.lst"  
+  File /oname=$PLUGINSDIR\vhd.lst "ஐ-மரபு\பட்டியல்\vhd.lst" 
+  File /oname=$PLUGINSDIR\grubpart4.lst "ஐ-மரபு\பட்டியல்\grubpart4.lst"  
+  File /oname=$PLUGINSDIR\grubram.lst "ஐ-மரபு\பட்டியல்\grubram.lst"    
+  File /oname=$PLUGINSDIR\win.lst "ஐ-மரபு\பட்டியல்\win.lst"  
+  File /oname=$PLUGINSDIR\win2go.lst "ஐ-மரபு\பட்டியல்\win2go.lst"  
+  File /oname=$PLUGINSDIR\grub.exe "ஐ-மரபு-2.0.8.2a\grub.exe"  
+  File /oname=$PLUGINSDIR\info "ஐ-மரபு\பட்டியல்\info"   
+  File /oname=$PLUGINSDIR\antivirus.cfg "ஐ-மரபு\பட்டியல்\antivirus.cfg" 
+  File /oname=$PLUGINSDIR\system.cfg "ஐ-மரபு\பட்டியல்\system.cfg" 
+  File /oname=$PLUGINSDIR\netbook.cfg "ஐ-மரபு\பட்டியல்\netbook.cfg"
+  File /oname=$PLUGINSDIR\linux.cfg "ஐ-மரபு\பட்டியல்\linux.cfg" 
+  File /oname=$PLUGINSDIR\anon.cfg "ஐ-மரபு\பட்டியல்\anon.cfg"  
+  File /oname=$PLUGINSDIR\other.cfg "ஐ-மரபு\பட்டியல்\other.cfg"   
+  File /oname=$PLUGINSDIR\pe.cfg "ஐ-மரபு\பட்டியல்\pe.cfg"    
+  File /oname=$PLUGINSDIR\pe.lst "ஐ-மரபு\பட்டியல்\pe.lst"  
+  File /oname=$PLUGINSDIR\unlisted.cfg "ஐ-மரபு\பட்டியல்\unlisted.cfg"   
+  File /oname=$PLUGINSDIR\liveusb "ஐ-மரபு-2.0.8.2a\liveusb"
+  File /oname=$PLUGINSDIR\7zG.exe "இருமங்கள்\7zG.exe"
+  File /oname=$PLUGINSDIR\7z.dll "ஐ-மரபு-2.0.8.2a\7z.dll"  
+  File /oname=$PLUGINSDIR\yumi.png "ஐ-மரபு-2.0.8.2a\images\yumi.png"
+  File /oname=$PLUGINSDIR\license.txt "ஐ-மரபு-2.0.8.2a\license.txt"   
+  File /oname=$PLUGINSDIR\vesamenu.c32 "இருமங்கள்\vesamenu.c32" 
+  File /oname=$PLUGINSDIR\menu.c32 "இருமங்கள்\menu.c32"    
+  File /oname=$PLUGINSDIR\memdisk "ஐ-மரபு-2.0.8.2a\memdisk" 
+  File /oname=$PLUGINSDIR\chain.c32 "இருமங்கள்\chain.c32" 
+  File /oname=$PLUGINSDIR\libcom32.c32 "இருமங்கள்\libcom32.c32"  
+  File /oname=$PLUGINSDIR\libutil.c32 "இருமங்கள்\libutil.c32"   
+  File /oname=$PLUGINSDIR\linux.c32 "இருமங்கள்\linux.c32"  
+  File /oname=$PLUGINSDIR\wimboot "ஐ-மரபு-2.0.8.2a\wimboot"   
+  File /oname=$PLUGINSDIR\ifcpu64.c32 "இருமங்கள்\ifcpu64.c32" 
+  File /oname=$PLUGINSDIR\remount.cmd "ஐ-மரபு\உரைகள்\remount.cmd"  
+  File /oname=$PLUGINSDIR\boot.cmd "ஐ-மரபு\உரைகள்\boot.cmd"    
+  File /oname=$PLUGINSDIR\vhdremount.cmd "ஐ-மரபு\உரைகள்\vhdremount.cmd"    
+  File /oname=$PLUGINSDIR\ei.cfg "ஐ-மரபு\பட்டியல்\ei.cfg"
+  File /oname=$PLUGINSDIR\dd.exe "இருமங்கள்\தரவுவரையறை.exe"
+  File /oname=$PLUGINSDIR\fat32format.exe "இருமங்கள்\கோஒஅ32வடிவம்.exe"    
   SetOutPath "$PLUGINSDIR"  
   File /r "wimlib" 
   SetOutPath ""  

@@ -1,6 +1,4 @@
 ﻿Unicode True ; தமிழ் எழுத்து அதரவு 
-;!execute 'இருமங்கள்\அகர.bat' ; zip if required.
-;!execute '"$%WINDIR%\notepad.exe" /P "${NSISDIR}\COPYING"' ; Enable this to debug previous line. 
 !define பெயர் "ஐ-மரபு"
 !define VERSION "2.0.8.2"
 !define MUI_ICON "..\அகர\ஐ-காண்\வண்ணத்துப்பூச்சி.ico"
@@ -10,7 +8,7 @@ VIProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "ஐ"
 VIAddVersionKey LegalCopyright "உரிமை ©2021 ஐ"
 VIAddVersionKey FileVersion "${VERSION}"
-VIAddVersionKey FileDescription "ஐ-கருவி"
+VIAddVersionKey FileDescription "ஐ-மரபு"
 VIAddVersionKey License "இலவசம்"
 
 Name "${பெயர்} ${VERSION}"
@@ -190,17 +188,16 @@ LangString Finish_Text ${LANG_TAMIL} "உங்கள் தேர்வுக�
 LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் பார்க்க"
 
 !include துணை\தவமுன்னேற்றம்.நிரல் ; புதிய நிரல்
-!include துணை\ஒழுங்கமை.நிரல்
+!include துணை\ஒழுங்கமை.நிரல் 
 !include துணை\ஒருங்குறிஉரை.நிரல்
 !include துணை\கோப்பில்மாற்று.நிரல் 
 !include துணை\சரம்மாற்று.நிரல் ;
+!include ஐ-மரபு\நிரல்கள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
+!include ஐ-மரபு\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்
 !include துணை\சரம்கொண்டுள்ளது.நிரல் ; Let's check if a * wildcard exists
 !include துணை\உதநிகோப்புபெயர்அமை.நிரல் ; Macro for FileNames
-!include ஐ-மரபு\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்
-!include ஐ-மரபு\நிரல்கள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
 !include ஐ-மரபு\நிரல்கள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
 !include ஐ-மரபு\நிரல்கள்\புதையல்உரை.நிரல் ; For creation of Persistent Casper-rw files
-
 
 Function License_PreFunction
   StrCpy $R8 1 ;This is the 1st page
@@ -300,7 +297,7 @@ Function SelectionsPage
   Call EnableNext 
   ${NSD_OnChange} $DestDriveTxt OnSelectDrive 
 ; All Drives Option
-  ${NSD_CreateCheckBox} 43% 23 16% 15 "Refresh?"
+  ${NSD_CreateCheckBox} 43% 23 16% 15 "புதுப்பு?"
   Pop $AllDriveOption
   ${NSD_OnClick} $AllDriveOption ListAllDrives
   
@@ -361,7 +358,7 @@ Function SelectionsPage
   Call ListAllDrives
   ${NSD_OnChange} $DestDriveTxt OnSelectDrive
 ; All Drives Option
-  ${NSD_CreateCheckBox} 43% 23 16% 15 "Refresh?"
+  ${NSD_CreateCheckBox} 43% 23 16% 15 "புதுப்பி?"
   Pop $AllDriveOption
   ${NSD_OnClick} $AllDriveOption ListAllDrives
 ; Format Drive Option
@@ -384,7 +381,7 @@ Function SelectionsPage
   ${NSD_CB_SelectString} $Distro $DistroName ; Was ${NSD_LB_SelectString} $Distro $DistroName  ; Enable For DropBox
   
 ; Force Show All ISO Option
-  ${NSD_CreateCheckBox} 80% 100 20% 9u "அனைத்து உதநிக்களையும் காண்பிக்கவா?"
+  ${NSD_CreateCheckBox} 80% 100 20% 9u "உதநிக்கள்?"
   Pop $ForceShowAll
   ${NSD_OnClick} $ForceShowAll ShowAllISOs    
 
@@ -403,7 +400,7 @@ Function SelectionsPage
   Pop $LabelISOSelection
   ${NSD_CreateText} 0 120 78% 20 "உலாவி $FileFormat தேர்ந்தெடுக்கவும்"
   Pop $ISOFileTxt 
-  ${NSD_CreateBrowseButton} 85% 120 60 20 "Browse"
+  ${NSD_CreateBrowseButton} 85% 120 60 20 "உலாவி"
   Pop $ISOSelection 
   ${NSD_OnClick} $ISOSelection ISOBrowse
 
@@ -927,9 +924,7 @@ Function OnSelectDrive
    StrCpy $WipeMe "No"
   ${NSD_SetText} $Wipe "Wipe Entire (Disk $DiskNum)"  
   ; ShowWindow $Uninstaller 1 ; Re-enable Uninstaller option.
-  ${EndIf}      
-  
-  
+  ${EndIf}
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
   StrCpy $Checker "Yes" 
   Call InstallorRemove
@@ -942,7 +937,7 @@ Function OnSelectDrive
   MessageBox MB_ICONSTOP|MB_OK "எச்சரிக்கை! கணிலினக்சு exFAT வடிவமைக்கப்பட்ட சாதனங்களில் இயங்காது. $DestDiskஐ Fat32 அல்லது என்.டி.எஃப்.எஸ் ஆக வடிவமைக்கவும்.."
   ${EndIf} 
   
-  ${If} ${FileExists} "$BootDir\boot\grub\i.png"  
+  ${If} ${FileExists} "$BootDir\boot\grub\ஐ.png"  
    ${AndIf} ${FileExists} "$BootDir\boot\grub\lnxboot.img"
     ${AndIf} ${FileExists} "$BootDir\boot\grub\core.img" 
      ${AndIf} ${FileExists} "$BootDir\boot\grub\grub.cfg"  
@@ -1010,7 +1005,7 @@ Function WipeIt ; Set Wipe Disk Option
   ; ShowWindow $Uninstaller 1 ; Re-enable Uninstaller option.
   ${EndIf}    
 FunctionEnd
-  
+
 Function FormatYes ; If Format is checked, do something
 
   File /oname=$PLUGINSDIR\diskpartformat.txt "ஐ-மரபு\உரைகள்\diskpartformat.txt"     
@@ -1118,12 +1113,12 @@ Function ShowAllISOs ; Set Show All ISOs Option
   ${If} $ShowingAll == ${BST_CHECKED}
   ${NSD_Check} $ForceShowAll
   StrCpy $ShowingAll "Yes"
-  ${NSD_SetText} $ForceShowAll "அனைத்து உதநிக்களையும் காண்பி!"
+  ${NSD_SetText} $ForceShowAll "உதநிக்கள் காண்பி!"
     SendMessage $ISOSelection ${CB_RESETCONTENT} 0 0 
  
   ${ElseIf} $ShowingAll == ${BST_UNCHECKED}
   ${NSD_Uncheck} $ForceShowAll
-  ${NSD_SetText} $ForceShowAll "அனைத்து உதநிக்களையும் காண்பிக்கவா?"  
+  ${NSD_SetText} $ForceShowAll "உதநிக்கள் காண்பிக்கவா?"  
     SendMessage $ISOSelection ${CB_RESETCONTENT} 0 0 
   ${EndIf}  
 FunctionEnd
@@ -1283,15 +1278,12 @@ Function DoSyslinux ; Install கணிலினக்சு on USB
   ${EndIf}
   
   IfFileExists "$BootDir\!\libcom32.c32" SkipSyslinux CreateSyslinux ; checking for newer கணிலினக்சு
-																																  
+
   CreateSyslinux:
   CreateDirectory $BootDir\!\menu ; recursively create the directory structure if it doesn't exist
   CreateDirectory $BootDir\!\ISOS ; create ISOS folder  
   DetailPrint $(ExecuteSyslinux)
-  ;ExecWait '$PLUGINSDIR\கணிலினக்சு.exe -maf -d /! $BootDir' $R8
-  ;DetailPrint "கணிலினக்சு Errors $R8"
   nsExec::Exec '"$PLUGINSDIR\syslinux.exe" -maf -d /! $BootDir'
-  ;nsExec::Exec '"$PLUGINSDIR\கணிலினக்சு.exe" -maf -d /! $BootDir $BootDir\!\syslinux.bin'
   Pop $R8
   DetailPrint "Syslinux Errors $R8"
   
@@ -1300,21 +1292,17 @@ Function DoSyslinux ; Install கணிலினக்சு on USB
   ${EndIf} 
   DetailPrint "Creating Label TA on $DestDisk"
   nsExec::ExecToLog '"cmd" /c "LABEL $DestDiskTA"'
-  
   SkipSyslinux: 
   DetailPrint $(SkipSyslinux)
-  
    ${IfNot} ${FileExists} $BootDir\!\linux.c32 ; need linux.c32 to launch wimboot from syslinux.  
     DetailPrint "Adding wimboot and linux.c32."   
     CopyFiles "$PLUGINSDIR\wimboot" "$BootDir\!\wimboot"
     CopyFiles "$PLUGINSDIR\linux.c32" "$BootDir\!\linux.c32"  
-   ${EndIf}     
-
+   ${EndIf}
    ${IfNot} ${FileExists} $BootDir\!\legacy-i ; legacy-i test file.  
     DetailPrint "Adding legacy-i test file."   
     CopyFiles "$PLUGINSDIR\legacy-i" "$BootDir\!\legacy-i"  
    ${EndIf}
-  
   ${If} ${FileExists} $BootDir\!\syslinux.cfg    
    DetailPrint "முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது."
    Call AddDir
@@ -1322,6 +1310,7 @@ Function DoSyslinux ; Install கணிலினக்சு on USB
 ; Create and Copy files to your destination
   DetailPrint "Adding required files to the $BootDir\! directory..." 
   CopyFiles "$PLUGINSDIR\syslinux.cfg" "$BootDir\!\syslinux.cfg"
+  CopyFiles "$PLUGINSDIR\ஐ.png" "$BootDir\!\ஐ.png"
   CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\!\உரிமை.உரை"
   CopyFiles "$PLUGINSDIR\vesamenu.c32" "$BootDir\!\vesamenu.c32"
   CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\!\menu.c32"  
@@ -1329,17 +1318,11 @@ Function DoSyslinux ; Install கணிலினக்சு on USB
   CopyFiles "$PLUGINSDIR\libcom32.c32" "$BootDir\!\libcom32.c32"  
   CopyFiles "$PLUGINSDIR\libutil.c32" "$BootDir\!\libutil.c32"      
   CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\!\memdisk"
-  
   Call AddDir    
-																								 
-  ${EndIf}  
-
-																																	 
-																							   
-																									 
-  
+  ${EndIf}
   ${IfNot} ${FileExists} $BootDir\!\libutil.c32 ; Old Syslinux files need to be replaced
   DetailPrint "Adding required files to the $BootDir\! directory..." 
+  CopyFiles "$PLUGINSDIR\ஐ.png" "$BootDir\!\ஐ.png"
   CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\!\உரிமை.உரை"   
   CopyFiles "$PLUGINSDIR\vesamenu.c32" "$BootDir\!\vesamenu.c32"
   CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\!\menu.c32"  
@@ -1356,7 +1339,7 @@ Function DoSyslinux ; Install கணிலினக்சு on USB
   ${EndIf}	  
 FunctionEnd
 
-Function AddDir ; changes to check if user had a version prior to 0.0.0.3. Newer I includes grub.exe 
+Function AddDir ;
  ${IfNotThen} ${FileExists} "$BootDir\!\grub.exe" 'CopyFiles "$PLUGINSDIR\grub.exe" "$BootDir\!\grub.exe"' 
 FunctionEnd
 
@@ -1426,37 +1409,37 @@ removeonly:
 SectionEnd
 
 Function ConfigRemove ; Find and Set Removal Configuration file
-  ${If} ${FileExists} "$BootDir\!\$DistroName\I\linux.cfg"
+  ${If} ${FileExists} "$BootDir\!\$DistroName\%\linux.cfg"
   StrCpy $DistroPath "linux.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\anon.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\%\anon.cfg"
   StrCpy $DistroPath "anon.cfg"  
-  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\system.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\%\system.cfg"
   StrCpy $DistroPath "system.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\antivirus.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\%\antivirus.cfg"
   StrCpy $DistroPath "antivirus.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\netbook.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\%\netbook.cfg"
   StrCpy $DistroPath "netbook.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\other.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\%\other.cfg"
   StrCpy $DistroPath "other.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\pe.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\%\pe.cfg"
   StrCpy $DistroPath "pe.cfg"
-  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\unlisted.cfg"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\%\unlisted.cfg"
   StrCpy $DistroPath "unlisted.cfg"  
-  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\menu.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\%\menu.lst"
   StrCpy $DistroPath "menu.lst"
-  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\vhd.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\%\vhd.lst"
   StrCpy $DistroPath "vhd.lst"
-  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\grubpart4.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\%\grubpart4.lst"
   StrCpy $DistroPath "grubpart4.lst"
-  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\grubram.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\%\grubram.lst"
   StrCpy $DistroPath "grubram.lst"
-  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\win.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\%\win.lst"
   StrCpy $DistroPath "win.lst"  
-  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\win2go.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\%\win2go.lst"
   StrCpy $DistroPath "win2go.lst"   
-  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\pe.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\%\pe.lst"
   StrCpy $DistroPath "pe.lst"  
-  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\I\hirens.lst"
+  ${ElseIf} ${FileExists} "$BootDir\!\$DistroName\%\hirens.lst"
   StrCpy $DistroPath "hirens.lst"    
   ${EndIf}
   ; MessageBox MB_OK "$DistroPath"
@@ -1464,9 +1447,9 @@ FunctionEnd
 
 Function Config2Write
  ${If} $DistroPath == "linux.cfg"
-  ${WriteToSysFile} "label Linux Distributions$\r$\nmenu label ஐ ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/linux.cfg" $R0 
+  ${WriteToSysFile} "label Linux Distributions$\r$\nmenu label Linux Distributions ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/linux.cfg" $R0 
  ${ElseIf} $DistroPath == "anon.cfg"
-  ${WriteToSysFile} "label Anon $\r$\nmenu label அ ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/anon.cfg" $R0  
+  ${WriteToSysFile} "label Anon $\r$\nmenu label Anonymous Browsers ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/anon.cfg" $R0  
  ${ElseIf} $DistroPath == "system.cfg"
   ${WriteToSysFile} "label System Tools$\r$\nmenu label System Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/system.cfg" $R0
  ${ElseIf} $DistroPath == "antivirus.cfg"
@@ -1573,12 +1556,12 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\antivirus.cfg "ஐ-மரபு\பட்டியல்\antivirus.cfg" 
   File /oname=$PLUGINSDIR\system.cfg "ஐ-மரபு\பட்டியல்\system.cfg" 
   File /oname=$PLUGINSDIR\netbook.cfg "ஐ-மரபு\பட்டியல்\netbook.cfg"
-  File /oname=$PLUGINSDIR\anon.cfg "ஐ-மரபு\பட்டியல்\anon.cfg"
   File /oname=$PLUGINSDIR\linux.cfg "ஐ-மரபு\பட்டியல்\linux.cfg" 
-  File /oname=$PLUGINSDIR\unlisted.cfg "ஐ-மரபு\பட்டியல்\unlisted.cfg"
+  File /oname=$PLUGINSDIR\anon.cfg "ஐ-மரபு\பட்டியல்\anon.cfg"
   File /oname=$PLUGINSDIR\other.cfg "ஐ-மரபு\பட்டியல்\other.cfg"   
   File /oname=$PLUGINSDIR\pe.cfg "ஐ-மரபு\பட்டியல்\pe.cfg"    
   File /oname=$PLUGINSDIR\pe.lst "ஐ-மரபு\பட்டியல்\pe.lst"  
+  File /oname=$PLUGINSDIR\unlisted.cfg "ஐ-மரபு\பட்டியல்\unlisted.cfg"
   File /oname=$PLUGINSDIR\liveusb "இருமங்கள்\வாழ்உதொபே"
   File /oname=$PLUGINSDIR\7zG.exe "இருமங்கள்\7zG.exe"
   File /oname=$PLUGINSDIR\7z.dll "இருமங்கள்\7z.dll"  

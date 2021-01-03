@@ -1,0 +1,110 @@
+﻿Extract: C:\Users\inthirua\AppData\Local\Temp\nsi5484.tmp\diskpartformat.txt
+Extract: C:\Users\inthirua\AppData\Local\Temp\nsi5484.tmp\diskpartwipe1.txt
+Extract: C:\Users\inthirua\AppData\Local\Temp\nsi5484.tmp\diskpartwipe2.txt
+
+Microsoft DiskPart version 10.0.18362.1171
+
+Copyright (C) Microsoft Corporation.
+On computer: INSL-ANISH
+
+Disk 1 is now the selected disk.
+
+  Disk ###  Status         Size     Free     Dyn  Gpt
+  --------  -------------  -------  -------  ---  ---
+  Disk 0    Online          476 GB      0 B         
+* Disk 1    Online           58 GB      0 B         
+
+DiskPart succeeded in cleaning the disk.
+
+Leaving DiskPart...
+
+Microsoft DiskPart version 10.0.18362.1171
+
+Copyright (C) Microsoft Corporation.
+On computer: INSL-ANISH
+
+Disk 1 is now the selected disk.
+
+DiskPart succeeded in cleaning the disk.
+
+DiskPart successfully converted the selected disk to MBR format.
+
+Please wait while DiskPart scans your configuration...
+
+DiskPart has finished scanning your configuration.
+
+DiskPart succeeded in creating the specified partition.
+
+Partition 1 is now the selected partition.
+
+DiskPart marked the current partition as active.
+
+    0 percent completed    0 percent completed    0 percent completed    0 percent completed    0 percent completed    0 percent completed    0 percent completed    0 percent completed    0 percent completed  100 percent completed
+
+DiskPart successfully formatted the volume.
+
+DiskPart successfully assigned the drive letter or mount point.
+
+Please wait while DiskPart scans your configuration...
+
+DiskPart has finished scanning your configuration.
+
+  Volume ###  Ltr  Label        Fs     Type        Size     Status     Info
+  ----------  ---  -----------  -----  ----------  -------  ---------  --------
+  Volume 0         System Rese  NTFS   Partition    549 MB  Healthy    System  
+  Volume 1     C                NTFS   Partition    238 GB  Healthy    Boot    
+  Volume 2     D   Data         NTFS   Partition    237 GB  Healthy            
+  Volume 3                      NTFS   Partition    919 MB  Healthy    Hidden  
+* Volume 4     E   TA           NTFS   Removable     58 GB  Healthy            
+
+Leaving DiskPart...
+Formatting E: as Fat32. This may take a while, please be patient...
+Warning ALL data on drive 'E' will be lost irretrievably, are you sure
+(y/n) :FSCTL_ALLOW_EXTENDED_DASD_IO OK
+Size : 63GB 123533312 sectors
+512 Bytes Per Sector, Cluster size 32768 bytes
+Volume ID is b19:2b60
+32 Reserved Sectors, 15077 Sectors per FAT, 2 fats
+1929736 Total clusters
+1929735 Free Clusters
+Formatting drive E:...
+Clearing out 30250 sectors for Reserved sectors, fats and root cluster...
+Wrote 15488000 bytes in 0.28 seconds, 53.23 Megabytes/sec
+Initialising reserved sectors and FATs...
+Done
+Create folder: E:\!\menu
+Create folder: E:\!\ISOS
+Executing syslinux on E:
+Syslinux Errors 0
+Creating Label TA on E:
+Good Syslinux Exists...
+Adding wimboot and linux.c32.
+Copy to E:\!\wimboot
+Copy to E:\!\linux.c32
+Adding legacy-i test file.
+Copy to E:\!\legacy-i
+Adding required files to the E:\! directory...
+Copy to E:\!\syslinux.cfg
+Copy to E:\!\yumi.png
+Copy to E:\!\license.txt
+Copy to E:\!\vesamenu.c32
+Copy to E:\!\menu.c32
+Copy to E:\!\chain.c32
+Copy to E:\!\libcom32.c32
+Copy to E:\!\libutil.c32
+Copy to E:\!\memdisk
+Copy to E:\!\grub.exe
+Copy to E:\!\menu\linux.cfg
+Delete file: E:\!\nsx4F35.tmp
+Create folder: E:\!\Slax-e\YUMI
+Execute: "C:\Users\inthirua\AppData\Local\Temp\nsi5484.tmp\7zG.exe" x "D:\Del\Documents\பதிவிறக்கங்கள்\Slax-e.iso" -x![BOOT] -o"E:\!\Slax-e\" -y
+Delete file: E:\!\menu\linux.cfg
+Rename: E:\!\menu\nsi6B97.tmp->E:\!\menu\linux.cfg
+Checking if we need to replace vesamenu.c32, menu.c32, and chain.c32, libutil.c32, libcom32.c32, memdisk
+Found vesamenu.c32 at E:\!\Slax-e\slax\boot\vesamenu.c32
+Copy to E:\!\Slax-e\slax\boot\vesamenu.c32
+Found libutil.c32 at E:\!\Slax-e\slax\boot\libutil.c32
+Copy to E:\!\Slax-e\slax\boot\libutil.c32
+Found libcom32.c32 at E:\!\Slax-e\slax\boot\libcom32.c32
+Copy to E:\!\Slax-e\slax\boot\libcom32.c32
+All Finished, Process is Complete!
