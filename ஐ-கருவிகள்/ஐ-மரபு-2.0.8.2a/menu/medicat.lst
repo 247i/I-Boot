@@ -1,8 +1,0 @@
-default 0
-timeout=0
-
-title Boot Medicat
-find --set-root --ignore-floppies --ignore-cd /!/ISOS/SLUG
-map --heads=0 --sectors-per-track=0 /!/ISOS/SLUG (hd32)
-map --hook
-chainloader (hd32)

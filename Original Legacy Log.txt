@@ -1,6 +1,6 @@
-﻿Extract: C:\Users\inthirua\AppData\Local\Temp\nsi5484.tmp\diskpartformat.txt
-Extract: C:\Users\inthirua\AppData\Local\Temp\nsi5484.tmp\diskpartwipe1.txt
-Extract: C:\Users\inthirua\AppData\Local\Temp\nsi5484.tmp\diskpartwipe2.txt
+﻿பிரித்தல்: C:\Users\inthirua\AppData\Local\Temp\nsq826.tmp\diskpartformat.txt
+பிரித்தல்: C:\Users\inthirua\AppData\Local\Temp\nsq826.tmp\diskpartwipe1.txt
+பிரித்தல்: C:\Users\inthirua\AppData\Local\Temp\nsq826.tmp\diskpartwipe2.txt
 
 Microsoft DiskPart version 10.0.18362.1171
 
@@ -63,48 +63,48 @@ Warning ALL data on drive 'E' will be lost irretrievably, are you sure
 (y/n) :FSCTL_ALLOW_EXTENDED_DASD_IO OK
 Size : 63GB 123533312 sectors
 512 Bytes Per Sector, Cluster size 32768 bytes
-Volume ID is b19:2b60
+Volume ID is 1409:1930
 32 Reserved Sectors, 15077 Sectors per FAT, 2 fats
 1929736 Total clusters
 1929735 Free Clusters
 Formatting drive E:...
 Clearing out 30250 sectors for Reserved sectors, fats and root cluster...
-Wrote 15488000 bytes in 0.28 seconds, 53.23 Megabytes/sec
+Wrote 15488000 bytes in 0.28 seconds, 53.20 Megabytes/sec
 Initialising reserved sectors and FATs...
 Done
-Create folder: E:\!\menu
-Create folder: E:\!\ISOS
-Executing syslinux on E:
+அடைவை உருவாக்கு: E:\!\menu
+அடைவை உருவாக்கு: E:\!\ISOS
+கணிலினக்சை E: மீது இயக்குகிறது
 Syslinux Errors 0
 Creating Label TA on E:
-Good Syslinux Exists...
+நல்ல கணிலினக்சு உள்ளது...
 Adding wimboot and linux.c32.
-Copy to E:\!\wimboot
-Copy to E:\!\linux.c32
+இதற்கு நகலெடு E:\!\wimboot
+இதற்கு நகலெடு E:\!\linux.c32
 Adding legacy-i test file.
-Copy to E:\!\legacy-i
+இதற்கு நகலெடு E:\!\legacy-i
 Adding required files to the E:\! directory...
-Copy to E:\!\syslinux.cfg
-Copy to E:\!\yumi.png
-Copy to E:\!\license.txt
-Copy to E:\!\vesamenu.c32
-Copy to E:\!\menu.c32
-Copy to E:\!\chain.c32
-Copy to E:\!\libcom32.c32
-Copy to E:\!\libutil.c32
-Copy to E:\!\memdisk
-Copy to E:\!\grub.exe
-Copy to E:\!\menu\linux.cfg
-Delete file: E:\!\nsx4F35.tmp
-Create folder: E:\!\Slax-e\YUMI
-Execute: "C:\Users\inthirua\AppData\Local\Temp\nsi5484.tmp\7zG.exe" x "D:\Del\Documents\பதிவிறக்கங்கள்\Slax-e.iso" -x![BOOT] -o"E:\!\Slax-e\" -y
-Delete file: E:\!\menu\linux.cfg
-Rename: E:\!\menu\nsi6B97.tmp->E:\!\menu\linux.cfg
+இதற்கு நகலெடு E:\!\syslinux.cfg
+இதற்கு நகலெடு E:\!\ஐ.png
+இதற்கு நகலெடு E:\!\உரிமை.உரை
+இதற்கு நகலெடு E:\!\vesamenu.c32
+இதற்கு நகலெடு E:\!\menu.c32
+இதற்கு நகலெடு E:\!\chain.c32
+இதற்கு நகலெடு E:\!\libcom32.c32
+இதற்கு நகலெடு E:\!\libutil.c32
+இதற்கு நகலெடு E:\!\memdisk
+இதற்கு நகலெடு E:\!\grub.exe
+இதற்கு நகலெடு E:\!\menu\linux.cfg
+கோப்பை அழி: E:\!\nso5ABA.tmp
+அடைவை உருவாக்கு: E:\!\Slax-e\YUMI
+செயலாக்குக: "C:\Users\inthirua\AppData\Local\Temp\nsq826.tmp\7zG.exe" x "D:\Del\Documents\பதிவிறக்கங்கள்\Slax-e.iso" -x![BOOT] -o"E:\!\Slax-e\" -y
+கோப்பை அழி: E:\!\menu\linux.cfg
+இதை மறு பெயரிடு: E:\!\menu\nsp76DE.tmp->E:\!\menu\linux.cfg
 Checking if we need to replace vesamenu.c32, menu.c32, and chain.c32, libutil.c32, libcom32.c32, memdisk
 Found vesamenu.c32 at E:\!\Slax-e\slax\boot\vesamenu.c32
-Copy to E:\!\Slax-e\slax\boot\vesamenu.c32
+இதற்கு நகலெடு E:\!\Slax-e\slax\boot\vesamenu.c32
 Found libutil.c32 at E:\!\Slax-e\slax\boot\libutil.c32
-Copy to E:\!\Slax-e\slax\boot\libutil.c32
+இதற்கு நகலெடு E:\!\Slax-e\slax\boot\libutil.c32
 Found libcom32.c32 at E:\!\Slax-e\slax\boot\libcom32.c32
-Copy to E:\!\Slax-e\slax\boot\libcom32.c32
-All Finished, Process is Complete!
+இதற்கு நகலெடு E:\!\Slax-e\slax\boot\libcom32.c32
+அனைத்தும் முடிந்தது!

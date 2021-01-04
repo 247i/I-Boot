@@ -1,6 +1,6 @@
-﻿பிரித்தல்: C:\Users\inthirua\AppData\Local\Temp\nseEB9A.tmp\diskpartformat.txt
-பிரித்தல்: C:\Users\inthirua\AppData\Local\Temp\nseEB9A.tmp\diskpartwipe1.txt
-பிரித்தல்: C:\Users\inthirua\AppData\Local\Temp\nseEB9A.tmp\diskpartwipe2.txt
+﻿பிரித்தல்: C:\Users\inthirua\AppData\Local\Temp\nsl4BC9.tmp\diskpartformat.txt
+பிரித்தல்: C:\Users\inthirua\AppData\Local\Temp\nsl4BC9.tmp\diskpartwipe1.txt
+பிரித்தல்: C:\Users\inthirua\AppData\Local\Temp\nsl4BC9.tmp\diskpartwipe2.txt
 
 Microsoft DiskPart version 10.0.18362.1171
 
@@ -103,48 +103,13 @@ SETID       - Change the partition type.
 SHRINK      - Reduce the size of the selected volume.
 UNIQUEID    - Displays or sets the GUID partition table (GPT) identifier or 
               master boot record (MBR) signature of a disk.
-Formatting E: as Fat32. This may take a while, please be patient...
-Warning ALL data on drive 'E' will be lost irretrievably, are you sure
-(y/n) :FSCTL_ALLOW_EXTENDED_DASD_IO OK
-Size : 63GB 123533312 sectors
-512 Bytes Per Sector, Cluster size 32768 bytes
-Volume ID is b1c:606
-32 Reserved Sectors, 15077 Sectors per FAT, 2 fats
-1929736 Total clusters
-1929735 Free Clusters
-Formatting drive E:...
-Clearing out 30250 sectors for Reserved sectors, fats and root cluster...
-Wrote 15488000 bytes in 0.28 seconds, 53.14 Megabytes/sec
-Initialising reserved sectors and FATs...
-Done
-அடைவை உருவாக்கு: E:\!\menu
-அடைவை உருவாக்கு: E:\!\ISOS
-கணிலினக்சை E: மீது இயக்குகிறது
-Syslinux Errors 0
-Creating Label TA on E:
 நல்ல கணிலினக்சு உள்ளது...
-Adding wimboot and linux.c32.
-இதற்கு நகலெடு E:\!\wimboot
-இதற்கு நகலெடு E:\!\linux.c32
-Adding legacy-i test file.
-இதற்கு நகலெடு E:\!\legacy-i
-Adding required files to the E:\! directory...
-இதற்கு நகலெடு E:\!\syslinux.cfg
-இதற்கு நகலெடு E:\!\ஐ.png
-இதற்கு நகலெடு E:\!\உரிமை.உரை
-இதற்கு நகலெடு E:\!\vesamenu.c32
-இதற்கு நகலெடு E:\!\menu.c32
-இதற்கு நகலெடு E:\!\chain.c32
-இதற்கு நகலெடு E:\!\libcom32.c32
-இதற்கு நகலெடு E:\!\libutil.c32
-இதற்கு நகலெடு E:\!\memdisk
-இதற்கு நகலெடு E:\!\grub.exe
+முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது. உங்கள் புதிய தேர்வுகளைச் சேர்க்க தொடர்கிறது....
 நகலெடுத்தலில் தோல்வி
-கோப்பை அழி: E:\!\nsl7A33.tmp
 அடைவை உருவாக்கு: E:\!\Slax-e\YUMI
-செயலாக்குக: "C:\Users\inthirua\AppData\Local\Temp\nseEB9A.tmp\7zG.exe" x "D:\Del\Documents\பதிவிறக்கங்கள்\Slax-e.iso" -x![BOOT] -o"E:\!\Slax-e\" -y
+செயலாக்குக: "C:\Users\inthirua\AppData\Local\Temp\nsl4BC9.tmp\7zG.exe" x "D:\Del\Documents\பதிவிறக்கங்கள்\Slax-e.iso" -x![BOOT] -o"E:\!\Slax-e\" -y
 கோப்பை அழி: E:\!\menu\லினக்சு.உலகு
-இதை மறு பெயரிடு: E:\!\menu\nsr9628.tmp->E:\!\menu\லினக்சு.உலகு
+இதை மறு பெயரிடு: E:\!\menu\nsk2229.tmp->E:\!\menu\லினக்சு.உலகு
 Checking if we need to replace vesamenu.c32, menu.c32, and chain.c32, libutil.c32, libcom32.c32, memdisk
 Found vesamenu.c32 at E:\!\Slax-e\slax\boot\vesamenu.c32
 இதற்கு நகலெடு E:\!\Slax-e\slax\boot\vesamenu.c32

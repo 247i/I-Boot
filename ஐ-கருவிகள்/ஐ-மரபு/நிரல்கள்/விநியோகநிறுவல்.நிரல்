@@ -157,7 +157,7 @@ FunctionEnd
  
   ${ElseIf} $DistroName == "Bitdefender Rescue CD"
 		CopyFiles $ISOFile "$BootDir\!\ISOS\$JustISO" 
-		${WriteToFile} "#[ $JustISOName$\r$\nlabel Bitdefender ($JustISOName)$\r$\nMENU LABEL Bitdefender ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/bitdefender.lst$\r$\n#] $JustISOName" $R0   
+		${WriteToFile} "#[ $JustISOName$\r$\nlabel Bitdefender ($JustISOName)$\r$\nMENU LABEL Bitdefender ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/menu/bitdefender.lst$\r$\n#] $JustISOName" $R0   
 		File /oname=$PLUGINSDIR\bitdefender.lst "ஐ-மரபு\பட்டியல்\bitdefender.lst"  
 		CopyFiles "$PLUGINSDIR\bitdefender.lst" "$BootDir\!\menu\bitdefender.lst" 
 		!insertmacro கோப்பில்மாற்று "SLUG" "$JustISO" "all" "all" "$BootDir\!\menu\bitdefender.lst" 
@@ -213,7 +213,7 @@ FunctionEnd
       ${OrIf} $DistroName == "Rescatux" 		  
   
 	 CopyFiles $ISOFile "$BootDir\!\$JustISOName\$JustISO" 
-	 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/$JustISOName/basic.lst$\r$\n#] $JustISOName" $R0   
+	 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/basic.lst$\r$\n#] $JustISOName" $R0   
 	 File /oname=$PLUGINSDIR\basic.lst "ஐ-மரபு\பட்டியல்\basic.lst"  
 	 CopyFiles "$PLUGINSDIR\basic.lst" "$BootDir\!\$JustISOName\basic.lst" 
 	 !insertmacro கோப்பில்மாற்று "SLUG" "$JustISO" "all" "all" "$BootDir\!\$JustISOName\basic.lst" 
@@ -224,7 +224,7 @@ FunctionEnd
 	 StrCpy $JustISOName "$JustISOName" 14 ; Grabs the first 14 characters of the file name.
 	 StrCpy $JustISO "$JustISO.iso"
 	 CopyFiles $ISOFile "$BootDir\!\$JustISOName\$JustISO" 
-	 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/$JustISOName/$JustISOName.lst$\r$\n#] $JustISOName" $R0   
+	 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/$JustISOName.lst$\r$\n#] $JustISOName" $R0   
 	 File /oname=$PLUGINSDIR\basic.lst "ஐ-மரபு\பட்டியல்\basic.lst"  
 	 CopyFiles "$PLUGINSDIR\basic.lst" "$BootDir\!\$JustISOName\$JustISOName.lst" 
 	 !insertmacro கோப்பில்மாற்று "SLUG" "$JustISO" "all" "all" "$BootDir\!\$JustISOName\$JustISOName.lst" 
@@ -234,7 +234,7 @@ FunctionEnd
 	 ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -o"$BootDir\!\$JustISOName\" -y' 
 	 File /oname=$PLUGINSDIR\customram.lst "ஐ-மரபு\பட்டியல்\customram.lst" 
 	 CopyFiles "$PLUGINSDIR\customram.lst" "$BootDir\!\$JustISOName\customram.lst" 
-	 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/$JustISOName/customram.lst$\r$\n#] $JustISOName" $R0   
+	 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/customram.lst$\r$\n#] $JustISOName" $R0   
 	 !insertmacro கோப்பில்மாற்று "SLUG" "hdsdos.iso" "all" "all" "$BootDir\!\$JustISOName\customram.lst" 
 	 !insertmacro கோப்பில்மாற்று "IPATH" "$JustISOName" "all" "all" "$BootDir\!\$JustISOName\customram.lst"  
 
@@ -252,7 +252,7 @@ FunctionEnd
 	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nCONFIG /isolinux.cfg$\r$\nAPPEND /$\r$\n#] $JustISOName" $R0
  
   ${ElseIf} $DistroName == "Ubuntu" 
-     ${OrIf} $DistroName == "Ubuntu Studio"   
+     ${OrIf} $DistroName == "Ubuntu Studio"
      ${OrIf} $DistroName == "Edubuntu" 
      ${OrIf} $DistroName == "Xubuntu" 
      ${OrIf} $DistroName == "Kubuntu" 
@@ -261,20 +261,20 @@ FunctionEnd
 	 ${OrIf} $DistroName == "Ubuntu Budgie" 	
 	 ${OrIf} $DistroName == "Ubuntu Mate" 
      ${OrIf} $DistroName == "Ubuntu Gnome" 	   
-	 ${OrIf} $DistroName == "Linux Mint" 	   
+	 ${OrIf} $DistroName == "Linux Mint"
 	 ${OrIf} $DistroName == "ChaletOS" 
 	 ${OrIf} $DistroName == "Cub Linux" 
 	 ${OrIf} $DistroName == "LXLE Desktop" 
      ${OrIf} $DistroName == "mintyMac" 
 	 ${OrIf} $DistroName == "Peach OSI" 
 	 ${OrIf} $DistroName == "Skywave" 	 
-	 ;${OrIf} $DistroName == "Debian Live"
+	;${OrIf} $DistroName == "Debian Live"
    
 		CopyFiles $ISOFile "$BootDir\!\$JustISOName\$JustISO" ; Copy the ISO to Directory
 		ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!vmlinu* -ir!init* -o"$BootDir\!\$JustISOName\" -y'
 		File /oname=$PLUGINSDIR\ubuntu.lst "ஐ-மரபு\பட்டியல்\ubuntu.lst"  
 		CopyFiles "$PLUGINSDIR\ubuntu.lst" "$BootDir\!\$JustISOName\ubuntu.lst"   
-		${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/$JustISOName/ubuntu.lst$\r$\n#] $JustISOName" $R0   
+		${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/ubuntu.lst$\r$\n#] $JustISOName" $R0   
  
 		${If} $DistroName == "Ubuntu"
 		${OrIf} $DistroName == "Cub Linux"
@@ -320,9 +320,9 @@ FunctionEnd
 	  ${Else}
 	  
 	   ${If} ${FileExists} "$BootDir\!\$JustISOName\vmlinuz.efi"
-	   !insertmacro கோப்பில்மாற்று "VLUG" "vmlinuz.efi" "all" "all" "$BootDir\!\$JustISOName\ubuntu.lst" 
+	   !insertmacro கோப்பில்மாற்று "VLUG" "vmlinuz.efi fsck.mode=skip" "all" "all" "$BootDir\!\$JustISOName\ubuntu.lst" 
 	   ${ElseIf} ${FileExists} "$BootDir\!\$JustISOName\vmlinuz"
-	   !insertmacro கோப்பில்மாற்று "VLUG" "vmlinuz" "all" "all" "$BootDir\!\$JustISOName\ubuntu.lst"   
+	   !insertmacro கோப்பில்மாற்று "VLUG" "vmlinuz fsck.mode=skip" "all" "all" "$BootDir\!\$JustISOName\ubuntu.lst"   
 	   ${EndIf}  
   
 	   ${If} ${FileExists} "$BootDir\!\$JustISOName\initrd.lz"  
@@ -337,10 +337,58 @@ FunctionEnd
 	  ; Enable Persistence
 	   ${If} $Persistence == "casper"
 		${AndIf} $Casper != "0"  
-		; Add Boot Code Persistent
+		
+	  ; Set CasperName - (Persistence Filename)
+        ${If} $DistroName == "Ubuntu"
+		 ${StrContains} $0 "buntu-19" "$JustISO"   
+		 ${StrContains} $1 "buntu-18" "$JustISO"
+		 ${StrContains} $2 "buntu-17" "$JustISO" 
+		 ${StrContains} $3 "buntu-16" "$JustISO" 		
+		 
+		 ${If} $0 != "buntu-19" 
+		 ${AndIf} $1 != "buntu-18"  
+		 ${AndIf} $2 != "buntu-17"  
+		 ${AndIf} $3 != "buntu-16" 	 
+		  StrCpy $CasperName "writable"
+         ${Else}
+		  StrCpy $CasperName "casper-rw" 
+		 ${EndIf}
+		 
+         ${ElseIf} $DistroName == "Linux Mint"
+		 ${StrContains} $0 "mint-19" "$JustISO"   
+		 ${StrContains} $1 "mint-18" "$JustISO"
+		 ${StrContains} $2 "mint-17" "$JustISO" 
+		 ${StrContains} $3 "mint-16" "$JustISO" 		
+		 
+		 ${If} $0 != "mint-19" 
+		 ${AndIf} $1 != "mint-18"  
+		 ${AndIf} $2 != "mint-17"  
+		 ${AndIf} $3 != "mint-16" 	 
+		  StrCpy $CasperName "writable" 
+         ${Else}
+		  StrCpy $CasperName "casper-rw" 
+		 ${EndIf}
+		 
+         ${ElseIf} $DistroName == "Debian Live"
+         ${OrIf} $DistroName == "Raspberry Pi Desktop"
+          StrCpy $CasperName "persistence"		 
+     	${Else}
+    	 StrCpy $CasperName "writable" 
+        ${EndIf}  
+       ;MessageBox MB_OK "$CasperName"  		
+		
+		; Adjust boot parameters for persistent feature
 		 ${If} ${FileExists} "$BootDir\!\$JustISOName\ubuntu.lst" ; Rename the following
-		 !insertmacro கோப்பில்மாற்று "noprompt boot=" "noprompt persistent persistent-path=/!/$JustISOName boot=" "all" "all" "$BootDir\!\$JustISOName\ubuntu.lst" 
-		 ;!insertmacro கோப்பில்மாற்று "#CLUG" "parttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4%$\r$\nif $\"%check%$\"==$\"0x00$\" partnew (hd0,3) 0 0 0$\r$\nif NOT $\"%check%$\"==$\"0x00$\" echo ERROR: third partition table entry is not empty, please delete it if you wish to use this method && pause --wait=5 && configfile /!/$JustISOName/ubuntu.lst$\r$\npartnew (hd0,3) 0x00 %CASPER%$\r$\nmap %CASPER% (hd0,3)" "all" "all" "$BootDir\!\$JustISOName\ubuntu.lst"
+		 !insertmacro கோப்பில்மாற்று "writable" "$CasperName" "all" "all" "$BootDir\!\$JustISOName\ubuntu.lst" 
+
+           ${If} $FSType == "NTFS"    
+           ${OrIf} $FormatMe == "Yes" ; Only perform these actions if FS is or will be NTFS	
+		   ;MessageBox MB_OK "$FSType"
+		  !insertmacro கோப்பில்மாற்று "#CLUG" "parttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4%$\r$\nif $\"%check%$\"==$\"0x00$\" partnew (hd0,3) 0 0 0$\r$\nif NOT $\"%check%$\"==$\"0x00$\" echo WARNING: fourth partition table entry is not empty, please delete it if you wish to use this method && pause --wait=5 && configfile /!/$JustISOName/ubuntu.lst$\r$\npartnew (hd0,3) 0x00 %CASPER%$\r$\nmap %CASPER% (hd0,3)" "all" "all" "$BootDir\!\$JustISOName\ubuntu.lst"
+		   !insertmacro கோப்பில்மாற்று "noprompt boot=" "noprompt persistent boot=" "all" "all" "$BootDir\!\$JustISOName\ubuntu.lst" 
+		   ${Else}
+		   !insertmacro கோப்பில்மாற்று "noprompt boot=" "noprompt persistent persistent-path=/!/$JustISOName boot=" "all" "all" "$BootDir\!\$JustISOName\ubuntu.lst" 
+		   ${EndIf}
 		 ${EndIf} 
 	   ${EndIf}    
  
@@ -357,19 +405,19 @@ FunctionEnd
 	 ${ElseIf} $DistroName == "OpenSUSE 32bit"
 	 CopyFiles $ISOFile "$BootDir\!\$JustISOName\$JustISO" ; Copy the ISO to ISO Directory
 	 ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitrd -ir!*inux -o"$BootDir\!\$JustISOName\" -y'  
-	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/linux$\r$\nAPPEND initrd=/!/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/MULTIBOOT:/!/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/MULTIBOOT isofrom_system=/!/$JustISOName/$JustISO loader=syslinux$\r$\n#] $JustISOName" $R0
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/linux$\r$\nAPPEND initrd=/!/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/TA:/!/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/TA isofrom_system=/!/$JustISOName/$JustISO loader=syslinux$\r$\n#] $JustISOName" $R0
 	 
 	 ; OpenSUSE 64bit 
 	 ${ElseIf} $DistroName == "OpenSUSE 64bit"
 	 CopyFiles $ISOFile "$BootDir\!\$JustISOName\$JustISO" ; Copy the ISO to ISO Directory
 	 ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitrd -ir!*inux -o"$BootDir\!\$JustISOName\" -y'   
-	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/linux$\r$\nAPPEND initrd=/!/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/MULTIBOOT:/!/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/MULTIBOOT isofrom_system=/!/$JustISOName/$JustISO loader=syslinux$\r$\n#] $JustISOName" $R0 
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/linux$\r$\nAPPEND initrd=/!/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/TA:/!/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/TA isofrom_system=/!/$JustISOName/$JustISO loader=syslinux$\r$\n#] $JustISOName" $R0 
 
 	 ; OpenMediaVault - NOT WORKING YET
 	 ; ${ElseIf} $DistroName == "OpenMediaVault"
 	 ; CopyFiles $ISOFile "$BootDir\!\$JustISOName\$JustISO" ; Copy the ISO to ISO Directory
 	 ; ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitrd -ir!*inux -o"$BootDir\!\$JustISOName\" -y'  
-	 ; ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/linux$\r$\nAPPEND initrd=/!/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/MULTIBOOT:/!/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/MULTIBOOT isofrom_system=/!/$JustISOName/$JustISO loader=syslinux$\r$\n#] $JustISOName" $R0 
+	 ; ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/linux$\r$\nAPPEND initrd=/!/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/TA:/!/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/TA isofrom_system=/!/$JustISOName/$JustISO loader=syslinux$\r$\n#] $JustISOName" $R0 
 	 
 	 ; FreeDOS (Balder img) 
 	 ${ElseIf} $DistroName == "FreeDOS (Balder img)"
@@ -400,7 +448,7 @@ FunctionEnd
 	 CopyFiles $EXEDIR\TEMPYUMI\konboot.img "$BootDir\!\$JustISOName\konboot.img"  
 	 CopyFiles $EXEDIR\TEMPYUMI\konbootOLD.img "$BootDir\!\$JustISOName\konbootOLD.img" 
 	 RMDir /R "$EXEDIR\TEMPYUMI"
-	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Kon-Boot ($JustISOName)$\r$\nMENU LABEL Kon-Boot ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/$JustISOName/konboot.lst" $R0 
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Kon-Boot ($JustISOName)$\r$\nMENU LABEL Kon-Boot ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/konboot.lst" $R0 
 	 File /oname=$PLUGINSDIR\konboot.lst "ஐ-மரபு\பட்டியல்\konboot.lst"  
 	 CopyFiles "$PLUGINSDIR\konboot.lst" "$BootDir\!\$JustISOName\konboot.lst"
 	 !insertmacro கோப்பில்மாற்று "SLUG" "$JustISOName" "all" "all" "$BootDir\!\$JustISOName\konboot.lst" 
@@ -419,8 +467,8 @@ FunctionEnd
 	 ; Windows Defender Offline
 		 ${ElseIf} $DistroName == "Windows Defender Offline"
 		 CopyFiles $ISOFile "$BootDir\!\ISOS\$JustISO" 
-		 ; ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Windows Defender Offline ($JustISOName)$\r$\nMENU LABEL Windows Defender Offline ($JustISOName)$\r$\nMENU INDENT 1$\r$\nLINUX /!/grub.exe$\r$\nAPPEND --config-file=$\"ls /!/ISOS/$JustISO || find --set-root /!/ISOS/$JustISO;map --heads=0 --sectors-per-track=0 /!/ISOS/$JustISO (0xff) || map --heads=0 --sectors-per-track=0 --mem /!/ISOS/$JustISO (0xff);map --hook;chainloader (0xff)$\"$\r$\n#] $JustISOName" $R0
-		 ${WriteToFile} "#[ $JustISOName$\r$\nlabel Windows Defender Offline ($JustISOName)$\r$\nmenu label title Windows Defender Offline ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/WDO.lst$\r$\n#] $JustISOName" $R0   
+		 ; ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Windows Defender Offline ($JustISOName)$\r$\nMENU LABEL Windows Defender Offline ($JustISOName)$\r$\nMENU INDENT 1$\r$\nLINUX /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile $\"ls /!/ISOS/$JustISO || find --set-root /!/ISOS/$JustISO;map --heads=0 --sectors-per-track=0 /!/ISOS/$JustISO (0xff) || map --heads=0 --sectors-per-track=0 --mem /!/ISOS/$JustISO (0xff);map --hook;chainloader (0xff)$\"$\r$\n#] $JustISOName" $R0
+		 ${WriteToFile} "#[ $JustISOName$\r$\nlabel Windows Defender Offline ($JustISOName)$\r$\nmenu label title Windows Defender Offline ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/menu/WDO.lst$\r$\n#] $JustISOName" $R0   
 		 File /oname=$PLUGINSDIR\WDO.lst "ஐ-மரபு\பட்டியல்\WDO.lst"  
 		 CopyFiles "$PLUGINSDIR\WDO.lst" "$BootDir\!\menu\WDO.lst" 
 		 !insertmacro கோப்பில்மாற்று "SLUG" "$JustISO" "all" "all" "$BootDir\!\menu\WDO.lst"  
@@ -606,12 +654,6 @@ FunctionEnd
 	   CopyFiles "$BootDir\efi" "$BootDir\!\$JustISOName"
 	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle Start $JustISOName - Single PE$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/!/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0 
 	  ${Endif}  
-	  
-	 ; For Syslinux ---- ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Windows Vista/7/8 Installer$\r$\nMENU LABEL Windows Vista/7/8/10 Installer$\r$\nMENU INDENT 1$\r$\nCOM32 /!/chain.c32 fs ntldr=/bootmgr$\r$\n#] $JustISOName" $R0  
-	 ; CopyFiles $ISOFile "$BootDir\!\ISOS\$JustISO"
-	 ; ${WriteToFile} "title$\r$\nroot$\r$\n#[ $JustISOName$\r$\ntitle Start $JustISOName Single Installer$\r$\nchainloader /bootmgr$\r$\n#] $JustISOName" $R0  
-	 ; File /oname=$PLUGINSDIR\firadisk.img "இருமங்கள்\firadisk.img"  
-	 ; CopyFiles "$PLUGINSDIR\firadisk.img" "$BootDir\!\ISOS\firadisk.img"   
 
 	 ; Windows XP
 	 ${ElseIf} $DistroName == "Single Windows XP Installer" 
@@ -716,7 +758,7 @@ FunctionEnd
 
 	 ${ElseIf} $DistroName == "Super Grub2 Disk" 
 	 CopyFiles $ISOFile "$BootDir\!\ISOS\$JustISO"
-	 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/sgd.lst$\r$\n#] $JustISOName" $R0   
+	 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/menu/sgd.lst$\r$\n#] $JustISOName" $R0   
 	 File /oname=$PLUGINSDIR\sgd.lst "ஐ-மரபு\பட்டியல்\sgd.lst"  
 	 CopyFiles "$PLUGINSDIR\sgd.lst" "$BootDir\!\menu\sgd.lst" 
 	 !insertmacro கோப்பில்மாற்று "SLUG" "$JustISO" "all" "all" "$BootDir\!\menu\sgd.lst"  
@@ -777,14 +819,14 @@ FunctionEnd
 
 		 ${ElseIf} $DistroName == "Puppy Arcade"  
 		 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\!\$JustISOName\" -y'  
-		 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/$JustISOName/arcade.lst$\r$\n#] $JustISOName" $R0   
+		 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/arcade.lst$\r$\n#] $JustISOName" $R0   
 		 File /oname=$PLUGINSDIR\arcade.lst "ஐ-மரபு\பட்டியல்\arcade.lst"  
 		 CopyFiles "$PLUGINSDIR\arcade.lst" "$BootDir\!\$JustISOName\arcade.lst" 
 		 !insertmacro கோப்பில்மாற்று "SLUG" "$JustISOName" "all" "all" "$BootDir\!\$JustISOName\arcade.lst"  
 		 
 		 ${ElseIf} $DistroName == "Super Grub2 Disk"  
 		 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\!\$JustISOName\" -y'  
-		 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/$JustISOName/sgd.lst$\r$\n#] $JustISOName" $R0   
+		 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/sgd.lst$\r$\n#] $JustISOName" $R0   
 		 File /oname=$PLUGINSDIR\sgd.lst "ஐ-மரபு\பட்டியல்\sgd.lst"  
 		 CopyFiles "$PLUGINSDIR\sgd.lst" "$BootDir\!\$JustISOName\sgd.lst" 
 		 !insertmacro கோப்பில்மாற்று "SLUG" "$JustISOName" "all" "all" "$BootDir\!\$JustISOName\sgd.lst"   
@@ -983,7 +1025,7 @@ FunctionEnd
 	 ; For Fedora Based and derivatives
 	   ${If} ${FileExists} "$BootDir\!\$JustISOName\isolinux\isolinux.cfg" 
 	   ${AndIf} ${FileExists} "$BootDir\!\$JustISOName\LiveOS\livecd-iso-to-disk"  ; Probably Fedora based
-	   !insertmacro கோப்பில்மாற்று "root=live:CDLABEL=" "root=live:LABEL=MULTIBOOT live_dir=/!/$JustISOName/LiveOS rd.live.dir=/!/$JustISOName/LiveOS NULL=" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"   
+	   !insertmacro கோப்பில்மாற்று "root=live:CDLABEL=" "root=live:LABEL=TA live_dir=/!/$JustISOName/LiveOS rd.live.dir=/!/$JustISOName/LiveOS NULL=" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"   
 	   ${EndIf} 
 
 	 ; For Puppy Based and derivatives
@@ -1203,7 +1245,7 @@ FunctionEnd
 	   ${If} ${FileExists} "$BootDir\!\$JustISOName\antiX\vmlinuz"  
 	   !insertmacro கோப்பில்மாற்று "/antiX/vmlinuz" "/!/$JustISOName/antiX/vmlinuz" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
 	   !insertmacro கோப்பில்மாற்று "INITRD /antiX" "INITRD /!/$JustISOName/antiX" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile" 
-	   !insertmacro கோப்பில்மாற்று "APPEND quiet" "APPEND bdir=/!/$JustISOName/antiX blab=MULTIBOOT" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
+	   !insertmacro கோப்பில்மாற்று "APPEND quiet" "APPEND bdir=/!/$JustISOName/antiX blab=TA" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
 	   ;!insertmacro கோப்பில்மாற்று "UI gfxboot" "default vesamenu.c32 $\r$\nprompt 0 #" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"    
 	   ${EndIf}   
 	   
@@ -1213,17 +1255,17 @@ FunctionEnd
 	   !insertmacro கோப்பில்மாற்று "APPEND /arch" "APPEND /!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile" 
 		  
 	   !insertmacro கோப்பில்மாற்று "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_pxe64.cfg"     
-	   !insertmacro கோப்பில்மாற்று "archisolabel=ARCH" "archisolabel=MULTIBOOT NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_pxe64.cfg"     
+	   !insertmacro கோப்பில்மாற்று "archisolabel=ARCH" "archisolabel=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_pxe64.cfg"     
 	   !insertmacro கோப்பில்மாற்று "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_pxe32.cfg"     
-	   !insertmacro கோப்பில்மாற்று "archisolabel=ARCH" "archisolabel=MULTIBOOT NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_pxe32.cfg"  
+	   !insertmacro கோப்பில்மாற்று "archisolabel=ARCH" "archisolabel=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_pxe32.cfg"  
 
 	   !insertmacro கோப்பில்மாற்று "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys.cfg"     
-	   !insertmacro கோப்பில்மாற்று "archisolabel=ARCH" "archisolabel=MULTIBOOT NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys.cfg"    
+	   !insertmacro கோப்பில்மாற்று "archisolabel=ARCH" "archisolabel=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys.cfg"    
 	   
 	   !insertmacro கோப்பில்மாற்று "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys64.cfg"     
-	   !insertmacro கோப்பில்மாற்று "archisolabel=ARCH" "archisolabel=MULTIBOOT NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys64.cfg"     
+	   !insertmacro கோப்பில்மாற்று "archisolabel=ARCH" "archisolabel=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys64.cfg"     
 	   !insertmacro கோப்பில்மாற்று "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys32.cfg"     
-	   !insertmacro கோப்பில்மாற்று "archisolabel=ARCH" "archisolabel=MULTIBOOT NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys32.cfg"     
+	   !insertmacro கோப்பில்மாற்று "archisolabel=ARCH" "archisolabel=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys32.cfg"     
 	   ${EndIf}  
 	   
 	; ArchBang
@@ -1234,7 +1276,7 @@ FunctionEnd
 	   !insertmacro கோப்பில்மாற்று "INITRD /arch" "INITRD /!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\syslinux.cfg"     
 	   !insertmacro கோப்பில்மாற்று "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\syslinux.cfg"     
 	   !insertmacro கோப்பில்மாற்று ",/arch" ",/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\syslinux.cfg"     
-	   !insertmacro கோப்பில்மாற்று "archisolabel=ARCH" "archisolabel=MULTIBOOT NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\syslinux.cfg"     
+	   !insertmacro கோப்பில்மாற்று "archisolabel=ARCH" "archisolabel=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\syslinux.cfg"     
 	   ${EndIf}     
 
 	; Manjaro/Netrunner
@@ -1243,19 +1285,19 @@ FunctionEnd
 	   !insertmacro கோப்பில்மாற்று "append initrd=/manjaro" "append initrd=/!/$JustISOName/manjaro" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile" 
 	   !insertmacro கோப்பில்மாற்று "misobasedir=manjaro" "misobasedir=/!/$JustISOName/manjaro" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"    
 	   !insertmacro கோப்பில்மாற்று ",/manjaro" ",/!/$JustISOName/manjaro" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
-	   !insertmacro கோப்பில்மாற்று "misolabel=MJRO" "misolabel=MULTIBOOT NULL=" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"
+	   !insertmacro கோப்பில்மாற்று "misolabel=MJRO" "misolabel=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"
 	   CopyFiles "$BootDir\!\$JustISOName\.miso" "$BootDir"
 	   ${AndIf} $DistroName == "Netrunner" 
 	   !insertmacro கோப்பில்மாற்று "kernel /netrunner" "kernel /!/$JustISOName/netrunner" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
 	   !insertmacro கோப்பில்மாற்று "append initrd=/netrunner" "append initrd=/!/$JustISOName/netrunner" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile" 
 	   !insertmacro கோப்பில்மாற்று "misobasedir=netrunner" "misobasedir=/!/$JustISOName/netrunner" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"    
 	   !insertmacro கோப்பில்மாற்று ",/netrunner" ",/!/$JustISOName/netrunner" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
-	   !insertmacro கோப்பில்மாற்று "misolabel=NR" "misolabel=MULTIBOOT NULL=" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"
+	   !insertmacro கோப்பில்மாற்று "misolabel=NR" "misolabel=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"
 	   ${EndIf}   
 
 	 ; MX Linux
 	   ;${If} $DistroName == "MX Linux"
-	   ;!insertmacro கோப்பில்மாற்று "APPEND bdir=" "APPEND blab=MULTIBOOT bdir=" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"
+	   ;!insertmacro கோப்பில்மாற்று "APPEND bdir=" "APPEND blab=TA bdir=" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"
 	   ;${EndIf}      
 
 	; Slax
@@ -1295,20 +1337,20 @@ FunctionEnd
 	   ${If} ${FileExists} "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"
 	   ${AndIf} ${FileExists} "$BootDir\!\$JustISOName\LiveOS\*.*"   
 	   !insertmacro கோப்பில்மாற்று "append initrd=" "append live_dir=/!/$JustISOName/LiveOS rd.live.dir=/!/$JustISOName/LiveOS initrd=" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg" 
-	   !insertmacro கோப்பில்மாற்று "root=live:CDLABEL=" "root=live:LABEL=MULTIBOOT NULL=" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"    
+	   !insertmacro கோப்பில்மாற்று "root=live:CDLABEL=" "root=live:LABEL=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"    
 	   ${EndIf}  
 	   
 	; VoidLinux
 	   ${If} ${FileExists} "$BootDir\!\$JustISOName\boot\isolinux\isolinux.cfg"
 	   ${AndIf} ${FileExists} "$BootDir\!\$JustISOName\LiveOS\*.*" 
 	   !insertmacro கோப்பில்மாற்று "append initrd=" "append live_dir=/!/$JustISOName/LiveOS rd.live.dir=/!/$JustISOName/LiveOS initrd=" "all" "all" "$BootDir\!\$JustISOName\boot\isolinux\isolinux.cfg" 
-	   !insertmacro கோப்பில்மாற்று "root=live:CDLABEL=" "root=live:LABEL=MULTIBOOT NULL=" "all" "all" "$BootDir\!\$JustISOName\boot\isolinux\isolinux.cfg"    
+	   !insertmacro கோப்பில்மாற்று "root=live:CDLABEL=" "root=live:LABEL=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\boot\isolinux\isolinux.cfg"    
 	   ${EndIf} 
 
 	; !REVISIT BROKEN Mageia
 	   ${If} ${FileExists} "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"
 	   ${AndIf} ${FileExists} "$BootDir\!\$JustISOName\loopbacks\distrib-lzma.sqfs"   
-	   !insertmacro கோப்பில்மாற்று "root=mgalive:LABEL=Mageia" "root=mgalive:LABEL=MULTIBOOT NULL=Mageia" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"  
+	   !insertmacro கோப்பில்மாற்று "root=mgalive:LABEL=Mageia" "root=mgalive:LABEL=TA NULL=Mageia" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"  
 	   !insertmacro கோப்பில்மாற்று "ui gfxboot.c32" "#ui NULL gfxboot.c32" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg" 
 	   !insertmacro கோப்பில்மாற்று "display /boot" "display /!/$JustISOName/boot" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"
 	   !insertmacro கோப்பில்மாற்று "append initrd=/boot" "append initrd=/!/$JustISOName/boot" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"  
@@ -1450,7 +1492,7 @@ FunctionEnd
 	   ${If} ${FileExists} "$BootDir\!\$JustISOName\trk3\trkramfs" 
 	   CopyFiles "$BootDir\!\$JustISOName\trk3\*.*" "$BootDir\trk3\" 
 	   RMDir /R "$BootDir\!\$JustISOName\trk3" 
-	   !insertmacro கோப்பில்மாற்று "initrd=initrd.trk r" "initrd=initrd.trk vollabel=MULTIBOOT r" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
+	   !insertmacro கோப்பில்மாற்று "initrd=initrd.trk r" "initrd=initrd.trk vollabel=TA r" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
 	   ${EndIf}  
 	  
 	  Call OldSysFix  ; Check for and replace vesamenu.c32, menu.c32, chain.c32 if found 
@@ -1675,7 +1717,7 @@ FunctionEnd
 	  !insertmacro கோப்பில்மாற்று "initrd=/bootdisk" "initrd=/!/$JustISOName/bootdisk" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
 	  
 	  !insertmacro கோப்பில்மாற்று "/sysresccd/" "/!/$JustISOName/sysresccd/" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"     
-	  !insertmacro கோப்பில்மாற்று "archisolabel=SYS" "archisolabel=MULTIBOOT old=SYS" "all" "all" "$BootDir\!\$JustISOName\sysresccd\boot\syslinux\sysresccd_sys.cfg"   
+	  !insertmacro கோப்பில்மாற்று "archisolabel=SYS" "archisolabel=TA old=SYS" "all" "all" "$BootDir\!\$JustISOName\sysresccd\boot\syslinux\sysresccd_sys.cfg"   
 	  !insertmacro கோப்பில்மாற்று "archisobasedir=sysresccd" "archisobasedir=/!/$JustISOName/sysresccd" "all" "all" "$BootDir\!\$JustISOName\sysresccd\boot\syslinux\sysresccd_sys.cfg"   */ 
 	 
 	; JustBrowsing 
@@ -1684,15 +1726,15 @@ FunctionEnd
 	;  !insertmacro கோப்பில்மாற்று "INCLUDE boot" "INCLUDE /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_browser.cfg"
 	;  !insertmacro கோப்பில்மாற்று "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_chrome.cfg"
 	;  !insertmacro கோப்பில்மாற்று "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_chrome.cfg" 
-	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=MULTIBOOT" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_chrome.cfg"  
+	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_chrome.cfg"  
 	  !insertmacro கோப்பில்மாற்று "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_chrome.cfg"    
 	;  !insertmacro கோப்பில்மாற்று "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_fallback.cfg"    
 	;  !insertmacro கோப்பில்மாற்று "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_fallback.cfg"  
-	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=MULTIBOOT" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_fallback.cfg" 
+	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_fallback.cfg" 
 	  !insertmacro கோப்பில்மாற்று "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_fallback.cfg"    
 	;  !insertmacro கோப்பில்மாற்று "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_firefox.cfg"  
 	;  !insertmacro கோப்பில்மாற்று "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_firefox.cfg"
-	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=MULTIBOOT" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_firefox.cfg"  
+	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_firefox.cfg"  
 	  !insertmacro கோப்பில்மாற்று "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_firefox.cfg"    
 	;  !insertmacro கோப்பில்மாற்று "COM32 boot" "COM32 /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_hdt.cfg"  
 	  !insertmacro கோப்பில்மாற்று "modules_alias=boot" "modules_alias=/!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_hdt.cfg"    
@@ -1703,14 +1745,14 @@ FunctionEnd
 	;  !insertmacro கோப்பில்மாற்று "INCLUDE boot" "INCLUDE /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_keymaps.cfg"  
 	;  !insertmacro கோப்பில்மாற்று "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_locales.cfg"  
 	;  !insertmacro கோப்பில்மாற்று "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_locales.cfg"
-	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=MULTIBOOT" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_locales.cfg" 
+	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_locales.cfg" 
 	  !insertmacro கோப்பில்மாற்று "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_locales.cfg"    
 	;  !insertmacro கோப்பில்மாற்று "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_nbd.cfg"  
 	;  !insertmacro கோப்பில்மாற்று "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_nbd.cfg"
-	  !insertmacro கோப்பில்மாற்று "archisolabel=%ARCHISO_LABEL%" "archisolabel=MULTIBOOT" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_nbd.cfg" 
+	  !insertmacro கோப்பில்மாற்று "archisolabel=%ARCHISO_LABEL%" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_nbd.cfg" 
 	;  !insertmacro கோப்பில்மாற்று "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_newprofiles.cfg"  
 	;  !insertmacro கோப்பில்மாற்று "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_newprofiles.cfg"
-	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=MULTIBOOT" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_newprofiles.cfg" 
+	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_newprofiles.cfg" 
 	;  !insertmacro கோப்பில்மாற்று "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_nfs.cfg"  
 	;  !insertmacro கோப்பில்மாற்று "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_nfs.cfg"
 	;  !insertmacro கோப்பில்மாற்று "INCLUDE boot" "INCLUDE /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_pxe.cfg"
@@ -1725,25 +1767,25 @@ FunctionEnd
 	;  !insertmacro கோப்பில்மாற்று "CONFIG boot" "CONFIG /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys_choose.cfg"  
 	;  !insertmacro கோப்பில்மாற்று "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys32.cfg"  
 	;  !insertmacro கோப்பில்மாற்று "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys32.cfg"
-	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=MULTIBOOT" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys32.cfg"   
+	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys32.cfg"   
 	;  !insertmacro கோப்பில்மாற்று "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys64.cfg"  
 	;  !insertmacro கோப்பில்மாற்று "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys64.cfg"
-	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=MULTIBOOT" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys64.cfg"  
+	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys64.cfg"  
 	;  !insertmacro கோப்பில்மாற்று "COM32 boot" "COM32 /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_tail.cfg"  
 	;  !insertmacro கோப்பில்மாற்று "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_timezones.cfg"  
 	;  !insertmacro கோப்பில்மாற்று "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_timezones.cfg"
-	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=MULTIBOOT" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_timezones.cfg" 
+	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_timezones.cfg" 
 	;  !insertmacro கோப்பில்மாற்று "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vbox.cfg"  
 	;  !insertmacro கோப்பில்மாற்று "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vbox.cfg"
-	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=MULTIBOOT" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vbox.cfg" 
+	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vbox.cfg" 
 	  !insertmacro கோப்பில்மாற்று "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vbox.cfg"  
 	;  !insertmacro கோப்பில்மாற்று "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_videomodes.cfg"  
 	;  !insertmacro கோப்பில்மாற்று "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_videomodes.cfg"
-	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=MULTIBOOT" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_videomodes.cfg" 
+	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_videomodes.cfg" 
 	  !insertmacro கோப்பில்மாற்று "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_videomodes.cfg"    
 	;  !insertmacro கோப்பில்மாற்று "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vmware.cfg"  
 	;  !insertmacro கோப்பில்மாற்று "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vmware.cfg"
-	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=MULTIBOOT" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vmware.cfg"
+	  !insertmacro கோப்பில்மாற்று "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vmware.cfg"
 	  !insertmacro கோப்பில்மாற்று "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vmware.cfg"    
 	 
 	; Xiaopan 

@@ -1,8 +1,0 @@
-default 0
-timeout=0
-
-title Windows Defender Offline
-find --set-root /!/ISOS/SLUG
-map /!/ISOS/SLUG (hd32)
-map --hook
-chainloader (hd32)

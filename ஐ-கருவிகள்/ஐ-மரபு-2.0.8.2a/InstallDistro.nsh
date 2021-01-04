@@ -98,17 +98,17 @@ FunctionEnd
   
 Function WriteStuff
  ; Now done before this function is called (see line 122) CreateDirectory "$BootDir\!\$JustISOName\YUMI\" ; Create the YUMI Directory.. so we can copy the following config file to it.
- CopyFiles "$PLUGINSDIR\$Config2Use" "$BootDir\!\$JustISOName\YUMI\$Config2Use" ; Copy the $Config2Use file to $JustISOName\YUMI folder for the distro (so we know where to remove entry) 
+ CopyFiles "$PLUGINSDIR\$DistroPath" "$BootDir\!\$JustISOName\YUMI\$DistroPath" ; Copy the $DistroPath file to $JustISOName\YUMI folder for the distro (so we know where to remove entry) 
  DetailPrint "$DistroName ($JustISOName) and its menu entry were added!"
  
 ; Failure to find ConfigFile and was not added as a GRUB Boot ISO, so Remove and Delete   
   ${If} $ConfigFile == "NULL" ; Isolinux/Syslinux config file doesn't exist!
-	  ${AndIf} $Config2Use != "menu.lst" ; menu.lst = GRUB, so we shouldn't expect to find a syslinux config file!
+	  ${AndIf} $DistroPath != "menu.lst" ; menu.lst = GRUB, so we shouldn't expect to find a syslinux config file!
 		MessageBox MB_OK "YUMI couldn't find a configuration file.$\r$\n'$JustISO' not supported, please report the exact steps taken to arrive at this message!$\r$\nYUMI will now remove this entry."   
-		${DeleteMenuEntry} "$BootDir\!\menu\$Config2Use" "#start $JustISOName" "#end $JustISOName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
-		StrCpy $DistroName "$JustISOName" ; So we can remove the following Installed.txt entry
-		${LineFind} "$BootDir\!\Installed.txt" "$BootDir\!\Installed.txt" "1:-1" "DeleteInstall" ; Remove the Installed.txt entry
-		${LineFind} "$BootDir\!\Installed.txt" "$BootDir\!\Installed.txt" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines from Installed.txt
+		${DeleteMenuEntry} "$BootDir\!\menu\$DistroPath" "#[ $JustISOName" "#] $JustISOName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
+		StrCpy $DistroName "$JustISOName" ; So we can remove the following நிறுவப்பட்டது.உரை entry
+		${LineFind} "$BootDir\!\நிறுவப்பட்டது.உரை" "$BootDir\!\நிறுவப்பட்டது.உரை" "1:-1" "DeleteInstall" ; Remove the நிறுவப்பட்டது.உரை entry
+		${LineFind} "$BootDir\!\நிறுவப்பட்டது.உரை" "$BootDir\!\நிறுவப்பட்டது.உரை" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines from நிறுவப்பட்டது.உரை
 		RMDir /R "$BootDir\!\$JustISOName"  
 		DetailPrint "$JustISOName and its menu entry were Removed!"  	
   ${EndIf}	
@@ -122,12 +122,12 @@ FunctionEnd
 
 ; If distro is already installed, delete the entry, so we don't make a mess.
  ${If} ${FileExists} "$BootDir\!\$JustISOName\*.*"
-	 ${DeleteMenuEntry} "$BootDir\!\menu\$Config2Use" "#start $DistroName" "#end $DistroName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
+	 ${DeleteMenuEntry} "$BootDir\!\menu\$DistroPath" "#[ $DistroName" "#] $DistroName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
  ${EndIf}
  
-; Write $JustISOName to Installed.txt 
- ${InstalledList} "$JustISOName" $R0 ; Write the ISO name to the Installed List "Installed.txt" file (so we can keep track of installs for removal)
- ${LineFind} "$BootDir\!\Installed.txt" "$BootDir\!\Installed.txt" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
+; Write $JustISOName to நிறுவப்பட்டது.உரை 
+ ${InstalledList} "$JustISOName" $R0 ; Write the ISO name to the Installed List "நிறுவப்பட்டது.உரை" file (so we can keep track of installs for removal)
+ ${LineFind} "$BootDir\!\நிறுவப்பட்டது.உரை" "$BootDir\!\நிறுவப்பட்டது.உரை" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
  
 ; Create the Directory for this ISOs files
  CreateDirectory "$BootDir\!\$JustISOName\YUMI\" ; Create the YUMI Directory.. so we can eventually copy the config file (see line 90) to it.
@@ -137,27 +137,27 @@ FunctionEnd
 		ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -x![BOOT] -o"$BootDir\!\$JustISOName\" -y'  
 		File /oname=$PLUGINSDIR\acronisti.cfg "ஐ-மரபு\பட்டியல்\acronisti.cfg"   
 		CopyFiles "$PLUGINSDIR\acronisti.cfg" "$BootDir\!\$JustISOName\acronisti.cfg"  
-		${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nCONFIG /!/$JustISOName/acronisti.cfg$\r$\nAPPEND /!/$JustISOName$\r$\n#end $JustISOName" $R0 
+		${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nCONFIG /!/$JustISOName/acronisti.cfg$\r$\nAPPEND /!/$JustISOName$\r$\n#] $JustISOName" $R0 
 
  ; Calculate Linux Desktop
   ${ElseIf} $DistroName == "Calculate Linux Desktop"
 		CopyFiles $ISOFile "$BootDir\!\$JustISOName\$JustISO" ; Copy the ISO to ISO Directory
 		ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitrd -ir!*mlinuz -o"$BootDir\!\$JustISOName\" -y' 
-		${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nLINUX /!/$JustISOName/vmlinuz$\r$\nINITRD /!/$JustISOName/initrd$\r$\nAPPEND root=live:LABEL=CLD-20151230 vga=current init=/linuxrc rd.live.squashimg=livecd.squashfs nodevfs noresume splash=silent,theme:calculate console=tty1 iso-scan/filename=/!/$JustISOName/$JustISO$\r$\n#end $JustISOName" $R0 
+		${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nLINUX /!/$JustISOName/vmlinuz$\r$\nINITRD /!/$JustISOName/initrd$\r$\nAPPEND root=live:LABEL=CLD-20151230 vga=current init=/linuxrc rd.live.squashimg=livecd.squashfs nodevfs noresume splash=silent,theme:calculate console=tty1 iso-scan/filename=/!/$JustISOName/$JustISO$\r$\n#] $JustISOName" $R0 
  
  ; Linux Kid X
   ${ElseIf} $DistroName == "Linux Kid X" 
 		ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\!\$JustISOName\" -y'  
-  ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nLINUX /!/$JustISOName/boot/vmlinuz$\r$\nINITRD /!/$JustISOName/boot/initrd.gz$\r$\nAPPEND from=/!/$JustISOName vga=788 nocd max_loop=255 ramdisk_size=6666 root=/dev/ram0 rw $\r$\n#end $JustISOName" $R0      
+  ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nLINUX /!/$JustISOName/boot/vmlinuz$\r$\nINITRD /!/$JustISOName/boot/initrd.gz$\r$\nAPPEND from=/!/$JustISOName vga=788 nocd max_loop=255 ramdisk_size=6666 root=/dev/ram0 rw $\r$\n#] $JustISOName" $R0      
  
 		; Bitdefender
 		; ${ElseIf} $DistroName == "Bitdefender Rescue CD"
 		; ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\!\$JustISOName\" -y'  
-		; ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/boot/kernel.i386-pc$\r$\nAPPEND initrd=/!/$JustISOName/boot/initfs.i386-pc root=/dev/ram0 real_root=/dev/loop0 loop=/!/$JustISOName/rescue/livecd.squashfs cdroot_marker=/!/$JustISOName/rescue/livecd.squashfs initrd udev cdroot scandelay=10 quiet splash$\r$\n#end $JustISOName" $R0 
+		; ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/boot/kernel.i386-pc$\r$\nAPPEND initrd=/!/$JustISOName/boot/initfs.i386-pc root=/dev/ram0 real_root=/dev/loop0 loop=/!/$JustISOName/rescue/livecd.squashfs cdroot_marker=/!/$JustISOName/rescue/livecd.squashfs initrd udev cdroot scandelay=10 quiet splash$\r$\n#] $JustISOName" $R0 
  
   ${ElseIf} $DistroName == "Bitdefender Rescue CD"
 		CopyFiles $ISOFile "$BootDir\!\ISOS\$JustISO" 
-		${WriteToFile} "#start $JustISOName$\r$\nlabel Bitdefender ($JustISOName)$\r$\nMENU LABEL Bitdefender ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/menu/bitdefender.lst$\r$\n#end $JustISOName" $R0   
+		${WriteToFile} "#[ $JustISOName$\r$\nlabel Bitdefender ($JustISOName)$\r$\nMENU LABEL Bitdefender ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/menu/bitdefender.lst$\r$\n#] $JustISOName" $R0   
 		File /oname=$PLUGINSDIR\bitdefender.lst "ஐ-மரபு\பட்டியல்\bitdefender.lst"  
 		CopyFiles "$PLUGINSDIR\bitdefender.lst" "$BootDir\!\menu\bitdefender.lst" 
 		!insertmacro ReplaceInFile "SLUG" "$JustISO" "all" "all" "$BootDir\!\menu\bitdefender.lst" 
@@ -213,7 +213,7 @@ FunctionEnd
       ${OrIf} $DistroName == "Rescatux" 		  
   
 	 CopyFiles $ISOFile "$BootDir\!\$JustISOName\$JustISO" 
-	 ${WriteToFile} "#start $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/basic.lst$\r$\n#end $JustISOName" $R0   
+	 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/basic.lst$\r$\n#] $JustISOName" $R0   
 	 File /oname=$PLUGINSDIR\basic.lst "ஐ-மரபு\பட்டியல்\basic.lst"  
 	 CopyFiles "$PLUGINSDIR\basic.lst" "$BootDir\!\$JustISOName\basic.lst" 
 	 !insertmacro ReplaceInFile "SLUG" "$JustISO" "all" "all" "$BootDir\!\$JustISOName\basic.lst" 
@@ -224,7 +224,7 @@ FunctionEnd
 	 StrCpy $JustISOName "$JustISOName" 14 ; Grabs the first 14 characters of the file name.
 	 StrCpy $JustISO "$JustISO.iso"
 	 CopyFiles $ISOFile "$BootDir\!\$JustISOName\$JustISO" 
-	 ${WriteToFile} "#start $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/$JustISOName.lst$\r$\n#end $JustISOName" $R0   
+	 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/$JustISOName.lst$\r$\n#] $JustISOName" $R0   
 	 File /oname=$PLUGINSDIR\basic.lst "ஐ-மரபு\பட்டியல்\basic.lst"  
 	 CopyFiles "$PLUGINSDIR\basic.lst" "$BootDir\!\$JustISOName\$JustISOName.lst" 
 	 !insertmacro ReplaceInFile "SLUG" "$JustISO" "all" "all" "$BootDir\!\$JustISOName\$JustISOName.lst" 
@@ -234,7 +234,7 @@ FunctionEnd
 	 ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -o"$BootDir\!\$JustISOName\" -y' 
 	 File /oname=$PLUGINSDIR\customram.lst "ஐ-மரபு\பட்டியல்\customram.lst" 
 	 CopyFiles "$PLUGINSDIR\customram.lst" "$BootDir\!\$JustISOName\customram.lst" 
-	 ${WriteToFile} "#start $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/customram.lst$\r$\n#end $JustISOName" $R0   
+	 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/customram.lst$\r$\n#] $JustISOName" $R0   
 	 !insertmacro ReplaceInFile "SLUG" "hdsdos.iso" "all" "all" "$BootDir\!\$JustISOName\customram.lst" 
 	 !insertmacro ReplaceInFile "IPATH" "$JustISOName" "all" "all" "$BootDir\!\$JustISOName\customram.lst"  
 
@@ -243,16 +243,16 @@ FunctionEnd
 	 ;${ElseIf} $DistroName == "Dr.Web LiveDisk"
 	 ;ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\" -y'
 	 ;Call OldSysFix  ; Check for and replace vesamenu.c32, menu.c32, chain.c32 if found 
-	 ;${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nCONFIG /boot/isolinux/isolinux.cfg$\r$\nAPPEND /boot/isolinux$\r$\n#end $JustISOName" $R0 
+	 ;${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nCONFIG /boot/isolinux/isolinux.cfg$\r$\nAPPEND /boot/isolinux$\r$\n#] $JustISOName" $R0 
 
 	 ; Medicat (must use NTFS format)
   ${ElseIf} $DistroName == "Medicat (must use NTFS format)"
 	 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\" -y'
 	 ;Call OldSysFix  ; Check for and replace vesamenu.c32, menu.c32, chain.c32 if found 
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nCONFIG /isolinux.cfg$\r$\nAPPEND /$\r$\n#end $JustISOName" $R0
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nCONFIG /isolinux.cfg$\r$\nAPPEND /$\r$\n#] $JustISOName" $R0
  
   ${ElseIf} $DistroName == "Ubuntu" 
-     ${OrIf} $DistroName == "Ubuntu Studio"  
+     ${OrIf} $DistroName == "Ubuntu Studio"
 	; ${OrIf} $DistroName == "Ubuntu 19 (and lower)"  
      ${OrIf} $DistroName == "Edubuntu" 
      ${OrIf} $DistroName == "Xubuntu" 
@@ -262,7 +262,7 @@ FunctionEnd
 	 ${OrIf} $DistroName == "Ubuntu Budgie" 	
 	 ${OrIf} $DistroName == "Ubuntu Mate" 
      ${OrIf} $DistroName == "Ubuntu Gnome" 	   
-	 ${OrIf} $DistroName == "Linux Mint" 
+	 ${OrIf} $DistroName == "Linux Mint"
     ; ${OrIf} $DistroName == "Linux Mint 19 (and lower)" 
 	 ${OrIf} $DistroName == "ChaletOS" 
 	 ${OrIf} $DistroName == "Cub Linux" 
@@ -270,13 +270,13 @@ FunctionEnd
      ${OrIf} $DistroName == "mintyMac" 
 	 ${OrIf} $DistroName == "Peach OSI" 
 	 ${OrIf} $DistroName == "Skywave" 	 
-    ; ${OrIf} $DistroName == "Debian Live"
+	;${OrIf} $DistroName == "Debian Live"
    
 		CopyFiles $ISOFile "$BootDir\!\$JustISOName\$JustISO" ; Copy the ISO to Directory
 		ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!vmlinu* -ir!init* -o"$BootDir\!\$JustISOName\" -y'
 		File /oname=$PLUGINSDIR\ubuntu.lst "ஐ-மரபு\பட்டியல்\ubuntu.lst"  
 		CopyFiles "$PLUGINSDIR\ubuntu.lst" "$BootDir\!\$JustISOName\ubuntu.lst"   
-		${WriteToFile} "#start $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/ubuntu.lst$\r$\n#end $JustISOName" $R0   
+		${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/ubuntu.lst$\r$\n#] $JustISOName" $R0   
  
 		${If} $DistroName == "Ubuntu"
 		${OrIf} $DistroName == "Cub Linux"
@@ -386,12 +386,11 @@ FunctionEnd
            ${If} $FSType == "NTFS"    
            ${OrIf} $FormatMe == "Yes" ; Only perform these actions if FS is or will be NTFS	
 		   ;MessageBox MB_OK "$FSType"
-		   !insertmacro ReplaceInFile "#CLUG" "parttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4%$\r$\nif $\"%check%$\"==$\"0x00$\" partnew (hd0,3) 0 0 0$\r$\nif NOT $\"%check%$\"==$\"0x00$\" echo WARNING: fourth partition table entry is not empty, please delete it if you wish to use this method && pause --wait=5 && configfile /!/$JustISOName/ubuntu.lst$\r$\npartnew (hd0,3) 0x00 %CASPER%$\r$\nmap %CASPER% (hd0,3)" "all" "all" "$BootDir\!\$JustISOName\ubuntu.lst"
+		  !insertmacro ReplaceInFile "#CLUG" "parttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4%$\r$\nif $\"%check%$\"==$\"0x00$\" partnew (hd0,3) 0 0 0$\r$\nif NOT $\"%check%$\"==$\"0x00$\" echo WARNING: fourth partition table entry is not empty, please delete it if you wish to use this method && pause --wait=5 && configfile /!/$JustISOName/ubuntu.lst$\r$\npartnew (hd0,3) 0x00 %CASPER%$\r$\nmap %CASPER% (hd0,3)" "all" "all" "$BootDir\!\$JustISOName\ubuntu.lst"
 		   !insertmacro ReplaceInFile "noprompt boot=" "noprompt persistent boot=" "all" "all" "$BootDir\!\$JustISOName\ubuntu.lst" 
 		   ${Else}
 		   !insertmacro ReplaceInFile "noprompt boot=" "noprompt persistent persistent-path=/!/$JustISOName boot=" "all" "all" "$BootDir\!\$JustISOName\ubuntu.lst" 
 		   ${EndIf}
-		   
 		 ${EndIf} 
 	   ${EndIf}    
  
@@ -401,36 +400,36 @@ FunctionEnd
 		   ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitrd.* -ir!*mlinu* -o"$BootDir\!\$JustISOName\" -y'  
 		   Rename "$BootDir\!\$JustISOName\initrd.gz" "$BootDir\!\$JustISOName\initrd.lz" 
 		   Rename "$BootDir\!\$JustISOName\vmlinuz.efi" "$BootDir\!\$JustISOName\vmlinuz" 
-		   ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/vmlinuz$\r$\nAPPEND initrd=/!/$JustISOName/initrd.lz cdrom-detect/try-usb=true persistent persistent-path=/!/$JustISOName noprompt splash boot=casper iso-scan/filename=/!/$JustISOName/$JustISO$\r$\n#end $JustISOName" $R0
+		   ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/vmlinuz$\r$\nAPPEND initrd=/!/$JustISOName/initrd.lz cdrom-detect/try-usb=true persistent persistent-path=/!/$JustISOName noprompt splash boot=casper iso-scan/filename=/!/$JustISOName/$JustISO$\r$\n#] $JustISOName" $R0
 	   ${EndIf}    
  
 	 ; OpenSUSE 32bit 
 	 ${ElseIf} $DistroName == "OpenSUSE 32bit"
 	 CopyFiles $ISOFile "$BootDir\!\$JustISOName\$JustISO" ; Copy the ISO to ISO Directory
 	 ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitrd -ir!*inux -o"$BootDir\!\$JustISOName\" -y'  
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/linux$\r$\nAPPEND initrd=/!/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/!:/!/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/! isofrom_system=/!/$JustISOName/$JustISO loader=syslinux$\r$\n#end $JustISOName" $R0
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/linux$\r$\nAPPEND initrd=/!/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/TA:/!/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/TA isofrom_system=/!/$JustISOName/$JustISO loader=syslinux$\r$\n#] $JustISOName" $R0
 	 
 	 ; OpenSUSE 64bit 
 	 ${ElseIf} $DistroName == "OpenSUSE 64bit"
 	 CopyFiles $ISOFile "$BootDir\!\$JustISOName\$JustISO" ; Copy the ISO to ISO Directory
 	 ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitrd -ir!*inux -o"$BootDir\!\$JustISOName\" -y'   
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/linux$\r$\nAPPEND initrd=/!/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/!:/!/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/! isofrom_system=/!/$JustISOName/$JustISO loader=syslinux$\r$\n#end $JustISOName" $R0 
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/linux$\r$\nAPPEND initrd=/!/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/TA:/!/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/TA isofrom_system=/!/$JustISOName/$JustISO loader=syslinux$\r$\n#] $JustISOName" $R0 
 
 	 ; OpenMediaVault - NOT WORKING YET
 	 ; ${ElseIf} $DistroName == "OpenMediaVault"
 	 ; CopyFiles $ISOFile "$BootDir\!\$JustISOName\$JustISO" ; Copy the ISO to ISO Directory
 	 ; ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -ir!*nitrd -ir!*inux -o"$BootDir\!\$JustISOName\" -y'  
-	 ; ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/linux$\r$\nAPPEND initrd=/!/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/!:/!/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/! isofrom_system=/!/$JustISOName/$JustISO loader=syslinux$\r$\n#end $JustISOName" $R0 
+	 ; ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/linux$\r$\nAPPEND initrd=/!/$JustISOName/initrd ramdisk_size=512000 ramdisk_blocksize=4096 isofrom=/dev/disk/by-label/TA:/!/$JustISOName/$JustISO isofrom_device=/dev/disk/by-label/TA isofrom_system=/!/$JustISOName/$JustISO loader=syslinux$\r$\n#] $JustISOName" $R0 
 	 
 	 ; FreeDOS (Balder img) 
 	 ${ElseIf} $DistroName == "FreeDOS (Balder img)"
 	 CopyFiles $ISOFile "$BootDir\!\$JustISOName\$JustISO"
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL FreeDOS ($JustISOName)$\r$\nMENU LABEL FreeDOS ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /!/memdisk$\r$\nAPPEND initrd=/!/$JustISOName/$JustISO$\r$\n#end $JustISOName" $R0
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL FreeDOS ($JustISOName)$\r$\nMENU LABEL FreeDOS ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /!/memdisk$\r$\nAPPEND initrd=/!/$JustISOName/$JustISO$\r$\n#] $JustISOName" $R0
 	 
 	 ; Memtest86+ (Memory Testing Tool)
 	 ${ElseIf} $DistroName == "Memtest86+ (Memory Testing Tool)"
 	 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\!\$JustISOName\" -y'  
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nLINUX /!/$JustISOName/$JustISOName$\r$\n#end $JustISOName" $R0
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nLINUX /!/$JustISOName/$JustISOName$\r$\n#] $JustISOName" $R0
 
 	 ; Kon-Boot  
 	 ${ElseIf} $DistroName == "Kon-Boot FREE"
@@ -439,7 +438,7 @@ FunctionEnd
 	 ExecWait '"$PLUGINSDIR\7zG.exe" e "$EXEDIR\TEMPYUMI\FD0-konboot*.zip" -pkon-boot -o"$EXEDIR\TEMPYUMI" -y' 
 	 CopyFiles $EXEDIR\TEMPYUMI\FD0-konboot-v1.1-2in1.img "$BootDir\!\$JustISOName\konboot.img" 
 	 RMDir /R "$EXEDIR\TEMPYUMI"
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL Kon-Boot ($JustISOName)$\r$\nMENU LABEL Kon-Boot ($JustISOName)$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/konboot.cfg$\r$\nAPPEND /!/menu$\r$\n#end $JustISOName" $R0 
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Kon-Boot ($JustISOName)$\r$\nMENU LABEL Kon-Boot ($JustISOName)$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/konboot.cfg$\r$\nAPPEND /!/menu$\r$\n#] $JustISOName" $R0 
 	 File /oname=$PLUGINSDIR\konboot.cfg "ஐ-மரபு\பட்டியல்\konboot.cfg"  
 	 CopyFiles "$PLUGINSDIR\konboot.cfg" "$BootDir\!\menu\konboot.cfg"
 	 !insertmacro ReplaceInFile "SLUG" "$JustISOName" "all" "all" "$BootDir\!\menu\konboot.cfg" 
@@ -451,7 +450,7 @@ FunctionEnd
 	 CopyFiles $EXEDIR\TEMPYUMI\konboot.img "$BootDir\!\$JustISOName\konboot.img"  
 	 CopyFiles $EXEDIR\TEMPYUMI\konbootOLD.img "$BootDir\!\$JustISOName\konbootOLD.img" 
 	 RMDir /R "$EXEDIR\TEMPYUMI"
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL Kon-Boot ($JustISOName)$\r$\nMENU LABEL Kon-Boot ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/konboot.lst" $R0 
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Kon-Boot ($JustISOName)$\r$\nMENU LABEL Kon-Boot ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/konboot.lst" $R0 
 	 File /oname=$PLUGINSDIR\konboot.lst "ஐ-மரபு\பட்டியல்\konboot.lst"  
 	 CopyFiles "$PLUGINSDIR\konboot.lst" "$BootDir\!\$JustISOName\konboot.lst"
 	 !insertmacro ReplaceInFile "SLUG" "$JustISOName" "all" "all" "$BootDir\!\$JustISOName\konboot.lst" 
@@ -459,19 +458,19 @@ FunctionEnd
 	 ; Falcon 4 Boot CD
 	 ${ElseIf} $DistroName == "Falcon 4 Boot CD"
 	 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\" -y' 
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL Falcon 4 Boot CD ($JustISOName)$\r$\nMENU LABEL Falcon 4 Boot CD ($JustISOName)$\r$\nMENU INDENT 1$\r$\nCOM32 /!/chain.c32 ntldr=/grldr$\r$\n#end $JustISOName" $R0
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Falcon 4 Boot CD ($JustISOName)$\r$\nMENU LABEL Falcon 4 Boot CD ($JustISOName)$\r$\nMENU INDENT 1$\r$\nCOM32 /!/chain.c32 ntldr=/grldr$\r$\n#] $JustISOName" $R0
  
 	 ; Hiren's Boot CD 
 	 ${ElseIf} $DistroName == "Hiren's Boot CD" 
 	 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -ir!HBCD -o"$BootDir\" -y' 
 	   Call SysFixHirens  ; Check for and replace vesamenu.c32, menu.c32, chain.c32 if found 
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL Hiren's Boot CD ($JustISOName)$\r$\nMENU LABEL Hiren's Boot CD ($JustISOName)$\r$\nMENU INDENT 1$\r$\nCOM32 /HBCD/Boot/chain.c32 ntldr=/HBCD/grldr$\r$\n#end $JustISOName" $R0  
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Hiren's Boot CD ($JustISOName)$\r$\nMENU LABEL Hiren's Boot CD ($JustISOName)$\r$\nMENU INDENT 1$\r$\nCOM32 /HBCD/Boot/chain.c32 ntldr=/HBCD/grldr$\r$\n#] $JustISOName" $R0  
 
 	 ; Windows Defender Offline
 		 ${ElseIf} $DistroName == "Windows Defender Offline"
 		 CopyFiles $ISOFile "$BootDir\!\ISOS\$JustISO" 
-		 ; ${WriteToFile} "#start $JustISOName$\r$\nLABEL Windows Defender Offline ($JustISOName)$\r$\nMENU LABEL Windows Defender Offline ($JustISOName)$\r$\nMENU INDENT 1$\r$\nLINUX /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile $\"ls /!/ISOS/$JustISO || find --set-root /!/ISOS/$JustISO;map --heads=0 --sectors-per-track=0 /!/ISOS/$JustISO (0xff) || map --heads=0 --sectors-per-track=0 --mem /!/ISOS/$JustISO (0xff);map --hook;chainloader (0xff)$\"$\r$\n#end $JustISOName" $R0
-		 ${WriteToFile} "#start $JustISOName$\r$\nlabel Windows Defender Offline ($JustISOName)$\r$\nmenu label title Windows Defender Offline ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/menu/WDO.lst$\r$\n#end $JustISOName" $R0   
+		 ; ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Windows Defender Offline ($JustISOName)$\r$\nMENU LABEL Windows Defender Offline ($JustISOName)$\r$\nMENU INDENT 1$\r$\nLINUX /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile $\"ls /!/ISOS/$JustISO || find --set-root /!/ISOS/$JustISO;map --heads=0 --sectors-per-track=0 /!/ISOS/$JustISO (0xff) || map --heads=0 --sectors-per-track=0 --mem /!/ISOS/$JustISO (0xff);map --hook;chainloader (0xff)$\"$\r$\n#] $JustISOName" $R0
+		 ${WriteToFile} "#[ $JustISOName$\r$\nlabel Windows Defender Offline ($JustISOName)$\r$\nmenu label title Windows Defender Offline ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/menu/WDO.lst$\r$\n#] $JustISOName" $R0   
 		 File /oname=$PLUGINSDIR\WDO.lst "ஐ-மரபு\பட்டியல்\WDO.lst"  
 		 CopyFiles "$PLUGINSDIR\WDO.lst" "$BootDir\!\menu\WDO.lst" 
 		 !insertmacro ReplaceInFile "SLUG" "$JustISO" "all" "all" "$BootDir\!\menu\WDO.lst"  
@@ -479,8 +478,8 @@ FunctionEnd
 	 ; Windows (WIM) boot
 	 ${ElseIf} $DistroName == "Multiple Windows Vista/7/8/10 Installers -wimboot"
 	 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -o"$BootDir\!\$JustISOName" -y -x![BOOT]*' 
-	  ;${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nCOM32 linux.c32$\r$\nappend wimboot initrdfile=$JustISOName/bootmgr,$JustISOName/boot/bcd,$JustISOName/boot/boot.sdi,$JustISOName/sources/boot.wim$\r$\n#end $JustISOName" $R0
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle Install $JustISOName - wimboot$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --hook$\r$\nkernel (hd1,0)/!/wimboot$\r$\nkernel (hd1,0)/!/wimboot$\r$\ninitrd @bootmgr=(hd1,0)/!/$JustISOName/bootmgr @bcd=(hd1,0)/!/$JustISOName/boot/bcd @boot.sdi=(hd1,0)/!/$JustISOName/boot/boot.sdi @boot.wim=(hd1,0)/!/$JustISOName/sources/boot.wim$\r$\n#end $JustISOName" $R0   
+	  ;${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nCOM32 linux.c32$\r$\nappend wimboot initrdfile=$JustISOName/bootmgr,$JustISOName/boot/bcd,$JustISOName/boot/boot.sdi,$JustISOName/sources/boot.wim$\r$\n#] $JustISOName" $R0
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle Install $JustISOName - wimboot$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --hook$\r$\nkernel (hd1,0)/!/wimboot$\r$\nkernel (hd1,0)/!/wimboot$\r$\ninitrd @bootmgr=(hd1,0)/!/$JustISOName/bootmgr @bcd=(hd1,0)/!/$JustISOName/boot/bcd @boot.sdi=(hd1,0)/!/$JustISOName/boot/boot.sdi @boot.wim=(hd1,0)/!/$JustISOName/sources/boot.wim$\r$\n#] $JustISOName" $R0   
 	   CopyFiles "$PLUGINSDIR\remount.cmd" "$BootDir\!\$JustISOName\remount.cmd"    
 	   CopyFiles "$PLUGINSDIR\ei.cfg" "$BootDir\!\$JustISOName\sources\ei.cfg"	  
 	   CopyFiles "$PLUGINSDIR\wimlib\stuff\autounattend.xml" "$BootDir\!\$JustISOName\autounattend.xml"   
@@ -507,9 +506,9 @@ FunctionEnd
 	  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -o"$BootDir\!\$JustISOName" -y -x![BOOT]*'    
 	 
 	  ${IfNot} ${FileExists} "$BootDir\!\$JustISOName\efi\microsoft\boot\bcd"
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle Install $JustISOName - bootmgr at root$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0  
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle Install $JustISOName - bootmgr at root$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0  
 	  ${Else} ; For 32bit variants
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle Install $JustISOName - bootmgr at root$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/!/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0 
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle Install $JustISOName - bootmgr at root$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/!/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0 
 	  ${Endif}
 	   CopyFiles "$PLUGINSDIR\remount.cmd" "$BootDir\!\$JustISOName\remount.cmd"    
 	   CopyFiles "$PLUGINSDIR\ei.cfg" "$BootDir\!\$JustISOName\sources\ei.cfg"	  
@@ -570,7 +569,7 @@ FunctionEnd
 	 ; Windows PE (WIM) boot
 		 ${ElseIf} $DistroName == "Multiple Windows PE -wimboot"
 		 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -o"$BootDir\!\$JustISOName" -y -x![BOOT]*' 
-		  ${WriteToFile} "#start $JustISOName$\r$\ntitle $JustISOName - wimboot$\r$\nkernel /!/wimboot$\r$\nkernel /!/wimboot$\r$\ninitrd @bootmgr=/!/$JustISOName/bootmgr @bcd=/!/$JustISOName/boot/bcd @boot.sdi=/!/$JustISOName/boot/boot.sdi @boot.wim=/!/$JustISOName/sources/boot.wim$\r$\n#end $JustISOName" $R0   
+		  ${WriteToFile} "#[ $JustISOName$\r$\ntitle $JustISOName - wimboot$\r$\nkernel /!/wimboot$\r$\nkernel /!/wimboot$\r$\ninitrd @bootmgr=/!/$JustISOName/bootmgr @bcd=/!/$JustISOName/boot/bcd @boot.sdi=/!/$JustISOName/boot/boot.sdi @boot.wim=/!/$JustISOName/sources/boot.wim$\r$\n#] $JustISOName" $R0   
 
 	 ; Windows PE - bootmgr at root of USB
 		 ${ElseIf} $DistroName == "Multiple Windows PE -bootmgr"
@@ -582,9 +581,9 @@ FunctionEnd
 		 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -ir!Programs -o"$BootDir\"'   
 	 
 	  ${IfNot} ${FileExists} "$BootDir\!\$JustISOName\efi\microsoft\boot\bcd"
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle $JustISOName - bootmgr at root$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0  
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle $JustISOName - bootmgr at root$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0  
 	  ${Else} ; For 32bit variants
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle $JustISOName - bootmgr at root$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/!/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0 
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle $JustISOName - bootmgr at root$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/!/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0 
 	  ${Endif}
 	  
 	  ${If} ${FileExists} "$BootDir\!\$JustISOName\CdUsb.Y"
@@ -637,11 +636,11 @@ FunctionEnd
 	 CopyFiles "$BootDir\boot" "$BootDir\!\$JustISOName"
 	 
 	  ${IfNot} ${FileExists} "$BootDir\efi\microsoft\boot\bcd"
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle Install $JustISOName$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0  
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle Install $JustISOName$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0  
 	  ${Else} 
 	   CopyFiles "$BootDir\bootmgr.efi" "$BootDir\!\$JustISOName"
 	   CopyFiles "$BootDir\efi" "$BootDir\!\$JustISOName"
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle Install $JustISOName$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/!/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0 
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle Install $JustISOName$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/!/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0 
 	  ${Endif}
 	  
 	 ; Single Windows PE -files at root
@@ -651,17 +650,17 @@ FunctionEnd
 	 CopyFiles "$BootDir\boot" "$BootDir\!\$JustISOName"
 	 
 	  ${IfNot} ${FileExists} "$BootDir\efi\microsoft\boot\bcd"
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle Start $JustISOName - Single PE$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0  
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle Start $JustISOName - Single PE$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0  
 	  ${Else} 
 	   CopyFiles "$BootDir\bootmgr.efi" "$BootDir\!\$JustISOName"
 	   CopyFiles "$BootDir\efi" "$BootDir\!\$JustISOName"
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle Start $JustISOName - Single PE$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/!/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0 
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle Start $JustISOName - Single PE$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/!/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0 
 	  ${Endif}  
 
 	 ; Windows XP
 	 ${ElseIf} $DistroName == "Single Windows XP Installer" 
 	 CopyFiles $ISOFile "$BootDir\!\ISOS\$JustISO"
-	 ${WriteToFile} "title$\r$\nroot$\r$\n#start $JustISOName$\r$\ntitle Begin Install of Windows XP from $JustISO (Stage 1)$\r$\nfind --set-root /!/ISOS/$JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --mem /!/ISOS/firadisk.img (fd0)$\r$\nmap --mem /!/ISOS/firadisk.img (fd1)$\r$\nmap --mem /!/ISOS/$JustISO (0xff)$\r$\nmap --hook$\r$\nchainloader (0xff)/I386/SETUPLDR.BIN$\r$\n$\r$\ntitle Continue Windows XP Install from $JustISO (Stage 2)$\r$\nfind --set-root /!/ISOS/$JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --mem /!/ISOS/$JustISO (0xff)$\r$\nmap --hook$\r$\nchainloader (hd0)+1$\r$\n$\r$\ntitle Boot Windows XP - If fails, reboot with USB removed (Stage 3)$\r$\nmap (hd1) (hd0)$\r$\nmap (hd0) (hd1)$\r$\nroot (hd1,0)$\r$\nfind --set-root /ntldr$\r$\nchainloader /ntldr$\r$\n#end $JustISOName" $R0  
+	 ${WriteToFile} "title$\r$\nroot$\r$\n#[ $JustISOName$\r$\ntitle Begin Install of Windows XP from $JustISO (Stage 1)$\r$\nfind --set-root /!/ISOS/$JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --mem /!/ISOS/firadisk.img (fd0)$\r$\nmap --mem /!/ISOS/firadisk.img (fd1)$\r$\nmap --mem /!/ISOS/$JustISO (0xff)$\r$\nmap --hook$\r$\nchainloader (0xff)/I386/SETUPLDR.BIN$\r$\n$\r$\ntitle Continue Windows XP Install from $JustISO (Stage 2)$\r$\nfind --set-root /!/ISOS/$JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --mem /!/ISOS/$JustISO (0xff)$\r$\nmap --hook$\r$\nchainloader (hd0)+1$\r$\n$\r$\ntitle Boot Windows XP - If fails, reboot with USB removed (Stage 3)$\r$\nmap (hd1) (hd0)$\r$\nmap (hd0) (hd1)$\r$\nroot (hd1,0)$\r$\nfind --set-root /ntldr$\r$\nchainloader /ntldr$\r$\n#] $JustISOName" $R0  
 	 File /oname=$PLUGINSDIR\firadisk.img "இருமங்கள்\firadisk.img"  
 	 CopyFiles "$PLUGINSDIR\firadisk.img" "$BootDir\!\ISOS\firadisk.img"   
 	 
@@ -711,7 +710,7 @@ FunctionEnd
 	  ;${IfNot} ${FileExists} "$VHDDISK\efi\microsoft\boot\bcd"
 	   nsExec::ExecToLog '"cmd" /c bcdedit /store $BootDir/!/$JustISOName/boot/bcd /set {default} device vhd=[locate]\!\$JustISOName\$JustISOName.vhd'
 	   nsExec::ExecToLog '"cmd" /c bcdedit /store $BootDir/!/$JustISOName/boot/bcd /set {default} osdevice vhd=[locate]\!\$JustISOName\$JustISOName.vhd'
-	   ${WriteToFile} "#start $JustISOName$\r$\ntitle Boot $JustISOName$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0  
+	   ${WriteToFile} "#[ $JustISOName$\r$\ntitle Boot $JustISOName$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0  
 	  ;${Else} 
 	  ; CopyFiles "$VHDDISK\bootmgr.efi" "$BootDir\!\$JustISOName"
 	  ; CopyFiles "$VHDDISK\efi" "$BootDir\!\$JustISOName"
@@ -719,8 +718,8 @@ FunctionEnd
 	  ; nsExec::ExecToLog '"cmd" /c bcdedit /store $BootDir/!/$JustISOName/boot/bcd /set {default} osdevice vhd=[locate]\!\$JustISOName\$JustISOName.vhd'
 	  ; nsExec::ExecToLog '"cmd" /c bcdedit /store $BootDir/!/$JustISOName/efi/microsoft/boot/bcd /set {default} device vhd=[locate]\!\$JustISOName\$JustISOName.vhd'
 	  ; nsExec::ExecToLog '"cmd" /c bcdedit /store $BootDir/!/$JustISOName/efi/microsoft/boot/bcd /set {default} osdevice vhd=[locate]\!\$JustISOName\$JustISOName.vhd'
-	  ; ${WriteToFile} "#start $JustISOName$\r$\ntitle Boot $JustISOName$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/!/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#end $JustISOName" $R0 
-	   ;;${WriteToFile} "#start $JustISOName$\r$\ntitle Boot $JustISO$\r$\nchainloader /bootmgr$\r$\n#end $JustISOName" $R0  
+	  ; ${WriteToFile} "#[ $JustISOName$\r$\ntitle Boot $JustISOName$\r$\ndd if=()/!/$JustISOName/boot/bcd of=()/boot/bcd$\r$\ndd if=()/!/$JustISOName/efi/microsoft/boot/bcd of=()/efi/microsoft/boot/bcd$\r$\nchainloader /!/$JustISOName/bootmgr$\r$\n#] $JustISOName" $R0 
+	   ;;${WriteToFile} "#[ $JustISOName$\r$\ntitle Boot $JustISO$\r$\nchainloader /bootmgr$\r$\n#] $JustISOName" $R0  
 	  ;${Endif}
 	 ${EnableX64FSRedirection} 
 	  
@@ -757,11 +756,11 @@ FunctionEnd
 	 nsExec::ExecToLog '"DiskPart" /S $BootDir\!\$JustISOName\dd-diskpart.txt'
 	 ExecWait '"$PLUGINSDIR\dd.exe" if=$ISOFile of=$BootDir\!\$JustISOName\$JustISOName.vhd bs=2M --progress'
 	; nsExec::ExecToLog '"DiskPart" /S $BootDir\!\$JustISOName\diskpartdetach.txt' 
-	 ${WriteToFile} "#start $JustISOName$\r$\ntitle Boot $JustISO$\r$\nmap --heads=0 --sectors-per-track=0 /!/$JustISOName/$JustISOName.vhd (hd0)$\r$\nmap --hook$\r$\nchainloader (hd0)+1$\r$\nrootnoverify (hd0)$\r$\n#end $JustISOName" $R0    
+	 ${WriteToFile} "#[ $JustISOName$\r$\ntitle Boot $JustISO$\r$\nmap --heads=0 --sectors-per-track=0 /!/$JustISOName/$JustISOName.vhd (hd0)$\r$\nmap --hook$\r$\nchainloader (hd0)+1$\r$\nrootnoverify (hd0)$\r$\n#] $JustISOName" $R0    
 
 	 ${ElseIf} $DistroName == "Super Grub2 Disk" 
 	 CopyFiles $ISOFile "$BootDir\!\ISOS\$JustISO"
-	 ${WriteToFile} "#start $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/menu/sgd.lst$\r$\n#end $JustISOName" $R0   
+	 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/menu/sgd.lst$\r$\n#] $JustISOName" $R0   
 	 File /oname=$PLUGINSDIR\sgd.lst "ஐ-மரபு\பட்டியல்\sgd.lst"  
 	 CopyFiles "$PLUGINSDIR\sgd.lst" "$BootDir\!\menu\sgd.lst" 
 	 !insertmacro ReplaceInFile "SLUG" "$JustISO" "all" "all" "$BootDir\!\menu\sgd.lst"  
@@ -801,35 +800,35 @@ FunctionEnd
 	  nsExec::ExecToLog '"cmd" /c $PLUGINSDIR\wimlib\wimlib-imagex update V:\x86\sources\boot.wim 2 < $BootDir\!\$JustISOName\au.txt'     
 	  ${Endif}
 	  nsExec::ExecToLog '"DiskPart" /S $BootDir\!\$JustISOName\diskpartdetach.txt' 
-	 ${WriteToFile} "#start $JustISOName$\r$\ntitle Boot $JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --heads=0 --sectors-per-track=0 /!/$JustISOName/$JustISOName.vhd (hd1)$\r$\nmap --hook$\r$\nchainloader (hd1)+1$\r$\nrootnoverify (hd1)$\r$\n#end $JustISOName" $R0    
+	 ${WriteToFile} "#[ $JustISOName$\r$\ntitle Boot $JustISO$\r$\nmap (hd0) (hd1)$\r$\nmap (hd1) (hd0)$\r$\nmap --heads=0 --sectors-per-track=0 /!/$JustISOName/$JustISOName.vhd (hd1)$\r$\nmap --hook$\r$\nchainloader (hd1)+1$\r$\nrootnoverify (hd1)$\r$\n#] $JustISOName" $R0    
 	 
 	 
 		# The following Grub at Partition 4 entry adds a 4th partition table entry to the USB device and uses this as a placeholder for the ISO. 
 		# Entry derived from information obtained from Steve of rmprepusb.com. Steve said the following were his original sources: http://reboot.pro/topic/9916-grub4dos-isohybrided/page-2#entry88531 and http://reboot.pro/topic/9916-grub4dos-isohybrided/page-2#entry164127
 		 ${ElseIf} $DistroName == "Try Unlisted ISO (GRUB Partition 4)" 
 		 CopyFiles $ISOFile "$BootDir\!\ISOS\$JustISO"
-		 ; ${WriteToFile} "#start $JustISOName$\r$\n#Modify the following entry if it does not boot$\r$\ntitle Boot $JustISOName$\r$\nset ISO=/!/ISOS/$JustISO$\r$\nfind --set-root %ISO%$\r$\nparttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4% $\r$\nif %check%==0x00 partnew (hd0,3) 0x00 %ISO%$\r$\nif NOT %check%==0x00 echo ERROR: Fourth partition table entry is not empty, please delete it if you wish to use this method! && pause --wait=5 && configfile /!/menu/grubpart4.lst$\r$\nmap %ISO% (0xff)$\r$\nmap --hook$\r$\nroot (0xff)$\r$\nchainloader (0xff)$\r$\n#end $JustISOName" $R0
-		 ; ${WriteToFile} "#start $JustISOName$\r$\nparttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4%$\r$\nif %check%==0x00 partnew (hd0,3) 0 0 0$\r$\nif not %check%==0x00 echo WARNING: Fourth partition is not empty, please delete it if you wish to use this boot method! && pause --wait=5 && configfile /!/menu/menu.lst$\r$\n#Modify the following entry if it does not boot$\r$\ntitle Boot $JustISOName$\r$\nset ISO=/!/ISOS/$JustISO$\r$\nfind --set-root %ISO%$\r$\nparttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4% $\r$\nif %check%==0x00 partnew (hd0,3) 0x00 %ISO%$\r$\nif NOT %check%==0x00 echo ERROR: Fourth partition table entry is not empty, please delete it if you wish to use this method! && pause --wait=5 && configfile /!/menu/grubpart4.lst$\r$\nmap %ISO% (0xff)$\r$\nmap --hook$\r$\nroot (0xff)$\r$\nchainloader (0xff)$\r$\n#end $JustISOName" $R0
-		 ${WriteToFile} "#start $JustISOName$\r$\n#Modify the following entry if it does not boot$\r$\ntitle Boot $JustISOName$\r$\nset ISO=/!/ISOS/$JustISO$\r$\nfind --set-root %ISO%$\r$\n$\r$\nparttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4%$\r$\nif $\"%check%$\"==$\"0x00$\" partnew (hd0,3) 0 0 0$\r$\nif NOT $\"%check%$\"==$\"0x00$\" echo ERROR: Fourth partition table entry is not empty, please delete it if you wish to use this method && pause --wait=5 && configfile /!/menu/grubpart4.lst$\r$\npartnew (hd0,3) 0x00 %ISO%$\r$\nmap %ISO% (0xff)$\r$\nmap --hook$\r$\nroot (0xff)$\r$\nchainloader (0xff)$\r$\n#end $JustISOName" $R0
+		 ; ${WriteToFile} "#[ $JustISOName$\r$\n#Modify the following entry if it does not boot$\r$\ntitle Boot $JustISOName$\r$\nset ISO=/!/ISOS/$JustISO$\r$\nfind --set-root %ISO%$\r$\nparttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4% $\r$\nif %check%==0x00 partnew (hd0,3) 0x00 %ISO%$\r$\nif NOT %check%==0x00 echo ERROR: Fourth partition table entry is not empty, please delete it if you wish to use this method! && pause --wait=5 && configfile /!/menu/grubpart4.lst$\r$\nmap %ISO% (0xff)$\r$\nmap --hook$\r$\nroot (0xff)$\r$\nchainloader (0xff)$\r$\n#] $JustISOName" $R0
+		 ; ${WriteToFile} "#[ $JustISOName$\r$\nparttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4%$\r$\nif %check%==0x00 partnew (hd0,3) 0 0 0$\r$\nif not %check%==0x00 echo WARNING: Fourth partition is not empty, please delete it if you wish to use this boot method! && pause --wait=5 && configfile /!/menu/menu.lst$\r$\n#Modify the following entry if it does not boot$\r$\ntitle Boot $JustISOName$\r$\nset ISO=/!/ISOS/$JustISO$\r$\nfind --set-root %ISO%$\r$\nparttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4% $\r$\nif %check%==0x00 partnew (hd0,3) 0x00 %ISO%$\r$\nif NOT %check%==0x00 echo ERROR: Fourth partition table entry is not empty, please delete it if you wish to use this method! && pause --wait=5 && configfile /!/menu/grubpart4.lst$\r$\nmap %ISO% (0xff)$\r$\nmap --hook$\r$\nroot (0xff)$\r$\nchainloader (0xff)$\r$\n#] $JustISOName" $R0
+		 ${WriteToFile} "#[ $JustISOName$\r$\n#Modify the following entry if it does not boot$\r$\ntitle Boot $JustISOName$\r$\nset ISO=/!/ISOS/$JustISO$\r$\nfind --set-root %ISO%$\r$\n$\r$\nparttype (hd0,3) | set check=$\r$\nset check=%check:~-5,4%$\r$\nif $\"%check%$\"==$\"0x00$\" partnew (hd0,3) 0 0 0$\r$\nif NOT $\"%check%$\"==$\"0x00$\" echo ERROR: Fourth partition table entry is not empty, please delete it if you wish to use this method && pause --wait=5 && configfile /!/menu/grubpart4.lst$\r$\npartnew (hd0,3) 0x00 %ISO%$\r$\nmap %ISO% (0xff)$\r$\nmap --hook$\r$\nroot (0xff)$\r$\nchainloader (0xff)$\r$\n#] $JustISOName" $R0
 		 
 		 ${ElseIf} $DistroName == "Try Unlisted ISO (GRUB)" 
 		 CopyFiles $ISOFile "$BootDir\!\ISOS\$JustISO"
-		 ${WriteToFile} "#start $JustISOName$\r$\n#Modify the following entry if it does not boot$\r$\ntitle Boot $JustISO$\r$\nfind --set-root --ignore-floppies --ignore-cd /!/ISOS/$JustISO$\r$\nmap --heads=0 --sectors-per-track=0 /!/ISOS/$JustISO (hd32)$\r$\nmap --hook$\r$\nchainloader (hd32)$\r$\n#end $JustISOName" $R0 
+		 ${WriteToFile} "#[ $JustISOName$\r$\n#Modify the following entry if it does not boot$\r$\ntitle Boot $JustISO$\r$\nfind --set-root --ignore-floppies --ignore-cd /!/ISOS/$JustISO$\r$\nmap --heads=0 --sectors-per-track=0 /!/ISOS/$JustISO (hd32)$\r$\nmap --hook$\r$\nchainloader (hd32)$\r$\n#] $JustISOName" $R0 
 		 
 		 ${ElseIf} $DistroName == "Try Unlisted ISO (GRUB from RAM)" 
 		 CopyFiles $ISOFile "$BootDir\!\ISOS\$JustISO"
-		 ${WriteToFile} "#start $JustISOName$\r$\n#Modify the following memory based entry if it does not boot$\r$\ntitle Boot $JustISO from Memory$\r$\nfind --set-root --ignore-floppies --ignore-cd /!/ISOS/$JustISO$\r$\nmap --heads=0 --sectors-per-track=0 --mem /!/ISOS/$JustISO (hd32)$\r$\nmap --hook$\r$\nroot (hd32)$\r$\nchainloader (hd32)$\r$\n#end $JustISOName" $R0
+		 ${WriteToFile} "#[ $JustISOName$\r$\n#Modify the following memory based entry if it does not boot$\r$\ntitle Boot $JustISO from Memory$\r$\nfind --set-root --ignore-floppies --ignore-cd /!/ISOS/$JustISO$\r$\nmap --heads=0 --sectors-per-track=0 --mem /!/ISOS/$JustISO (hd32)$\r$\nmap --hook$\r$\nroot (hd32)$\r$\nchainloader (hd32)$\r$\n#] $JustISOName" $R0
 
 		 ${ElseIf} $DistroName == "Puppy Arcade"  
 		 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\!\$JustISOName\" -y'  
-		 ${WriteToFile} "#start $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/arcade.lst$\r$\n#end $JustISOName" $R0   
+		 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/arcade.lst$\r$\n#] $JustISOName" $R0   
 		 File /oname=$PLUGINSDIR\arcade.lst "ஐ-மரபு\பட்டியல்\arcade.lst"  
 		 CopyFiles "$PLUGINSDIR\arcade.lst" "$BootDir\!\$JustISOName\arcade.lst" 
 		 !insertmacro ReplaceInFile "SLUG" "$JustISOName" "all" "all" "$BootDir\!\$JustISOName\arcade.lst"  
 		 
 		 ${ElseIf} $DistroName == "Super Grub2 Disk"  
 		 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\!\$JustISOName\" -y'  
-		 ${WriteToFile} "#start $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/sgd.lst$\r$\n#end $JustISOName" $R0   
+		 ${WriteToFile} "#[ $JustISOName$\r$\nlabel $JustISOName$\r$\nmenu label $JustISOName$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=root (hd0,0);configfile /!/$JustISOName/sgd.lst$\r$\n#] $JustISOName" $R0   
 		 File /oname=$PLUGINSDIR\sgd.lst "ஐ-மரபு\பட்டியல்\sgd.lst"  
 		 CopyFiles "$PLUGINSDIR\sgd.lst" "$BootDir\!\$JustISOName\sgd.lst" 
 		 !insertmacro ReplaceInFile "SLUG" "$JustISOName" "all" "all" "$BootDir\!\$JustISOName\sgd.lst"   
@@ -837,14 +836,14 @@ FunctionEnd
 	 ; Vba32 Rescue - NOT READY YET
 	 ; ${ElseIf} $DistroName == "Vba32 Rescue"
 	 ; ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\" -y' 
-	 ; ${WriteToFile} "#start $JustISOName$\r$\nLABEL Vba32 Rescue ($JustISOName)$\r$\nMENU LABEL Vba32 Rescue ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/vba/kernel$\r$\nAPPEND initrd=/!/$JustISOName/vba/initrd$\r$\n#end $JustISOName" $R0
+	 ; ${WriteToFile} "#[ $JustISOName$\r$\nLABEL Vba32 Rescue ($JustISOName)$\r$\nMENU LABEL Vba32 Rescue ($JustISOName)$\r$\nMENU INDENT 1$\r$\nKERNEL /!/$JustISOName/vba/kernel$\r$\nAPPEND initrd=/!/$JustISOName/vba/initrd$\r$\n#] $JustISOName" $R0
 	 
 	 ${Else}
 	 ;Else:
 	 ; Start Catch All Install Methods 
 	 ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -x![BOOT] -o"$BootDir\!\$JustISOName\" -y'  
 	 Call FindConfig
-	 ${WriteToFile} "#start $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nCONFIG /!/$JustISOName/$ConfigPath/$ConfigFile$\r$\nAPPEND /!/$JustISOName/$ConfigPath$\r$\n#end $JustISOName" $R0 
+	 ${WriteToFile} "#[ $JustISOName$\r$\nLABEL $JustISOName$\r$\nMENU LABEL $JustISOName$\r$\nMENU INDENT 1$\r$\nCONFIG /!/$JustISOName/$ConfigPath/$ConfigFile$\r$\nAPPEND /!/$JustISOName/$ConfigPath$\r$\n#] $JustISOName" $R0 
 
 	 ; For Ubuntu Desktop and derivatives
 	  ${If} ${FileExists} "$BootDir\!\$JustISOName\isolinux\txt.cfg" ; Rename the following for isolinux txt.cfg
@@ -1028,7 +1027,7 @@ FunctionEnd
 	 ; For Fedora Based and derivatives
 	   ${If} ${FileExists} "$BootDir\!\$JustISOName\isolinux\isolinux.cfg" 
 	   ${AndIf} ${FileExists} "$BootDir\!\$JustISOName\LiveOS\livecd-iso-to-disk"  ; Probably Fedora based
-	   !insertmacro ReplaceInFile "root=live:CDLABEL=" "root=live:LABEL=! live_dir=/!/$JustISOName/LiveOS rd.live.dir=/!/$JustISOName/LiveOS NULL=" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"   
+	   !insertmacro ReplaceInFile "root=live:CDLABEL=" "root=live:LABEL=TA live_dir=/!/$JustISOName/LiveOS rd.live.dir=/!/$JustISOName/LiveOS NULL=" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"   
 	   ${EndIf} 
 
 	 ; For Puppy Based and derivatives
@@ -1248,7 +1247,7 @@ FunctionEnd
 	   ${If} ${FileExists} "$BootDir\!\$JustISOName\antiX\vmlinuz"  
 	   !insertmacro ReplaceInFile "/antiX/vmlinuz" "/!/$JustISOName/antiX/vmlinuz" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
 	   !insertmacro ReplaceInFile "INITRD /antiX" "INITRD /!/$JustISOName/antiX" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile" 
-	   !insertmacro ReplaceInFile "APPEND quiet" "APPEND bdir=/!/$JustISOName/antiX blab=!" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
+	   !insertmacro ReplaceInFile "APPEND quiet" "APPEND bdir=/!/$JustISOName/antiX blab=TA" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
 	   ;!insertmacro ReplaceInFile "UI gfxboot" "default vesamenu.c32 $\r$\nprompt 0 #" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"    
 	   ${EndIf}   
 	   
@@ -1258,17 +1257,17 @@ FunctionEnd
 	   !insertmacro ReplaceInFile "APPEND /arch" "APPEND /!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile" 
 		  
 	   !insertmacro ReplaceInFile "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_pxe64.cfg"     
-	   !insertmacro ReplaceInFile "archisolabel=ARCH" "archisolabel=! NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_pxe64.cfg"     
+	   !insertmacro ReplaceInFile "archisolabel=ARCH" "archisolabel=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_pxe64.cfg"     
 	   !insertmacro ReplaceInFile "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_pxe32.cfg"     
-	   !insertmacro ReplaceInFile "archisolabel=ARCH" "archisolabel=! NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_pxe32.cfg"  
+	   !insertmacro ReplaceInFile "archisolabel=ARCH" "archisolabel=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_pxe32.cfg"  
 
 	   !insertmacro ReplaceInFile "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys.cfg"     
-	   !insertmacro ReplaceInFile "archisolabel=ARCH" "archisolabel=! NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys.cfg"    
+	   !insertmacro ReplaceInFile "archisolabel=ARCH" "archisolabel=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys.cfg"    
 	   
 	   !insertmacro ReplaceInFile "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys64.cfg"     
-	   !insertmacro ReplaceInFile "archisolabel=ARCH" "archisolabel=! NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys64.cfg"     
+	   !insertmacro ReplaceInFile "archisolabel=ARCH" "archisolabel=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys64.cfg"     
 	   !insertmacro ReplaceInFile "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys32.cfg"     
-	   !insertmacro ReplaceInFile "archisolabel=ARCH" "archisolabel=! NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys32.cfg"     
+	   !insertmacro ReplaceInFile "archisolabel=ARCH" "archisolabel=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys32.cfg"     
 	   ${EndIf}  
 	   
 	; ArchBang
@@ -1279,7 +1278,7 @@ FunctionEnd
 	   !insertmacro ReplaceInFile "INITRD /arch" "INITRD /!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\syslinux.cfg"     
 	   !insertmacro ReplaceInFile "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\syslinux.cfg"     
 	   !insertmacro ReplaceInFile ",/arch" ",/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\syslinux.cfg"     
-	   !insertmacro ReplaceInFile "archisolabel=ARCH" "archisolabel=! NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\syslinux.cfg"     
+	   !insertmacro ReplaceInFile "archisolabel=ARCH" "archisolabel=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\syslinux.cfg"     
 	   ${EndIf}     
 
 	; Manjaro/Netrunner
@@ -1288,19 +1287,19 @@ FunctionEnd
 	   !insertmacro ReplaceInFile "append initrd=/manjaro" "append initrd=/!/$JustISOName/manjaro" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile" 
 	   !insertmacro ReplaceInFile "misobasedir=manjaro" "misobasedir=/!/$JustISOName/manjaro" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"    
 	   !insertmacro ReplaceInFile ",/manjaro" ",/!/$JustISOName/manjaro" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
-	   !insertmacro ReplaceInFile "misolabel=MJRO" "misolabel=! NULL=" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"
+	   !insertmacro ReplaceInFile "misolabel=MJRO" "misolabel=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"
 	   CopyFiles "$BootDir\!\$JustISOName\.miso" "$BootDir"
 	   ${AndIf} $DistroName == "Netrunner" 
 	   !insertmacro ReplaceInFile "kernel /netrunner" "kernel /!/$JustISOName/netrunner" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
 	   !insertmacro ReplaceInFile "append initrd=/netrunner" "append initrd=/!/$JustISOName/netrunner" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile" 
 	   !insertmacro ReplaceInFile "misobasedir=netrunner" "misobasedir=/!/$JustISOName/netrunner" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"    
 	   !insertmacro ReplaceInFile ",/netrunner" ",/!/$JustISOName/netrunner" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
-	   !insertmacro ReplaceInFile "misolabel=NR" "misolabel=! NULL=" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"
+	   !insertmacro ReplaceInFile "misolabel=NR" "misolabel=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"
 	   ${EndIf}   
 
 	 ; MX Linux
 	   ;${If} $DistroName == "MX Linux"
-	   ;!insertmacro ReplaceInFile "APPEND bdir=" "APPEND blab=! bdir=" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"
+	   ;!insertmacro ReplaceInFile "APPEND bdir=" "APPEND blab=TA bdir=" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"
 	   ;${EndIf}      
 
 	; Slax
@@ -1340,20 +1339,20 @@ FunctionEnd
 	   ${If} ${FileExists} "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"
 	   ${AndIf} ${FileExists} "$BootDir\!\$JustISOName\LiveOS\*.*"   
 	   !insertmacro ReplaceInFile "append initrd=" "append live_dir=/!/$JustISOName/LiveOS rd.live.dir=/!/$JustISOName/LiveOS initrd=" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg" 
-	   !insertmacro ReplaceInFile "root=live:CDLABEL=" "root=live:LABEL=! NULL=" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"    
+	   !insertmacro ReplaceInFile "root=live:CDLABEL=" "root=live:LABEL=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"    
 	   ${EndIf}  
 	   
 	; VoidLinux
 	   ${If} ${FileExists} "$BootDir\!\$JustISOName\boot\isolinux\isolinux.cfg"
 	   ${AndIf} ${FileExists} "$BootDir\!\$JustISOName\LiveOS\*.*" 
 	   !insertmacro ReplaceInFile "append initrd=" "append live_dir=/!/$JustISOName/LiveOS rd.live.dir=/!/$JustISOName/LiveOS initrd=" "all" "all" "$BootDir\!\$JustISOName\boot\isolinux\isolinux.cfg" 
-	   !insertmacro ReplaceInFile "root=live:CDLABEL=" "root=live:LABEL=! NULL=" "all" "all" "$BootDir\!\$JustISOName\boot\isolinux\isolinux.cfg"    
+	   !insertmacro ReplaceInFile "root=live:CDLABEL=" "root=live:LABEL=TA NULL=" "all" "all" "$BootDir\!\$JustISOName\boot\isolinux\isolinux.cfg"    
 	   ${EndIf} 
 
 	; !REVISIT BROKEN Mageia
 	   ${If} ${FileExists} "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"
 	   ${AndIf} ${FileExists} "$BootDir\!\$JustISOName\loopbacks\distrib-lzma.sqfs"   
-	   !insertmacro ReplaceInFile "root=mgalive:LABEL=Mageia" "root=mgalive:LABEL=! NULL=Mageia" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"  
+	   !insertmacro ReplaceInFile "root=mgalive:LABEL=Mageia" "root=mgalive:LABEL=TA NULL=Mageia" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"  
 	   !insertmacro ReplaceInFile "ui gfxboot.c32" "#ui NULL gfxboot.c32" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg" 
 	   !insertmacro ReplaceInFile "display /boot" "display /!/$JustISOName/boot" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"
 	   !insertmacro ReplaceInFile "append initrd=/boot" "append initrd=/!/$JustISOName/boot" "all" "all" "$BootDir\!\$JustISOName\isolinux\isolinux.cfg"  
@@ -1495,7 +1494,7 @@ FunctionEnd
 	   ${If} ${FileExists} "$BootDir\!\$JustISOName\trk3\trkramfs" 
 	   CopyFiles "$BootDir\!\$JustISOName\trk3\*.*" "$BootDir\trk3\" 
 	   RMDir /R "$BootDir\!\$JustISOName\trk3" 
-	   !insertmacro ReplaceInFile "initrd=initrd.trk r" "initrd=initrd.trk vollabel=! r" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
+	   !insertmacro ReplaceInFile "initrd=initrd.trk r" "initrd=initrd.trk vollabel=TA r" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
 	   ${EndIf}  
 	  
 	  Call OldSysFix  ; Check for and replace vesamenu.c32, menu.c32, chain.c32 if found 
@@ -1720,7 +1719,7 @@ FunctionEnd
 	  !insertmacro ReplaceInFile "initrd=/bootdisk" "initrd=/!/$JustISOName/bootdisk" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"  
 	  
 	  !insertmacro ReplaceInFile "/sysresccd/" "/!/$JustISOName/sysresccd/" "all" "all" "$BootDir\!\$JustISOName\$CopyPath\$ConfigFile"     
-	  !insertmacro ReplaceInFile "archisolabel=SYS" "archisolabel=! old=SYS" "all" "all" "$BootDir\!\$JustISOName\sysresccd\boot\syslinux\sysresccd_sys.cfg"   
+	  !insertmacro ReplaceInFile "archisolabel=SYS" "archisolabel=TA old=SYS" "all" "all" "$BootDir\!\$JustISOName\sysresccd\boot\syslinux\sysresccd_sys.cfg"   
 	  !insertmacro ReplaceInFile "archisobasedir=sysresccd" "archisobasedir=/!/$JustISOName/sysresccd" "all" "all" "$BootDir\!\$JustISOName\sysresccd\boot\syslinux\sysresccd_sys.cfg"   */ 
 	 
 	; JustBrowsing 
@@ -1729,15 +1728,15 @@ FunctionEnd
 	;  !insertmacro ReplaceInFile "INCLUDE boot" "INCLUDE /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_browser.cfg"
 	;  !insertmacro ReplaceInFile "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_chrome.cfg"
 	;  !insertmacro ReplaceInFile "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_chrome.cfg" 
-	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=!" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_chrome.cfg"  
+	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_chrome.cfg"  
 	  !insertmacro ReplaceInFile "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_chrome.cfg"    
 	;  !insertmacro ReplaceInFile "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_fallback.cfg"    
 	;  !insertmacro ReplaceInFile "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_fallback.cfg"  
-	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=!" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_fallback.cfg" 
+	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_fallback.cfg" 
 	  !insertmacro ReplaceInFile "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_fallback.cfg"    
 	;  !insertmacro ReplaceInFile "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_firefox.cfg"  
 	;  !insertmacro ReplaceInFile "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_firefox.cfg"
-	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=!" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_firefox.cfg"  
+	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_firefox.cfg"  
 	  !insertmacro ReplaceInFile "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_firefox.cfg"    
 	;  !insertmacro ReplaceInFile "COM32 boot" "COM32 /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_hdt.cfg"  
 	  !insertmacro ReplaceInFile "modules_alias=boot" "modules_alias=/!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_hdt.cfg"    
@@ -1748,14 +1747,14 @@ FunctionEnd
 	;  !insertmacro ReplaceInFile "INCLUDE boot" "INCLUDE /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_keymaps.cfg"  
 	;  !insertmacro ReplaceInFile "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_locales.cfg"  
 	;  !insertmacro ReplaceInFile "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_locales.cfg"
-	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=!" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_locales.cfg" 
+	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_locales.cfg" 
 	  !insertmacro ReplaceInFile "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_locales.cfg"    
 	;  !insertmacro ReplaceInFile "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_nbd.cfg"  
 	;  !insertmacro ReplaceInFile "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_nbd.cfg"
-	  !insertmacro ReplaceInFile "archisolabel=%ARCHISO_LABEL%" "archisolabel=!" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_nbd.cfg" 
+	  !insertmacro ReplaceInFile "archisolabel=%ARCHISO_LABEL%" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_nbd.cfg" 
 	;  !insertmacro ReplaceInFile "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_newprofiles.cfg"  
 	;  !insertmacro ReplaceInFile "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_newprofiles.cfg"
-	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=!" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_newprofiles.cfg" 
+	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_newprofiles.cfg" 
 	;  !insertmacro ReplaceInFile "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_nfs.cfg"  
 	;  !insertmacro ReplaceInFile "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_nfs.cfg"
 	;  !insertmacro ReplaceInFile "INCLUDE boot" "INCLUDE /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_pxe.cfg"
@@ -1770,25 +1769,25 @@ FunctionEnd
 	;  !insertmacro ReplaceInFile "CONFIG boot" "CONFIG /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys_choose.cfg"  
 	;  !insertmacro ReplaceInFile "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys32.cfg"  
 	;  !insertmacro ReplaceInFile "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys32.cfg"
-	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=!" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys32.cfg"   
+	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys32.cfg"   
 	;  !insertmacro ReplaceInFile "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys64.cfg"  
 	;  !insertmacro ReplaceInFile "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys64.cfg"
-	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=!" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys64.cfg"  
+	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_sys64.cfg"  
 	;  !insertmacro ReplaceInFile "COM32 boot" "COM32 /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_tail.cfg"  
 	;  !insertmacro ReplaceInFile "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_timezones.cfg"  
 	;  !insertmacro ReplaceInFile "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_timezones.cfg"
-	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=!" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_timezones.cfg" 
+	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_timezones.cfg" 
 	;  !insertmacro ReplaceInFile "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vbox.cfg"  
 	;  !insertmacro ReplaceInFile "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vbox.cfg"
-	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=!" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vbox.cfg" 
+	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vbox.cfg" 
 	  !insertmacro ReplaceInFile "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vbox.cfg"  
 	;  !insertmacro ReplaceInFile "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_videomodes.cfg"  
 	;  !insertmacro ReplaceInFile "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_videomodes.cfg"
-	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=!" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_videomodes.cfg" 
+	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_videomodes.cfg" 
 	  !insertmacro ReplaceInFile "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_videomodes.cfg"    
 	;  !insertmacro ReplaceInFile "LINUX boot" "LINUX /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vmware.cfg"  
 	;  !insertmacro ReplaceInFile "INITRD boot" "INITRD /!/$JustISOName/arch/boot" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vmware.cfg"
-	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=!" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vmware.cfg"
+	  !insertmacro ReplaceInFile "archisolabel=justbrowsing" "archisolabel=TA" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vmware.cfg"
 	  !insertmacro ReplaceInFile "archisobasedir=arch" "archisobasedir=/!/$JustISOName/arch" "all" "all" "$BootDir\!\$JustISOName\arch\boot\syslinux\archiso_vmware.cfg"    
 	 
 	; Xiaopan 
@@ -1840,7 +1839,7 @@ FunctionEnd
 			 !insertmacro ReplaceInFile "cdrom-detect/try-usb=true noprompt" "cdrom-detect/try-usb=true persistent persistent-path=/!/$JustISOName noprompt" "all" "all" "$BootDir\!\$JustISOName\boot\grub\loopback.cfg"  
 		 ${EndIf} 
 		 ; Create Casper-rw file
-		 Call CasperScriptAlt1  
+		 Call புதையல்உரை  
 		 Call WriteStuff
     ${EndIf}
 !macroend

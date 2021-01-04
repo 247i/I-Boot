@@ -1,32 +1,34 @@
-﻿; ------------ Casper Script --------------
+﻿; ------------ புதையல் உரை --------------
 Function புதையல்உரை
 ${If} $Casper != "0"
 ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
  Call புதைகருவிகளைப்பெறு
+ Sleep 1000
+ DetailPrint "1 வினாடி தூங்குகிறது..."
   ${If} $DistroName == "Debian Live"
   StrCpy $CasperName "persistence"
   ${ElseIf} $DistroName == "Raspberry Pi Desktop"
-  StrCpy $CasperName "persistence"
+  StrCpy $CasperName "Persistence"
   ${Else}
   StrCpy $CasperName "writable"
   ${EndIf} 
  SetShellVarContext all
  InitPluginsDir
  ExpandEnvStrings $COMSPEC "%COMSPEC%"
- ExecShell "" '"$COMSPEC"' '/C if 1==1 "$PLUGINSDIR\தரவுவரையறை.exe" if=/dev/zero of=$PLUGINSDIR\$CasperName bs=1M count=$Casper --progress 2>$PLUGINSDIR\ddlog.txt' SW_HIDE
- Banner::show /set 76 "நிலைத்தன்மை கோப்பை உருவாக்குதல்."
+ ExecShell "" '"$COMSPEC"' '/C if 1==1 "$PLUGINSDIR\dd.exe" if=/dev/zero of=$PLUGINSDIR\$CasperName bs=1M count=$Casper --progress 2>$PLUGINSDIR\ddlog.txt' SW_HIDE
+ Banner::show /set 76 "$CasperName கோப்பை உருவாக்குதல்."
  Banner::getWindow
  Pop $1  
- DetailPrint "நிலைத்தன்மை கோப்பை உருவாக்குதல்: முடிவடையும் வரை முன்னேற்றப் பட்டி நகராது..."
+ DetailPrint "$CasperName கோப்பை உருவாக்குதல்: முடிவடையும் வரை முன்னேற்றப் பட்டி நகராது..."
  Call தவமுன்னேற்றம்
  Banner::destroy
-  ${If} $DistroName == "Raspberry Pi Desktop"
-   nsExec::ExecToLog '"$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe" -L Persistence $PLUGINSDIR\$CasperName'
-  ${Else}
-   nsExec::ExecToLog '"$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe" -L $CasperName $PLUGINSDIR\$CasperName'
-  ${EndIf} 
- CopyFiles $PLUGINSDIR\$CasperName "$BDir\!\$JustISOName\$CasperName" ; Copy casper-rw to USB
- Delete "$PLUGINSDIR\$CasperName"
+DetailPrint "இப்போது ஒரு நிலைத்தன்மை அல்லது எழுதக்கூடிய கோப்பை உருவாக்குதல்" 
+DetailPrint "$CasperName கோப்பை வடிவமைத்தல்: முடிவடையும் வரை முன்னேற்றப் பட்டி நகராது. தயவுசெய்து பொருமையாயிறு..." 
+Sleep 3000 ; Give the previous dd.exe program time to exit.
+DetailPrint "Sleeping for 3 seconds..."
+nsExec::ExecToLog '"$PLUGINSDIR\mke2fs.exe" -L $CasperName $PLUGINSDIR\$CasperName'
+CopyFiles $PLUGINSDIR\$CasperName "$BDir\!\$JustISOName\$CasperName" ; Copy casper-rw to USB
+Delete "$PLUGINSDIR\$CasperName"
 ${EndIf}
 FunctionEnd
 
@@ -37,8 +39,6 @@ FunctionEnd
 Function புதைகருவிகளைப்பெறு
 SetShellVarContext all
 InitPluginsDir
-File /oname=$PLUGINSDIR\தரவுவரையறை.exe "இருமங்கள்\தரவுவரையறை.exe"
-File /oname=$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe "இருமங்கள்\நீட்2கோமுவடிவஉரு.exe"
-DetailPrint "இப்போது ஒரு நிலைத்தன்மை அல்லது எழுதக்கூடிய கோப்பை உருவாக்குதல்" 
-DetailPrint "நிலைத்தன்மை கோப்பை உருவாக்குதல்: முடிவடையும் வரை முன்னேற்றப் பட்டி நகராது. தயவுசெய்து பொருமையாயிறு..." 
+File /oname=$PLUGINSDIR\dd.exe "இருமங்கள்\தரவுவரையறை.exe"
+File /oname=$PLUGINSDIR\mke2fs.exe "இருமங்கள்\நீட்2கோமுவடிவஉரு.exe"
 FunctionEnd

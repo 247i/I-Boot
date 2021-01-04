@@ -1,4 +1,4 @@
-﻿; -------- Configuration and Text File Manipulation Stuff! --------
+﻿; -- Configuration and Text File Manipulation Stuff! --
 
 Function FindFiles ; <- FindFiles function written by KiCHik http://nsis.sourceforge.net/Search_For_a_File
   Exch $R5 # callback function

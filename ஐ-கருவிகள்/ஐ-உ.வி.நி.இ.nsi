@@ -327,12 +327,12 @@ Function தேர்வுகள்பக்கம்
   Call இயக்கிகளைபட்டியலிடு
   ${NSD_OnChange} $DestDriveTxt இயக்கிதேர்வில்
  
-; All Drives Option
-  ${NSD_CreateCheckBox} 41% 23 17% 15 "Show All" ; was 17% 23 41% 15
+; அனைத்து இயக்கி காட்டு விருப்பம்
+  ${NSD_CreateCheckBox} 41% 23 17% 15 "அனைத்தும்?" ; was 17% 23 41% 15
   Pop $AllDriveOption
   ${NSD_OnClick} $AllDriveOption இயக்கிகளைபட்டியலிடு 
   
-; Format Drive Option
+; Format Drive விருப்பம்
   ${NSD_CreateCheckBox} 60% 23 100% 15 "துடைத்து Fat32 வடிவமை $DestDisk"
   Pop $Format
   ${NSD_OnClick} $Format இதைவடிவமை     
@@ -346,12 +346,12 @@ Function தேர்வுகள்பக்கம்
   ${NSD_OnChange} $Distro விநியோகதேர்வில்
   ${NSD_CB_SelectString} $Distro $DistroName ; Was ${NSD_LB_SelectString} $Distro $DistroName  ; Enable For DropBox
   
-; Force Show All உதநி Option
+; அனைத்து உதநி காட்டு விருப்பம்
   ${NSD_CreateCheckBox} 80% 100 20% 15 "உதநிகள்?"
   Pop $ForceShowAll
-  ${NSD_OnClick} $ForceShowAll அனைத்துஉதநிகாட்டு    
+  ${NSD_OnClick} $ForceShowAll அனைத்துஉதநிகாட்டு
 
-; உதநி பதிவிறக்கம் Option
+; உதநி பதிவிறக்கம் விருப்பம்
   ${NSD_CreateCheckBox} 60% 60 40% 15 "உதநி பதிவிறக்கம்."
   Pop $DownloadISO
   ${NSD_OnClick} $DownloadISO இதைபதிவிறக்கு  
@@ -435,12 +435,12 @@ Function இயக்கிகளைபட்டியலிடு ; Set to Disp
   ${NSD_GetState} $AllDriveOption $DisplayAll
   ${If} $DisplayAll == ${BST_CHECKED}
   ${NSD_Check} $AllDriveOption
-  ${NSD_SetText} $AllDriveOption "All Shown" 
+  ${NSD_SetText} $AllDriveOption "அனைத்தும்!"
    StrCpy $ShowAll "YES"
    ${GetDrives} "FDD+HDD" இயக்கிபட்டியல் ; All Drives Listed  
   ${ElseIf} $DisplayAll == ${BST_UNCHECKED}
   ${NSD_Uncheck} $AllDriveOption
-  ${NSD_SetText} $AllDriveOption "அனைத்தும் காட்டு"  
+  ${NSD_SetText} $AllDriveOption "அனைத்தும்?"
    ${GetDrives} "FDD" இயக்கிபட்டியல் ; FDD+HDD reduced to FDD for removable media only
    StrCpy $ShowAll "NO"
   ${EndIf}
@@ -820,7 +820,7 @@ Function இயக்கிதேர்வில்
   ${EndIf}
 
   ${If} ${FileExists} "$BDir\!\legacy-i"
-  MessageBox MB_ICONSTOP|MB_OK "($DestDisk) contains a YUMI Legacy installation. You'll have to reformat to use UEFI YUMI."
+  MessageBox MB_ICONSTOP|MB_OK "($DestDisk) ஒரு ஐ-மரபு நிறுவலைக் கொண்டுள்ளது. ஐ-உ.வி.நி.இ ஐப் பயன்படுத்த நீங்கள் மறுவடிவமைக்க வேண்டும்."
   ${EndIf}   
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
   StrCpy $Checker "Yes" 

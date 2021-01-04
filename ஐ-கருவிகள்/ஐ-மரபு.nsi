@@ -218,7 +218,7 @@ Function SelectionsPage
   ${NSD_OnClick} $Uninstaller Uninstall  
   
 ; Alt Wipe Disk and all Partitions, Volumes.
-  ${NSD_CreateCheckBox} 60% 0 44% 15 "Wipe Entire (Disk $DiskNum)"
+  ${NSD_CreateCheckBox} 60% 0 44% 15 "முழுவதும் துடை (வட்டு $DiskNum)"
   Pop $Wipe
   ${NSD_OnClick} $Wipe WipeIt  
 
@@ -295,9 +295,9 @@ Function SelectionsPage
   Call CheckSpace
   Call FormatIt 
   Call EnableNext 
-  ${NSD_OnChange} $DestDriveTxt OnSelectDrive 
+  ${NSD_OnChange} $DestDriveTxt OnSelectDrive
 ; All Drives Option
-  ${NSD_CreateCheckBox} 43% 23 16% 15 "புதுப்பு?"
+  ${NSD_CreateCheckBox} 43% 23 16% 15 "புதுப்பி?"
   Pop $AllDriveOption
   ${NSD_OnClick} $AllDriveOption ListAllDrives
   
@@ -343,14 +343,14 @@ Function SelectionsPage
   ${NSD_OnClick} $Uninstaller Uninstall  
   
 ; Alt Wipe Disk and all Partitions, Volumes.
-  ${NSD_CreateCheckBox} 60% 0 44% 15 "Wipe Entire (Disk $DiskNum)"
+  ${NSD_CreateCheckBox} 60% 0 44% 15 "முழுவதும் துடை (வட்டு $DiskNum)"
   Pop $Wipe
   ${NSD_OnClick} $Wipe WipeIt     
   
 ; Drive Selection Starts  
   ${NSD_CreateLabel} 0 0 58% 15 ""    
   Pop $LabelDrivePage
-  ${NSD_SetText} $LabelDrivePage "படி 1: மின்வெட்டொளி இயக்கக எழுத்து."    
+  ${NSD_SetText} $LabelDrivePage "படி 1: மின்வெட்டொளி இயக்கக எழுத்து தேர்ந்தெடுக்கவும்."    
   
 ; Droplist for Drive Selection
   ${NSD_CreateDropList} 0 20 42% 15 "" ; was 0 20 55% 15
@@ -536,7 +536,7 @@ Function EnableNext ; Enable Install Button
      ${AndIf} $DestDrive != "" 
 	  ${AndIf} $ISOTest != ""
   StrCpy $InUnStall "சேர்"	
-   StrCpy $InUnStalling "சேர்த்து"	
+   StrCpy $InUnStalling "சேர்க்கிறது"	
     StrCpy $InUnStalled "சேர்க்கப்பட்டது"	
   StrCpy $OnFrom "இதற்கு"
   StrCpy $InUnName "$JustISOName"
@@ -694,7 +694,7 @@ Function OnSelectDistro
   StrCpy $ISOTest "" ; Set to null until a new ISO selection is made
   ${EndIf}
   
-; Redraw முகப்பு பக்கம் Links as necessary
+; முகப்பு பக்க இணைப்புகளை மீண்டும் வரையவும்
   ${NSD_SetText} $DistroLink "$OfficialName முகப்புப்பக்கத்தைப் பார்வையிடவும்" 
   ShowWindow $DistroLink 0
   ${If} $OfficialName == ""
@@ -801,7 +801,7 @@ Function ISOBrowse
  ${AndIf} $JustISOName != ""
  ${AndIf} $FormatMe != "Yes"
  ${AndIf} $FormatMeFat != "Yes"
- MessageBox MB_OK "$JustISOName is already on $DestDisk$\r$\nPlease Remove it first!$\r$\n$\r$\nNOTE: If you have already removed it using I,$\r$\nmanually delete the $BootDir\!\$JustISOName\ folder."
+ MessageBox MB_OK "$JustISOName ஏற்கனவே $DestDisk இல் உள்ளது$\r$\nஇதை முதலில் அகற்று!$\r$\n$\r$\nகுறிப்பு: நீங்கள் ஏற்கனவே ஐ பயன்படுத்தி நீக்கியிருந்தால்,$\r$\n $BootDir\!\$JustISOName\ கோப்புறையை கைமுறையாக நீக்கவும்."
  ${Else}
  ${EndIf}
  Call EnableNext
@@ -838,7 +838,7 @@ Function InstallorRemove ; Populate DistroName based on Install/Removal option
   Call RemovalList
   ${Else}
     ${If} $DistroName == ""
-    ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskவைக்க ஒரு விநியோகம்" 
+    ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDisk வைக்க ஒரு விநியோகம்" 
 	${EndIf}
   SendMessage $Distro ${CB_RESETCONTENT} 0 0
   Call உதநிகோப்புபெயர்அமை
@@ -870,7 +870,7 @@ Function Uninstall
    GetDlgItem $6 $HWNDPARENT 1 ; Get "Install" control handle
 	SendMessage $6 ${WM_SETTEXT} 0 "STR:நீக்கு"
 	EnableWindow $6 0 ; Disable "Install" control button
-  ${NSD_SetText} $Uninstaller "நிறுவல் நீக்குதல்"
+  ${NSD_SetText} $Uninstaller "நிறுவல் நீக்குதல்!"
     SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new option may have been chosen ; Enable for DropBox
      StrCpy $Checker "Yes"   
 	 Call RemovalList
@@ -891,7 +891,7 @@ Function Uninstall
   ${NSD_Uncheck} $Uninstaller  
   StrCpy $Removal "No"  
   ${NSD_SetText} $Uninstaller "நிறுவப்பட்டது?" 
-   ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskவைக்க ஒரு விநியோகம்" 
+   ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDisk இல் வைக்க ஒரு விநியோகம்" 
      SendMessage $Distro ${CB_RESETCONTENT} 0 0  ; Clear all distro entries because a new option may have been chosen ; Enable for DropBox
      StrCpy $Checker "Yes"         
      Call உதநிகோப்புபெயர்அமை
@@ -911,18 +911,18 @@ Function OnSelectDrive
   StrCpy $9 $JustDrive
   Call GetFSType
   Call இயற்பியக்கி
-  ${NSD_SetText} $LabelDrivePage "படி 1: $DestDisk (தட்டு $DiskNum) தேர்ந்தெடுத்துள்ளீர்கள்"   
+  ${NSD_SetText} $LabelDrivePage "படி 1: $DestDisk (வட்டு $DiskNum) தேர்ந்தெடுத்துள்ளீர்கள்"   
   ;MessageBox MB_ICONSTOP|MB_OK " $9 $FSType" 
   
   ${NSD_GetState} $Wipe $WipeIt
   ${If} $WipeIt == ${BST_CHECKED}
   ${NSD_Check} $Wipe
    StrCpy $WipeMe "Yes" 
-  ${NSD_SetText} $Wipe "We Will Wipe (Disk $DiskNum)"
+  ${NSD_SetText} $Wipe "முழுவதும் துடைக்கப்படும் (வட்டு $DiskNum)"
   ${ElseIf} $WipeIt == ${BST_UNCHECKED}
   ${NSD_Uncheck} $Wipe
    StrCpy $WipeMe "No"
-  ${NSD_SetText} $Wipe "Wipe Entire (Disk $DiskNum)"  
+  ${NSD_SetText} $Wipe "முழுவதும் துடை (வட்டு $DiskNum)"  
   ; ShowWindow $Uninstaller 1 ; Re-enable Uninstaller option.
   ${EndIf}
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
@@ -934,7 +934,7 @@ Function OnSelectDrive
   Call EnableNext
 
   ${If} $FSType == "exFAT"
-  MessageBox MB_ICONSTOP|MB_OK "எச்சரிக்கை! கணிலினக்சு exFAT வடிவமைக்கப்பட்ட சாதனங்களில் இயங்காது. $DestDiskஐ Fat32 அல்லது என்.டி.எஃப்.எஸ் ஆக வடிவமைக்கவும்.."
+  MessageBox MB_ICONSTOP|MB_OK "எச்சரிக்கை! கணிலினக்சு exFAT வடிவமைக்கப்பட்ட சாதனங்களில் இயங்காது. $DestDiskஐ Fat32 அல்லது என்.டி.எஃப்.எஸ் ஆக வடிவமைக்கவும்."
   ${EndIf} 
   
   ${If} ${FileExists} "$BootDir\boot\grub\ஐ.png"  
@@ -986,7 +986,7 @@ Function DrivesList
 ;Prevent System Drive from being selected
  StrCpy $7 $WINDIR 3
  ${If} $9 != "$7" 
- SendMessage $DestDriveTxt ${CB_ADDSTRING} 0 "STR:$9 (Disk $DiskNum) $VolName $Capacity $FSType" ;$8
+ SendMessage $DestDriveTxt ${CB_ADDSTRING} 0 "STR:$9 (வட்டு $DiskNum) $VolName $Capacity $FSType" ;$8
  ;SendMessage $DestDriveTxt ${CB_ADDSTRING} 0 "STR:$9 $VolName $Capacity $2 $8" 
  ${EndIf}
  Push 1 ; must push something - see GetDrives documentation
@@ -997,11 +997,11 @@ Function WipeIt ; Set Wipe Disk Option
   ${If} $WipeIt == ${BST_CHECKED}
   ${NSD_Check} $Wipe
    StrCpy $WipeMe "Yes" 
-  ${NSD_SetText} $Wipe "We Will Wipe (Disk $DiskNum)"
+  ${NSD_SetText} $Wipe "முழுவதும் துடைக்கப்படும் (வட்டு $DiskNum)"
   ${ElseIf} $WipeIt == ${BST_UNCHECKED}
   ${NSD_Uncheck} $Wipe
    StrCpy $WipeMe "No"
-  ${NSD_SetText} $Wipe "Wipe Entire (Disk $DiskNum)"  
+  ${NSD_SetText} $Wipe "முழுவதும் துடை (வட்டு $DiskNum)"  
   ; ShowWindow $Uninstaller 1 ; Re-enable Uninstaller option.
   ${EndIf}    
 FunctionEnd
@@ -1098,7 +1098,7 @@ Function FormatIt ; Set Format Option
 	;Call SetSpace      
   ${Else}
    ${NSD_Uncheck} $Wipe
-   ${NSD_SetText} $Wipe "Wipe Entire (Disk $DiskNum)"  
+   ${NSD_SetText} $Wipe "முழுவதும் துடை (வட்டு $DiskNum)"  
     StrCpy $WipeMe "No" 
   
 	ShowWindow $Wipe 0
@@ -1113,12 +1113,12 @@ Function ShowAllISOs ; Set Show All ISOs Option
   ${If} $ShowingAll == ${BST_CHECKED}
   ${NSD_Check} $ForceShowAll
   StrCpy $ShowingAll "Yes"
-  ${NSD_SetText} $ForceShowAll "உதநிக்கள் காண்பி!"
+  ${NSD_SetText} $ForceShowAll "உதநிகள்!"
     SendMessage $ISOSelection ${CB_RESETCONTENT} 0 0 
  
   ${ElseIf} $ShowingAll == ${BST_UNCHECKED}
   ${NSD_Uncheck} $ForceShowAll
-  ${NSD_SetText} $ForceShowAll "உதநிக்கள் காண்பிக்கவா?"  
+  ${NSD_SetText} $ForceShowAll "உதநிகள்?"  
     SendMessage $ISOSelection ${CB_RESETCONTENT} 0 0 
   ${EndIf}  
 FunctionEnd
@@ -1205,7 +1205,7 @@ Function HaveSpace ; Check space required
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...
   IntCmp $3 1 okay ; ... and compare it
-  MessageBox MB_ICONSTOP|MB_OK "Not enough free space remains. Quitting ஐ-கருவி!"
+  MessageBox MB_ICONSTOP|MB_OK "போதுமான இடவசதி இல்லை. ஐ-கருவி வெளியேறு!"
   quit ; Close the program if the disk space was too small...
   okay: ; Proceed to execute...
   ;MessageBox MB_OK "ISO + Persistence will use $SizeOfCasper MB of the $1 MB Free disk space on $JustDrive Drive."  
@@ -1266,11 +1266,11 @@ Done:
  Pop $1
 FunctionEnd
 
-; Custom Distros Installer - Uninstaller Include
-!include "ஐ-மரபு\நிரல்கள்\விநியோகநிறுவல்.நிரல்" ; ### ADD NEW DISTRO ##
-!include "ஐ-மரபு\நிரல்கள்\விநியோகநீக்கம்.நிரல்" ; ### REM DISTRO ###
+; தனிப்பயன் விநியோகம் நிறுவி - நிறுவல் நீக்கி சேர்க்கவும்
+!include "ஐ-மரபு\நிரல்கள்\விநியோகநிறுவல்.நிரல்" ; புதிய  விநியோக நிறுவல்
+!include "ஐ-மரபு\நிரல்கள்\விநியோகநீக்கம்.நிரல்" ; விநியோக நீக்கம்
 
-Function DoSyslinux ; Install கணிலினக்சு on USB
+Function DoSyslinux ; கணிலினக்சு நிறுவவும் 
   ${IfNot} ${FileExists} "$BootDir\!\libcom32.c32" 
   ${AndIf} ${FileExists} "$BootDir\!\ldlinux.sys"   
   MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinuxOLD)
@@ -1286,7 +1286,7 @@ Function DoSyslinux ; Install கணிலினக்சு on USB
   nsExec::Exec '"$PLUGINSDIR\syslinux.exe" -maf -d /! $BootDir'
   Pop $R8
   DetailPrint "Syslinux Errors $R8"
-  
+
   ${If} $R8 != 0
   MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinux)
   ${EndIf} 
@@ -1304,7 +1304,7 @@ Function DoSyslinux ; Install கணிலினக்சு on USB
     CopyFiles "$PLUGINSDIR\legacy-i" "$BootDir\!\legacy-i"  
    ${EndIf}
   ${If} ${FileExists} $BootDir\!\syslinux.cfg    
-   DetailPrint "முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது."
+   DetailPrint "முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது. உங்கள் புதிய தேர்வுகளைச் சேர்க்க தொடர்கிறது...."
    Call AddDir
   ${Else}
 ; Create and Copy files to your destination
@@ -1332,9 +1332,9 @@ Function DoSyslinux ; Install கணிலினக்சு on USB
   CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\!\memdisk"
  ${EndIf}    
 
-; Check to ensure menu.c32 exists... now required for I V2
+; Check to ensure menu.c32 exists... now required for ஐ V2
   ${IfNot} ${FileExists} $BootDir\!\menu.c32
-   DetailPrint "Adding menu.c32. Required for I V2"
+   DetailPrint "Adding menu.c32. Required for ஐ V2"
    CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\!\menu.c32" 
   ${EndIf}	  
 FunctionEnd
@@ -1359,21 +1359,21 @@ Pop $NameThatISO
 ; Wipe and Format ---
  ${If} $FormatMe == "Yes" 
   ${AndIf} $WipeMe == "Yes" 
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "எச்சரிக்கை: தொடர்வதற்கு முன் ($DestDisk)உடன் இணைக்கப்பட்ட அனைத்து பகிர்வுகளிலிருந்தும் உங்கள் தரவை காப்புப் பிரதி எடுக்கவும்! இணைக்கப்பட்ட இயக்கி எழுத்துக்கள், பகிர்வுகள் மற்றும் தொகுதிகள் உட்பட (வட்டு $DiskNum) உள்ள அனைத்து தரவும் மறைக்கப்பட்டிருந்தாலும் அழிக்கப்படும்.$\r$\n$\r$\n${பெயர்} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1.) துடை (வட்டு $DiskNum) - தரவு மீளமுடியாமல் நீக்கப்படும்!$\r$\n$\r$\n2.) Recreate Drive Letter ($DestDisk) with a single NTFS partition.$\r$\n$\r$\n3.) ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n4.) ($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\n(வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "எச்சரிக்கை: தொடர்வதற்கு முன் ($DestDisk)உடன் இணைக்கப்பட்ட அனைத்து பகிர்வுகளிலிருந்தும் உங்கள் தரவை காப்புப் பிரதி எடுக்கவும்! இணைக்கப்பட்ட இயக்கி எழுத்துக்கள், பகிர்வுகள் மற்றும் தொகுதிகள் உட்பட (வட்டு $DiskNum) உள்ள அனைத்து தரவும் மறைக்கப்பட்டிருந்தாலும் அழிக்கப்படும்.$\r$\n$\r$\n${பெயர்} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1.) துடை (வட்டு $DiskNum) - தரவு மீளமுடியாமல் நீக்கப்படும்!$\r$\n$\r$\n2.) ஒற்றை NTFS பகிர்வுடன் இயக்கத்தை ($DestDisk) மீண்டும் உருவாக்கவும்.$\r$\n$\r$\n3.) ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n4.) ($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n5.) ($DestDisk) இல் ($DistroName) நிறுவவும்$\r$\n$\r$\n(வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
   Quit
  ${ElseIf} $FormatMeFat == "Yes" 
   ${AndIf} $WipeMe == "Yes" 
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "எச்சரிக்கை: தொடர்வதற்கு முன் ($DestDisk)உடன் இணைக்கப்பட்ட அனைத்து பகிர்வுகளிலிருந்தும் உங்கள் தரவை காப்புப் பிரதி எடுக்கவும்! இணைக்கப்பட்ட இயக்கி எழுத்துக்கள், பகிர்வுகள் மற்றும் தொகுதிகள் உட்பட (வட்டு $DiskNum) உள்ள அனைத்து தரவும் மறைக்கப்பட்டிருந்தாலும் அழிக்கப்படும்.$\r$\n$\r$\n${பெயர்} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1.) துடை (வட்டு $DiskNum) - தரவு மீளமுடியாமல் நீக்கப்படும்!$\r$\n$\r$\n2.) Recreate Drive Letter ($DestDisk) with a single Fat32 partition.$\r$\n$\r$\n3.) ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n4.) ($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\n(வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "எச்சரிக்கை: தொடர்வதற்கு முன் ($DestDisk)உடன் இணைக்கப்பட்ட அனைத்து பகிர்வுகளிலிருந்தும் உங்கள் தரவை காப்புப் பிரதி எடுக்கவும்! இணைக்கப்பட்ட இயக்கி எழுத்துக்கள், பகிர்வுகள் மற்றும் தொகுதிகள் உட்பட (வட்டு $DiskNum) உள்ள அனைத்து தரவும் மறைக்கப்பட்டிருந்தாலும் அழிக்கப்படும்.$\r$\n$\r$\n${பெயர்} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1.) துடை (வட்டு $DiskNum) - தரவு மீளமுடியாமல் நீக்கப்படும்!$\r$\n$\r$\n2.)ஒற்றை Fat32 பகிர்வுடன் இயக்கத்தை ($DestDisk) மீண்டும் உருவாக்கவும்.$\r$\n$\r$\n3.) ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n4.) ($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n5.) ($DestDisk) இல் ($DistroName) நிறுவவும்$\r$\n$\r$\n(வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
   Quit
-  
+
 ; Format Only ---
  ${ElseIf} $FormatMe == "Yes" 
   ${AndIf} $WipeMe == "No" 
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "எச்சரிக்கை: தொடர்வதற்கு முன் ($DestDisk)உடன் இணைக்கப்பட்ட அனைத்து பகிர்வுகளிலிருந்தும் உங்கள் தரவை காப்புப் பிரதி எடுக்கவும்! ($DestDisk)உள்ள அனைத்து தரவும் மறைக்கப்பட்டிருந்தாலும் அழிக்கப்படும்.$\r$\n$\r$\n${பெயர்} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1.) இயக்கி எழுத்து ($DestDisk)பூட்டு மற்றும் இறக்கு.$\r$\n$\r$\n2.) NTFS வடிவமை ($DestDisk) - ($DestDisk)கொண்டிருக்கும் தரவு மீளமுடியாமல் நீக்கப்படும்!$\r$\n$\r$\n3.) ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n4.) ($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\n ($DestDisk)(வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "எச்சரிக்கை: தொடர்வதற்கு முன் ($DestDisk)உடன் இணைக்கப்பட்ட அனைத்து பகிர்வுகளிலிருந்தும் உங்கள் தரவை காப்புப் பிரதி எடுக்கவும்! ($DestDisk)உள்ள அனைத்து தரவும் மறைக்கப்பட்டிருந்தாலும் அழிக்கப்படும்.$\r$\n$\r$\n${பெயர்} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1.) இயக்கி எழுத்து ($DestDisk)பூட்டு மற்றும் இறக்கு.$\r$\n$\r$\n2.) NTFS வடிவமை ($DestDisk) - ($DestDisk)கொண்டிருக்கும் தரவு மீளமுடியாமல் நீக்கப்படும்!$\r$\n$\r$\n3.) ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n4.) ($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n5.) ($DestDisk) இல் ($DistroName) நிறுவவும்$\r$\n$\r$\n($DestDisk)(வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
   Quit
  ${ElseIf} $FormatMeFat == "Yes" 
   ${AndIf} $WipeMe == "No" 
-  MessageBox MB_YESNO|MB_ICONEXCLAMATION "எச்சரிக்கை: தொடர்வதற்கு முன் ($DestDisk)உடன் இணைக்கப்பட்ட அனைத்து பகிர்வுகளிலிருந்தும் உங்கள் தரவை காப்புப் பிரதி எடுக்கவும்!$\r$\n$\r$\n${பெயர்} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1.)இயக்கி எழுத்து ($DestDisk)பூட்டு மற்றும் இறக்கு.$\r$\n$\r$\n2.) Fat32 வடிவமை ($DestDisk) - ($DestDisk)கொண்டிருக்கும் தரவு மீளமுடியாமல் நீக்கப்படும்!$\r$\n$\r$\n3.) ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n4.) ($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\n($DestDisk)(வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
+  MessageBox MB_YESNO|MB_ICONEXCLAMATION "எச்சரிக்கை: தொடர்வதற்கு முன் ($DestDisk)உடன் இணைக்கப்பட்ட அனைத்து பகிர்வுகளிலிருந்தும் உங்கள் தரவை காப்புப் பிரதி எடுக்கவும்!$\r$\n$\r$\n${பெயர்} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1.)இயக்கி எழுத்து ($DestDisk)பூட்டு மற்றும் இறக்கு.$\r$\n$\r$\n2.) Fat32 வடிவமை ($DestDisk) - ($DestDisk)கொண்டிருக்கும் தரவு மீளமுடியாமல் நீக்கப்படும்!$\r$\n$\r$\n3.) ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n4.) ($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n5.) ($DestDisk) இல் ($DistroName) நிறுவவும்$\r$\n$\r$\n($DestDisk)(வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
 
  Quit  
   
@@ -1526,12 +1526,11 @@ FunctionEnd
 ; --- Stuff to do at startup of script ---
 Function .onInit
 StrCpy $R9 0 ; we start on page 0
-;StrCpy $InstallButton ""
  StrCpy $FileFormat "ISO"
  userInfo::getAccountType
  Pop $Auth
  strCmp $Auth "Admin" done
- Messagebox MB_OK|MB_ICONINFORMATION "தற்போது நீங்கள் இந்த நிரலை $Authஆக இயக்க முயற்சிக்கிறீர்கள்$\r$\n$\r$\nநீங்கள் நிர்வாக உரிமைகளுடன் இந்த நிரலை இயக்க வேண்டும்...$\r$\n$\r$\nகோப்பில் வலது கிளிக் செய்து, நிர்வாகியாக இயக்கவும் அல்லது இயக்கவும் என்பதைத் தேர்ந்தெடுக்கவும் (மற்றும் நிர்வாகக் கணக்கைத் தேர்ந்தெடுக்கவும்)!"
+ Messagebox MB_OK|MB_ICONINFORMATION "தற்போது நீங்கள் இந்த நிரலை $Auth ஆக இயக்க முயற்சிக்கிறீர்கள்$\r$\n$\r$\nநீங்கள் நிர்வாக உரிமைகளுடன் இந்த நிரலை இயக்க வேண்டும்...$\r$\n$\r$\nகோப்பில் வலது கிளிக் செய்து, நிர்வாகியாக இயக்கவும் அல்லது இயக்கவும் என்பதைத் தேர்ந்தெடுக்கவும் (மற்றும் நிர்வாகக் கணக்கைத் தேர்ந்தெடுக்கவும்)!"
  Abort
  done:
  SetShellVarContext all
@@ -1551,7 +1550,7 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\grubram.lst "ஐ-மரபு\பட்டியல்\grubram.lst"    
   File /oname=$PLUGINSDIR\win.lst "ஐ-மரபு\பட்டியல்\win.lst"  
   File /oname=$PLUGINSDIR\win2go.lst "ஐ-மரபு\பட்டியல்\win2go.lst"  
-  File /oname=$PLUGINSDIR\grub.exe "இருமங்கள்\மாஒது.exe"  
+  File /oname=$PLUGINSDIR\grub.exe "இருமங்கள்\மாஒது_2.04.exe"  
   File /oname=$PLUGINSDIR\info "ஐ-மரபு\பட்டியல்\info"   
   File /oname=$PLUGINSDIR\antivirus.cfg "ஐ-மரபு\பட்டியல்\antivirus.cfg" 
   File /oname=$PLUGINSDIR\system.cfg "ஐ-மரபு\பட்டியல்\system.cfg" 
@@ -1566,7 +1565,7 @@ StrCpy $R9 0 ; we start on page 0
   File /oname=$PLUGINSDIR\7zG.exe "இருமங்கள்\7zG.exe"
   File /oname=$PLUGINSDIR\7z.dll "இருமங்கள்\7z.dll"  
   File /oname=$PLUGINSDIR\ஐ.png "..\அகர\அணிகலன்\ஐ.png"
-  File /oname=$PLUGINSDIR\உரிமை.உரை "..\அகர\பகவன்\உரிமை.உரை" 
+  File /oname=$PLUGINSDIR\உரிமை.உரை "..\அகர\பகவன்\உரிமை.உரை"
   File /oname=$PLUGINSDIR\vesamenu.c32 "இருமங்கள்\vesamenu.c32" 
   File /oname=$PLUGINSDIR\menu.c32 "இருமங்கள்\menu.c32"    
   File /oname=$PLUGINSDIR\memdisk "இருமங்கள்\நினைவட்டு" 

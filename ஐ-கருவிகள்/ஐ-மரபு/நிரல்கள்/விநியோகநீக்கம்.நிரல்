@@ -1,5 +1,4 @@
 ﻿; ------------ Uninstall Distros Macro -------------- 
-
 !macro Uninstall_Distros  
 ; New Methods catch-all
  ${If} $DistroName != ""  
@@ -10,7 +9,7 @@
   Delete "$BootDir\!\$DistroName\*.*" 
   ReadEnvStr $R0 COMSPEC
   nsExec::Exec '"$R0" /C rmdir /Q /S "$BootDir\!\$DistroName"' 
-  RMDir /R "$BootDir\!\$DistroName"
+  RMDir /R "$BootDir\!\$DistroName"   ; make another pass using NSIS built in RMDir
    ${AndIf} ${FileExists} "$BootDir\!\ISOS\$DistroName.iso"   
    Delete "$BootDir\!\ISOS\$DistroName.iso" 
  ${EndIf}

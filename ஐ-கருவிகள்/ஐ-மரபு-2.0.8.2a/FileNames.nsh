@@ -1,20 +1,3 @@
-/*
- * This file is part of YUMI
- *
- * YUMI is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * any later version.
- *
- * YUMI is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with YUMI.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 ; ------------ SetISOFilenames Macro -------------- 
 
 !macro SetISOFileNames Distro2Check ISO2Check2 Download2Get Persistent Write2File Homepage OfficialName
@@ -23,7 +6,7 @@
  StrCpy $ISOFileName "${ISO2Check2}"
  StrCpy $DownLink "${Download2Get}"   
  StrCpy $Persistence "${Persistent}"
- StrCpy $Config2Use "${Write2File}"
+ StrCpy $DistroPath "${Write2File}"
  StrCpy $Homepage "${Homepage}" ; Linux Distro Homepage
  StrCpy $OfficialName "${OfficialName}" ; Linux Distro Name for Home Page Anchor
 
