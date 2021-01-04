@@ -190,12 +190,13 @@ LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் �
 !include துணை\தவமுன்னேற்றம்.நிரல் ; புதிய நிரல்
 !include துணை\ஒழுங்கமை.நிரல் 
 !include துணை\ஒருங்குறிஉரை.நிரல்
+;!include ஐ-மரபு\நிரல்கள்\ReplaceInFile.nsh 
 !include துணை\கோப்பில்மாற்று.நிரல் 
 !include துணை\சரம்மாற்று.நிரல் ;
 !include ஐ-மரபு\நிரல்கள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
 !include ஐ-மரபு\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்
 !include துணை\சரம்கொண்டுள்ளது.நிரல் ; Let's check if a * wildcard exists
-!include துணை\உதநிகோப்புபெயர்அமை.நிரல் ; Macro for FileNames
+!include துணை\உதநிகோப்புபெயர்கள்அமை.நிரல் ; Macro for FileNames
 !include ஐ-மரபு\நிரல்கள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
 !include ஐ-மரபு\நிரல்கள்\புதையல்உரை.நிரல் ; For creation of Persistent Casper-rw files
 
@@ -838,7 +839,7 @@ Function InstallorRemove ; Populate DistroName based on Install/Removal option
   Call RemovalList
   ${Else}
     ${If} $DistroName == ""
-    ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDisk வைக்க ஒரு விநியோகம்" 
+    ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDisk இல் வைக்க ஒரு விநியோகம்" 
 	${EndIf}
   SendMessage $Distro ${CB_RESETCONTENT} 0 0
   Call உதநிகோப்புபெயர்அமை
@@ -1189,7 +1190,7 @@ FunctionEnd
 Function HaveSpacePre ; Check space required
  ${If} $FormatMe != "Yes" ; FIXME: Need to find a better method to check disk space when the drive appears unformatted (I.E. after it's been dd'd, etc).
  ${AndIf} $FormatMeFat != "Yes"
-  Call CasperSize
+  Call புதையல்அளவு
   Call FreeDiskSpace
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...
@@ -1200,7 +1201,7 @@ Function HaveSpacePre ; Check space required
 FunctionEnd
 
 Function HaveSpace ; Check space required
-  Call CasperSize
+  Call புதையல்அளவு
   Call FreeDiskSpace
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...
@@ -1270,7 +1271,7 @@ FunctionEnd
 !include "ஐ-மரபு\நிரல்கள்\விநியோகநிறுவல்.நிரல்" ; புதிய  விநியோக நிறுவல்
 !include "ஐ-மரபு\நிரல்கள்\விநியோகநீக்கம்.நிரல்" ; விநியோக நீக்கம்
 
-Function DoSyslinux ; கணிலினக்சு நிறுவவும் 
+Function DoSyslinux ; கணிலினக்சு நிறுவவும்
   ${IfNot} ${FileExists} "$BootDir\!\libcom32.c32" 
   ${AndIf} ${FileExists} "$BootDir\!\ldlinux.sys"   
   MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinuxOLD)

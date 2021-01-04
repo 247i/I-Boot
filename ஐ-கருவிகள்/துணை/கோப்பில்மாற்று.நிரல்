@@ -34,22 +34,22 @@ Push $R4 ;count (onwards)
 Push $R5 ;count (after)
 Push $R6 ;temp file name
  
-  GetTempFileName $R6
+GetTempFileName $R6
 ;Convert file from UTF-8 to UTF16LE 
 ${FileRecode} $0 "ToUTF16LE" ; ignore new file $R6 
 FileOpen $R1 $0 r ;file to search in
 FileOpen $R0 $R6 w ;temp file
-FileWriteUTF16LE /BOM $R0 "#Https://Tamilneram.github.IO/எண்முறை.html $\r$\n" ;write modified line
-   StrLen $R3 $4
-   StrCpy $R4 -1
-   StrCpy $R5 -1
+FileWriteUTF16LE /BOM $R0 "" ;write modified line
+StrLen $R3 $4
+StrCpy $R4 -1
+StrCpy $R5 -1
 
 loop_read:
- ClearErrors
+ClearErrors
 FileReadUTF16LE $R1 $R2 ;read line
- IfErrors exit
-   StrCpy $5 0
-   StrCpy $7 $R2
+IfErrors exit
+StrCpy $5 0
+StrCpy $7 $R2
  
 loop_filter:
    IntOp $5 $5 - 1

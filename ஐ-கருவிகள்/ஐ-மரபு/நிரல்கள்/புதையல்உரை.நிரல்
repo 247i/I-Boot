@@ -23,7 +23,7 @@ nsExec::ExecToLog '"$PLUGINSDIR\mke2fs.exe" -L $CasperName $BootDir\!\$JustISONa
 ${EndIf}
 FunctionEnd
 
-Function CasperSize
+Function புதையல்அளவு
  IntOp $SizeOfCasper $SizeOfCasper + $Casper
 FunctionEnd
 

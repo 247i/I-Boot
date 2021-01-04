@@ -182,7 +182,7 @@ LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் �
 !include துணை\ஒழுங்கமை.நிரல் ; பொதுவாக பயன்படுத்தும் நிரல்
 !include துணை\சரம்மாற்று.நிரல் ; பொதுவாக பயன்படுத்தும் நிரல்
 !include துணை\சரம்கொண்டுள்ளது.நிரல் ; Let's check if a * wildcard exists
-!include துணை\உதநிகோப்புபெயர்அமை.நிரல் ; Macro for FileNames
+!include துணை\உதநிகோப்புபெயர்கள்அமை.நிரல் ; Macro for FileNames
 !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
 !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
 !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\புதையல்உரை.நிரல் ; For creation of Persistent Casper-rw files
@@ -1090,7 +1090,7 @@ Function இடத்தைஅமை ; Set space available for persistence
 FunctionEnd
 
 Function இடமிருக்குமுன் ; Check space required
-  Call CasperSize
+  Call புதையல்அளவு
   Call மீதமுள்ளவட்டுஇடம்
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...
@@ -1100,7 +1100,7 @@ Function இடமிருக்குமுன் ; Check space required
 FunctionEnd
 
 Function இடமிருக்கு ; Check space required
-  Call CasperSize
+  Call புதையல்அளவு
   Call மீதமுள்ளவட்டுஇடம்
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...

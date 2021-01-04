@@ -1,5 +1,4 @@
 ﻿; ------------ Install Distros Macro -------------- 
-; !include கோப்பில்மாற்று.nsh
 Function FindConfig ; Set config path and file
   ${If} ${FileExists} "$BootDir\!\$JustISOName\liberte\boot\syslinux\syslinux.cfg" ; Liberte
   StrCpy $ConfigPath "liberte/boot/syslinux"
@@ -340,10 +339,10 @@ FunctionEnd
 		
 	  ; Set CasperName - (Persistence Filename)
         ${If} $DistroName == "Ubuntu"
-		 ${StrContains} $0 "buntu-19" "$JustISO"   
-		 ${StrContains} $1 "buntu-18" "$JustISO"
-		 ${StrContains} $2 "buntu-17" "$JustISO" 
-		 ${StrContains} $3 "buntu-16" "$JustISO" 		
+		 ${சரம்கொண்டுள்ளது} $0 "buntu-19" "$JustISO"   
+		 ${சரம்கொண்டுள்ளது} $1 "buntu-18" "$JustISO"
+		 ${சரம்கொண்டுள்ளது} $2 "buntu-17" "$JustISO" 
+		 ${சரம்கொண்டுள்ளது} $3 "buntu-16" "$JustISO" 		
 		 
 		 ${If} $0 != "buntu-19" 
 		 ${AndIf} $1 != "buntu-18"  
@@ -355,10 +354,10 @@ FunctionEnd
 		 ${EndIf}
 		 
          ${ElseIf} $DistroName == "Linux Mint"
-		 ${StrContains} $0 "mint-19" "$JustISO"   
-		 ${StrContains} $1 "mint-18" "$JustISO"
-		 ${StrContains} $2 "mint-17" "$JustISO" 
-		 ${StrContains} $3 "mint-16" "$JustISO" 		
+		 ${சரம்கொண்டுள்ளது} $0 "mint-19" "$JustISO"   
+		 ${சரம்கொண்டுள்ளது} $1 "mint-18" "$JustISO"
+		 ${சரம்கொண்டுள்ளது} $2 "mint-17" "$JustISO" 
+		 ${சரம்கொண்டுள்ளது} $3 "mint-16" "$JustISO" 		
 		 
 		 ${If} $0 != "mint-19" 
 		 ${AndIf} $1 != "mint-18"  
@@ -1837,7 +1836,7 @@ FunctionEnd
 			 !insertmacro கோப்பில்மாற்று "cdrom-detect/try-usb=true noprompt" "cdrom-detect/try-usb=true persistent persistent-path=/!/$JustISOName noprompt" "all" "all" "$BootDir\!\$JustISOName\boot\grub\loopback.cfg"  
 		 ${EndIf} 
 		 ; Create Casper-rw file
-		 Call CasperScript  
+		 Call புதையல்உரை  
 		 Call WriteStuff
     ${EndIf}
 !macroend

@@ -58,7 +58,7 @@ ${AndIf} $DistroName != "Windows to Go (Virtual Hard Disk)"
 ${EndIf}
 FunctionEnd
 
-Function CasperSize
+Function புதையல்அளவு
  IntOp $SizeOfCasper $SizeOfCasper + $Casper
 FunctionEnd
 
