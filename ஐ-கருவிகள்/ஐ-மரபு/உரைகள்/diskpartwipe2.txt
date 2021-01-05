@@ -1,3 +1,4 @@
+﻿
 select disk DISKNUM
 clean
 convert mbr

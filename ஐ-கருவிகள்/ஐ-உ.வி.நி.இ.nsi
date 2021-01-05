@@ -202,7 +202,7 @@ Function தேர்வுகள்பக்கம்
  ${If} $RepeatInstall == "YES"   
  ${NSD_SetText} $DestDriveTxt "$DestDrive"
 
-; To Install or நிறுவல்நீக்கு? That is the question!  
+; நிறுவ அல்லது நீக்க? அது தான் கேள்வி!
   ${NSD_CreateCheckBox} 60% 0 44% 15 "நிறுவப்பட்டது?"
   Pop $Uninstaller
   ${NSD_OnClick} $Uninstaller நிறுவல்நீக்கு  
@@ -1203,7 +1203,6 @@ Function கட்டமைப்புஎழுது
 ; ${ElseIf} $DistroPath == "menu.lst"
  ;${கணினிகோப்பில்எழுது} "label GRUB Bootable ISOs$\r$\nmenu label GRUB Bootable ISOs and Windows XP/7/8 ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/அகர/பகவன்/menu.lst" $R0 
  ${EndIf} 
- 
 FunctionEnd
 
 Function வெளியேறாதே

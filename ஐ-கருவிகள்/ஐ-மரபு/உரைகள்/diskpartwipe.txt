@@ -1,3 +1,4 @@
+﻿
 list disk
 select disk DISKNUM
 clean

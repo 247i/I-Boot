@@ -136,11 +136,11 @@ Var WipeMe
 !define MUI_TEXT_LICENSE_SUBTITLE $(License_Subtitle)
 !define MUI_LICENSEPAGE_TEXT_TOP $(License_Text_Top)
 !define MUI_LICENSEPAGE_TEXT_BOTTOM $(License_Text_Bottom)
-!define MUI_PAGE_CUSTOMFUNCTION_PRE License_PreFunction
+!define MUI_PAGE_CUSTOMFUNCTION_PRE உரிமம்_முன்செயல்பாடு
 !insertmacro MUI_PAGE_LICENSE "..\அகர\பகவன்\உரிமை.உரை"
 
 ; Distro Selection Page
-Page custom SelectionsPage
+Page custom தேர்வுகள்பக்கம்
 
 ; Install Files Page
 !define MUI_INSTFILESPAGE_COLORS "00FF00 000000" ;Green and Black
@@ -190,8 +190,8 @@ LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் �
 !include துணை\தவமுன்னேற்றம்.நிரல் ; புதிய நிரல்
 !include துணை\ஒழுங்கமை.நிரல் 
 !include துணை\ஒருங்குறிஉரை.நிரல்
-;!include ஐ-மரபு\நிரல்கள்\ReplaceInFile.nsh 
-!include துணை\கோப்பில்மாற்று.நிரல் 
+!include ஐ-மரபு\நிரல்கள்\ReplaceInFile.nsh 
+;!include துணை\கோப்பில்மாற்று.நிரல் 
 !include துணை\சரம்மாற்று.நிரல் ;
 !include ஐ-மரபு\நிரல்கள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
 !include ஐ-மரபு\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்
@@ -200,11 +200,11 @@ LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் �
 !include ஐ-மரபு\நிரல்கள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
 !include ஐ-மரபு\நிரல்கள்\புதையல்உரை.நிரல் ; For creation of Persistent Casper-rw files
 
-Function License_PreFunction
+Function உரிமம்_முன்செயல்பாடு
   StrCpy $R8 1 ;This is the 1st page
 FunctionEnd
 
-Function SelectionsPage
+Function தேர்வுகள்பக்கம்
   StrCpy $R8 2
  !insertmacro MUI_HEADER_TEXT $(SelectDist_Title) $(SelectDist_Subtitle) 
   nsDialogs::Create 1018
@@ -213,7 +213,7 @@ Function SelectionsPage
  ${If} $RepeatInstall == "YES"   
  ${NSD_SetText} $DestDriveTxt "$DestDrive"
 
-; To Install or Uninstall? That is the question!  
+; நிறுவ அல்லது நீக்க? அது தான் கேள்வி!
   ${NSD_CreateCheckBox} 60% 0 44% 15 "நிறுவப்பட்டது?"
   Pop $Uninstaller
   ${NSD_OnClick} $Uninstaller Uninstall  
@@ -267,7 +267,7 @@ Function SelectionsPage
   Pop $CasperSlider
   SendMessage $CasperSlider ${TBM_SETRANGEMIN} 1 0 ; Min Range Value 0
   SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Max Range Value
-  ${NSD_OnNotify} $CasperSlider onNotify_CasperSlider    
+  ${NSD_OnNotify} $CasperSlider புதையல்நிலைமாற்றிஅறிவிப்பதில்    
 
 ; Drive Pre-Selection  
   ${NSD_CreateLabel} 0 0 58% 15 ""
@@ -287,7 +287,7 @@ Function SelectionsPage
   StrCpy $BootDir $DestDrive 2  
   StrCpy $DestDisk $DestDrive 2
   StrCpy $9 $JustDrive
-  Call GetFSType
+  Call கோமுவகைபெறு
   Call இயற்பியக்கி
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; was ${NSD_LB_Clear} $Distro "" ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
   StrCpy $Checker "Yes"  
@@ -416,7 +416,7 @@ Function SelectionsPage
 
   SendMessage $CasperSlider ${TBM_SETRANGEMIN} 1 0 ; Min Range Value 0
   SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Max Range Value
-  ${NSD_OnNotify} $CasperSlider onNotify_CasperSlider
+  ${NSD_OnNotify} $CasperSlider புதையல்நிலைமாற்றிஅறிவிப்பதில்
 
 ; Add Home Link
   ${NSD_CreateLink} 0 215 16% 15 "முகப்பு பக்கம்"
@@ -464,7 +464,7 @@ FunctionEnd
 
 Function Finish_PreFunction
   StrCpy $R8 4
-  Call NoQuit
+  Call வெளியேறாதே
 FunctionEnd
 
 Function ListAllDrives ; Set to Display All Drives
@@ -784,7 +784,7 @@ Function ISOBrowse
 ;MessageBox MB_OK $JustISOName 
  ${GetParent} "$TheISO" $JustISOPath
  StrCpy $LocalSelection "Yes"
-  Call SetISOSize
+  Call உதநிஅளவைஅமை
   Call SetSpace
   Call CheckSpace
   Call HaveSpacePre
@@ -910,7 +910,7 @@ Function OnSelectDrive
   ;StrCpy $HDDUSB $Letters "" -3 
   
   StrCpy $9 $JustDrive
-  Call GetFSType
+  Call கோமுவகைபெறு
   Call இயற்பியக்கி
   ${NSD_SetText} $LabelDrivePage "படி 1: $DestDisk (வட்டு $DiskNum) தேர்ந்தெடுத்துள்ளீர்கள்"   
   ;MessageBox MB_ICONSTOP|MB_OK " $9 $FSType" 
@@ -982,7 +982,7 @@ Function DrivesList
  Call இயற்பியக்கி
  Call GetDiskVolumeName
  Call DiskSpace
- Call GetFSType
+ Call கோமுவகைபெறு
  
 ;Prevent System Drive from being selected
  StrCpy $7 $WINDIR 3
@@ -1286,58 +1286,60 @@ Function DoSyslinux ; கணிலினக்சு நிறுவவும்
   DetailPrint $(ExecuteSyslinux)
   nsExec::Exec '"$PLUGINSDIR\syslinux.exe" -maf -d /! $BootDir'
   Pop $R8
-  DetailPrint "Syslinux Errors $R8"
+DetailPrint "Syslinux Errors $R8"
 
-  ${If} $R8 != 0
-  MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinux)
-  ${EndIf} 
-  DetailPrint "Creating Label TA on $DestDisk"
-  nsExec::ExecToLog '"cmd" /c "LABEL $DestDiskTA"'
-  SkipSyslinux: 
-  DetailPrint $(SkipSyslinux)
-   ${IfNot} ${FileExists} $BootDir\!\linux.c32 ; need linux.c32 to launch wimboot from syslinux.  
-    DetailPrint "Adding wimboot and linux.c32."   
-    CopyFiles "$PLUGINSDIR\wimboot" "$BootDir\!\wimboot"
-    CopyFiles "$PLUGINSDIR\linux.c32" "$BootDir\!\linux.c32"  
-   ${EndIf}
-   ${IfNot} ${FileExists} $BootDir\!\legacy-i ; legacy-i test file.  
-    DetailPrint "Adding legacy-i test file."   
-    CopyFiles "$PLUGINSDIR\legacy-i" "$BootDir\!\legacy-i"  
-   ${EndIf}
-  ${If} ${FileExists} $BootDir\!\syslinux.cfg    
-   DetailPrint "முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது. உங்கள் புதிய தேர்வுகளைச் சேர்க்க தொடர்கிறது...."
-   Call AddDir
-  ${Else}
+${If} $R8 != 0
+MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinux)
+${EndIf} 
+DetailPrint "Creating Label TA on $DestDisk"
+nsExec::ExecToLog '"cmd" /c "LABEL $DestDiskTA"'
+SkipSyslinux: 
+DetailPrint $(SkipSyslinux)
+${IfNot} ${FileExists} $BootDir\!\linux.c32 ; need linux.c32 to launch wimboot from syslinux.  
+DetailPrint "Adding wimboot and linux.c32."   
+CopyFiles "$PLUGINSDIR\wimboot" "$BootDir\!\wimboot"
+CopyFiles "$PLUGINSDIR\linux.c32" "$BootDir\!\linux.c32"  
+${EndIf}
+${IfNot} ${FileExists} $BootDir\!\legacy-i ; legacy-i test file.  
+DetailPrint "Adding legacy-i test file."   
+CopyFiles "$PLUGINSDIR\legacy-i" "$BootDir\!\legacy-i"  
+${EndIf}
+${If} ${FileExists} $BootDir\!\syslinux.cfg    
+DetailPrint "முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது. உங்கள் புதிய தேர்வுகளைச் சேர்க்க தொடர்கிறது...."
+Call AddDir
+${Else}
 ; Create and Copy files to your destination
-  DetailPrint "Adding required files to the $BootDir\! directory..." 
-  CopyFiles "$PLUGINSDIR\syslinux.cfg" "$BootDir\!\syslinux.cfg"
-  CopyFiles "$PLUGINSDIR\ஐ.png" "$BootDir\!\ஐ.png"
-  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\!\உரிமை.உரை"
-  CopyFiles "$PLUGINSDIR\vesamenu.c32" "$BootDir\!\vesamenu.c32"
-  CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\!\menu.c32"  
-  CopyFiles "$PLUGINSDIR\chain.c32" "$BootDir\!\chain.c32"
-  CopyFiles "$PLUGINSDIR\libcom32.c32" "$BootDir\!\libcom32.c32"  
-  CopyFiles "$PLUGINSDIR\libutil.c32" "$BootDir\!\libutil.c32"      
-  CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\!\memdisk"
-  Call AddDir    
-  ${EndIf}
-  ${IfNot} ${FileExists} $BootDir\!\libutil.c32 ; Old Syslinux files need to be replaced
-  DetailPrint "Adding required files to the $BootDir\! directory..." 
-  CopyFiles "$PLUGINSDIR\ஐ.png" "$BootDir\!\ஐ.png"
-  CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\!\உரிமை.உரை"   
-  CopyFiles "$PLUGINSDIR\vesamenu.c32" "$BootDir\!\vesamenu.c32"
-  CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\!\menu.c32"  
-  CopyFiles "$PLUGINSDIR\chain.c32" "$BootDir\!\chain.c32"
-  CopyFiles "$PLUGINSDIR\libcom32.c32" "$BootDir\!\libcom32.c32"  
-  CopyFiles "$PLUGINSDIR\libutil.c32" "$BootDir\!\libutil.c32"   
-  CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\!\memdisk"
- ${EndIf}    
+DetailPrint "Adding required files to the $BootDir\! directory..." 
+CopyFiles "$PLUGINSDIR\syslinux.cfg" "$BootDir\!\syslinux.cfg"
+CopyFiles "$PLUGINSDIR\ஐ56-1.png" "$BootDir\!\I56-1.png"
+CopyFiles "$PLUGINSDIR\ஐ56-2.png" "$BootDir\!\I56-2.png"
+CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\!\உரிமை.உரை"
+CopyFiles "$PLUGINSDIR\vesamenu.c32" "$BootDir\!\vesamenu.c32"
+CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\!\menu.c32"  
+CopyFiles "$PLUGINSDIR\chain.c32" "$BootDir\!\chain.c32"
+CopyFiles "$PLUGINSDIR\libcom32.c32" "$BootDir\!\libcom32.c32"  
+CopyFiles "$PLUGINSDIR\libutil.c32" "$BootDir\!\libutil.c32"      
+CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\!\memdisk"
+Call AddDir    
+${EndIf}
+${IfNot} ${FileExists} $BootDir\!\libutil.c32 ; Old Syslinux files need to be replaced
+DetailPrint "Adding required files to the $BootDir\! directory..." 
+CopyFiles "$PLUGINSDIR\ஐ56-1.png" "$BootDir\!\I56-1.png"
+CopyFiles "$PLUGINSDIR\ஐ56-2.png" "$BootDir\!\I56-2.png"
+CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BootDir\!\உரிமை.உரை"   
+CopyFiles "$PLUGINSDIR\vesamenu.c32" "$BootDir\!\vesamenu.c32"
+CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\!\menu.c32"  
+CopyFiles "$PLUGINSDIR\chain.c32" "$BootDir\!\chain.c32"
+CopyFiles "$PLUGINSDIR\libcom32.c32" "$BootDir\!\libcom32.c32"  
+CopyFiles "$PLUGINSDIR\libutil.c32" "$BootDir\!\libutil.c32"   
+CopyFiles "$PLUGINSDIR\memdisk" "$BootDir\!\memdisk"
+${EndIf}
 
 ; Check to ensure menu.c32 exists... now required for ஐ V2
-  ${IfNot} ${FileExists} $BootDir\!\menu.c32
-   DetailPrint "Adding menu.c32. Required for ஐ V2"
-   CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\!\menu.c32" 
-  ${EndIf}	  
+${IfNot} ${FileExists} $BootDir\!\menu.c32
+DetailPrint "Adding menu.c32. Required for ஐ V2"
+CopyFiles "$PLUGINSDIR\menu.c32" "$BootDir\!\menu.c32" 
+${EndIf}
 FunctionEnd
 
 Function AddDir ;
@@ -1482,11 +1484,11 @@ Function Config2Write
  ${EndIf} 
 FunctionEnd
 
-Function NoQuit
+Function வெளியேறாதே
 MessageBox MB_YESNO "$DestDisk இயக்ககத்தில் இப்போது மேலும் உதநிக்கள் / விநியோகங்களை சேர்க்க விரும்புகிறீர்களா?" IDYES noskip
     StrCmp $R8 3 0 End ;Compare $R8 variable with current page #
     StrCpy $R9 1 ; Goes to finish page
-    Call RelGotoPage
+    Call உறவுபக்கத்திற்குச்செல்
     Abort
 noskip:
 ;StrCpy $ShowAll "$ShowAll" ; Retain Display All Drives
@@ -1511,12 +1513,12 @@ StrCpy $WipeMe "" ; Reset WipeMe Option
 ;StrCpy $DisMounted ""
     StrCmp $R8 4 0 End ;Compare $R8 variable with current page #
     StrCpy $R9 -3 ; Goes back to selections page
-    Call RelGotoPage ; change pages
+    Call உறவுபக்கத்திற்குச்செல் ; change pages
     Abort
 End:
 FunctionEnd
 
-Function RelGotoPage
+Function உறவுபக்கத்திற்குச்செல்
   IntCmp $R9 0 0 Move Move
     StrCmp $R9 "X" 0 Move
       StrCpy $R9 "120"
@@ -1527,73 +1529,75 @@ FunctionEnd
 ; --- Stuff to do at startup of script ---
 Function .onInit
 StrCpy $R9 0 ; we start on page 0
- StrCpy $FileFormat "ISO"
- userInfo::getAccountType
- Pop $Auth
- strCmp $Auth "Admin" done
- Messagebox MB_OK|MB_ICONINFORMATION "தற்போது நீங்கள் இந்த நிரலை $Auth ஆக இயக்க முயற்சிக்கிறீர்கள்$\r$\n$\r$\nநீங்கள் நிர்வாக உரிமைகளுடன் இந்த நிரலை இயக்க வேண்டும்...$\r$\n$\r$\nகோப்பில் வலது கிளிக் செய்து, நிர்வாகியாக இயக்கவும் அல்லது இயக்கவும் என்பதைத் தேர்ந்தெடுக்கவும் (மற்றும் நிர்வாகக் கணக்கைத் தேர்ந்தெடுக்கவும்)!"
- Abort
- done:
- SetShellVarContext all
- InitPluginsDir
-  File /oname=$PLUGINSDIR\dskvol.txt "ஐ-மரபு\உரைகள்\dskvol.txt" 
-  File /oname=$PLUGINSDIR\diskpart.txt "ஐ-மரபு\உரைகள்\diskpart.txt" 
-  File /oname=$PLUGINSDIR\w2gdiskpart.txt "ஐ-மரபு\உரைகள்\w2gdiskpart.txt"   
-  File /oname=$PLUGINSDIR\dd-diskpart.txt "ஐ-மரபு\உரைகள்\dd-diskpart.txt" 
-  File /oname=$PLUGINSDIR\diskpartdetach.txt "ஐ-மரபு\உரைகள்\diskpartdetach.txt"  
-  File /oname=$PLUGINSDIR\autounattend.xml "ஐ-மரபு\உரைகள்\autounattend.xml"   
-  File /oname=$PLUGINSDIR\syslinux.exe "இருமங்கள்\கணிலினக்சு6.04.32.exe"  
-  File /oname=$PLUGINSDIR\syslinux.cfg "ஐ-மரபு\பட்டியல்\syslinux.cfg"
-  File /oname=$PLUGINSDIR\legacy-i "ஐ-மரபு\பட்டியல்\legacy-i"  
-  File /oname=$PLUGINSDIR\menu.lst "ஐ-மரபு\பட்டியல்\menu.lst"  
-  File /oname=$PLUGINSDIR\vhd.lst "ஐ-மரபு\பட்டியல்\vhd.lst" 
-  File /oname=$PLUGINSDIR\grubpart4.lst "ஐ-மரபு\பட்டியல்\grubpart4.lst"  
-  File /oname=$PLUGINSDIR\grubram.lst "ஐ-மரபு\பட்டியல்\grubram.lst"    
-  File /oname=$PLUGINSDIR\win.lst "ஐ-மரபு\பட்டியல்\win.lst"  
-  File /oname=$PLUGINSDIR\win2go.lst "ஐ-மரபு\பட்டியல்\win2go.lst"  
-  File /oname=$PLUGINSDIR\grub.exe "இருமங்கள்\மாஒது_2.04.exe"  
-  File /oname=$PLUGINSDIR\info "ஐ-மரபு\பட்டியல்\info"   
-  File /oname=$PLUGINSDIR\antivirus.cfg "ஐ-மரபு\பட்டியல்\antivirus.cfg" 
-  File /oname=$PLUGINSDIR\system.cfg "ஐ-மரபு\பட்டியல்\system.cfg" 
-  File /oname=$PLUGINSDIR\netbook.cfg "ஐ-மரபு\பட்டியல்\netbook.cfg"
-  File /oname=$PLUGINSDIR\linux.cfg "ஐ-மரபு\பட்டியல்\linux.cfg" 
-  File /oname=$PLUGINSDIR\anon.cfg "ஐ-மரபு\பட்டியல்\anon.cfg"
-  File /oname=$PLUGINSDIR\other.cfg "ஐ-மரபு\பட்டியல்\other.cfg"   
-  File /oname=$PLUGINSDIR\pe.cfg "ஐ-மரபு\பட்டியல்\pe.cfg"    
-  File /oname=$PLUGINSDIR\pe.lst "ஐ-மரபு\பட்டியல்\pe.lst"  
-  File /oname=$PLUGINSDIR\unlisted.cfg "ஐ-மரபு\பட்டியல்\unlisted.cfg"
-  File /oname=$PLUGINSDIR\liveusb "இருமங்கள்\வாழ்உதொபே"
-  File /oname=$PLUGINSDIR\7zG.exe "இருமங்கள்\7zG.exe"
-  File /oname=$PLUGINSDIR\7z.dll "இருமங்கள்\7z.dll"  
-  File /oname=$PLUGINSDIR\ஐ.png "..\அகர\அணிகலன்\ஐ.png"
-  File /oname=$PLUGINSDIR\உரிமை.உரை "..\அகர\பகவன்\உரிமை.உரை"
-  File /oname=$PLUGINSDIR\vesamenu.c32 "இருமங்கள்\vesamenu.c32" 
-  File /oname=$PLUGINSDIR\menu.c32 "இருமங்கள்\menu.c32"    
-  File /oname=$PLUGINSDIR\memdisk "இருமங்கள்\நினைவட்டு" 
-  File /oname=$PLUGINSDIR\chain.c32 "இருமங்கள்\chain.c32" 
-  File /oname=$PLUGINSDIR\libcom32.c32 "இருமங்கள்\libcom32.c32"  
-  File /oname=$PLUGINSDIR\libutil.c32 "இருமங்கள்\libutil.c32"   
-  File /oname=$PLUGINSDIR\linux.c32 "இருமங்கள்\linux.c32"  
-  File /oname=$PLUGINSDIR\wimboot "இருமங்கள்\wimboot"   
-  File /oname=$PLUGINSDIR\ifcpu64.c32 "இருமங்கள்\ifcpu64.c32" 
-  File /oname=$PLUGINSDIR\remount.cmd "ஐ-மரபு\உரைகள்\remount.cmd"  
-  File /oname=$PLUGINSDIR\boot.cmd "ஐ-மரபு\உரைகள்\boot.cmd"    
-  File /oname=$PLUGINSDIR\vhdremount.cmd "ஐ-மரபு\உரைகள்\vhdremount.cmd"    
-  File /oname=$PLUGINSDIR\ei.cfg "ஐ-மரபு\பட்டியல்\ei.cfg"
-  File /oname=$PLUGINSDIR\dd.exe "இருமங்கள்\தரவுவரையறை.exe"
-  File /oname=$PLUGINSDIR\fat32format.exe "இருமங்கள்\கோஒஅ32வடிவம்.exe"    
-  SetOutPath "$PLUGINSDIR"  
-  File /r "wimlib" 
-  SetOutPath ""  
+StrCpy $FileFormat "ISO"
+userInfo::getAccountType
+Pop $Auth
+strCmp $Auth "Admin" done
+Messagebox MB_OK|MB_ICONINFORMATION "தற்போது நீங்கள் இந்த நிரலை $Auth ஆக இயக்க முயற்சிக்கிறீர்கள்$\r$\n$\r$\nநீங்கள் நிர்வாக உரிமைகளுடன் இந்த நிரலை இயக்க வேண்டும்...$\r$\n$\r$\nகோப்பில் வலது கிளிக் செய்து, நிர்வாகியாக இயக்கவும் அல்லது இயக்கவும் என்பதைத் தேர்ந்தெடுக்கவும் (மற்றும் நிர்வாகக் கணக்கைத் தேர்ந்தெடுக்கவும்)!"
+Abort
+done:
+SetShellVarContext all
+InitPluginsDir
+File /oname=$PLUGINSDIR\dskvol.txt "ஐ-மரபு\உரைகள்\dskvol.txt" 
+File /oname=$PLUGINSDIR\diskpart.txt "ஐ-மரபு\உரைகள்\diskpart.txt" 
+File /oname=$PLUGINSDIR\w2gdiskpart.txt "ஐ-மரபு\உரைகள்\w2gdiskpart.txt"   
+File /oname=$PLUGINSDIR\dd-diskpart.txt "ஐ-மரபு\உரைகள்\dd-diskpart.txt" 
+File /oname=$PLUGINSDIR\diskpartdetach.txt "ஐ-மரபு\உரைகள்\diskpartdetach.txt"  
+File /oname=$PLUGINSDIR\autounattend.xml "ஐ-மரபு\உரைகள்\autounattend.xml"   
+File /oname=$PLUGINSDIR\syslinux.exe "இருமங்கள்\கணிலினக்சு6.04.32.exe"  
+File /oname=$PLUGINSDIR\syslinux.cfg "ஐ-மரபு\பட்டியல்\syslinux.cfg"
+File /oname=$PLUGINSDIR\legacy-i "ஐ-மரபு\பட்டியல்\legacy-i"
+File /oname=$PLUGINSDIR\menu.lst "ஐ-மரபு\பட்டியல்\menu.lst"
+File /oname=$PLUGINSDIR\vhd.lst "ஐ-மரபு\பட்டியல்\vhd.lst" 
+File /oname=$PLUGINSDIR\grubpart4.lst "ஐ-மரபு\பட்டியல்\grubpart4.lst"  
+File /oname=$PLUGINSDIR\grubram.lst "ஐ-மரபு\பட்டியல்\grubram.lst"    
+File /oname=$PLUGINSDIR\win.lst "ஐ-மரபு\பட்டியல்\win.lst"
+File /oname=$PLUGINSDIR\win2go.lst "ஐ-மரபு\பட்டியல்\win2go.lst"  
+File /oname=$PLUGINSDIR\grub.exe "இருமங்கள்\மாஒது_2.04.exe"
+File /oname=$PLUGINSDIR\info "ஐ-மரபு\பட்டியல்\info"   
+File /oname=$PLUGINSDIR\antivirus.cfg "ஐ-மரபு\பட்டியல்\antivirus.cfg" 
+File /oname=$PLUGINSDIR\system.cfg "ஐ-மரபு\பட்டியல்\system.cfg" 
+File /oname=$PLUGINSDIR\netbook.cfg "ஐ-மரபு\பட்டியல்\netbook.cfg"
+File /oname=$PLUGINSDIR\linux.cfg "ஐ-மரபு\பட்டியல்\linux.cfg" 
+File /oname=$PLUGINSDIR\anon.cfg "ஐ-மரபு\பட்டியல்\anon.cfg"
+File /oname=$PLUGINSDIR\other.cfg "ஐ-மரபு\பட்டியல்\other.cfg"   
+File /oname=$PLUGINSDIR\pe.cfg "ஐ-மரபு\பட்டியல்\pe.cfg"    
+File /oname=$PLUGINSDIR\pe.lst "ஐ-மரபு\பட்டியல்\pe.lst"  
+File /oname=$PLUGINSDIR\unlisted.cfg "ஐ-மரபு\பட்டியல்\unlisted.cfg"
+File /oname=$PLUGINSDIR\liveusb "இருமங்கள்\வாழ்உதொபே"
+File /oname=$PLUGINSDIR\7zG.exe "இருமங்கள்\7zG.exe"
+File /oname=$PLUGINSDIR\7z.dll "இருமங்கள்\7z.dll"  
+File /oname=$PLUGINSDIR\ஐ56-1.png "..\அகர\அணிகலன்\ஐ56-1.png"
+File /oname=$PLUGINSDIR\ஐ56-2.png "..\அகர\அணிகலன்\ஐ56-2.png"
+;File /oname=$PLUGINSDIR\ஐ.png "..\அகர\அணிகலன்\ஐ.png"
+File /oname=$PLUGINSDIR\உரிமை.உரை "..\அகர\பகவன்\உரிமை.உரை"
+File /oname=$PLUGINSDIR\vesamenu.c32 "இருமங்கள்\vesamenu.c32" 
+File /oname=$PLUGINSDIR\menu.c32 "இருமங்கள்\menu.c32"    
+File /oname=$PLUGINSDIR\memdisk "இருமங்கள்\நினைவட்டு" 
+File /oname=$PLUGINSDIR\chain.c32 "இருமங்கள்\chain.c32" 
+File /oname=$PLUGINSDIR\libcom32.c32 "இருமங்கள்\libcom32.c32"  
+File /oname=$PLUGINSDIR\libutil.c32 "இருமங்கள்\libutil.c32"   
+File /oname=$PLUGINSDIR\linux.c32 "இருமங்கள்\linux.c32"  
+File /oname=$PLUGINSDIR\wimboot "இருமங்கள்\wimboot"   
+File /oname=$PLUGINSDIR\ifcpu64.c32 "இருமங்கள்\ifcpu64.c32" 
+File /oname=$PLUGINSDIR\remount.cmd "ஐ-மரபு\உரைகள்\remount.cmd"
+File /oname=$PLUGINSDIR\boot.cmd "ஐ-மரபு\உரைகள்\boot.cmd"
+File /oname=$PLUGINSDIR\vhdremount.cmd "ஐ-மரபு\உரைகள்\vhdremount.cmd"
+File /oname=$PLUGINSDIR\ei.cfg "ஐ-மரபு\பட்டியல்\ei.cfg"
+File /oname=$PLUGINSDIR\dd.exe "இருமங்கள்\தரவுவரையறை.exe"
+File /oname=$PLUGINSDIR\fat32format.exe "இருமங்கள்\கோஒஅ32வடிவம்.exe"
+SetOutPath "$PLUGINSDIR"  
+File /r "இருமங்கள்\wimlib" 
+SetOutPath ""  
 FunctionEnd
 
-Function onNotify_CasperSlider
+Function புதையல்நிலைமாற்றிஅறிவிப்பதில்
  Pop $Casper
  SendMessage $CasperSlider ${TBM_GETPOS} 0 0 $Casper ; Get Trackbar position
  ${NSD_SetText} $SlideSpot "$Casper MB"
 FunctionEnd
 
-Function SetISOSize ; Get size of ISO
+Function உதநிஅளவைஅமை ; Get size of ISO
  System::Call 'kernel32::CreateFile(t "$TheISO", i 0x80000000, i 1, i 0, i 3, i 0, i 0) i .r0'
  System::Call "kernel32::GetFileSizeEx(i r0, *l .r1) i .r2"
  System::Alloc $1
@@ -1604,7 +1608,7 @@ Function SetISOSize ; Get size of ISO
  System::Call 'kernel32::CloseHandle(i r0)'
 FunctionEnd
 
-Function GetFSType
+Function கோமுவகைபெறு
 System::Call 'Kernel32::GetVolumeInformation(t "$9",t,i ${NSIS_MAX_STRLEN},*i,*i,*i,t .r1" ,i ${NSIS_MAX_STRLEN}) i.r0'
  StrCpy $FSType "$1"
 FunctionEnd

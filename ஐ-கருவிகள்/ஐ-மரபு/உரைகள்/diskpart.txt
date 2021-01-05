@@ -1,3 +1,4 @@
+﻿
 create vdisk file=DSK\SLUG.vhd type=fixed maximum=VHDSIZE
 select vdisk file=DSK\SLUG.vhd
 attach vdisk
