@@ -819,7 +819,7 @@ Function இயக்கிதேர்வில்
    MessageBox MB_ICONSTOP|MB_OK "$FSType வடிவமைக்கப்பட்ட சாதனங்களில் கணிலினக்சு செயல்படாது. $JustDriveஐ Fat32 ஆக வடிவமைக்க நீங்கள் தேர்வு செய்யலாம்."
   ${EndIf}
 
-  ${If} ${FileExists} "$BDir\!\legacy-i"
+  ${If} ${FileExists} "$BDir\!\ஐ.மரபு"
   MessageBox MB_ICONSTOP|MB_OK "($DestDisk) ஒரு ஐ-மரபு நிறுவலைக் கொண்டுள்ளது. ஐ-உ.வி.நி.இ ஐப் பயன்படுத்த நீங்கள் மறுவடிவமைக்க வேண்டும்."
   ${EndIf}   
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
