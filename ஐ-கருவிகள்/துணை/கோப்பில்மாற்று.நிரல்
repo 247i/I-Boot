@@ -189,3 +189,14 @@ ${ஒழுங்கமை} "$DistroName" "$DistroName" ; Remove spaces, newline
      ;Call உதநிகோப்புபெயர்அமை
  ${EndIf}
 FunctionEnd
+
+
+!include "TextFunc.nsh" ; TextFunc.nsh required for the following நிறுவலைநீக்கு function
+Function நிறுவலைநீக்கு  ; Deletes Select Entry from நிறுவப்பட்டது.உரை          
+	StrLen $0 "$DistroName"
+	StrCpy $1 "$R9" $0
+	StrCmp $1 "$DistroName" 0 End
+	StrCpy $R9 ""
+	End:
+	Push $0
+FunctionEnd

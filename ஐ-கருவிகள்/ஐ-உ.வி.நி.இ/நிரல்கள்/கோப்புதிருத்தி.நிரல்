@@ -54,13 +54,3 @@ FunctionEnd
   Call கணினிகோப்பில்எழுது
 !macroend  
 !define கணினிகோப்பில்எழுது "!insertmacro கணினிகோப்பில்எழுது"
-
-!include "TextFunc.nsh" ; TextFunc.nsh required for the following நிறுவலைநீக்கு function
-Function நிறுவலைநீக்கு  ; நிறுவப்பட்டது உரையிலிருந்து உள்ளீட்டைத் தேர்ந்தெடு நீக்குகிறது          
-	StrLen $0 "$DistroName"
-	StrCpy $1 "$R9" $0
-	StrCmp $1 "$DistroName" 0 End
-	StrCpy $R9 ""
-	End:
-	Push $0
-FunctionEnd

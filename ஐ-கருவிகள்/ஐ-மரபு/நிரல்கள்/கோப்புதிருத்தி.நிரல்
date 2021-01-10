@@ -67,51 +67,57 @@ Function CBFUNC
   Push "stop"
 FunctionEnd
 
-Function WriteToFile ; modified to populate *.cfg file with the distro user installed!
+Function கோப்பில்எழுது ; modified to populate *.cfg file with the distro user installed!
  Exch $R0 ;file to write to
  Exch
  Exch $1 ;text to write
+
+											  
+																	   
+								   
  FileOpen $R0 '$BDir\!\menu\$DistroPath' a 
  FileSeek $R0 0 END
+																																
  FileWrite $R0 '$\r$\n$1' ; புதிய வரி மற்றும் தரவைச் சேர்க்கவும்
  FileClose $R0
+							
+																	
+							   
+ 
  Pop $1
  Pop $R0
 FunctionEnd
 
-!macro WriteToFile String File
+!macro கோப்பில்எழுது String File
  Push "${String}"
  Push "${File}"
- Call WriteToFile
+ Call கோப்பில்எழுது
  ${LineFind} "$BDir\!\menu\$DistroPath" "$BDir\!\menu\$DistroPath" "1:-1" "வெற்றுவரியைநீக்கு" ; Remove any left over empty lines
 !macroend  
-!define WriteToFile "!insertmacro WriteToFile"
+!define கோப்பில்எழுது "!insertmacro கோப்பில்எழுது"
 
-Function WriteToSysFile ; Write entry to syslinux.cfg
+
+Function கணினிகோப்பில்எழுது ; Write entry to syslinux.cfg
  Exch $R0 ;file to write to
  Exch
  Exch $1 ;text to write
+											  
+																							  
+								   
  FileOpen $R0 '$BDir\!\syslinux.cfg' a 
  FileSeek $R0 0 END
  FileWrite $R0 '$\r$\n$1$\r$\n'
+									  
  FileClose $R0
+							
+																						   
+							   
  Pop $1
  Pop $R0
 FunctionEnd
-!macro WriteToSysFile String File
+!macro கணினிகோப்பில்எழுது String File
   Push "${String}"
   Push "${File}"
-  Call WriteToSysFile
+  Call கணினிகோப்பில்எழுது
 !macroend  
-!define WriteToSysFile "!insertmacro WriteToSysFile"
-
-!include "TextFunc.nsh" ; TextFunc.nsh required for the following DeleteInstall function
-Function DeleteInstall  ; நிறுவப்பட்டது.உரைஇலிருந்து உள்ளீட்டைத் தேர்ந்தெடு நீக்குகிறது          
-	StrLen $0 "$DistroName"
-	StrCpy $1 "$R9" $0
-	StrCmp $1 "$DistroName" 0 End
-	StrCpy $R9 ""
-	End:
-	Push $0
-FunctionEnd
-
+!define கணினிகோப்பில்எழுது "!insertmacro கணினிகோப்பில்எழுது"

@@ -21,7 +21,7 @@ Function "முதுபஅடை" ; Let's Get the முதுபஅடை for
  ${முதுபஅடைவுக்குஎழுது} "$OnlyVal" $R0
 FunctionEnd
 
-; WriteToFile Function modified to populate .cfg file with what the user chose!
+; கோப்பில்எழுது Function modified to populate .cfg file with what the user chose!
 Function முதுபஅடைவுக்குஎழுது
  Exch $R0 ;file to write to
  Exch

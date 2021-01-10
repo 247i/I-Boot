@@ -1447,37 +1447,37 @@ FunctionEnd
 
 Function Config2Write
  ${If} $DistroPath == "linux.cfg"
-  ${WriteToSysFile} "label Linux Distributions$\r$\nmenu label Linux Distributions ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/linux.cfg" $R0 
+  ${கணினிகோப்பில்எழுது} "label Linux Distributions$\r$\nmenu label Linux Distributions ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/linux.cfg" $R0 
  ${ElseIf} $DistroPath == "anon.cfg"
-  ${WriteToSysFile} "label Anon $\r$\nmenu label Anonymous Browsers ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/anon.cfg" $R0  
+  ${கணினிகோப்பில்எழுது} "label Anon $\r$\nmenu label Anonymous Browsers ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/anon.cfg" $R0  
  ${ElseIf} $DistroPath == "system.cfg"
-  ${WriteToSysFile} "label System Tools$\r$\nmenu label System Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/system.cfg" $R0
+  ${கணினிகோப்பில்எழுது} "label System Tools$\r$\nmenu label System Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/system.cfg" $R0
  ${ElseIf} $DistroPath == "antivirus.cfg"
-  ${WriteToSysFile} "label Antivirus Tools$\r$\nmenu label Antivirus Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/antivirus.cfg" $R0 
+  ${கணினிகோப்பில்எழுது} "label Antivirus Tools$\r$\nmenu label Antivirus Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/antivirus.cfg" $R0 
  ${ElseIf} $DistroPath == "netbook.cfg"
-  ${WriteToSysFile} "label Netbook Distributions$\r$\nmenu label Netbook Distributions ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/netbook.cfg" $R0 
+  ${கணினிகோப்பில்எழுது} "label Netbook Distributions$\r$\nmenu label Netbook Distributions ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/netbook.cfg" $R0 
  ${ElseIf} $DistroPath == "other.cfg"
-  ${WriteToSysFile} "label Other OS and Tools$\r$\nmenu label Other OS and Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/other.cfg" $R0 
+  ${கணினிகோப்பில்எழுது} "label Other OS and Tools$\r$\nmenu label Other OS and Tools ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/other.cfg" $R0 
  ${ElseIf} $DistroPath == "pe.cfg"
-  ${WriteToSysFile} "label Windows PE$\r$\nmenu label Windows PE ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/pe.cfg" $R0   
+  ${கணினிகோப்பில்எழுது} "label Windows PE$\r$\nmenu label Windows PE ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/pe.cfg" $R0   
  ${ElseIf} $DistroPath == "pe.lst"
-  ${WriteToSysFile} "label Windows PE$\r$\nmenu label Windows PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/pe.lst" $R0   
+  ${கணினிகோப்பில்எழுது} "label Windows PE$\r$\nmenu label Windows PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/pe.lst" $R0   
  ${ElseIf} $DistroPath == "hirens.lst"
-  ${WriteToSysFile} "label Hiren's Boot CD PE$\r$\nmenu label Hiren's Boot CD PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/hirens.lst" $R0    
+  ${கணினிகோப்பில்எழுது} "label Hiren's Boot CD PE$\r$\nmenu label Hiren's Boot CD PE ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/hirens.lst" $R0    
  ${ElseIf} $DistroPath == "unlisted.cfg"
-  ${WriteToSysFile} "label Unlisted ISOs (via SYSLINUX)$\r$\nmenu label  Unlisted ISOs (via SYSLINUX) ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/unlisted.cfg" $R0  
+  ${கணினிகோப்பில்எழுது} "label Unlisted ISOs (via SYSLINUX)$\r$\nmenu label  Unlisted ISOs (via SYSLINUX) ->$\r$\nMENU INDENT 1$\r$\nCONFIG /!/menu/unlisted.cfg" $R0  
  ${ElseIf} $DistroPath == "menu.lst"
-  ${WriteToSysFile} "label Unlisted ISOs (via GRUB)$\r$\nmenu label Unlisted ISOs (via GRUB) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/menu.lst" $R0 
+  ${கணினிகோப்பில்எழுது} "label Unlisted ISOs (via GRUB)$\r$\nmenu label Unlisted ISOs (via GRUB) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/menu.lst" $R0 
  ${ElseIf} $DistroPath == "vhd.lst"
-  ${WriteToSysFile} "label Unlisted ISOs (via Virtual Hard Disk)$\r$\nmenu label Unlisted ISOs (via Virtual Hard Disk) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/vhd.lst" $R0 
+  ${கணினிகோப்பில்எழுது} "label Unlisted ISOs (via Virtual Hard Disk)$\r$\nmenu label Unlisted ISOs (via Virtual Hard Disk) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/vhd.lst" $R0 
  ${ElseIf} $DistroPath == "grubpart4.lst"
-  ${WriteToSysFile} "label Unlisted ISOs (via GRUB Partition 4)$\r$\nmenu label Unlisted ISOs (via GRUB Partition 4) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/grubpart4.lst" $R0
+  ${கணினிகோப்பில்எழுது} "label Unlisted ISOs (via GRUB Partition 4)$\r$\nmenu label Unlisted ISOs (via GRUB Partition 4) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/grubpart4.lst" $R0
  ${ElseIf} $DistroPath == "grubram.lst"
-  ${WriteToSysFile} "label Unlisted ISOs (via GRUB from RAM)$\r$\nmenu label Unlisted ISOs (via GRUB from RAM) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/grubram.lst" $R0   
+  ${கணினிகோப்பில்எழுது} "label Unlisted ISOs (via GRUB from RAM)$\r$\nmenu label Unlisted ISOs (via GRUB from RAM) ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/grubram.lst" $R0   
  ${ElseIf} $DistroPath == "win.lst" 
-  ${WriteToSysFile} "label Windows Installers$\r$\nmenu label Windows Installers ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/win.lst" $R0  
+  ${கணினிகோப்பில்எழுது} "label Windows Installers$\r$\nmenu label Windows Installers ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/win.lst" $R0  
  ${ElseIf} $DistroPath == "win2go.lst"
-  ${WriteToSysFile} "label Windows to Go$\r$\nmenu label Windows to Go ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/win2go.lst" $R0     
+  ${கணினிகோப்பில்எழுது} "label Windows to Go$\r$\nmenu label Windows to Go ->$\r$\nMENU INDENT 1$\r$\nKERNEL /!/grub.exe$\r$\nAPPEND --config-file=/!/menu/win2go.lst" $R0     
  ${EndIf} 
 FunctionEnd
 
@@ -1603,8 +1603,9 @@ Function உதநிஅளவைஅமை ; Get size of ISO
 ; MessageBox MB_OK|MB_ICONINFORMATION "ISO Size: $SizeOfCasper"
  System::Call 'kernel32::CloseHandle(i r0)'
 FunctionEnd
-
+/*
 Function கோமுவகைபெறு
 System::Call 'Kernel32::GetVolumeInformation(t "$9",t,i ${NSIS_MAX_STRLEN},*i,*i,*i,t .r1" ,i ${NSIS_MAX_STRLEN}) i.r0'
  StrCpy $FSType "$1"
 FunctionEnd
+/*
