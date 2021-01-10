@@ -35,18 +35,25 @@ Push $R5 ;count (after)
 Push $R6 ;temp file name
  
 GetTempFileName $R6
-;Convert file from UTF-8 to UTF16LE 
+${If} $TASupport == "Yes" ;Convert file from UTF-8 to UTF16LE 
 ${FileRecode} $0 "ToUTF16LE" ; ignore new file $R6 
+${EndIf}
 FileOpen $R1 $0 r ;file to search in
 FileOpen $R0 $R6 w ;temp file
-FileWriteUTF16LE /BOM $R0 "" ;write modified line
+${If} $TASupport == "Yes"
+FileWriteUTF16LE /BOM $R0 "" ;write Byte order mark
+${EndIf}
 StrLen $R3 $4
 StrCpy $R4 -1
 StrCpy $R5 -1
 
 loop_read:
 ClearErrors
+${If} $TASupport == "Yes"
 FileReadUTF16LE $R1 $R2 ;read line
+${Else}
+FileRead $R1 $R2 ;read line
+${EndIf}
 IfErrors exit
 StrCpy $5 0
 StrCpy $7 $R2
@@ -80,19 +87,27 @@ IntOp $R5 $R5 - 1
 Goto file_write2
  
 file_write1:
+${If} $TASupport == "Yes"
 FileWriteUTF16LE $R0 $7 ;write modified line
+${Else}
+FileWrite $R0 $7 ;write modified line
+${EndIf}
 Goto loop_read
  
 file_write2:
+${If} $TASupport == "Yes"
 FileWriteUTF16LE $R0 $R2 ;write unmodified line
+${Else}
+FileWrite $R0 $R2 ;write unmodified line
+${EndIf}
 Goto loop_read
  
 exit:
 FileClose $R0
 FileClose $R1
-; Convert file back to UTF-8
-${FileRecode} $R6 "ToUTF8"; ignore other file which will be deleted.
- 
+${If} $TASupport == "Yes" ; Convert file back to UTF-8
+${FileRecode} $R6 "ToUTF8" ; ignore other file which will be deleted.
+${EndIf}
 SetDetailsPrint none
 Delete $0
 Rename $R6 $0
@@ -117,4 +132,60 @@ Pop $1
 Pop $2
 Pop $3
 Pop $4
+FunctionEnd
+
+Function வெற்றுவரியைநீக்கு ; உரையிலிருந்து வெற்று வரியை நீக்குகிறது
+	StrLen $0 "$\r$\n"
+	StrCpy $1 "$R9" $0
+	StrCmp $1 "$\r$\n" 0 End
+	StrCpy $R9 ""
+	End:
+	Push $0
+FunctionEnd
+
+Function நிறுவப்பட்டபட்டியல் ; Creates a list of installed distros in the அகர\பகவன் folder on the USB drive (So we can uninstall the distros later)
+CreateDirectory $BDir\அகர\பகவன் ; recursively create the directory structure if it doesn't exist 
+ ${IfNot} ${FileExists} "$BDir\!\$JustISOName\*.*" ; If the installation directory exists user must be reinstalling the same distro, so we won't add a removal entry. 
+   Exch $R0 ;file to write to
+   Exch
+   Exch $1 ;text to write
+   ${If} ${FileExists} "$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை" 
+    FileOpen $R0 '$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை' a 
+    FileSeek $R0 0 END
+	FileWriteUTF16LE $R0 '$\r$\n$1' ; add subsequent entry on a new line
+   ${Else}
+    FileOpen $R0 '$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை' a 
+    FileSeek $R0 0 END
+	FileWriteUTF16LE /BOM $R0 '$1'  ; add first entry without a new line
+   ${EndIf}
+    FileClose $R0
+
+    Pop $1
+    Pop $R0
+ ${EndIf}
+FunctionEnd
+!macro நிறுவப்பட்டபட்டியல் String File
+  Push "${String}"
+  Push "${File}"
+  Call நிறுவப்பட்டபட்டியல்
+!macroend  
+!define நிறுவப்பட்டபட்டியல் "!insertmacro நிறுவப்பட்டபட்டியல்"
+
+Function அகற்றும்பட்டியல் ; Lists the distros installed on the select drive.
+ ${NSD_SetText} $LinuxDistroSelection "படி 2: அகற்ற பட்டியலில் இருந்து  ஒரு விநியோக தேர்வு"  
+ ${If} ${FileExists} "$BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை" ; Are there distributions on the select drive? 
+ ClearErrors
+ FileOpen $0 $BDir\அகர\பகவன்\நிறுவப்பட்டது.உரை r
+  loop:
+FileReadUTF16LE $0 $1
+    IfErrors done
+    StrCpy $DistroName $1
+${ஒழுங்கமை} "$DistroName" "$DistroName" ; Remove spaces, newlines, and carriage return
+    ${NSD_CB_AddString} $Distro "$DistroName" ; Add DistroName to the listbox of removable distros ; was ${NSD_LB_AddString} $Distro "$DistroName" ; Enable for DropBox
+   Goto loop
+  done:  
+ FileClose $0
+ ${Else}
+     ;Call உதநிகோப்புபெயர்அமை
+ ${EndIf}
 FunctionEnd

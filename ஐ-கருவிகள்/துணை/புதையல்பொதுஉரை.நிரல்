@@ -1,0 +1,35 @@
+﻿; ------------ புதையல் பொது உரை --------------
+Function புதையல்பொதுஉரை
+${If} $Casper != "0"
+Call புதைகருவிகளைப்பெறு
+;MessageBox MB_OK "$CasperName"
+Sleep 1000
+DetailPrint "1 வினாடி தூங்குகிறது..."
+ExpandEnvStrings $COMSPEC "%COMSPEC%"
+ExecShell "" '"$COMSPEC"' '/C if 1==1 "$PLUGINSDIR\dd.exe" if=/dev/zero of=$PLUGINSDIR\$CasperName bs=1M count=$Casper --progress 2>$PLUGINSDIR\ddlog.txt' SW_HIDE
+Banner::show /set 76 "நிலைத்தன்மை கோப்பை உருவாக்குதல்."
+Banner::getWindow
+Pop $1  
+DetailPrint "நிலைத்தன்மை கோப்பை உருவாக்குதல்: முடிவடையும் வரை முன்னேற்றப் பட்டி நகராது..."
+Call தவமுன்னேற்றம்
+Banner::destroy
+DetailPrint "இப்போது ஒரு நிலைத்தன்மை கோப்பை உருவாக்குதல்" 
+DetailPrint "நிலைத்தன்மை கோப்பை வடிவமைத்தல்: முடிவடையும் வரை முன்னேற்றப் பட்டி நகராது. தயவுசெய்து பொருமையாயிறு..." 
+Sleep 3000 ; தரவுவரையறை.exe வெளியேற நேரம் கொடுங்கள்.
+DetailPrint "3 வினாடிகள் தூங்குகிறது..."
+nsExec::ExecToLog '"$PLUGINSDIR\mke2fs.exe" -L $CasperName $PLUGINSDIR\$CasperName'
+CopyFiles $PLUGINSDIR\$CasperName "$BDir\!\$JustISOName\$CasperName" ; Copy casper-rw to USB
+Delete "$PLUGINSDIR\$CasperName"
+${EndIf}
+FunctionEnd
+
+Function புதையல்அளவு
+ IntOp $SizeOfCasper $SizeOfCasper + $Casper
+FunctionEnd
+
+Function புதைகருவிகளைப்பெறு
+SetShellVarContext all
+InitPluginsDir
+File /oname=$PLUGINSDIR\dd.exe "இருமங்கள்\தரவுவரையறை.exe"
+File /oname=$PLUGINSDIR\mke2fs.exe "இருமங்கள்\நீட்2கோமுவடிவஉரு.exe"
+FunctionEnd

@@ -39,6 +39,7 @@ Var DriveSelect
 Var DestDriveTxt
 Var DestDrive
 Var Casper
+Var SizeOfCasper
 Var CasperSelection
 Var CasperSlider
 Var SlideSpot
@@ -60,6 +61,7 @@ Var JustDrive
 Var Letters
 Var BDir
 Var DestDisk
+Var JustISOName
 
 ; USB Drive and Casper Slider Selections Page
 Page custom SelectionsPage
@@ -247,26 +249,29 @@ Function FreeDiskSpace
 ${DriveSpace} "$JustDrive" "/D=F /S=M" $1
 FunctionEnd
 
-!include துணை\தவமுன்னேற்றம்.நிரல் ; 
+!include துணை\தவமுன்னேற்றம்.நிரல்
+!include துணை\புதையல்பொதுஉரை.நிரல்
 Function CasperScript
 ${If} $Casper != "0"
- Sleep 1000
- DetailPrint "Sleeping for 1 second..."
- ExpandEnvStrings $COMSPEC "%COMSPEC%"
- ExecShell "" '"$COMSPEC"' '/C if 1==1 "$PLUGINSDIR\தரவுவரையறை.exe" if=/dev/zero of=$BDir\$CasperName bs=1M count=$Casper --progress 2>$PLUGINSDIR\ddlog.txt' SW_HIDE
- Banner::show /set 76 "Creating a $CasperName file."
- Banner::getWindow
- Pop $1  
- DetailPrint "Creating a $CasperName file. Progress will not move until finished..."
- Call தவமுன்னேற்றம்
- Banner::destroy
- 
- DetailPrint "Now Formatting $CasperName" 
- DetailPrint "Formatting the $CasperName file: The progress bar will not move until finished. Please be patient..." 
- 
- Sleep 3000 ; Give the dd.exe time to exit.
- DetailPrint "Sleeping for 3 seconds..."
- nsExec::ExecToLog '"$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe" -L $CasperName $BDir\$CasperName'
+Call புதைகருவிகளைப்பெறு
+;MessageBox MB_OK "$CasperName"
+Sleep 1000
+DetailPrint "1 வினாடி தூங்குகிறது..."
+ExpandEnvStrings $COMSPEC "%COMSPEC%"
+ExecShell "" '"$COMSPEC"' '/C if 1==1 "$PLUGINSDIR\dd.exe" if=/dev/zero of=$PLUGINSDIR\$CasperName bs=1M count=$Casper --progress 2>$PLUGINSDIR\ddlog.txt' SW_HIDE
+Banner::show /set 76 "நிலைத்தன்மை கோப்பை உருவாக்குதல்."
+Banner::getWindow
+Pop $1  
+DetailPrint "நிலைத்தன்மை கோப்பை உருவாக்குதல்: முடிவடையும் வரை முன்னேற்றப் பட்டி நகராது..."
+Call தவமுன்னேற்றம்
+Banner::destroy
+DetailPrint "இப்போது ஒரு நிலைத்தன்மை கோப்பை உருவாக்குதல்" 
+DetailPrint "நிலைத்தன்மை கோப்பை வடிவமைத்தல்: முடிவடையும் வரை முன்னேற்றப் பட்டி நகராது. தயவுசெய்து பொருமையாயிறு..." 
+Sleep 3000 ; தரவுவரையறை.exe வெளியேற நேரம் கொடுங்கள்.
+DetailPrint "3 வினாடிகள் தூங்குகிறது..."
+nsExec::ExecToLog '"$PLUGINSDIR\mke2fs.exe" -L $CasperName $PLUGINSDIR\$CasperName'
+CopyFiles $PLUGINSDIR\$CasperName "$BDir\$CasperName" ; Copy casper-rw to USB
+Delete "$PLUGINSDIR\$CasperName"
 ${EndIf}
   CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BDir\உரிமை.உரை" ; நகர்த்து 
 FunctionEnd
@@ -281,14 +286,12 @@ FunctionEnd
 ; ---- Let's Do This Stuff ----
 Section  
 Call HaveSpace ; Got enough Space? Lets Check!
-Call CasperScript
+Call புதையல்பொதுஉரை
 SectionEnd
 
 Function .onInit
 StrCpy $CasperName "casper-rw" ; default to newer persistence label
-SetShellVarContext all
-InitPluginsDir
-  File /oname=$PLUGINSDIR\தரவுவரையறை.exe "இருமங்கள்\தரவுவரையறை.exe"
-  File /oname=$PLUGINSDIR\நீட்2கோமுவடிவஉரு.exe "இருமங்கள்\நீட்2கோமுவடிவஉரு.exe"
-  File /oname=$PLUGINSDIR\உரிமை.உரை "..\அகர\பகவன்\உரிமை.உரை"
+StrCpy $JustISOName ".."
+Call புதைகருவிகளைப்பெறு
+File /oname=$PLUGINSDIR\உரிமை.உரை "..\அகர\பகவன்\உரிமை.உரை"
 FunctionEnd 

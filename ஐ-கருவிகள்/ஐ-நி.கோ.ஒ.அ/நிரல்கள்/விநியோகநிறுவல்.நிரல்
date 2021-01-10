@@ -1,31 +1,29 @@
-﻿; ------------ Install Distros Macro -------------- 
+﻿; ------------ விநியோக நிறுவல் உரை -------------- 
+!macro விநியோகநிறுவல் 
+; விநியோகம் ஏற்கனவே நிறுவப்பட்டிருந்தால், அதை நீக்கு, எனவே நாங்கள் குழப்பம் செய்ய மாட்டோம்.
+${If} ${FileExists} "$BDir\!\$DistroPath\$JustISO"
+Delete "$BDir\!\$DistroPath\$JustISO" 
+${EndIf}
 
-!macro Install_Distros 
+; பாதையை உருவாக்கவும் (விநியோகத்திற்கான கொள்கலன் மற்றும் கிடைத்தால் நிலைத்தன்மை).
+${IfNot} ${FileExists} "$BDir\!\$DistroPath\*.*"
+CreateDirectory "$BDir\!\$DistroPath" ; கோப்பகத்தை உருவாக்கவும், இதனால் கோப்பை நகலெடுக்க முடியும்.
+${EndIf}
 
-; If distro is already installed, delete it, so we don't make a mess.
- ${If} ${FileExists} "$BDir\!\$DistroPath\$JustISO"
-  Delete "$BDir\!\$DistroPath\$JustISO" 
- ${EndIf}
-
-; Create the Path (container for Distro and persistence if available).
- ${IfNot} ${FileExists} "$BDir\!\$DistroPath\*.*"
-  CreateDirectory "$BDir\!\$DistroPath" ; Create the Directory so we can copy the file to it.
- ${EndIf}
- 
 ; Copy the ISO to the Container
- ${If} $DistroName != "" 
-  DetailPrint "Copying $JustISO to $BDir\!\$DistroPath\"
-  CopyFiles $ISOFile "$BDir\!\$DistroPath\$JustISOName\$JustISO" ; Copy the ISO to Directory
- ${EndIf}
- 
+${If} $DistroName != "" 
+DetailPrint "Copying $JustISO to $BDir\!\$DistroPath\"
+CopyFiles $ISOFile "$BDir\!\$DistroPath\$JustISOName\$JustISO" ; Copy the ISO to Directory
+${EndIf}
+
 ; Write the Path to நிறுவப்பட்டது.உரை
- ${நிறுவப்பட்டபட்டியல்} "$DistroPath\$JustISOName" $R0 ; Write the ISO path name to the Installed List "நிறுவப்பட்டது.உரை" file (so we can keep track of installs for removal)
- ${LineFind} "$BDir\!\நிறுவப்பட்டது.உரை" "$BDir\!\நிறுவப்பட்டது.உரை" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines 
- 
- ; Enable and Create Casper if necessary
- ${If} $Persistence == "casper" ; Casper
- ${AndIf} $Casper != "0" ; Casper Slider (Size) was not Null
-   Call CasperScript  
- ${EndIf}
+${நிறுவப்பட்டபட்டியல்} "$DistroPath\$JustISOName" $R0 ; Write the ISO path name to the Installed List "நிறுவப்பட்டது.உரை" file (so we can keep track of installs for removal)
+${LineFind} "$BDir\!\நிறுவப்பட்டது.உரை" "$BDir\!\நிறுவப்பட்டது.உரை" "1:-1" "வெற்றுவரியைநீக்கு" ; Remove any left over empty lines 
+
+; Enable and Create Casper if necessary
+${If} $Persistence == "casper" ; Casper
+${AndIf} $Casper != "0" ; Casper Slider (Size) was not Null
+Call புதையல்உரை  
+${EndIf}
 
 !macroend

@@ -6,11 +6,11 @@ create partition primary
 select partition 1
 format fs=NTFS quick override
 shrink desired=50 minimum=50
-format fs=exFat label=YUMI quick override
+format fs=exFat label=I quick override
 assign letter DSK
 create partition primary
 select partition 2
-format fs=fat label=TEMPYUMI quick override
+format fs=fat label=TEMPI quick override
 active
 assign
 rescan

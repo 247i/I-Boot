@@ -113,12 +113,12 @@ Var BOOT_DISK
 Var BOOT_LETTER
 Var INST_DISK
 Var IDR
+Var TASupport
 
-
-
+!include துணை\ஒழுங்கமை.நிரல் ; பொதுவாக பயன்படுத்தும் நிரல்
 !include துணை\ஒருங்குறிஉரை.நிரல்
 !include துணை\கோப்பில்மாற்று.நிரல்
-!include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்
+!include துணை\வட்டுபொதுஉரை.நிரல்
 
 ; இடைமுக அமைப்புகள்
 !define MUI_FINISHPAGE_NOAUTOCLOSE
@@ -157,7 +157,7 @@ LangString License_Subtitle ${LANG_TAMIL} "தொடர்வதற்கு ம
 LangString License_Text_Top ${LANG_TAMIL} "இந்த நிரலில் உள்ள மென்பொருள் பின்வரும் உரிமங்களின் கீழ் வருகிறது."
 LangString License_Text_Bottom ${LANG_TAMIL} "இந்த ${பெயர்} பயன்பாட்டை இயக்க இந்த உரிம ஒப்பந்தத்தின் விதிமுறைகளை நீங்கள் ஏற்க வேண்டும். நீங்கள் ஒப்புக்கொண்டால், தொடர நான் ஒப்புக்கொள்கிறேன் என்பதைக் சொடுக்கு."
 LangString SelectDist_Title ${LANG_TAMIL} "இயக்கி தேர்வு மற்றும் விநியோக விருப்பங்கள் பக்கம்"
-LangString SelectDist_Subtitle ${LANG_TAMIL} "மின்வெட்டொளி இயக்கி தேர்வுசெய்க, மற்றும் ஒரு விநியோகம், ஐஎஸ்ஓ/ஜிப் கோப்பு.$\r$\nஇந்த கருவி இயங்கும் ஒவ்வொரு முறையும் கூடுதல் விநியோகங்களைச் சேர்க்கலாம்."
+LangString SelectDist_Subtitle ${LANG_TAMIL} "மின்வெட்டொளி இயக்கி தேர்வுசெய்க, மற்றும் ஒரு விநியோகம், உதநி/ஜிப் கோப்பு.$\r$\nஇந்த கருவி இயங்கும் ஒவ்வொரு முறையும் கூடுதல் விநியோகங்களைச் சேர்க்கலாம்."
 LangString DrivePage_Text ${LANG_TAMIL} "படி 1:மின்வெட்டொளி இயக்கதைத் தேர்ந்தெடுக்கவும்"
 LangString Distro_Text ${LANG_TAMIL} "படி 2: மின்வெட்டொளியில் வைக்க பட்டியலிலிருந்து ஒரு விநியோகத்தைத் தேர்ந்தெடுக்கவும்."
 LangString IsoPage_Text ${LANG_TAMIL} "படி 3: $FileFormat தேர்ந்தெடுக்கவும் (பெயர் மேலே உள்ளதைப் போலவே இருக்க வேண்டும்)."
@@ -179,13 +179,13 @@ LangString Finish_Text ${LANG_TAMIL} "உங்கள் தேர்வுக�
 LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் பார்க்க"
 
 !include துணை\தவமுன்னேற்றம்.நிரல் ; நிலைத்தன்மை கோப்பை உருவாக்குதல் முன்னேற்றம்
-!include துணை\ஒழுங்கமை.நிரல் ; பொதுவாக பயன்படுத்தும் நிரல்
 !include துணை\சரம்மாற்று.நிரல் ; பொதுவாக பயன்படுத்தும் நிரல்
 !include துணை\சரம்கொண்டுள்ளது.நிரல் ; Let's check if a * wildcard exists
 !include துணை\உதநிகோப்புபெயர்கள்அமை.நிரல் ; Macro for FileNames
 !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
 !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
 !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\புதையல்உரை.நிரல் ; For creation of Persistent Casper-rw files
+!include துணை\புதையல்பொதுஉரை.நிரல்
 
 Function உரிமம்_முன்செயல்பாடு
   StrCpy $R8 1 ;This is the 1st page
@@ -746,7 +746,7 @@ Function ISOBrowse
  ${If} ${FileExists} "$BDir\!\$JustISOName\*.*"
  ${AndIf} $JustISOName != ""
  ${AndIf} $FormatMe != "YES"
- ${AndIf} ${FileExists} "$BDir\!\menu\ஐ-EXFAT"
+ ${AndIf} ${FileExists} "$BDir\!\menu\ஐ-நிகோஒஅ.உரை"
   MessageBox MB_OK "$JustISOName is already on $DestDisk$\r$\nPlease Remove it first!"
  ${Else}
  ${EndIf}
@@ -834,8 +834,8 @@ Function OnSelectDrive
   StrCpy $INST_DISK "$DiskNum" ; save Install Disk Number in case we need it again later
   Call கோமுவகைபெறு
 
-; Check if drive is already setup for ஐ-EXFAT
- ${IfNot} ${FileExists} "$BDir\!\ஐ-EXFAT"
+; Check if drive is already setup for ஐ-நிகோஒஅ.உரை
+ ${IfNot} ${FileExists} "$BDir\!\ஐ-நிகோஒஅ.உரை"
   ${If} $RepeatInstall != "YES"
    MessageBox MB_YESNO|MB_ICONQUESTION "$BDir has not been prepared for this version of ஐ UEFI.$\r$\n$\r$\nDo you want ஐ to Prepare and format (Disk $INST_DISK)?" IDYES checkit
    StrCpy $FormatMe ""
@@ -899,8 +899,8 @@ Function DrivesList
  ${If} $9 != "$7" 
  ${AndIf} $Capacity != ""
  SendMessage $DestDriveTxt ${CB_ADDSTRING} 0 "STR:$9 (Disk $DiskNum) $VolName $Capacity $FSType" ;$8
-   ${சரம்கொண்டுள்ளது} $BOOT "TEMPஐ" "$VolName" ; does the string contain the TEMPஐ Label? - This label is only set during initial 2nd partition creation.
-   ${If} $BOOT == "TEMPஐ" ; if so do something
+   ${சரம்கொண்டுள்ளது} $BOOT "TEMPI" "$VolName" ; does the string contain the TEMPI Label? - This label is only set during initial 2nd partition creation.
+   ${If} $BOOT == "TEMPI" ; if so do something
    StrCpy $BOOT_LETTER "$9" -1 ; copy the Drive Letter for later use in locating and writing to the BOOT partition
    StrCpy $BOOT_DISK "$DiskNum" ; copy the Disk Number for later use in locating the right BOOT partition
    ;MessageBox MB_ICONSTOP|MB_OK "$9 - (Disk $DiskNum) - $VolName |$BOOT|"
@@ -920,8 +920,8 @@ Var /Global DiskYum
  StrCpy $7 $WINDIR 3
  ${If} $9 != "$7" 
  ${AndIf} $Capacity != ""
-   ${சரம்கொண்டுள்ளது} $IDR "ஐ" "$VolName" ; does the string contain the ஐ Label?
-   ${If} $IDR == "ஐ" ; if so add string
+   ${சரம்கொண்டுள்ளது} $IDR "I" "$VolName" ; does the string contain the I Label?
+   ${If} $IDR == "I" ; if so add string
    ${சரம்கொண்டுள்ளது} $DiskYum "$INST_DISK" "$DiskNum" ; does the string contain the right Disk Number?
    ${AndIf} $DiskYum == "$INST_DISK" ; if so add string
     SendMessage $DestDriveTxt ${CB_ADDSTRING} 0 "STR:$9 (Disk $DiskNum) $VolName $Capacity $FSType" ;$8
@@ -942,7 +942,7 @@ Function DrivesListBoot
 ;Prevent System Drive from being selected
  StrCpy $7 $WINDIR 3
  ${If} $9 != "$7" 
-   ${If} "$VolName" == "TEMPஐ" ; does $VolName contain the TEMPஐ Label? - This label is only set during initial 2nd partition creation.
+   ${If} "$VolName" == "TEMPI" ; does $VolName contain the TEMPI Label? - This label is only set during initial 2nd partition creation.
    ${AndIf} $DiskNum == "$INST_DISK" ; if so add string
     ;StrCpy $BOOT_LETTER_FULL "$9" #The letter and :/   
     StrCpy $BOOT_LETTER "$9" 2 #Just the letter and :
@@ -982,16 +982,16 @@ Function ஆம்வடிவமை ; If Format is checked, do something
 	Sleep 1000
 	nsExec::ExecToLog '"DiskPart" /S $PLUGINSDIR\diskpartwipe2.txt'
 	
-	; call and use a new DrivesListBoot function... only show drives with the TEMPஐ label that match disk
+	; call and use a new DrivesListBoot function... only show drives with the TEMPI label that match disk
    ${GetDrives} "FDD+HDD" DrivesListBoot ; probe for the BOOT disk number and letter... since we just wiped and recreated partitions on the disk.
-	;MessageBox MB_ICONSTOP|MB_OK "BOOT --> $BOOT_LETTER (Disk $BOOT_DISK) | ஐ --> $DestDisk (Disk $INST_DISK)" ; checkpoint
+	;MessageBox MB_ICONSTOP|MB_OK "BOOT --> $BOOT_LETTER (Disk $BOOT_DISK) | I --> $DestDisk (Disk $INST_DISK)" ; checkpoint
 	
  ${Endif}	 
   ;${If} $FormatMe == "YES"
-   ;Call Lock_Only ; Just get a lock on the Volume 
+   ;Call பூட்டு_மட்டும் ; Just get a lock on the Volume 
    ;Sleep 3000
    ;nsExec::ExecToLog '"cmd" /c "echo y|$PLUGINSDIR\fat32format $DestDisk"' ;/Q /y
-   ;Call UnLockVol ; Unlock to allow Access   
+   ;Call தொகுதிதிற ; Unlock to allow Access   
   ;${EndIf} 
 FunctionEnd
 
@@ -1010,7 +1010,7 @@ Function இதைவடிவமை ; Set Format Option
   StrCpy $FormatMe "NO"
   ${NSD_SetText} $Format "Prepare and Format (Disk $DiskNum)?"  
     SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new format option may have been chosen ; Enable for DropBox
-	${If} ${FileExists} "$BDir\!\ஐ-EXFAT"
+	${If} ${FileExists} "$BDir\!\ஐ-நிகோஒஅ.உரை"
      ShowWindow $Uninstaller 1 ; Re-enable Uninstaller option.
 	${EndIf}
 	StrCpy $Checker "YES" 
@@ -1120,8 +1120,8 @@ Function DoMBR ; Install MBR and Boot files on Fat Boot Partition
   
 ; Make sure EFI\Boot directory and files exist.  
   ${If} ${FileExists} $BOOT_LETTER\EFI\BOOT\BOOTX64.EFI 
-    ${AndIf} ${FileExists} $BOOT_LETTER\ஐ-EXFAT 
-    DetailPrint "A Previous ஐ EXFAT Installation was detected."
+    ${AndIf} ${FileExists} $BOOT_LETTER\ஐ-நிகோஒஅ.உரை 
+    DetailPrint "A Previous ஐ-நிகோஒஅ Installation was detected."
   ${Else}  
   ; CreateDirectory $BOOT_LETTER\!\menu ; recursively create the directory structure if it doesn't exist 
     CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BOOT_LETTER\உரிமை.உரை" 
@@ -1158,8 +1158,8 @@ Pop $NameThatISO
   Quit
  ${EndIf}
  
-; Check if drive is already setup for ஐ-EXFAT or if format and prep checked.
- ${IfNot} ${FileExists} "$BDir\!\ஐ-EXFAT"
+; Check if drive is already setup for ஐ-நிகோஒஅ.உரை or if format and prep checked.
+ ${IfNot} ${FileExists} "$BDir\!\ஐ-நிகோஒஅ.உரை"
   ${If} $RepeatInstall != "YES"
    ${AndIf} $FormatMe != "YES"
     MessageBox MB_ICONSTOP|MB_OK "$BDir has not been prepared for this version of ஐ UEFI.$\r$\n$\r$\nGo back and tick the box to Prepare and format (Disk $INST_DISK)"
@@ -1199,8 +1199,8 @@ proceed:
   Call LocalISODetected
 
 ; If ஐ_EXFAT doesn't exist make it so
- ${IfNot} ${FileExists} "$BDir\!\ஐ-EXFAT"
-  CopyFiles "$PLUGINSDIR\ஐ-EXFAT" "$BDir\!\ஐ-EXFAT"
+ ${IfNot} ${FileExists} "$BDir\!\ஐ-நிகோஒஅ.உரை"
+  CopyFiles "$PLUGINSDIR\ஐ-நிகோஒஅ.உரை" "$BDir\!\ஐ-நிகோஒஅ.உரை"
  ${EndIf}
 
 ; If path doesn't exist create the directory
@@ -1210,10 +1210,10 @@ proceed:
  
 removeonly:
  ${If} $Removal != "YES"
-  !insertmacro Install_Distros ; Install those distros
+  !insertmacro விநியோகநிறுவல் ; Install those distros
  ${ElseIf} $Removal == "YES"
   ;Call ConfigRemove
- !insertmacro Uninstall_Distros ; Remove those distros
+ !insertmacro விநியோகநீக்கம் ; Remove those distros
  ${EndIf}
  
 ;theend:
@@ -1266,6 +1266,7 @@ FunctionEnd
 
 ; --- Stuff to do at startup of script ---
 Function .onInit
+StrCpy $TASupport "YES" 
 StrCpy $R9 0 ; we start on page 0
 ;StrCpy $InstallButton ""
  StrCpy $FileFormat "ISO"
@@ -1277,7 +1278,7 @@ StrCpy $R9 0 ; we start on page 0
  done:
  SetShellVarContext all
  InitPluginsDir   
-  File /oname=$PLUGINSDIR\ஐ-EXFAT "இருமங்கள்\நி\ஐ-EXFAT"
+  File /oname=$PLUGINSDIR\ஐ-நிகோஒஅ.உரை "..\அகர\பகவன்\ஐ-நிகோஒஅ.உரை"
   ;File /oname=$PLUGINSDIR\7za.exe "இருமங்கள்\நி\7za.exe"
   ;File /oname=$PLUGINSDIR\7za.dll "இருமங்கள்\நி\7za.dll"   
   ;File /oname=$PLUGINSDIR\7zxa.dll "இருமங்கள்\நி\7zxa.dll"  
@@ -1301,9 +1302,4 @@ Function உதநிஅளவைஅமை ; Get size of ISO
  StrCpy $SizeOfCasper "$1"
  ; MessageBox MB_OK|MB_ICONINFORMATION "ISO Size: $SizeOfCasper"
  System::Call 'kernel32::CloseHandle(i r0)'
-FunctionEnd
-
-Function கோமுவகைபெறு
-System::Call 'Kernel32::GetVolumeInformation(t "$JustDrive",t,i ${NSIS_MAX_STRLEN},*i,*i,*i,t .r1" ,i ${NSIS_MAX_STRLEN}) i.r0'
- StrCpy $FSType "$1"
 FunctionEnd

@@ -119,7 +119,7 @@ Var CasperName
 Var COMSPEC
 Var PERCENT
 Var DiskNum
-
+Var TASupport
 Var Wipe
 Var WipeIt
 Var WipeMe
@@ -190,15 +190,15 @@ LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் �
 !include துணை\தவமுன்னேற்றம்.நிரல் ; புதிய நிரல்
 !include துணை\ஒழுங்கமை.நிரல் 
 !include துணை\ஒருங்குறிஉரை.நிரல்
-!include ஐ-மரபு\நிரல்கள்\ReplaceInFile.nsh 
-;!include துணை\கோப்பில்மாற்று.நிரல் 
-!include துணை\சரம்மாற்று.நிரல் ;
+;!include ஐ-மரபு\நிரல்கள்\ReplaceInFile.nsh 
+!include துணை\கோப்பில்மாற்று.நிரல் 
+!include துணை\சரம்மாற்று.நிரல் 
 !include ஐ-மரபு\நிரல்கள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
 !include ஐ-மரபு\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்
 !include துணை\சரம்கொண்டுள்ளது.நிரல் ; Let's check if a * wildcard exists
 !include துணை\உதநிகோப்புபெயர்கள்அமை.நிரல் ; Macro for FileNames
 !include ஐ-மரபு\நிரல்கள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
-!include ஐ-மரபு\நிரல்கள்\புதையல்உரை.நிரல் ; For creation of Persistent Casper-rw files
+!include துணை\புதையல்பொதுஉரை.நிரல் ; For creation of Persistent Casper-rw files
 
 Function உரிமம்_முன்செயல்பாடு
   StrCpy $R8 1 ;This is the 1st page
@@ -286,7 +286,7 @@ Function தேர்வுகள்பக்கம்
   StrCpy $JustDrive $DestDrive 3
   StrCpy $BDir $DestDrive 2  
   StrCpy $DestDisk $DestDrive 2
-  StrCpy $9 $JustDrive
+;StrCpy $9 $JustDrive
   Call கோமுவகைபெறு
   Call இயற்பியக்கி
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; was ${NSD_LB_Clear} $Distro "" ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
@@ -836,7 +836,7 @@ FunctionEnd
 
 Function InstallorRemove ; Populate DistroName based on Install/Removal option
   ${If} $Removal == "Yes" 
-  Call RemovalList
+  Call அகற்றும்பட்டியல்
   ${Else}
     ${If} $DistroName == ""
     ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDisk இல் வைக்க ஒரு விநியோகம்" 
@@ -874,7 +874,7 @@ Function Uninstall
   ${NSD_SetText} $Uninstaller "நிறுவல் நீக்குதல்!"
     SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new option may have been chosen ; Enable for DropBox
      StrCpy $Checker "Yes"   
-	 Call RemovalList
+	 Call அகற்றும்பட்டியல்
 
   ${ElseIf} $Removal == ${BST_UNCHECKED}
    ShowWindow $Format 1  
@@ -909,7 +909,7 @@ Function OnSelectDrive
   StrCpy $DestDisk $DestDrive 2 ;was -1
   ;StrCpy $HDDUSB $Letters "" -3 
   
-  StrCpy $9 $JustDrive
+;StrCpy $9 $JustDrive
   Call கோமுவகைபெறு
   Call இயற்பியக்கி
   ${NSD_SetText} $LabelDrivePage "படி 1: $DestDisk (வட்டு $DiskNum) தேர்ந்தெடுத்துள்ளீர்கள்"   
@@ -938,10 +938,9 @@ Function OnSelectDrive
   MessageBox MB_ICONSTOP|MB_OK "எச்சரிக்கை! கணிலினக்சு exFAT வடிவமைக்கப்பட்ட சாதனங்களில் இயங்காது. $DestDiskஐ Fat32 அல்லது என்.டி.எஃப்.எஸ் ஆக வடிவமைக்கவும்."
   ${EndIf} 
   
-  ${If} ${FileExists} "$BDir\boot\grub\ஐ.png"  
-   ${AndIf} ${FileExists} "$BDir\boot\grub\lnxboot.img"
-    ${AndIf} ${FileExists} "$BDir\boot\grub\core.img" 
-     ${AndIf} ${FileExists} "$BDir\boot\grub\grub.cfg"  
+  ${If} ${FileExists} "$BDir\boot\grub\grub.cfg"  
+   ${AndIf} ${FileExists} "$BDir\!\grub\lnxboot.img"
+    ${AndIf} ${FileExists} "$BDir\!\grub\core.img"
      MessageBox MB_ICONSTOP|MB_OK "எச்சரிக்கை! ($DestDisk) இந்த பதிப்போடு பொருந்தாத உ.வி.நி.இ. அடிப்படையிலான நிறுவலைக் கொண்டிருக்கிறது.$\r$\n$\r$\n ஐ-கருவியின் இந்த பதிப்பைப் பயன்படுத்த நீங்கள் திட்டமிட்டால், இந்த இயக்ககத்தை வடிவமைக்க வேண்டும்."
   ${EndIf} 
 FunctionEnd
@@ -1048,10 +1047,10 @@ Function FormatYes ; If Format is checked, do something
   ${ElseIf} $FormatMeFat == "Yes"  
    ${AndIf} $WipeMe != "Yes"   
 ; Just Fat32 format the selected Drive Letter (Volume or Partition)	 
-   Call Lock_Only ; Just get a lock on the Volume 
+   Call பூட்டு_மட்டும் ; Just get a lock on the Volume 
    Sleep 3000
    nsExec::ExecToLog '"cmd" /c "echo y|$PLUGINSDIR\fat32format $DestDisk"' ;/Q /y
-   Call UnLockVol ; Unlock to allow Access
+   Call தொகுதிதிற ; Unlock to allow Access
   ${EndIf}   
 FunctionEnd
 
@@ -1311,8 +1310,6 @@ ${Else}
 ; Create and Copy files to your destination
 DetailPrint "Adding required files to the $BDir\! directory..." 
 CopyFiles "$PLUGINSDIR\syslinux.cfg" "$BDir\!\syslinux.cfg"
-CopyFiles "$PLUGINSDIR\ஐ75-1.png" "$BDir\!\I75-1.png"
-CopyFiles "$PLUGINSDIR\ஐ75-2.png" "$BDir\!\I75-2.png"
 CopyFiles "$PLUGINSDIR\ஐ.png" "$BDir\!\I.png"
 CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BDir\!\உரிமை.உரை"
 CopyFiles "$PLUGINSDIR\vesamenu.c32" "$BDir\!\vesamenu.c32"
@@ -1325,8 +1322,6 @@ Call AddDir
 ${EndIf}
 ${IfNot} ${FileExists} $BDir\!\libutil.c32 ; Old Syslinux files need to be replaced
 DetailPrint "Adding required files to the $BDir\! directory..." 
-CopyFiles "$PLUGINSDIR\ஐ75-1.png" "$BDir\!\I75-1.png"
-CopyFiles "$PLUGINSDIR\ஐ75-2.png" "$BDir\!\I75-2.png"
 CopyFiles "$PLUGINSDIR\ஐ.png" "$BDir\!\I.png"
 CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BDir\!\உரிமை.உரை"   
 CopyFiles "$PLUGINSDIR\vesamenu.c32" "$BDir\!\vesamenu.c32"
@@ -1530,6 +1525,7 @@ FunctionEnd
 
 ; --- Stuff to do at startup of script ---
 Function .onInit
+StrCpy $TASupport "NO" 
 StrCpy $R9 0 ; we start on page 0
 StrCpy $FileFormat "ISO"
 userInfo::getAccountType
@@ -1569,8 +1565,6 @@ File /oname=$PLUGINSDIR\unlisted.cfg "ஐ-மரபு\பட்டியல்\
 File /oname=$PLUGINSDIR\liveusb "இருமங்கள்\வாழ்உதொபே"
 File /oname=$PLUGINSDIR\7zG.exe "இருமங்கள்\7zG.exe"
 File /oname=$PLUGINSDIR\7z.dll "இருமங்கள்\7z.dll"  
-File /oname=$PLUGINSDIR\ஐ75-1.png "..\அகர\அணிகலன்\ஐ75-1.png"
-File /oname=$PLUGINSDIR\ஐ75-2.png "..\அகர\அணிகலன்\ஐ75-2.png"
 File /oname=$PLUGINSDIR\ஐ.png "..\அகர\அணிகலன்\ஐ.png"
 File /oname=$PLUGINSDIR\உரிமை.உரை "..\அகர\பகவன்\உரிமை.உரை"
 File /oname=$PLUGINSDIR\vesamenu.c32 "இருமங்கள்\vesamenu.c32" 

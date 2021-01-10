@@ -1,12 +1,4 @@
 
-                                  INTRODUCTION
-
-wimlib is free and open source software that is available on both UNIX-like
-systems and Windows.  This file provides additional information specifically
-about the Windows version of wimlib and the command line tool "wimlib-imagex"
-that is distributed with it.  It does not obsolete the generic README.txt, which
-you should read too.
-
                               WINDOWS DISTRIBUTION
 
 The Windows distribution of wimlib is a ZIP file containing the following items:

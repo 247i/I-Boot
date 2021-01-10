@@ -1,12 +1,11 @@
-                                  INTRODUCTION
+								INTRODUCTION
 
-This is wimlib version 1.10.0 (August 2016).  wimlib is a C library for
-creating, modifying, extracting, and mounting files in the Windows Imaging
-Format (WIM files).  wimlib and its command-line frontend 'wimlib-imagex'
+wimlib is a C library for creating, modifying, extracting, and mounting files in the Windows Imaging
+Format (WIM files)on UNIX-like systems and Windows.  wimlib and its command-line frontend 'wimlib-imagex'
 provide a free and cross-platform alternative to Microsoft's WIMGAPI, ImageX,
 and DISM.
 
-                                  INSTALLATION
+								INSTALLATION
 
 To install wimlib and wimlib-imagex on UNIX-like systems, you can compile from
 source (e.g. './configure && make && sudo make install').  Alternatively, check
@@ -196,96 +195,19 @@ This section documents the most important options that may be passed to the
 
 	The default is to use libcrypto if it is found on your system.
 
-                                  PORTABILITY
-
-wimlib works on both UNIX-like systems (Linux, Mac OS X, FreeBSD, etc.) and
-Windows (XP and later).
-
-As much code as possible is shared among all supported platforms, but there
-necessarily are some differences in what features are supported on each platform
-and how they are implemented.  Most notable is that file tree scanning and
-extraction are implemented separately for Windows, UNIX, and UNIX (NTFS-3G
-mode), to ensure a fast and feature-rich implementation of each platform/mode.
-
-wimlib is mainly used on x86 and x86_64 CPUs, but it should also work on a
-number of other GCC-supported 32-bit or 64-bit architectures.  It has been
-tested on the ARM and MIPS architectures.
-
-Currently, gcc and clang are the only supported compilers.  A few nonstandard
+ gcc and clang are the only supported compilers.  A few nonstandard
 extensions are used in the code.
 
-                                   REFERENCES
-
-The WIM file format is partially specified in a document that can be found in
-the Microsoft Download Center.  However, this document really only provides an
-overview of the format and is not a formal specification.  It also does not
-cover later extensions of the format, such as solid resources.
-
-With regards to the supported compression formats:
-
-- Microsoft has official documentation for XPRESS that is of reasonable quality.
-- Microsoft has official documentation for LZX, but in two different documents,
-  neither of which is completely applicable to its use in the WIM format, and
-  the first of which contains multiple errors.
-- There does not seem to be any official documentation for LZMS, so my comments
-  and code in src/lzms_decompress.c may in fact be the best documentation
-  available for this particular compression format.
-
-The algorithms used by wimlib's compression and decompression codecs are
-inspired by a variety of sources, including open source projects and computer
-science papers.
-
-The code in ntfs-3g_apply.c and ntfs-3g_capture.c uses the NTFS-3G library,
-which is a library for reading and writing to NTFS filesystems (the filesystem
-used by recent versions of Windows).  See
-http://www.tuxera.com/community/ntfs-3g-download/ for more information.
-
-A limited number of other free programs can handle some parts of the WIM
-file format:
-
-  * 7-zip is able to extract and create WIMs (as well as files in many
-    other archive formats).  However, wimlib is designed specifically to handle
-    WIM files and provides features previously only available in Microsoft's
-    implementation, such as the ability to mount WIMs read-write as well as
-    read-only, the ability to create compressed WIMs, the correct handling of
-    security descriptors and hard links, support for LZMS compression, and
-    support for solid archives.
-  * ImagePyX (https://github.com/maxpat78/ImagePyX) is a Python program that
-    provides some capabilities of wimlib-imagex, with the help of external
-    compression codecs.
-
-If you are looking for an archive format that provides features similar to WIM
-but was designed primarily for UNIX, you may want to consider SquashFS
-(http://squashfs.sourceforge.net/).  However, you may find that wimlib works
-surprisingly well on UNIX.  It will store hard links and symbolic links, and it
-has optional support for storing UNIX owners, groups, modes, and special files
-such as device nodes and FIFOs.  Actually, I use it to back up my own files on
-Linux!
 
                                     HISTORY
 
 wimlib was originally a project started by Carl Thijssen for use on Linux in the
-Ultimate Deployment Appliance (http://www.ultimatedeployment.org/).  Since then
-the code has been entirely rewritten and improved (main author: Eric Biggers).
-Windows support has been available since version 1.3.0 (March 2013).  A list of
-version-to-version changes can be found in the NEWS file.
-
+Ultimate Deployment Appliance (http://www.ultimatedeployment.org/). 
                                     NOTICES
 
-wimlib is free software that comes with NO WARRANTY, to the extent permitted by
-law.  See the COPYING file for more details.
-
-Bug reports, suggestions, and other contributions are appreciated and may be
-sent via email to ebiggers3@gmail.com or posted to https://wimlib.net/forums.
-
-wimlib is independently developed and does not contain any code, data, or files
-copyrighted by Microsoft.  It is not known to be affected by any patents.
+email to ebiggers3@gmail.com or posted to https://wimlib.net/forums.
 
 On UNIX-like systems, if you do not want wimlib to be dynamically linked with
 libcrypto (OpenSSL), configure with --without-libcrypto.  This replaces the SHA1
 implementation with built-in code and there will be no difference in
 functionality.
-
-Note: copyright years may be listed using range notation, e.g., 2012-2016,
-indicating that every year in the range, inclusive, is a copyrightable year that
-would otherwise be listed individually.

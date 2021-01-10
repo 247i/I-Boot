@@ -87,7 +87,6 @@ Goto loop_read
 exit:
 FileClose $R0
 FileClose $R1
- 
 SetDetailsPrint none
 Delete $0
 Rename $R6 $0

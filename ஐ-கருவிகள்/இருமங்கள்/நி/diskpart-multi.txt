@@ -7,6 +7,6 @@ cre par pri size=50
 format fs=fat32 label=GRUB2FS quick
 active
 cre par pri
-format fs=ntfs label=MULTIBOOT quick
+format fs=ntfs label=TA quick
 assign letter=X
 

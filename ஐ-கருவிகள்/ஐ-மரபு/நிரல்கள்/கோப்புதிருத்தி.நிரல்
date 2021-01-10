@@ -83,7 +83,7 @@ FunctionEnd
  Push "${String}"
  Push "${File}"
  Call WriteToFile
- ${LineFind} "$BDir\!\menu\$DistroPath" "$BDir\!\menu\$DistroPath" "1:-1" "DeleteEmptyLine" ; Remove any left over empty lines
+ ${LineFind} "$BDir\!\menu\$DistroPath" "$BDir\!\menu\$DistroPath" "1:-1" "வெற்றுவரியைநீக்கு" ; Remove any left over empty lines
 !macroend  
 !define WriteToFile "!insertmacro WriteToFile"
 
@@ -105,52 +105,6 @@ FunctionEnd
 !macroend  
 !define WriteToSysFile "!insertmacro WriteToSysFile"
 
-Function InstalledList ; Creates a list of installed distros in the ! folder on the USB drive (So we can uninstall the distros later)
- ${IfNot} ${FileExists} "$BDir\!\$JustISOName\*.*" ; If the installation directory exists user must be reinstalling the same distro, so we won't add a removal entry. 
-   Exch $R0 ;file to write to
-   Exch
-   Exch $1 ;text to write
-   ${If} ${FileExists} "$BDir\!\நிறுவப்பட்டது.உரை" 
-    FileOpen $R0 '$BDir\!\நிறுவப்பட்டது.உரை' a 
-    FileSeek $R0 0 END
-	FileWrite $R0 '$\r$\n$1' ; add subsequent entry on a new line
-   ${Else}
-    FileOpen $R0 '$BDir\!\நிறுவப்பட்டது.உரை' a 
-    FileSeek $R0 0 END
-    FileWrite $R0 '$1'  ; add first entry without a new line
-   ${EndIf}
-    FileClose $R0
-    Pop $1
-    Pop $R0
- ${EndIf}
-FunctionEnd
-!macro InstalledList String File
-  Push "${String}"
-  Push "${File}"
-  Call InstalledList
-!macroend  
-!define InstalledList "!insertmacro InstalledList"
-
-
-Function RemovalList ; Lists the distros installed on the select drive.
- ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskஇலிருந்து அகற்ற தேர்வு"  
- ${If} ${FileExists} "$BDir\!\நிறுவப்பட்டது.உரை" ; Are there distributions on the select drive? 
- ClearErrors
- FileOpen $0 $BDir\!\நிறுவப்பட்டது.உரை r
-  loop:
-   FileRead $0 $1
-    IfErrors done
-    StrCpy $DistroName $1
-	${ஒழுங்கமை} "$DistroName" "$DistroName" ; Remove spaces, newlines, and carriage return
-    ${NSD_CB_AddString} $Distro "$DistroName" ; Add DistroName to the listbox of removable distros ; was ${NSD_LB_AddString} $Distro "$DistroName" ; Enable for DropBox
-   Goto loop
-  done:  
- FileClose $0
- ${Else}
-     ;Call SetISOFileName
- ${EndIf}
-FunctionEnd
-
 !include "TextFunc.nsh" ; TextFunc.nsh required for the following DeleteInstall function
 Function DeleteInstall  ; நிறுவப்பட்டது.உரைஇலிருந்து உள்ளீட்டைத் தேர்ந்தெடு நீக்குகிறது          
 	StrLen $0 "$DistroName"
@@ -161,11 +115,3 @@ Function DeleteInstall  ; நிறுவப்பட்டது.உரைஇ�
 	Push $0
 FunctionEnd
 
-Function DeleteEmptyLine ;நிறுவப்பட்டது.உரையிலிருந்து வெற்று வரியை நீக்குகிறது
-	StrLen $0 "$\r$\n"
-	StrCpy $1 "$R9" $0
-	StrCmp $1 "$\r$\n" 0 End
-	StrCpy $R9 ""
-	End:
-	Push $0
-FunctionEnd
