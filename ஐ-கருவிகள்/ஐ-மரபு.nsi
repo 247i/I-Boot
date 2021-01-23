@@ -14,7 +14,7 @@
 !include துணை\சரம்மாற்று.நிரல் 
 !include துணை\சரம்கொண்டுள்ளது.நிரல் ; Let's check if a * wildcard exists
 !include துணை\உதநிகோப்புபெயர்கள்அமை.நிரல் ; Macro for கோப்புபெயர்கள்
-!include துணை\புதையல்பொதுஉரை.நிரல் ; For creation of Persistent Casper-rw files
+!include துணை\புதையல்பொதுஉரை.நிரல் ; தொடர்ச்சியான புதையல் கோப்புகளை உருவாக்க
 
 !include ஐ-மரபு\நிரல்கள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
 !include ஐ-மரபு\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்
@@ -265,9 +265,9 @@ Function தேர்வுகள்பக்கம்
   ShowWindow $CasperSlider 0 
   ShowWindow $SlideSpot 0  
   ShowWindow $Format 0
-  ShowWindow $FormatFat 0
   ShowWindow $ForceShowAll 0
   ShowWindow $Uninstaller 0
+  ShowWindow $FormatFat 0
   ShowWindow $Wipe 0
   nsDialogs::Show 
  ${EndIf}
@@ -1141,7 +1141,7 @@ Function கட்டமைப்புஎழுது
 FunctionEnd
 
 Function வெளியேறாதே
-MessageBox MB_YESNO "$DestDisk இயக்ககத்தில் இப்போது மேலும் உதநிக்கள் / விநியோகங்களை சேர்க்க விரும்புகிறீர்களா?" IDYES noskip
+MessageBox MB_YESNO "$DestDisk இயக்ககத்தில் இப்போது மேலும் உதநிகள் / விநியோகங்களை சேர்க்க விரும்புகிறீர்களா?" IDYES noskip
     StrCmp $R8 3 0 End ;Compare $R8 variable with current page #
     StrCpy $R9 1 ; Goes to finish page
     Call உறவுபக்கத்திற்குச்செல்
@@ -1238,9 +1238,3 @@ SetOutPath ""
 FunctionEnd
 
 !include துணை\புதையல்நிலை.நிரல்
-/*
-Function கோமுவகைபெறு
-System::Call 'Kernel32::GetVolumeInformation(t "$9",t,i ${NSIS_MAX_STRLEN},*i,*i,*i,t .r1" ,i ${NSIS_MAX_STRLEN}) i.r0'
- StrCpy $FSType "$1"
-FunctionEnd
-/*

@@ -85,7 +85,7 @@ Function தேர்வுகள்பக்கம்
   Pop $LabelDrivePage 
   ${NSD_SetText} $LabelDrivePage "படி 1: மின்வெட்டொளி இயக்கமாக $DestDisk வரவழைக்கப்பட்டது"  
 ; Droplist for Drive Selection  
-  ${NSD_CreateDropList} 0 20 40% 15 "" ; was 0 20 15% 15 ; then was 28%
+  ${NSD_CreateDropList} 0 20 40% 15 "" ;
   Pop $DestDriveTxt
   ${If} $ShowAll == "YES"
   ${GetDrives} "FDD+HDD" இயக்கிபட்டியல் ; All Drives Listed
@@ -658,7 +658,6 @@ Function இடமிருக்கு ; Check space required
   MessageBox MB_ICONSTOP|MB_OK "போதுமான காலி இடம் இல்லை. ஐ-கருவி நிறுத்தம்!"
   quit ; போதுமான காலி இடம் இல்லை. ஐ-கருவி நிறுத்தம்...
   okay: ; Proceed to execute...
-
  ${EndIf}
 FunctionEnd
 

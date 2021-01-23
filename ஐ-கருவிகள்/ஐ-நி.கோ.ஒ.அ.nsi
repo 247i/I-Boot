@@ -14,7 +14,7 @@
 !include துணை\சரம்மாற்று.நிரல் 
 !include துணை\சரம்கொண்டுள்ளது.நிரல் ; Let's check if a * wildcard exists
 !include துணை\உதநிகோப்புபெயர்கள்அமை.நிரல் ; Macro for கோப்புபெயர்கள்
-!include துணை\புதையல்பொதுஉரை.நிரல்
+!include துணை\புதையல்பொதுஉரை.நிரல் ; தொடர்ச்சியான புதையல் கோப்புகளை உருவாக்க
 
 !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
 !include ஐ-நி.கோ.ஒ.அ\நிரல்கள்\புதையல்உரை.நிரல் ; For creation of Persistent Casper-rw files
@@ -747,31 +747,11 @@ Function இடமிருக்கு ; Check space required
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...
   IntCmp $3 1 okay ; ... and compare it
-  MessageBox MB_ICONSTOP|MB_OK "Not enough free space remains. Quitting ஐ!"
+  MessageBox MB_ICONSTOP|MB_OK "போதுமான இடவசதி இல்லை. ஐ-கருவி வெளியேறு!"
   quit ; Close the program if the disk space was too small...
   okay: ; Proceed to execute...
   ;MessageBox MB_OK "ISO + Persistence will use $SizeOfCasper MB of the $1 MB Free disk space on $JustDrive Drive."  
   ;quit ; enable for testing message above
-		   
-
-																				   
-								  
-													
-									  
-																 
-		 
-																																				
-
-																	 
-					
-	 
-
-																				   
-								  
-													
-									  
-																 
-		 
 FunctionEnd
 
 ; Custom Distros Installer - Uninstaller Include
