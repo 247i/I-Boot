@@ -1,0 +1,49 @@
+﻿Function அனைத்துஉதநிகள்காட்டு ; Set Show All ISOs Option
+  ${NSD_GetState} $ForceShowAll $ShowingAll
+  ${If} $ShowingAll == ${BST_CHECKED}
+  ${NSD_Check} $ForceShowAll
+  StrCpy $ShowingAll "YES"
+  ${NSD_SetText} $ForceShowAll "உதநிகள்!"
+    SendMessage $ISOSelection ${CB_RESETCONTENT} 0 0 
+ 
+  ${ElseIf} $ShowingAll == ${BST_UNCHECKED}
+  ${NSD_Uncheck} $ForceShowAll
+  ${NSD_SetText} $ForceShowAll "உதநிகள்?"  
+    SendMessage $ISOSelection ${CB_RESETCONTENT} 0 0 
+  ${EndIf}  
+FunctionEnd
+
+Function இடத்தைசரிபார் ; Check total available space so we can set block size
+  Call மொத்தஇடம்
+  ${If} $1 <= 511
+  StrCpy $BlockSize 1
+  ${ElseIf} $1 >= 512
+  ${AndIf} $1 <= 8191
+  StrCpy $BlockSize 4
+  ${ElseIf} $1 >= 8192 
+  ${AndIf} $1 <= 16383
+  StrCpy $BlockSize 8
+  ${ElseIf} $1 >= 16384
+  ${AndIf} $1 <= 32767
+  StrCpy $BlockSize 16
+  ${ElseIf} $1 > 32768
+  StrCpy $BlockSize 32
+  ${EndIf}
+ ; MessageBox MB_ICONSTOP|MB_OK "$0 Drive is $1 MB in size, blocksize = $BlockSize KB."  
+FunctionEnd
+
+Function மொத்தஇடம்
+${DriveSpace} "$JustDrive" "/D=T /S=M" $1 ; used to find total space of select disk
+ StrCpy $Capacity "$1"
+FunctionEnd
+
+Function மீதமுள்ளவட்டுஇடம்
+${If} $FormatMe == "YES"
+!if ${பெயர்} == ஐ-மரபு 
+${OrIf} $FormatMeFat == "YES"
+!endif
+${DriveSpace} "$JustDrive" "/D=T /S=M" $1
+${Else}
+${DriveSpace} "$JustDrive" "/D=F /S=M" $1
+${EndIf}
+FunctionEnd

@@ -1,0 +1,32 @@
+﻿
+Function என்தளசொடுக்த்தில்
+  Pop $Links ; இணைப்பு திற
+  ExecShell "open" "https://TamilNeram.github.io"
+FunctionEnd
+
+Function அகேகேதளசொடுக்த்தில்
+  Pop $Links1 ; இணைப்பு திற
+  ExecShell "open" "https://TamilNeram.github.io"
+FunctionEnd
+
+Function என்உதொபேதளசொடுக்த்தில்
+  Pop $Links2 ; இணைப்பு திற
+  ExecShell "open" "https://TamilNeram.github.io"
+FunctionEnd
+
+Function லினக்சுதளசொடுக்த்தில்
+  Pop $OfficialSite 
+  ExecShell "open" "$Homepage"
+FunctionEnd
+
+Function இதைபதிவிறக்கு ; பதிவிறக்க இணைப்பு அமை
+  ${NSD_GetState} $DownloadISO $DownloadMe
+  ${If} $DownloadMe == ${BST_CHECKED}
+  ${NSD_Check} $DownloadISO
+  ${NSD_SetText} $DownloadISO "பதிவிறக்க இணைப்பு திறக்கப்பட்டது"
+  Call பதிவிறக்கஇணைப்புகள்
+  ${ElseIf} $DownloadMe == ${BST_UNCHECKED}
+  ${NSD_Uncheck} $DownloadISO 
+  ${NSD_SetText} $DownloadISO "பதிவிறக்க இணைப்பு" 
+  ${EndIf}  
+FunctionEnd

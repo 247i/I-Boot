@@ -104,7 +104,7 @@ Function WriteStuff
   ${If} $ConfigFile == "NULL" ; Isolinux/Syslinux config file doesn't exist!
 	  ${AndIf} $DistroPath != "menu.lst" ; menu.lst = GRUB, so we shouldn't expect to find a syslinux config file!
 		MessageBox MB_OK "% couldn't find a configuration file.$\r$\n'$JustISO' not supported, please report the exact steps taken to arrive at this message!$\r$\n% will now remove this entry."   
-		${DeleteMenuEntry} "$BDir\!\menu\$DistroPath" "#[ $JustISOName" "#] $JustISOName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
+		${பட்டிஉள்ளீட்டைநீக்கு} "$BDir\!\menu\$DistroPath" "#[ $JustISOName" "#] $JustISOName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
 		StrCpy $DistroName "$JustISOName" ; So we can remove the following நிறுவப்பட்டது.உரை entry
 		${LineFind} "$BDir\!\நிறுவப்பட்டது.உரை" "$BDir\!\நிறுவப்பட்டது.உரை" "1:-1" "நிறுவலைநீக்கு" ; Remove the நிறுவப்பட்டது.உரை entry
 		${LineFind} "$BDir\!\நிறுவப்பட்டது.உரை" "$BDir\!\நிறுவப்பட்டது.உரை" "1:-1" "வெற்றுவரியைநீக்கு" ; Remove any left over empty lines from நிறுவப்பட்டது.உரை
@@ -121,7 +121,7 @@ FunctionEnd
 
 ; If distro is already installed, delete the entry, so we don't make a mess.
  ${If} ${FileExists} "$BDir\!\$JustISOName\*.*"
-	 ${DeleteMenuEntry} "$BDir\!\menu\$DistroPath" "#[ $DistroName" "#] $DistroName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
+	 ${பட்டிஉள்ளீட்டைநீக்கு} "$BDir\!\menu\$DistroPath" "#[ $DistroName" "#] $DistroName" ; Remove entry from config file... I.E. linux.cfg, system.cfg, etc
  ${EndIf}
  
 ; Write $JustISOName to நிறுவப்பட்டது.உரை 

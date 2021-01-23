@@ -1,195 +1,25 @@
-﻿Unicode True ; தமிழ் எழுத்து அதரவு 
+﻿!define பெயர் "ஐ-உ.வி.நி.இ"
+!define பதிப்பு "0.0.3.2"
+!include துணை\தலைப்பு.நிரல்
 ;!execute 'ஐ-உ.வி.நி.இ\இருமங்கள்\அகர.bat' ; zip if required.
 ;!execute '"$%WINDIR%\notepad.exe" /P "${NSISDIR}\COPYING"' ; Enable this to debug previous line. 
-!define பெயர் "ஐ-உ.வி.நி.இ"
-!define பதிப்பு "0.0.3.2"
-!define MUI_ICON "..\அகர\ஐ-காண்\வண்ணத்துப்பூச்சி.ico"
-
-VIProductVersion "${பதிப்பு}"
-VIAddVersionKey CompanyName "ஐ"
-VIAddVersionKey LegalCopyright "உரிமை ©2021 ஐ"
-VIAddVersionKey FileVersion "${பதிப்பு}"
-VIAddVersionKey FileDescription "ஐ-உ.வி.நி.இ"
-VIAddVersionKey License "இலவசம்"
-
-Name "${பெயர்} ${பதிப்பு}"
-OutFile "..\${பெயர்}-${பதிப்பு}.exe"
-RequestExecutionLevel admin ;highest
-SetCompressor /SOLID lzma
-CRCCheck On
-XPStyle on
-ShowInstDetails show
-BrandingText "    ⮜⮘  https://TamilNeram.github.io/${பெயர்}   ⮞⮚"
-CompletedText "அனைத்தும் முடிந்தது!"
-InstallButtonText "உருவாக்கு"
-
-!include WordFunc.nsh
-!include nsDialogs.nsh
-!include MUI2.nsh
-!include FileFunc.nsh
-!include LogicLib.nsh
-!AddPluginDir "plugins"
-
-; Variables
-Var Capacity
-Var VolName
-Var Checker
-;Var EFI
-;Var EFICHECK
-Var FileFormat
-Var Format 
-Var FormatMe
-Var BlockSize
-Var Dialog
-Var LabelDrivePage
-Var Distro
-Var DistroName
-Var ISOFileName
-Var DestDriveTxt
-Var JustDrive
-Var DestDrive
-Var BDir
-Var LinuxDistroSelection
-Var LabelISOSelection
-Var ISOFileTxt
-Var TheISO
-;Var isopath
-Var IsoFile
-Var ISOSelection
-Var ISOTest
-Var JustISO
-Var JustISOName
-Var JustISOPath
-Var ConfigFile
-Var ConfigPath
-Var CopyPath
-Var GrubConfigFile
-Var GrubConfigPath
-Var GrubCopyPath
-Var Initrd
-Var Vmlinuz
-Var ISONameDotLess
-Var DestDisk
-Var DownloadISO
-Var DownloadMe
-Var Link
-Var Link1
-Var Link2
-Var Links
-Var Links1
-Var Links2
-Var Auth
-Var DownLink
-Var LocalSelection
-Var Letters
-Var DistroPath
-Var SomeFileExt
-Var AllDriveOption
-Var DisplayAll
-Var DistroLink
-Var Homepage
-Var OfficialSite
-Var OfficialName
-Var NameThatISO
-Var OnlyVal
-Var Uninstaller
-Var Removal
-Var InUnName
-Var InUnStall
-Var InUnStalling
-Var InUnStalled
-Var OnFrom
-Var SUSEDIR
-Var RepeatInstall
-Var ShowAll
-Var ForceShowAll
-Var ShowingAll
-Var SizeOfCasper 
-Var Casper
-Var CasperSlider
-Var CasperSelection
-Var SlideSpot
-Var RemainingSpace
-Var MaxPersist
-Var Persistence
-Var CasperName
-Var COMSPEC
-Var PERCENT
-Var FSType
-Var DiskNum
-Var TASupport
-
-!include துணை\ஒழுங்கமை.நிரல் ; பொதுவாக பயன்படுத்தும் நிரல்
+; பொதுவாக பயன்படுத்தும் நிரல்கள்
+!include துணை\பக்கங்கள்.நிரல்
+!include துணை\தகவல்.நிரல்
+!include துணை\ஒழுங்கமை.நிரல்
 !include துணை\ஒருங்குறிஉரை.நிரல்
 !include துணை\கோப்பில்மாற்று.நிரல்
-!include ஐ-உ.வி.நி.இ\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்
-
-; இடைமுக அமைப்புகள்
-!define MUI_FINISHPAGE_NOAUTOCLOSE
-!define MUI_HEADERIMAGE
-!define MUI_HEADERIMAGE_BITMAP "..\அகர\அணிகலன்\யாதும் ஊரே-தலைப்பு.bmp" 
-!define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
-!define MUI_HEADERIMAGE_RIGHT
-; உரிம ஒப்பந்த ஒப்பந்தம் பக்கம்
-!define MUI_TEXT_LICENSE_SUBTITLE $(License_Subtitle)
-!define MUI_LICENSEPAGE_TEXT_TOP $(License_Text_Top)
-!define MUI_LICENSEPAGE_TEXT_BOTTOM $(License_Text_Bottom)
-!define MUI_PAGE_CUSTOMFUNCTION_PRE உரிமம்_முன்செயல்பாடு
-!insertmacro MUI_PAGE_LICENSE "..\அகர\பகவன்\உரிமை.உரை"
-; விநியோக தேர்வு பக்கம்
-Page custom தேர்வுகள்பக்கம்
-; கோப்புகளை நிறுவுக பக்கம்
-!define MUI_INSTFILESPAGE_COLORS "00FF00 000000" ;Green and Black
-!define MUI_INSTFILESPAGE_FINISHHEADER_TEXT $(Finish_Install)
-!define MUI_TEXT_INSTALLING_TITLE $(Install_Title)
-!define MUI_TEXT_INSTALLING_SUBTITLE $(Install_SubTitle)
-!define MUI_TEXT_FINISH_SUBTITLE $(Install_Finish_Sucess)
-!define MUI_PAGE_CUSTOMFUNCTION_PRE நிறுவும்கோப்புகள்_முன்செயல்பாடு
-!insertmacro MUI_PAGE_INSTFILES
-; முடிவு பக்கம்
-!define MUI_FINISHPAGE_TITLE $(Finish_Title)
-!define MUI_FINISHPAGE_TEXT $(Finish_Text)
-!define MUI_FINISHPAGE_LINK $(Finish_Link)
-!define MUI_FINISHPAGE_LINK_LOCATION "https://TamilNeram.github.io"
-!define MUI_WELCOMEFINISHPAGE_BITMAP "..\அகர\அணிகலன்\சரி.bmp"
-!define MUI_PAGE_CUSTOMFUNCTION_PRE முடித்தல்_முன்செயல்பாடு
-!insertmacro MUI_PAGE_FINISH
-
-; தமிழ் மொழி உரைகள்
-!insertmacro MUI_LANGUAGE "Tamil" ; தமிழே முதல் மொழி
-LangString License_Subtitle ${LANG_TAMIL} "தொடர்வதற்கு முன் உரிம விதிமுறைகளை மதிப்பாய்வு செய்யவும்"
-LangString License_Text_Top ${LANG_TAMIL} "இந்த நிரலில் உள்ள மென்பொருள் பின்வரும் உரிமங்களின் கீழ் வருகிறது."
-LangString License_Text_Bottom ${LANG_TAMIL} "இந்த ${பெயர்} பயன்பாட்டை இயக்க இந்த உரிம ஒப்பந்தத்தின் விதிமுறைகளை நீங்கள் ஏற்க வேண்டும். நீங்கள் ஒப்புக்கொண்டால், ஒப்புதல் என்பதைக் சொடுக்கு."
-LangString SelectDist_Title ${LANG_TAMIL} "இயக்கி தேர்வு மற்றும் விநியோக விருப்பங்கள் பக்கம்"
-LangString SelectDist_Subtitle ${LANG_TAMIL} "மின்வெட்டொளி இயக்கி தேர்வுசெய்க, மற்றும் ஒரு விநியோகம், உதநி/ஜிப் கோப்பு.$\r$\nஇந்த கருவி இயங்கும் ஒவ்வொரு முறையும் கூடுதல் விநியோகங்களைச் சேர்க்கலாம்."
-LangString DrivePage_Text ${LANG_TAMIL} "படி 1:மின்வெட்டொளி இயக்கதைத் தேர்ந்தெடுக்கவும்"
-LangString Distro_Text ${LANG_TAMIL} "படி 2: மின்வெட்டொளியில் வைக்க பட்டியலிலிருந்து ஒரு விநியோகத்தைத் தேர்ந்தெடுக்கவும்."
-LangString IsoPage_Text ${LANG_TAMIL} "படி 3: $FileFormat தேர்ந்தெடுக்கவும் (பெயர் மேலே உள்ளதைப் போலவே இருக்க வேண்டும்)."
-LangString IsoPage_Title ${LANG_TAMIL} "$FileFormat தேர்ந்தெடுக்கவும்"
-LangString Casper_Text ${LANG_TAMIL} "படி 4: மாற்றங்களைச் சேமிக்க ஒரு நிலையான கோப்பு அளவை அமைக்கவும்."
-LangString IsoFile ${LANG_TAMIL} "$FileFormat கோப்பு|$ISOFileName" 
-LangString Extract ${LANG_TAMIL} "$FileFormat பிரித்தெடுத்தல்: முடியும் வரை முன்னேற்றம் பட்டி நகராது. தயவுசெய்து பொருமையாயிறு..."
-LangString CreateSysConfig ${LANG_TAMIL} "$DestDisk இயக்ககத்திற்கான உள்ளமைவு கோப்புகளை உருவாக்குதல்"
-LangString ExecuteSyslinux ${LANG_TAMIL} "கணிலினக்சை $BDir மீது இயக்குகிறது"
-LangString SkipSyslinux ${LANG_TAMIL} "நல்ல கணிலினக்சு உள்ளது..."
-LangString WarningSyslinux ${LANG_TAMIL} "கணிலினக்சை இயக்கும் போது பிழை($R8) ஏற்பட்டது.$\r$\nமின்வெட்டொளி இயக்கி துவக்கப்படாது...$\r$\n$\r$\n$FSType கோப்பு முறைமை கண்டறியப்பட்டது. உங்கள் இயக்கி Fat32 அல்லது NTFS ஆக வடிவமைக்கப்பட வேண்டும்."
-LangString WarningSyslinuxOLD ${LANG_TAMIL} "இந்த ஐ-கருவி திருத்தம் முந்தைய திருத்தங்களுடன் பொருந்தாத புதிய கணிலினக்சு பதிப்பைப் பயன்படுத்துகிறது.$\r$\nஉங்கள் யூ.எஸ்.பி டிரைவில் முந்தைய திருத்த நிறுவல்கள் இல்லை என்பதை உறுதிப்படுத்தவும்."
-LangString Install_Title ${LANG_TAMIL} "$InUnName $InUnStalling"
-LangString Install_SubTitle ${LANG_TAMIL} "நாங்கள்   $JustDrive $OnFrom $InUnName $InUnStall போது காத்திருக்கவும்"
-LangString Install_Finish_Sucess ${LANG_TAMIL} "${பெயர்} $InUnStalled $InUnName $OnFrom $JustDrive"
-LangString Finish_Install ${LANG_TAMIL} "செயல்முறை முடிந்தது."
-LangString Finish_Title ${LANG_TAMIL} "${பெயர்} பயன்படுத்தியதற்கு நன்றி"
-LangString Finish_Text ${LANG_TAMIL} "உங்கள் தேர்வுகள் மின்வெட்டொளியில் $InUnStalled .$\r$\n$\r$\nமேலும் விநியோகங்களை $InUnStall இந்த கருவியை மீண்டும் இயக்கவும்.$\r$\n$\r$\nஐ-கருவி நீங்கள் ஏற்கனவே $InUnStalled தேர்வுகளை கண்காணிக்கும்."
-LangString Finish_Link ${LANG_TAMIL} "TamilNeram.github.io பக்கம் பார்க்க"
-
+!include துணை\வட்டுபொதுஉரை.நிரல்
 !include துணை\தவமுன்னேற்றம்.நிரல் ; நிலைத்தன்மை கோப்பை உருவாக்குதல் முன்னேற்றம்
+!include துணை\சரம்மாற்று.நிரல் 
 !include துணை\சரம்கொண்டுள்ளது.நிரல் ; Let's check if a * wildcard exists
-!include துணை\சரம்மாற்று.நிரல் ; பொதுவாக பயன்படுத்தும் நிரல்
 !include துணை\உதநிகோப்புபெயர்கள்அமை.நிரல் ; Macro for கோப்புபெயர்கள்
-!include ஐ-உ.வி.நி.இ\நிரல்கள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
+!include துணை\புதையல்பொதுஉரை.நிரல் ; For creation of Persistent Casper-rw files
+
 !include ஐ-உ.வி.நி.இ\நிரல்கள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
+!include ஐ-உ.வி.நி.இ\நிரல்கள்\கோப்புதிருத்தி.நிரல் ; Text File Manipulation
+!include ஐ-உ.வி.நி.இ\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்
 !include ஐ-உ.வி.நி.இ\நிரல்கள்\புதையல்உரை.நிரல் ; For creation of Persistent Casper-rw files
-!include துணை\புதையல்பொதுஉரை.நிரல்
 
 Function உரிமம்_முன்செயல்பாடு
   StrCpy $R8 1 ;This is the 1st page
@@ -208,7 +38,7 @@ Function தேர்வுகள்பக்கம்
   ${NSD_CreateCheckBox} 60% 0 44% 15 "நிறுவப்பட்டது?"
   Pop $Uninstaller
   ${NSD_OnClick} $Uninstaller நிறுவல்நீக்கு  
- ; Distro Selection Starts
+; Distro Selection Starts
   ${NSD_CreateLabel} 0 50 50% 15 $(Distro_Text) 
   Pop $LinuxDistroSelection   
 
@@ -220,9 +50,9 @@ Function தேர்வுகள்பக்கம்
 ; அனைத்து உதநி விருப்பத்தையும் கட்டாயப்படுத்து
   ${NSD_CreateCheckBox} 80% 100 20% 15 "உதநிகள்?"
   Pop $ForceShowAll
-  ${NSD_OnClick} $ForceShowAll அனைத்துஉதநிகாட்டு   
+  ${NSD_OnClick} $ForceShowAll அனைத்துஉதநிகள்காட்டு 
 
-; உதநி Download Option
+; உதநி பதிவிறக்க விருப்பம்
   ${NSD_CreateCheckBox} 60% 60 40% 15 "உதநி பதிவிறக்கம்."
   Pop $DownloadISO
   ${NSD_OnClick} $DownloadISO இதைபதிவிறக்கு  
@@ -244,36 +74,34 @@ Function தேர்வுகள்பக்கம்
 ; Casper-RW Selection Starts
   ${NSD_CreateLabel} 0 150 75% 15 $(Casper_Text)
   Pop $CasperSelection  
- 
+
   ${NSD_CreateLabel} 52% 178 25% 25 ""
   Pop $SlideSpot  
 
   nsDialogs::CreateControl "msctls_trackbar32" "0x50010000|0x00000018" "" 0 174 50% 25 ""
   Pop $CasperSlider
   SendMessage $CasperSlider ${TBM_SETRANGEMIN} 1 0 ; Min Range Value 0
-  SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Max Range Value $RemainingSpace
+  SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Max Range Value
   ${NSD_OnNotify} $CasperSlider புதையல்நிலைமாற்றிஅறிவிப்பதில்    
 
 ; Drive Pre-Selection  
-  ${NSD_CreateLabel} 0 0 58% 15 "" ;
+  ${NSD_CreateLabel} 0 0 58% 15 ""
   Pop $LabelDrivePage 
   ${NSD_SetText} $LabelDrivePage "படி 1: மின்வெட்டொளி இயக்கமாக $DestDisk வரவழைக்கப்பட்டது"  
 ; Droplist for Drive Selection  
   ${NSD_CreateDropList} 0 20 40% 15 "" ; was 0 20 15% 15 ; then was 28%
-  Pop $DestDriveTxt 
-   
-   ${If} $ShowAll == "YES"
-   ${GetDrives} "FDD+HDD" இயக்கிபட்டியல் ; All Drives Listed
-   ${ElseIf} $ShowAll == "NO"
-   ${GetDrives} "FDD" இயக்கிபட்டியல் ; FDD+HDD reduced to FDD for removable media only
-   ${EndIf}          
-  
+  Pop $DestDriveTxt
+  ${If} $ShowAll == "YES"
+  ${GetDrives} "FDD+HDD" இயக்கிபட்டியல் ; All Drives Listed
+  ${ElseIf} $ShowAll == "NO"
+  ${GetDrives} "FDD" இயக்கிபட்டியல் ; FDD+HDD reduced to FDD for removable media only
+  ${EndIf}
   ${NSD_CB_SelectString} $DestDriveTxt "$DestDrive"
   StrCpy $JustDrive $DestDrive 3
-  StrCpy $BDir $DestDrive 2 ;was -1 
-  StrCpy $DestDisk $DestDrive 2 ;was -1
+  StrCpy $BDir $DestDrive 2
+  StrCpy $DestDisk $DestDrive 2
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
-  StrCpy $Checker "Yes"  
+  StrCpy $Checker "YES"  
   Call நிறுவுஅல்லதுநீக்கு
   Call இடத்தைஅமை
   Call இடத்தைசரிபார்
@@ -287,12 +115,12 @@ Function தேர்வுகள்பக்கம்
   ${NSD_OnClick} $LINK என்தளசொடுக்த்தில்    
 
 ; Add Help Link
-  ${NSD_CreateLink} 16% 215 9% 15 "கேள்வி" ;16% 215 9% 15
+  ${NSD_CreateLink} 16% 215 9% 15 "கேள்வி"
   Pop $Link1
   ${NSD_OnClick} $LINK1 அகேகேதளசொடுக்த்தில் 
   
 ; Add Giveback Link
-  ${NSD_CreateLink} 25% 215 30% 15 "பரிந்துரை" ;25% 215 30% 15 
+  ${NSD_CreateLink} 25% 215 30% 15 "பரிந்துரை"
   Pop $Link2
   ${NSD_OnClick} $LINK2 என்உதொபேதளசொடுக்த்தில்   
  
@@ -321,14 +149,13 @@ Function தேர்வுகள்பக்கம்
 ; Drive Selection Starts  
   ${NSD_CreateLabel} 0 0 58% 15 ""    
   Pop $LabelDrivePage
-  ${NSD_SetText} $LabelDrivePage "படி 1: மின்வெட்டொளி இயக்கக எழுத்து."    
+  ${NSD_SetText} $LabelDrivePage "படி 1: மின்வெட்டொளி இயக்கக எழுத்து தேர்ந்தெடுக்கவும்."    
   
 ; Droplist for Drive Selection
   ${NSD_CreateDropList} 0 20 40% 15 "" ; was 0 20 15% 15
   Pop $DestDriveTxt
   Call இயக்கிகளைபட்டியலிடு
   ${NSD_OnChange} $DestDriveTxt இயக்கிதேர்வில்
- 
 ; அனைத்து இயக்கி காட்டு விருப்பம்
   ${NSD_CreateCheckBox} 41% 23 17% 15 "அனைத்தும்?" ; was 17% 23 41% 15
   Pop $AllDriveOption
@@ -337,8 +164,7 @@ Function தேர்வுகள்பக்கம்
 ; Format Drive விருப்பம்
   ${NSD_CreateCheckBox} 60% 23 100% 15 "துடைத்து Fat32 வடிவமை $DestDisk"
   Pop $Format
-  ${NSD_OnClick} $Format இதைவடிவமை     
-
+  ${NSD_OnClick} $Format இதைவடிவமை 
 ; Distro Selection Starts
   ${NSD_CreateLabel} 0 50 50% 15 $(Distro_Text) 
   Pop $LinuxDistroSelection   
@@ -351,7 +177,7 @@ Function தேர்வுகள்பக்கம்
 ; அனைத்து உதநி காட்டு விருப்பம்
   ${NSD_CreateCheckBox} 80% 100 20% 15 "உதநிகள்?"
   Pop $ForceShowAll
-  ${NSD_OnClick} $ForceShowAll அனைத்துஉதநிகாட்டு
+  ${NSD_OnClick} $ForceShowAll அனைத்துஉதநிகள்காட்டு
 
 ; உதநி பதிவிறக்கம் விருப்பம்
   ${NSD_CreateCheckBox} 60% 60 40% 15 "உதநி பதிவிறக்கம்."
@@ -366,7 +192,7 @@ Function தேர்வுகள்பக்கம்
 ; உதநி Selection Starts  
   ${NSD_CreateLabel} 0 100 100% 15 $(IsoPage_Text)
   Pop $LabelISOSelection
-  ${NSD_CreateText} 0 120 78% 20 "உலாவி  $FileFormat தேர்ந்தெடுக்கவும்"
+  ${NSD_CreateText} 0 120 78% 20 "உலாவி $FileFormat தேர்ந்தெடுக்கவும்"
   Pop $ISOFileTxt 
   ${NSD_CreateBrowseButton} 85% 120 60 20 "உலாவு"
   Pop $ISOSelection 
@@ -374,7 +200,7 @@ Function தேர்வுகள்பக்கம்
 
 ; Casper-RW Selection Starts
   ${NSD_CreateLabel} 0 150 75% 15 $(Casper_Text)
-  Pop $CasperSelection  
+  Pop $CasperSelection
   ${NSD_CreateLabel} 52% 178 25% 25 ""
   Pop $SlideSpot  
 
@@ -382,9 +208,9 @@ Function தேர்வுகள்பக்கம்
   Pop $CasperSlider
 
   SendMessage $CasperSlider ${TBM_SETRANGEMIN} 1 0 ; Min Range Value 0
-  SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Max Range Value $RemainingSpace
+  SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Max Range Value
   ${NSD_OnNotify} $CasperSlider புதையல்நிலைமாற்றிஅறிவிப்பதில்
-  
+
 ; Add Home Link
   ${NSD_CreateLink} 0 215 16% 15 "முகப்பு பக்கம்"
   Pop $Link
@@ -448,46 +274,16 @@ Function இயக்கிகளைபட்டியலிடு ; Set to Disp
   ${EndIf}
 FunctionEnd
 
-Function என்தளசொடுக்த்தில்
-  Pop $Links ; இணைப்பு திற
-  ExecShell "open" "https://TamilNeram.github.io"
-FunctionEnd
-
-Function அகேகேதளசொடுக்த்தில்
-  Pop $Links1 ; இணைப்பு திற
-  ExecShell "open" "https://TamilNeram.github.io"
-FunctionEnd
-
-Function என்உதொபேதளசொடுக்த்தில்
-  Pop $Links2 ; இணைப்பு திற
-  ExecShell "open" "https://TamilNeram.github.io"
-FunctionEnd
-
-Function லினக்சுதளசொடுக்த்தில்
-  Pop $OfficialSite 
-  ExecShell "open" "$Homepage"
-FunctionEnd
-
-Function இதைபதிவிறக்கு ; பதிவிறக்க இணைப்பு அமை
-  ${NSD_GetState} $DownloadISO $DownloadMe
-  ${If} $DownloadMe == ${BST_CHECKED}
-  ${NSD_Check} $DownloadISO
-  ${NSD_SetText} $DownloadISO "பதிவிறக்க இணைப்பு திறக்கப்பட்டது"
-  Call பதிவிறக்கஇணைப்புகள்
-  ${ElseIf} $DownloadMe == ${BST_UNCHECKED}
-  ${NSD_Uncheck} $DownloadISO 
-  ${NSD_SetText} $DownloadISO "பதிவிறக்க இணைப்பு" 
-  ${EndIf}  
-FunctionEnd
+!include  துணை\இணைப்பு.நிரல்
 
 Function அடுத்துஇயக்கு ; Enable Install Button
-  #${If} $Blocksize >= 4 
-  ${If} $Removal != "Yes"
+  ;${If} $Blocksize >= 4 
+  ${If} $Removal != "YES"
   ShowWindow $Format 1 
   ${Else}
   ShowWindow $Format 0
   ${EndIf}
-  ${If} $Removal != "Yes"    
+  ${If} $Removal != "YES"    
    ${AndIf} $ISOFileName != ""
     ${AndIf} $ISOFile != ""
      ${AndIf} $DestDrive != "" 
@@ -501,7 +297,7 @@ Function அடுத்துஇயக்கு ; Enable Install Button
    SendMessage $6 ${WM_SETTEXT} 0 "STR:உருவாக்கு"
     EnableWindow $6 1 ; Enable "Install" control button
 
-  ${ElseIf} $Removal == "Yes"
+  ${ElseIf} $Removal == "YES"
    ${AndIf} $ISOFileName != ""
      ${AndIf} $DestDrive != "" 
 	  ${AndIf} $ISOTest != ""
@@ -528,12 +324,12 @@ Function அடுத்துஇயக்கு ; Enable Install Button
   ${EndIf}  
   
   ${If} $ISOFileName != "" 
-  ${AndIf} $Removal != "Yes"
+  ${AndIf} $Removal != "YES"
   EnableWindow $LabelISOSelection 1 
   EnableWindow $ISOFileTxt 1  
   ShowWindow $ISOSelection 1
   
-  ${AndIf} $Removal == "Yes"
+  ${AndIf} $Removal == "YES"
   EnableWindow $LabelISOSelection 0  
   EnableWindow $ISOFileTxt 0 
   ShowWindow $ISOSelection 0
@@ -554,70 +350,18 @@ Function அடுத்துஇயக்கு ; Enable Install Button
   ShowWindow $CasperSlider 1
   ShowWindow $SlideSpot 1
   ${ElseIf} $Persistence != "casper" ; Eventually change to "NULL"
-  ${OrIf} $Removal == "Yes"  
+  ${OrIf} $Removal == "YES"  
   ShowWindow $CasperSelection 0
   ShowWindow $CasperSlider 0 
   ShowWindow $SlideSpot 0
   ${EndIf}    
 FunctionEnd
-
-Function பதிவிறக்கஇணைப்புகள்
-MessageBox MB_YESNO|MB_ICONQUESTION "பதிவிறக்க இணைப்பைத் தொடங்கவா?$\r$\nபடி 2 க்குச் செல்வதற்கு முன் பதிவிறக்கம் முடிக்கட்டும்." IDYES இதைபதிவிறக்கு IDNO Skip
-  Skip: ; Reset Download Checkbox Options 
-  ${NSD_Uncheck} $DownloadISO 
-  ${NSD_SetText} $DownloadISO "பதிவிறக்க இணைப்பு"  
-  EnableWindow $DownloadISO 1
-  Goto end
-  இதைபதிவிறக்கு:
-  ${NSD_SetText} $LabelISOSelection "படி 3: பதிவிறக்கம் முடிந்ததும், உலாவி உதநிவைத் தேர்ந்தெடுக்கவும்."  
-  EnableWindow $DownloadISO 0
-  ExecShell "open" "$DownLink"    
-  end:
-FunctionEnd
-
-Function உள்உதநிகண்டறியப்பட்டது ; The script autodetected the ISO, so let's do the following
- ${If} $DownloadMe != ${BST_CHECKED}
- ${AndIf} $LocalSelection != "Yes"
- StrCpy $ISOFile "$EXEDIR\$ISOFileName"
- ${EndIf}
-FunctionEnd
-
-; get only the filename
-Function பெயரைமட்டும்பெறு
-  Exch $4 ; count to get part
-  Exch
-  Exch $0 ; input string
-  Push $1
-  Push $2
-  Push $3
-  StrCpy $1 0
-  StrCpy $3 1
-  loop:
-    IntOp $1 $1 - 1
-    StrCpy $2 $0 1 $1
-    StrCmp $2 "" exit2
-    StrCmp $2 "\" next ; grab text to the right of "\"
-    Goto loop
-  next:
-    StrCmp $3 $4 exit
-    IntOp $3 $3 + 1
-  Goto loop
-  exit2:
-    IntOp $1 $1 - 1
-  exit:
-    IntOp $1 $1 + 1
-    StrCpy $0 $0 "" $1
-    Pop $3
-    Pop $2
-    Pop $1
-    Exch $0 ; output string
-FunctionEnd
-
+!include துணை\பதிவிறக்கஇணைப்பு.நிரல்
 ; On Selection of Linux Distro
 Function விநியோகதேர்வில்
   Pop $Distro
   
-  ${If} $Removal == "Yes"
+  ${If} $Removal == "YES"
    ShowWindow $ForceShowAll 0
   ${Else}
    ShowWindow $ForceShowAll 1
@@ -626,7 +370,7 @@ Function விநியோகதேர்வில்
   ${NSD_GetText} $Distro $DistroName ; Was ${NSD_LB_GetSelection} $Distro $DistroName 
   StrCpy $DistroName "$DistroName"   
   StrCpy $Checker "No" 
-  ${If} $Removal == "Yes"
+  ${If} $Removal == "YES"
   StrCpy $ISOFileName "$DistroName" 
   StrCpy $ISOTest "$DistroName"  
   ${Else} 
@@ -635,44 +379,42 @@ Function விநியோகதேர்வில்
   StrCpy $SomeFileExt "$ISOFileName" "" -3 ; Grabs the last 3 characters of the file name... zip or உதநி?
   StrCpy $FileFormat "$SomeFileExt" ; Set file type to look for zip, tar, உதநி etc...
   ${NSD_SetText} $LabelISOSelection "படி 3: உலாவி $ISOFileName தேர்ந்தெடுக்கவும்"
-  ${NSD_SetText} $ISOFileTxt "$ISOFile கோப்பிற்கு உலாவுக  -->"
+  ${NSD_SetText} $ISOFileTxt "$ISOFileName கோப்பிற்கு உலாவுக  -->"
   SetCtlColors $ISOFileTxt FF0000 FFFFFF  
   StrCpy $ISOTest "" ; Set to null until a new உதநி selection is made
   ${EndIf}
   
-; Redraw முகப்பு பக்கம் Links as necessary
+; முகப்பு பக்க இணைப்புகளை மீண்டும் வரையவும்
   ${NSD_SetText} $DistroLink "$OfficialName முகப்புப்பக்கத்தைப் பார்வையிடவும்" 
   ShowWindow $DistroLink 0
   ${If} $OfficialName == ""
-   ${OrIf} $Removal == "Yes"
+   ${OrIf} $Removal == "YES"
   ShowWindow $DistroLink 0
   ${Else}
   ShowWindow $DistroLink 1
   ${EndIf}    
 ; Autodetect உதநி's in same folder and select if they exist  
  ${If} ${FileExists} "$EXEDIR\$ISOFileName"
- ${AndIf} $Removal != "Yes"
+ ${AndIf} $Removal != "YES"
  ${சரம்கொண்டுள்ளது} $WILD "*" "$ISOFileName" ; Check for Wildcard and force Browse if * exists.
  ${AndIf} $WILD != "*"  
   StrCpy $TheISO "$EXEDIR\$ISOFileName"
   StrCpy $ISOFile "$TheISO"  
   ${GetFileName} "$TheISO" $JustISO
-										   
   ${GetBaseName} "$JustISO" $JustISOName
-  ${சரம்மாற்று} '$JustISOName' '$JustISOName' ' ' '-'
-							   
+ ${சரம்மாற்று} '$JustISOName' '$JustISOName' ' ' '-'
   ${GetParent} "$TheISO" $JustISOPath  
   EnableWindow $DownloadISO 0
   ${NSD_SetText} $DownloadISO "நாங்கள் கண்டுபிடித்து $SomeFileExt தேர்ந்தெடுத்தோம்."    
   EnableWindow $ISOSelection 0 
   SetCtlColors $ISOFileTxt 009900 FFFFFF  
   ${NSD_SetText} $ISOFileTxt $ISOFile 
-  ${NSD_SetText} $LabelISOSelection "படி 3 முடிந்தது: $ISOFileName கண்டுபிடிக்கப்பட்டு தேர்ந்தெடுக்கப்பட்டது! "  
+  ${NSD_SetText} $LabelISOSelection "படி 3 முடிந்தது: $ISOFileName கண்டுபிடிக்கப்பட்டு தேர்ந்தெடுக்கப்பட்டது!"  
   StrCpy $ISOTest "$TheISO" ; Populate ISOTest so we can enable Next    
   Call அடுத்துஇயக்கு  
   
  ${ElseIf} ${FileExists} "$EXEDIR\$ISOFileName"
- ${AndIf} $Removal != "Yes"
+ ${AndIf} $Removal != "YES"
  ${AndIf} $WILD == "*" 
   EnableWindow $DownloadISO 1
   EnableWindow $ISOSelection 1
@@ -680,7 +422,7 @@ Function விநியோகதேர்வில்
   ${NSD_SetText} $DownloadISO "பதிவிறக்க இணைப்பு"       
   SetCtlColors $ISOFileTxt FF9B00 FFFFFF  
   ${NSD_SetText} $ISOFileTxt "உலாவி $ISOFileName தேர்ந்தெடுக்கவும்" 
-  ${NSD_SetText} $LabelISOSelection "படி 3 நிலுவையில்:$ISOFile கோப்பிற்கு உலாவுக"    
+  ${NSD_SetText} $LabelISOSelection "படி 3 நிலுவையில்:$ISOFileName கோப்பிற்கு உலாவுக"    
   Call அடுத்துஇயக்கு  
   
  ${Else}
@@ -692,7 +434,7 @@ Function விநியோகதேர்வில்
  ${EndIf}  
  
  ${If} $DownLink == "NONE"
-  ${OrIf} $Removal == "Yes"
+  ${OrIf} $Removal == "YES"
   ShowWindow $DownloadISO 0
  ${Else}
   ShowWindow $DownloadISO 1
@@ -701,9 +443,9 @@ FunctionEnd
 
 ; On Selection of உதநி File
 Function உதநிஉலாவு
- ${If} $ShowingAll == "Yes"
+ ${If} $ShowingAll == "YES"
   StrCpy $ISOFileName "*.iso" 
- ${ElseIf} $ShowingAll != "Yes"
+ ${ElseIf} $ShowingAll != "YES"
   Call உதநிகோப்புபெயர்அமை
  ${EndIf}
  
@@ -720,7 +462,7 @@ Function உதநிஉலாவு
  ${GetBaseName} "$JustISO" $JustISOName
  ${சரம்மாற்று} '$JustISOName' '$JustISOName' ' ' '-'
  ${GetParent} "$TheISO" $JustISOPath
- StrCpy $LocalSelection "Yes"
+ StrCpy $LocalSelection "YES"
   Call உதநிஅளவைஅமை
   Call இடத்தைஅமை
   Call இடத்தைசரிபார்
@@ -730,7 +472,7 @@ Function உதநிஉலாவு
  ${EndIf}
  ${If} ${FileExists} "$BDir\!\$JustISOName\*.*"
  ${AndIf} $JustISOName != ""
- ${AndIf} $FormatMe != "Yes"
+ ${AndIf} $FormatMe != "YES"
  MessageBox MB_OK "$JustISOName is already on $DestDisk$\r$\nPlease Remove it first!"
  ${Else}
  ${EndIf}
@@ -747,10 +489,10 @@ StrCpy $FileFormat ""
 FunctionEnd
 
 Function நிறுவுஅல்லதுநீக்கு ; Populate DistroName based on Install/Removal option
-  ${If} $Removal == "Yes" 
+  ${If} $Removal == "YES" 
   Call அகற்றும்பட்டியல்
   ${Else}
-   ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskஇல் நிறுவ ஒரு விநியோகம்" 
+   ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDisk இல் நிறுவ ஒரு விநியோகம்" 
   Call உதநிகோப்புபெயர்அமை
   ${EndIf}
 FunctionEnd  
@@ -772,16 +514,16 @@ Function நிறுவல்நீக்கு
 	StrCpy $Persistence "NULL" 
 	
   ${NSD_Check} $Uninstaller 
-  StrCpy $Removal "Yes"
+  StrCpy $Removal "YES"
   ShowWindow $DistroLink 0
   ShowWindow $DownloadISO 0
    GetDlgItem $6 $HWNDPARENT 1 ; Get "Install" control handle
 	SendMessage $6 ${WM_SETTEXT} 0 "STR:நீக்கு"
 	EnableWindow $6 0 ; Disable "Install" control button
-  ${NSD_SetText} $Uninstaller "நிறுவல் நீக்குதல்"
-   ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDisk இலிருந்து அகற்ற ஒரு விநியோகத்தைத் தேர்ந்தெடுக்கவும் "  
+  ${NSD_SetText} $Uninstaller "நிறுவல் நீக்குதல்!"
+   ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDisk இலிருந்து அகற்ற ஒரு விநியோகத்தைத் தேர்ந்தெடுக்கவும்"  
     SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new option may have been chosen ; Enable for DropBox
-     StrCpy $Checker "Yes"   
+     StrCpy $Checker "YES"   
 	 Call அகற்றும்பட்டியல்
 
   ${ElseIf} $Removal == ${BST_UNCHECKED}
@@ -798,9 +540,9 @@ Function நிறுவல்நீக்கு
   ${NSD_Uncheck} $Uninstaller  
   StrCpy $Removal "No"  
   ${NSD_SetText} $Uninstaller "நிறுவப்பட்டது?" 
-   ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDiskவைக்க ஒரு விநியோகம்" 
+  ${NSD_SetText} $LinuxDistroSelection "படி 2: $DestDisk இல் வைக்க ஒரு விநியோகம்" 
      SendMessage $Distro ${CB_RESETCONTENT} 0 0  ; Clear all distro entries because a new option may have been chosen ; Enable for DropBox
-     StrCpy $Checker "Yes"         
+     StrCpy $Checker "YES"         
      Call உதநிகோப்புபெயர்அமை
   ${EndIf}  
 FunctionEnd
@@ -825,7 +567,7 @@ Function இயக்கிதேர்வில்
   MessageBox MB_ICONSTOP|MB_OK "($DestDisk) ஒரு ஐ-மரபு நிறுவலைக் கொண்டுள்ளது. ஐ-உ.வி.நி.இ ஐப் பயன்படுத்த நீங்கள் மறுவடிவமைக்க வேண்டும்."
   ${EndIf}   
   SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new drive may have been chosen ; Enable for DropBox
-  StrCpy $Checker "Yes" 
+  StrCpy $Checker "YES" 
   Call நிறுவுஅல்லதுநீக்கு
   Call இடத்தைஅமை
   Call இடத்தைசரிபார்
@@ -868,7 +610,7 @@ Function இயக்கிபட்டியல்
 ;Prevent System Drive from being selected
  StrCpy $7 $WINDIR 3
  ${If} $9 != "$7" 
- SendMessage $DestDriveTxt ${CB_ADDSTRING} 0 "STR:$9 (Disk $DiskNum) $VolName $Capacity $FSType" ;$8
+ SendMessage $DestDriveTxt ${CB_ADDSTRING} 0 "STR:$9 (வட்டு $DiskNum) $VolName $Capacity $FSType" ;$8
  ${EndIf}
  Push 1 ; must push something - see GetDrives documentation
 FunctionEnd
@@ -877,7 +619,7 @@ Function ஆம்வடிவமை ; If Format is checked, do something
   SetShellVarContext all
   InitPluginsDir
   File /oname=$PLUGINSDIR\கோஒஅ32வடிவம்.exe "இருமங்கள்\கோஒஅ32வடிவம்.exe"
-  ${If} $FormatMe == "Yes"
+ ${If} $FormatMe == "YES"
    Call பூட்டு_மட்டும் ; Just get a lock on the Volume 
    Sleep 3000
    nsExec::ExecToLog '"cmd" /c "echo y|$PLUGINSDIR\கோஒஅ32வடிவம் $DestDisk"' ;/Q /y
@@ -889,71 +631,25 @@ Function இதைவடிவமை ; Set Format Option
   ${NSD_GetState} $Format $FormatMe
   ${If} $FormatMe == ${BST_CHECKED}
   ${NSD_Check} $Format
-    StrCpy $FormatMe "Yes"
+    StrCpy $FormatMe "YES"
   ${NSD_SetText} $Format "துடைத்து Fat32 வடிவமை $DestDisk!"
     SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new format option may have been chosen ; Enable for DropBox
 	ShowWindow $Uninstaller 0 ; Disable Uninstaller option because we will be formatting the drive.
-    StrCpy $Checker "Yes"	
+    StrCpy $Checker "YES"	
   
   ${ElseIf} $FormatMe == ${BST_UNCHECKED}
-  ${NSD_Uncheck} $Format 
+  ${NSD_Uncheck} $Format
   ${NSD_SetText} $Format "துடைத்து Fat32 வடிவமை $DestDisk"  
     SendMessage $Distro ${CB_RESETCONTENT} 0 0 ; Clear all distro entries because a new format option may have been chosen ; Enable for DropBox
 
     ShowWindow $Uninstaller 1 ; Re-enable Uninstaller option.
-	StrCpy $Checker "Yes" 
+	StrCpy $Checker "YES" 
 	Call இடத்தைஅமை
   ${EndIf}  
-  
     Call நிறுவுஅல்லதுநீக்கு
 FunctionEnd
 
-Function அனைத்துஉதநிகாட்டு ; Set Show All ISOs Option
-  ${NSD_GetState} $ForceShowAll $ShowingAll
-  ${If} $ShowingAll == ${BST_CHECKED}
-  ${NSD_Check} $ForceShowAll
-  StrCpy $ShowingAll "Yes"
-  ${NSD_SetText} $ForceShowAll "உதநிகள்!"
-    SendMessage $ISOSelection ${CB_RESETCONTENT} 0 0 
- 
-  ${ElseIf} $ShowingAll == ${BST_UNCHECKED}
-  ${NSD_Uncheck} $ForceShowAll
-  ${NSD_SetText} $ForceShowAll "உதநிகள்?"  
-    SendMessage $ISOSelection ${CB_RESETCONTENT} 0 0 
-  ${EndIf}  
-FunctionEnd
-
-Function இடத்தைசரிபார் ; Check total available space so we can set block size
-  Call மொத்தஇடம்
-  ${If} $1 <= 511
-  StrCpy $BlockSize 1
-  ${ElseIf} $1 >= 512
-  ${AndIf} $1 <= 8191
-  StrCpy $BlockSize 4
-  ${ElseIf} $1 >= 8192 
-  ${AndIf} $1 <= 16383
-  StrCpy $BlockSize 8
-  ${ElseIf} $1 >= 16384
-  ${AndIf} $1 <= 32767
-  StrCpy $BlockSize 16
-  ${ElseIf} $1 > 32768
-  StrCpy $BlockSize 32
-  ${EndIf}
- ; MessageBox MB_ICONSTOP|MB_OK "$0 Drive is $1 MB in size, blocksize = $BlockSize KB."  
-FunctionEnd
-
-Function மொத்தஇடம்
-${DriveSpace} "$JustDrive" "/D=T /S=M" $1 ; used to find total space of select disk
- StrCpy $Capacity "$1"
-FunctionEnd
-
-Function மீதமுள்ளவட்டுஇடம்
-${If} $FormatMe == "Yes"
-${DriveSpace} "$JustDrive" "/D=T /S=M" $1
-${Else}
-${DriveSpace} "$JustDrive" "/D=F /S=M" $1
-${EndIf}
-FunctionEnd
+!include துணை\அனைத்துஉதநிகள்காட்டு.நிரல்
 
 Function இடத்தைஅமை ; Set space available for persistence
   ;StrCpy $0 '$0'
@@ -965,25 +661,25 @@ Function இடத்தைஅமை ; Set space available for persistence
   StrCpy $RemainingSpace "$1"
   IntOp $RemainingSpace $RemainingSpace - $SizeOfCasper ; Remaining space minus distro size
  ${EndIf}
-  IntOp $RemainingSpace $RemainingSpace - 1 ; Subtract 1MB so that we don't error for not having enough space
-  SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Re-Setting Max Value
+   IntOp $RemainingSpace $RemainingSpace - 1 ; Subtract 1MB so that we don't error for not having enough space
+   SendMessage $CasperSlider ${TBM_SETRANGEMAX} 1 $RemainingSpace ; Re-Setting Max Value
 FunctionEnd
 
 Function இடமிருக்குமுன் ; Check space required
- ${If} $FormatMe != "Yes" 
+ ${If} $FormatMe != "YES" 
   Call புதையல்அளவு
   Call மீதமுள்ளவட்டுஇடம்
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
   Pop $3 ; Get the result ...
   IntCmp $3 1 okay ; ... and compare it
-  MessageBox MB_ICONSTOP|MB_OK "அச்சச்சோ: போதுமான வட்டு இடம் இல்லை!  $JustDriveஇயக்ககத்தில் $1 எம்பி உள்ளது, $SizeOfCasper எம்பி தேவை."
+  MessageBox MB_ICONSTOP|MB_OK "அச்சச்சோ: போதுமான வட்டு இடம் இல்லை! $JustDrive இயக்ககத்தில் $1 எம்பி உள்ளது, $SizeOfCasper எம்பி தேவை."
  ${EndIf}		 
   okay: ; Proceed to execute...
 		 
 FunctionEnd
 
 Function இடமிருக்கு ; Check space required
- ${If} $FormatMe != "Yes"
+ ${If} $FormatMe != "YES"
   Call புதையல்அளவு
   Call மீதமுள்ளவட்டுஇடம்
   System::Int64Op $1 > $SizeOfCasper ; Compare the space available > space required
@@ -1016,6 +712,7 @@ Function பட்டிஉள்ளீட்டைநீக்கு
  Push $R2
  Push $R3
   GetTempFileName $R2
+
 
 ;wrapper before write. Assumption UTF-8 file. 
 ${FileRecode} $R2 "ToUTF16LE"
@@ -1058,16 +755,21 @@ ${FileRecode} $3 "ToUTF16LE"
  Pop $1
 FunctionEnd
 
-; Custom Distros Installer - Uninstaller 
-!include ஐ-உ.வி.நி.இ\நிரல்கள்\விநியோகநிறுவல்.நிரல் ; #ADD DISTRO#
-!include ஐ-உ.வி.நி.இ\நிரல்கள்\விநியோகநீக்கம்.நிரல் ; # REM DISTRO#
+; தனிப்பயன் விநியோகம் நிறுவி - நிறுவல் நீக்கி சேர்க்கவும்
+!include ஐ-உ.வி.நி.இ\நிரல்கள்\விநியோகநிறுவல்.நிரல் ; புதிய  விநியோக நிறுவல்
+!include ஐ-உ.வி.நி.இ\நிரல்கள்\விநியோகநீக்கம்.நிரல் ; # விநியோக நீக்கம்
 
-Function கணிலினக்சுசெய் ; Install Syslinux on USB
+Function கணிலினக்சுசெய் ; கணிலினக்சு நிறுவவும்
   ${IfNot} ${FileExists} "$BDir\!\libcom32.c32" 
   ${AndIf} ${FileExists} "$BDir\!\ldlinux.sys"   
   MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinuxOLD)
   Quit
   ${EndIf}
+						
+		  
+						   
+					
+
 
   IfFileExists "$BDir\!\%\ldlinux.sys" SkipSyslinux CreateSyslinux ; checking for syslinux
 CreateSyslinux:
@@ -1084,11 +786,11 @@ CreateSyslinux:
   nsExec::ExecToLog '"cmd" /c "LABEL $DestDiskTA"'
 
 SkipSyslinux: 
-  DetailPrint $(SkipSyslinux)
+DetailPrint $(SkipSyslinux)
 
-  ${If} ${FileExists} $BDir\!\%\syslinux.cfg   
-  ${AndIf} ${FileExists} $BDir\!\%\memdisk
-   DetailPrint "முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது."
+${If} ${FileExists} $BDir\!\%\syslinux.cfg   
+${AndIf} ${FileExists} $BDir\!\%\memdisk
+DetailPrint "முந்தைய பலதுவக்க நிறுவல் கண்டறியப்பட்டது."
   ${Else}
   DetailPrint "தேவையான கோப்புகள் $BDir\!\% இதற்கு சேர்கப்பட்டன..." 
   CopyFiles "$PLUGINSDIR\கணிலினக்சு.உலகு" "$BDir\!\%\syslinux.cfg"  
@@ -1097,6 +799,7 @@ SkipSyslinux:
   CopyFiles "$PLUGINSDIR\உரிமை.உரை" "$BDir\அகர\பகவன்\உரிமை.உரை"
 
   ${EndIf}  
+															 
 
 ; அகர\பகவன் அடைவு மற்றும் கோப்புகள் இருப்பதை உறுதிப்படுத்தவும்.  
   ${If} ${FileExists} $BDir\அகர\பகவன்\BOOTX64.EFI 
@@ -1127,24 +830,26 @@ Pop $NameThatISO
  Call கோமுவகைபெறு
  ${If} $FSType == "exFAT"
   ${OrIf} $FSType == "NTFS"
-   ${AndIf} $FormatMe != "Yes" 
+   ${AndIf} $FormatMe != "YES" 
    MessageBox MB_ICONSTOP|MB_OK "$FSType வடிவமைக்கப்பட்ட சாதனங்களில் கணிலினக்சு செயல்படாது. ஐ-கருவி வெளியேறும்!" 
    Quit
  ${EndIf}  
  
 ;checkpoint:
- ${If} $FormatMe == "Yes" 
+ ${If} $FormatMe == "YES" 
   MessageBox MB_YESNO|MB_ICONEXCLAMATION "எச்சரிக்கை: தொடர்வதற்கு முன் ($DestDisk)உடன் இணைக்கப்பட்ட அனைத்து பகிர்வுகளிலிருந்தும் உங்கள் தரவை காப்புப் பிரதி எடுக்கவும்!$\r$\n$\r$\n${பெயர்}  பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1. துடைத்து Fat32 வடிவமை ($DestDisk) -  தரவு மீளமுடியாமல் நீக்கப்படு!$\r$\n$\r$\n2. ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n3.($DestDisk)இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n4. ($DestDisk)இல் ($DistroName)வை நிறுவு$\r$\n$\r$\n($DestDisk) இல் (வட்டு $DiskNum) சரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
  Quit
- ${ElseIf} $FormatMe != "Yes" 
+ ${ElseIf} $FormatMe != "YES" 
 								
  ${AndIfNot} ${FileExists} $BDir\!\%\syslinux.cfg
  MessageBox MB_YESNO|MB_ICONEXCLAMATION "${பெயர்} பின்வரும் செயல்களைச் செய்ய தயாராக உள்ளது:$\r$\n$\r$\n1. ($DestDisk)இல் ஒரு கணிலினக்சு முதன்மை துவக்க பதிவு உருவாக்கும் - இருக்கும் முதன்மை துவக்க பதிவு மேலெழுதப்படும்!$\r$\n$\r$\n2.$DestDisk இல் TA சிட்டை உருவாக்கவும் - இருக்கும் சிட்டை மேலெழுதப்படும்!$\r$\n$\r$\n3. ($DestDisk)இல் ($DistroName)வை நிறுவு$\r$\n$\r$\nசரியான யூ.எஸ்.பி சாதனம் என்பது உங்களுக்குத் தெரியுமா?$\r$\nஉறுதிப்படுத்த விண்டோஸ் வட்டு நிர்வாகத்துடன் இருமுறை சரிபார்க்கவும்!$\r$\n$\r$\nஇந்த செயல்களைச் செய்ய ஆம் என்பதை சொடுக்கவும் அல்லது கைவிட இல்லை சொடுக்கவும்!" IDYES proceed
+								 
+	  
  Quit
  ${EndIf}
 
 proceed: 
- ${IfThen} $Removal == "Yes" ${|} Goto removeonly ${|}
+ ${IfThen} $Removal == "YES" ${|} Goto removeonly ${|}
  Call இடமிருக்கு ; போதுமான இடம் கிடைத்ததா? சரிபார்க்கலாம்!
  Call ஆம்வடிவமை ; இயக்ககத்தை வடிவமைக்கவா?
  Call கணிலினக்சுசெய் ; துவக்கக்கூடியதாக மாற்ற இயக்ககத்தில் கணிலினக்சை இயக்கவும்
@@ -1154,12 +859,16 @@ proceed:
  ${IfNot} ${FileExists} "$BDir\அகர\பகவன்\$DistroPath" 
  CopyFiles "$PLUGINSDIR\$DistroPath" "$BDir\அகர\பகவன்\$DistroPath"
  Call கட்டமைப்புஎழுது
+
+											
+												 
+									   
  ${EndIf} 
  
 removeonly:
- ${If} $Removal != "Yes"
+ ${If} $Removal != "YES"
  !insertmacro விநியோகநிறுவல் ; Install those distros
- ${ElseIf} $Removal == "Yes"
+ ${ElseIf} $Removal == "YES"
   Call கட்டமைப்புநீக்க
  !insertmacro விநியோகநீக்கம் ; Remove those distros
  ${EndIf}
@@ -1222,7 +931,7 @@ StrCpy $ISOFile "" ; Reset
 StrCpy $Removal "" ; Reset
 StrCpy $Persistence "NULL" ; Reset
 StrCpy $NameThatISO "" ; Reset NameThatISO உதநி Name
-StrCpy $DistroPath "" ; Clear Config File to create and write to
+StrCpy $DistroPath "" ; Clear Path to create
 StrCpy $DistroName "" ; Clear Distro Name
 StrCpy $ISOFileName "" ; Clear உதநி Selection
 StrCpy $FileFormat "" ; Clear File Format
@@ -1249,24 +958,24 @@ FunctionEnd
 Function .onInit
 StrCpy $TASupport "YES" 
 StrCpy $R9 0 ; உரிமை உரை தவிர், பக்கம் 0க்கு செல்
- StrCpy $FileFormat "ISO"
- userInfo::getAccountType
- Pop $Auth
- strCmp $Auth "Admin" done
- Messagebox MB_OK|MB_ICONINFORMATION "தற்போது நீங்கள் இந்த நிரலை $Authஆக இயக்க முயற்சிக்கிறீர்கள் $\r$\n$\r$\nநீங்கள் நிர்வாக உரிமைகளுடன் இந்த நிரலை இயக்க வேண்டும்...$\r$\n$\r$\nகோப்பில் வலது கிளிக் செய்து, நிர்வாகியாக இயக்கவும் அல்லது இயக்கவும் என்பதைத் தேர்ந்தெடுக்கவும் (மற்றும் நிர்வாகக் கணக்கைத் தேர்ந்தெடுக்கவும்)!"
- Abort
- done:
- SetShellVarContext all
- InitPluginsDir   
-  File /oname=$PLUGINSDIR\கணிலினக்சு.exe "இருமங்கள்\கணிலினக்சு6.04.32.exe"  
-  File /oname=$PLUGINSDIR\கணிலினக்சு.உலகு "ஐ-உ.வி.நி.இ\உரைகள்\கணிலினக்சு.உலகு"
-  File /oname=$PLUGINSDIR\மந்தமான.உலகு "ஐ-உ.வி.நி.இ\உரைகள்\மந்தமான.உலகு"   
-  File /oname=$PLUGINSDIR\நோய்தடுப்பு.உலகு "ஐ-உ.வி.நி.இ\உரைகள்\நோய்தடுப்பு.உலகு" 
-  File /oname=$PLUGINSDIR\கருவிகள்.உலகு "ஐ-உ.வி.நி.இ\உரைகள்\கருவிகள்.உலகு" 
-  File /oname=$PLUGINSDIR\இணையபுத்தகம்.உலகு "ஐ-உ.வி.நி.இ\உரைகள்\இணையபுத்தகம்.உலகு"
-  File /oname=$PLUGINSDIR\உலாவி.உலகு "ஐ-உ.வி.நி.இ\உரைகள்\உலாவி.உலகு"
-  File /oname=$PLUGINSDIR\லினக்சு.உலகு "ஐ-உ.வி.நி.இ\உரைகள்\லினக்சு.உலகு" 
-  File /oname=$PLUGINSDIR\பட்டியலிடாத.உலகு "ஐ-உ.வி.நி.இ\உரைகள்\பட்டியலிடாத.உலகு"
+StrCpy $FileFormat "ISO"
+userInfo::getAccountType
+Pop $Auth
+strCmp $Auth "Admin" done
+Messagebox MB_OK|MB_ICONINFORMATION "தற்போது நீங்கள் இந்த நிரலை $Authஆக இயக்க முயற்சிக்கிறீர்கள் $\r$\n$\r$\nநீங்கள் நிர்வாக உரிமைகளுடன் இந்த நிரலை இயக்க வேண்டும்...$\r$\n$\r$\nகோப்பில் வலது கிளிக் செய்து, நிர்வாகியாக இயக்கவும் அல்லது இயக்கவும் என்பதைத் தேர்ந்தெடுக்கவும் (மற்றும் நிர்வாகக் கணக்கைத் தேர்ந்தெடுக்கவும்)!"
+Abort
+done:
+SetShellVarContext all
+InitPluginsDir   
+ File /oname=$PLUGINSDIR\கணிலினக்சு.exe "இருமங்கள்\கணிலினக்சு6.04.32.exe"  
+ File /oname=$PLUGINSDIR\கணிலினக்சு.உலகு "ஐ-உ.வி.நி.இ\உரைகள்\கணிலினக்சு.உலகு"
+ File /oname=$PLUGINSDIR\மந்தமான.உலகு "ஐ-உ.வி.நி.இ\உரைகள்\மந்தமான.உலகு"   
+ File /oname=$PLUGINSDIR\நோய்தடுப்பு.உலகு "ஐ-உ.வி.நி.இ\உரைகள்\நோய்தடுப்பு.உலகு" 
+ File /oname=$PLUGINSDIR\கருவிகள்.உலகு "ஐ-உ.வி.நி.இ\உரைகள்\கருவிகள்.உலகு" 
+ File /oname=$PLUGINSDIR\இணையபுத்தகம்.உலகு "ஐ-உ.வி.நி.இ\உரைகள்\இணையபுத்தகம்.உலகு"
+ File /oname=$PLUGINSDIR\உலாவி.உலகு "ஐ-உ.வி.நி.இ\உரைகள்\உலாவி.உலகு"
+ File /oname=$PLUGINSDIR\லினக்சு.உலகு "ஐ-உ.வி.நி.இ\உரைகள்\லினக்சு.உலகு" 
+ File /oname=$PLUGINSDIR\பட்டியலிடாத.உலகு "ஐ-உ.வி.நி.இ\உரைகள்\பட்டியலிடாத.உலகு"
   File /oname=$PLUGINSDIR\liveusb "இருமங்கள்\வாழ்உதொபே"
   File /oname=$PLUGINSDIR\7zG.exe "இருமங்கள்\உ\7zG.exe"
   File /oname=$PLUGINSDIR\7z.dll "இருமங்கள்\உ\7z.dll"  
@@ -1275,22 +984,7 @@ StrCpy $R9 0 ; உரிமை உரை தவிர், பக்கம் 0�
   File /oname=$PLUGINSDIR\அகர.zip "இருமங்கள்\அகர.zip"   
 FunctionEnd
 
-Function புதையல்நிலைமாற்றிஅறிவிப்பதில்
- Pop $Casper
- SendMessage $CasperSlider ${TBM_GETPOS} 0 0 $Casper ; Get Trackbar position
- ${NSD_SetText} $SlideSpot "$Casper MB"
-FunctionEnd
-
-Function உதநிஅளவைஅமை ; Get size of உதநி
- System::Call 'kernel32::CreateFile(t "$TheISO", i 0x80000000, i 1, i 0, i 3, i 0, i 0) i .r0'
- System::Call "kernel32::GetFileSizeEx(i r0, *l .r1) i .r2"
- System::Alloc $1
- System::Int64Op $1 / 1048576 ; convert to MB
- Pop $1
- StrCpy $SizeOfCasper "$1"
- # MessageBox MB_OK|MB_ICONINFORMATION "உதநி அளவு: $SizeOfCasper"
- System::Call 'kernel32::CloseHandle(i r0)'
-FunctionEnd
+!include துணை\புதையல்நிலை.நிரல்
 
 Function ஆரம்பசீவ_கண்டுபிடி
 ; FindFirst $0 $1 "$FindInitPath"
