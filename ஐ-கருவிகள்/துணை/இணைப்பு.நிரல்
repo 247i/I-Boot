@@ -1,4 +1,13 @@
 ﻿
+Function நிறுவும்கோப்புகள்_முன்செயல்பாடு
+  StrCpy $R8 3
+FunctionEnd
+
+Function முடித்தல்_முன்செயல்பாடு
+  StrCpy $R8 4
+  Call வெளியேறாதே
+FunctionEnd
+
 Function என்தளசொடுக்த்தில்
   Pop $Links ; இணைப்பு திற
   ExecShell "open" "https://TamilNeram.github.io"

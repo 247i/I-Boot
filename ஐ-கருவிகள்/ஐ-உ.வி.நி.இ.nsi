@@ -249,15 +249,6 @@ Function தேர்வுகள்பக்கம்
  ${EndIf}
 FunctionEnd
 
-Function நிறுவும்கோப்புகள்_முன்செயல்பாடு
-  StrCpy $R8 3
-FunctionEnd
-
-Function முடித்தல்_முன்செயல்பாடு
-  StrCpy $R8 4
-  Call வெளியேறாதே
-FunctionEnd
-
 Function இயக்கிகளைபட்டியலிடு ; Set to Display All Drives
   SendMessage $DestDriveTxt ${CB_RESETCONTENT} 0 0 
   ${NSD_GetState} $AllDriveOption $DisplayAll
