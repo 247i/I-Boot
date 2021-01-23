@@ -20,10 +20,6 @@
 !include ஐ-மரபு\நிரல்கள்\துவக்கதட்டுஉரை.நிரல்
 !include ஐ-மரபு\நிரல்கள்\விநியோகபட்டியல்.நிரல் ; List of Distributions
 
-Function உரிமம்_முன்செயல்பாடு
-  StrCpy $R8 1 ;This is the 1st page
-FunctionEnd
-
 Function தேர்வுகள்பக்கம்
   StrCpy $R8 2
  !insertmacro MUI_HEADER_TEXT $(SelectDist_Title) $(SelectDist_Subtitle) 
@@ -547,14 +543,6 @@ Function உதநிஉலாவு
   ${EndIf}  
  FunctionEnd
 
-Function அனைத்தும்அழி
-StrCpy $ISOTest ""
-StrCpy $DistroName "" ; Clear Distro Name
-StrCpy $ISOFileName "" ; Clear உதநி Selection
-StrCpy $SomeFileExt ""
-StrCpy $FileFormat ""
-FunctionEnd
-
 Function நிறுவுஅல்லதுநீக்கு ; Populate DistroName based on Install/Removal option
   ${If} $Removal == "YES" 
   Call அகற்றும்பட்டியல்
@@ -683,15 +671,6 @@ ${EndIf}
 
 StrCpy $2 "$2"
 FunctionEnd 
-
-Function வட்டிடம்
-${DriveSpace} "$9" "/D=T /S=G" $1 ; used to find total space of each drive
-${If} $1 > "0"
- StrCpy $Capacity "$1GB"
-${Else}
- StrCpy $Capacity ""
-${EndIf}
-FunctionEnd
 
 Function இயக்கிபட்டியல்
  StrCpy $JustDrive $9
@@ -1192,14 +1171,6 @@ StrCpy $WipeMe "" ; Reset WipeMe Option
     Call உறவுபக்கத்திற்குச்செல் ; change pages
     Abort
 End:
-FunctionEnd
-
-Function உறவுபக்கத்திற்குச்செல்
-  IntCmp $R9 0 0 Move Move
-    StrCmp $R9 "X" 0 Move
-      StrCpy $R9 "120"
-Move:
-  SendMessage $HWNDPARENT "0x408" "$R9" ""
 FunctionEnd
 
 ; --- Stuff to do at startup of script ---
