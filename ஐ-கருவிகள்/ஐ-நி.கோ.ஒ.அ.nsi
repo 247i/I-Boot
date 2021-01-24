@@ -1,6 +1,7 @@
 ﻿!define பெயர் "ஐ-நி.கோ.ஒ.அ"
 !define பதிப்பு "0.0.3.3"
 !include துணை\தலைப்பு.நிரல்
+!include துணை\மாறிகள்.நிரல்
 ;!execute 'ஐ-நி.கோ.ஒ.அ\இருமங்கள்\அகர.bat' ; zip if required.
 ;!execute '"$%WINDIR%\notepad.exe" /P "${NSISDIR}\COPYING"' ; Enable this to debug previous line. 
 ; பொதுவாக பயன்படுத்தும் நிரல்கள்

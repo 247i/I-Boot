@@ -1,0 +1,12 @@
+select disk DISKNUM
+clean
+convert mbr
+rescan
+create partition primary
+select partition 1
+active
+format quick override
+assign letter DSK
+rescan
+list volume
+exit

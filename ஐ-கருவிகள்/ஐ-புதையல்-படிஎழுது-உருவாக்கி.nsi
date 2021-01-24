@@ -1,25 +1,11 @@
-﻿Unicode True ; தமிழ் எழுத்து அதரவு 
-!define பெயர் "ஐ-புதையல்-படிஎழுது-உருவாக்கி"
+﻿!define பெயர் "ஐ-புதையல்-படிஎழுது-உருவாக்கி"
 !define பதிப்பு "0.0.0.5"
-!define MUI_ICON "..\அகர\ஐ-காண்\யானை.ico"
 !define DISTRO "persistent file"
 !define PTYPE "$CasperName"
+!include துணை\தலைப்பு.நிரல்
 
-RequestExecutionLevel highest
-Name "${பெயர்} ${பதிப்பு}"
-OutFile "..\${பெயர்}-${பதிப்பு}.exe"
-
-SetCompressor LZMA
-CRCCheck On
-XPStyle on
-ShowInstDetails show
-BrandingText "    ⮜⮘  https://TamilNeram.github.io/${பெயர்}   ⮞⮚"
-CompletedText "$CasperName persistent file creation done, அனைத்தும் முடிந்தது!"
-InstallButtonText உருவாக்கு
-
-!include "MUI2.nsh"
 !include "Sections.nsh"
-!include "FileFunc.nsh"
+
 
 ; Interface settings
 !define MUI_FINISHPAGE_NOAUTOCLOSE
