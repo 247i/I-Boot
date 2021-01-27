@@ -1,9 +1,0 @@
-﻿
-create vdisk file=DSK\SLUG.vhd type=fixed maximum=VHDSIZE
-select vdisk file=DSK\SLUG.vhd
-attach vdisk
-create par pri
-format fs=VHDFMT quick label=VHD override
-active
-assign letter v
-exit

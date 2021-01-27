@@ -1,1 +1,0 @@
-add "BOOTDIRSLUG/!/ISONAMESLUG/autounattend.xml" "/autounattend.xml"

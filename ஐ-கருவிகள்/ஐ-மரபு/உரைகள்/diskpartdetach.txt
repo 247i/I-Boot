@@ -1,4 +1,0 @@
-﻿
-select vdisk file=DSK\SLUG.vhd
-detach vdisk
-exit

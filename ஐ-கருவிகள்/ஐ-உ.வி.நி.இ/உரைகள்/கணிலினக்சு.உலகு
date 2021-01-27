@@ -1,6 +1,0 @@
-﻿#Https://Tamilneram.github.IO
-Default Tamil
-LABEL Tamil
-SAY Https://Tamilneram.github.IO...
-Linux /!/%/lnxboot.img
-INITRD /!/%/core.img
